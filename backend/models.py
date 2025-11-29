@@ -25,6 +25,7 @@ class ApplicationStatus(str, Enum):
 
 
 class PaymentMethod(str, Enum):
+    CASH = "cash"
     ORANGE_MONEY = "orange_money"
     WAVE = "wave"
     PAYPAL = "paypal"
