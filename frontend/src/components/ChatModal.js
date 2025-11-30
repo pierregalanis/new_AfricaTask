@@ -55,7 +55,7 @@ const ChatModal = ({ isOpen, onClose, task, currentUser, otherUser, language = '
       );
 
       websocket.onopen = () => {
-        console.log('WebSocket connected');
+        console.log('✅ WebSocket connected - Real-time chat active');
       };
 
       websocket.onmessage = (event) => {
@@ -71,16 +71,18 @@ const ChatModal = ({ isOpen, onClose, task, currentUser, otherUser, language = '
       };
 
       websocket.onerror = (error) => {
-        console.error('WebSocket error:', error);
+        console.warn('⚠️ WebSocket connection failed - Using HTTP polling fallback', error);
+        // Gracefully fall back to HTTP polling (already set up in useEffect)
       };
 
       websocket.onclose = () => {
-        console.log('WebSocket disconnected');
+        console.log('WebSocket disconnected - Using HTTP polling');
       };
 
       setWs(websocket);
     } catch (error) {
-      console.error('Error connecting WebSocket:', error);
+      console.warn('⚠️ WebSocket initialization failed - Using HTTP polling fallback:', error);
+      // HTTP polling will handle message updates
     }
   };
 
