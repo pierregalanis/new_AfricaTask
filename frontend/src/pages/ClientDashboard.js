@@ -291,8 +291,8 @@ const ClientDashboard = () => {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      {t('budget')} (CFA)
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                      💰 {t('budget')} (CFA)
                     </label>
                     <input
                       type="number"
@@ -300,33 +300,35 @@ const ClientDashboard = () => {
                       min="0"
                       value={newTask.budget}
                       onChange={(e) => setNewTask({ ...newTask, budget: e.target.value })}
-                      className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500"
+                      className="fancy-input"
+                      placeholder="50000"
                       data-testid="task-budget-input"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      {t('taskDate')}
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                      📅 {t('taskDate')}
                     </label>
                     <input
                       type="datetime-local"
                       required
                       value={newTask.task_date}
                       onChange={(e) => setNewTask({ ...newTask, task_date: e.target.value })}
-                      className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500"
+                      className="fancy-input"
                       data-testid="task-date-input"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      {t('city')}
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                      📍 {t('city')}
                     </label>
                     <input
                       type="text"
                       required
                       value={newTask.city}
                       onChange={(e) => setNewTask({ ...newTask, city: e.target.value })}
-                      className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500"
+                      className="fancy-input"
+                      placeholder={language === 'en' ? 'Abidjan' : 'Abidjan'}
                       data-testid="task-city-input"
                     />
                   </div>
