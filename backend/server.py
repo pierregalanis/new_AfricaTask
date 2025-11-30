@@ -239,6 +239,7 @@ async def update_tasker_profile(
     service_categories: Optional[str] = Form(None),  # JSON string
     availability: Optional[str] = Form(None),  # JSON string
     is_available: Optional[bool] = Form(None),
+    max_travel_distance: Optional[float] = Form(None),
     db: AsyncIOMotorDatabase = Depends(get_database),
     token: str = Depends(oauth2_scheme)
 ):
@@ -260,6 +261,8 @@ async def update_tasker_profile(
         update_data["tasker_profile.availability"] = json.loads(availability)
     if is_available is not None:
         update_data["tasker_profile.is_available"] = is_available
+    if max_travel_distance is not None:
+        update_data["tasker_profile.max_travel_distance"] = max_travel_distance
     
     if update_data:
         await db.users.update_one(
