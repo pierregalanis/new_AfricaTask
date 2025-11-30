@@ -81,7 +81,26 @@ const LiveGPSTracker = ({ taskId, jobLocation, taskerName, language = 'fr' }) =>
       );
       
       const data = response.data;
+      const wasTracking = isTracking;
       setIsTracking(data.is_tracking);
+      
+      // Show notification when tracking starts for the first time
+      if (data.is_tracking && !wasTracking && !hasNotified) {
+        toast.success(
+          `🚗 ${taskerName} ${language === 'en' ? 'is on the way!' : 'est en route!'}`,
+          {
+            position: "top-center",
+            autoClose: 5000,
+          }
+        );
+        setHasNotified(true);
+      }
+      
+      // If tracking stopped, reset notification flag
+      if (!data.is_tracking && wasTracking) {
+        setHasNotified(false);
+        setTrackingData(null);
+      }
       
       if (data.is_tracking && data.current_latitude && data.current_longitude) {
         setTrackingData({
