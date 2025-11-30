@@ -280,3 +280,32 @@ async def update_tasker_rating(db: AsyncIOMotorDatabase, tasker_id: str):
         )
     except Exception as e:
         logger.error(f"Error updating tasker rating cache: {str(e)}")
+
+
+
+@router.get("/client/{client_id}/stats")
+async def get_client_stats(
+    client_id: str,
+    db: AsyncIOMotorDatabase = Depends(get_database)
+):
+    """Get stats for a client (total completed tasks)."""
+    try:
+        # Get total completed & paid tasks as client
+        completed_tasks_count = await db.tasks.count_documents({
+            "client_id": client_id,
+            "status": "completed",
+            "is_paid": True
+        })
+        
+        return {
+            "client_id": client_id,
+            "total_completed_tasks": completed_tasks_count
+        }
+    
+    except Exception as e:
+        logger.error(f"Error fetching client stats: {str(e)}", exc_info=True)
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to fetch client stats"
+        )
+
