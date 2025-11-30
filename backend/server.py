@@ -462,6 +462,9 @@ async def get_tasks(
     """Get tasks with filters."""
     query = {}
     
+    # Only return tasks with assigned taskers (TaskRabbit instant booking model)
+    query["assigned_tasker_id"] = {"$ne": None, "$exists": True}
+    
     if status:
         query["status"] = status
     if category_id:
