@@ -59,12 +59,18 @@ const ClientDashboard = () => {
   const handleCreateTask = async (e) => {
     e.preventDefault();
     try {
-      await tasksAPI.create({
+      const taskData = {
         ...newTask,
         budget: parseFloat(newTask.budget),
-        estimated_hours: parseFloat(newTask.estimated_hours || 0),
         task_date: new Date(newTask.task_date).toISOString(),
-      });
+      };
+      
+      // Only add estimated_hours if it has a value
+      if (newTask.estimated_hours) {
+        taskData.estimated_hours = parseFloat(newTask.estimated_hours);
+      }
+      
+      await tasksAPI.create(taskData);
       toast.success(language === 'en' ? 'Task created!' : 'Tâche créée!');
       setShowCreateModal(false);
       fetchTasks();
@@ -83,7 +89,8 @@ const ClientDashboard = () => {
       });
     } catch (error) {
       console.error('Error creating task:', error);
-      toast.error(language === 'en' ? 'Failed to create task' : 'Échec de la création de la tâche');
+      const errorMsg = error.response?.data?.detail || (language === 'en' ? 'Failed to create task' : 'Échec de la création de la tâche');
+      toast.error(errorMsg);
     }
   };
 
