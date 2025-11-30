@@ -260,7 +260,7 @@ const NewClientDashboard = () => {
                   </div>
 
                   {/* Actions */}
-                  {booking.status === 'completed' && booking.is_paid && !booking.has_review && (
+                  {booking.status === 'completed' && booking.is_paid && booking.can_review && (
                     <div className="flex flex-col space-y-2">
                       <button
                         onClick={(e) => {
