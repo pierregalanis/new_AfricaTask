@@ -4,6 +4,7 @@ import { translations } from '../utils/translations';
 import { usersAPI, taskersAPI } from '../api/client';
 import { toast } from 'react-toastify';
 import Navbar from '../components/Navbar';
+import TaskerReviews from '../components/TaskerReviews';
 import { User, Mail, Phone, MapPin, Briefcase, Star, CheckCircle } from 'lucide-react';
 import axios from 'axios';
 
