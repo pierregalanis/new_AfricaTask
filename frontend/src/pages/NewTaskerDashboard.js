@@ -522,16 +522,32 @@ const NewTaskerDashboard = () => {
                         )}
                       </div>
                       
-                      {/* Confirm Cash Payment Button */}
+                      {/* Chat and Payment Buttons for Unpaid Tasks */}
                       {!booking.is_paid && (
-                        <button
-                          onClick={() => handleConfirmCashPayment(booking.id)}
-                          className="w-full px-6 py-3 bg-green-600 text-white rounded-xl font-semibold hover:bg-green-700 transition flex items-center justify-center space-x-2 shadow-lg"
-                          data-testid={`confirm-payment-button-${booking.id}`}
-                        >
-                          <DollarSign className="w-5 h-5" />
-                          <span>{language === 'en' ? 'Confirm Cash Payment' : 'Confirmer Paiement Espèces'}</span>
-                        </button>
+                        <div className="flex flex-col space-y-2">
+                          <button
+                            onClick={() => {
+                              setSelectedTaskForChat(booking);
+                              setClientForChat({
+                                id: booking.client_id,
+                                full_name: booking.client_name || 'Client'
+                              });
+                              setChatModalOpen(true);
+                            }}
+                            className="w-full px-6 py-3 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 transition flex items-center justify-center space-x-2"
+                          >
+                            <MessageCircle className="w-5 h-5" />
+                            <span>{language === 'en' ? 'Chat about Payment' : 'Discuter du paiement'}</span>
+                          </button>
+                          <button
+                            onClick={() => handleConfirmCashPayment(booking.id)}
+                            className="w-full px-6 py-3 bg-green-600 text-white rounded-xl font-semibold hover:bg-green-700 transition flex items-center justify-center space-x-2 shadow-lg"
+                            data-testid={`confirm-payment-button-${booking.id}`}
+                          >
+                            <DollarSign className="w-5 h-5" />
+                            <span>{language === 'en' ? 'Confirm Cash Payment' : 'Confirmer Paiement Espèces'}</span>
+                          </button>
+                        </div>
                       )}
                     </div>
                   )}
