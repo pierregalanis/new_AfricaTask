@@ -419,7 +419,14 @@ const NewClientDashboard = () => {
         task={selectedTaskForReview}
         taskerName={selectedTaskForReview?.tasker_name || 'Tasker'}
         onReviewSuccess={() => {
-          fetchBookings();
+          // Update the specific booking to hide review button
+          setBookings(prevBookings => 
+            prevBookings.map(b => 
+              b.id === selectedTaskForReview?.id 
+                ? { ...b, can_review: false, has_reviewed: true }
+                : b
+            )
+          );
         }}
         language={language}
       />
