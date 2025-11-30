@@ -384,7 +384,276 @@ class TaskRabbitTester:
             self.log("✅ All tests passed!", "SUCCESS")
             return True
 
+class ClientBookingsTester:
+    """Specific tester for client dashboard booking fetch flow"""
+    
+    def __init__(self):
+        self.client_token = None
+        self.client_id = None
+        
+    def log(self, message, status="INFO"):
+        print(f"[{status}] {message}")
+        
+    def make_request(self, method, endpoint, data=None, headers=None, token=None):
+        """Make HTTP request with proper error handling"""
+        url = f"{BACKEND_URL}{endpoint}"
+        
+        if headers is None:
+            headers = {}
+            
+        if token:
+            headers["Authorization"] = f"Bearer {token}"
+            
+        if method.upper() == "GET":
+            headers["Content-Type"] = "application/json"
+            
+        try:
+            if method.upper() == "GET":
+                response = requests.get(url, headers=headers, params=data)
+            elif method.upper() == "POST":
+                if "Content-Type" not in headers:
+                    headers["Content-Type"] = "application/x-www-form-urlencoded"
+                if headers.get("Content-Type") == "application/json":
+                    response = requests.post(url, json=data, headers=headers)
+                else:
+                    response = requests.post(url, data=data, headers=headers)
+            else:
+                raise ValueError(f"Unsupported method: {method}")
+                
+            self.log(f"{method} {url} -> {response.status_code}")
+            
+            if response.status_code >= 400:
+                self.log(f"Error response: {response.text}", "ERROR")
+                
+            return response
+            
+        except Exception as e:
+            self.log(f"Request failed: {str(e)}", "ERROR")
+            return None
+    
+    def test_client_login_and_get_id(self):
+        """Test client login and get user ID"""
+        self.log("=== Testing Client Login and ID Retrieval ===")
+        
+        # Login
+        response = self.make_request("POST", "/auth/login", CLIENT_CREDENTIALS)
+        
+        if not response or response.status_code != 200:
+            self.log("❌ Client login failed", "ERROR")
+            return False
+            
+        try:
+            data = response.json()
+            self.client_token = data.get("access_token")
+            if not self.client_token:
+                self.log("❌ No access token in response", "ERROR")
+                return False
+                
+            self.log("✅ Client login successful")
+            
+            # Get user info to extract client_id
+            response = self.make_request("GET", "/auth/me", None, None, self.client_token)
+            
+            if not response or response.status_code != 200:
+                self.log("❌ Failed to get user info", "ERROR")
+                return False
+                
+            user_data = response.json()
+            self.client_id = user_data.get("id")
+            
+            if not self.client_id:
+                self.log("❌ No user ID in response", "ERROR")
+                return False
+                
+            self.log(f"✅ Got client ID: {self.client_id}")
+            return True
+            
+        except Exception as e:
+            self.log(f"❌ Failed to parse response: {e}", "ERROR")
+            return False
+    
+    def test_get_tasks_without_filter(self):
+        """Test GET /api/tasks without client_id filter"""
+        self.log("=== Testing GET /api/tasks (no filter) ===")
+        
+        if not self.client_token:
+            self.log("❌ No client token available", "ERROR")
+            return False
+            
+        response = self.make_request("GET", "/tasks", None, None, self.client_token)
+        
+        if not response:
+            self.log("❌ Request failed", "ERROR")
+            return False
+            
+        if response.status_code == 500:
+            self.log("❌ CRITICAL: GET /api/tasks returns 500 Internal Server Error", "ERROR")
+            self.log("This is the root cause of 'Failed to load bookings' error!", "ERROR")
+            return False
+        elif response.status_code == 200:
+            try:
+                tasks = response.json()
+                self.log(f"✅ GET /api/tasks successful, returned {len(tasks)} tasks")
+                return True
+            except Exception as e:
+                self.log(f"❌ Failed to parse response: {e}", "ERROR")
+                return False
+        else:
+            self.log(f"❌ Unexpected status code: {response.status_code}", "ERROR")
+            return False
+    
+    def test_get_tasks_with_client_id(self):
+        """Test GET /api/tasks with client_id filter"""
+        self.log("=== Testing GET /api/tasks with client_id filter ===")
+        
+        if not self.client_token or not self.client_id:
+            self.log("❌ Missing client token or ID", "ERROR")
+            return False
+            
+        params = {"client_id": self.client_id}
+        response = self.make_request("GET", "/tasks", params, None, self.client_token)
+        
+        if not response:
+            self.log("❌ Request failed", "ERROR")
+            return False
+            
+        if response.status_code == 500:
+            self.log("❌ CRITICAL: GET /api/tasks with client_id returns 500 Internal Server Error", "ERROR")
+            return False
+        elif response.status_code == 200:
+            try:
+                tasks = response.json()
+                self.log(f"✅ GET /api/tasks with client_id successful, returned {len(tasks)} tasks")
+                
+                # Check if all tasks belong to this client
+                for task in tasks:
+                    if task.get("client_id") != self.client_id:
+                        self.log(f"❌ Task {task.get('id')} doesn't belong to client {self.client_id}", "ERROR")
+                        return False
+                        
+                self.log("✅ All returned tasks belong to the correct client")
+                return True
+            except Exception as e:
+                self.log(f"❌ Failed to parse response: {e}", "ERROR")
+                return False
+        else:
+            self.log(f"❌ Unexpected status code: {response.status_code}", "ERROR")
+            return False
+    
+    def test_edge_cases(self):
+        """Test edge cases that might cause issues"""
+        self.log("=== Testing Edge Cases ===")
+        
+        if not self.client_token:
+            self.log("❌ No client token available", "ERROR")
+            return False
+            
+        test_cases = [
+            ("Empty client_id", {"client_id": ""}),
+            ("Invalid client_id", {"client_id": "invalid-uuid"}),
+            ("Null client_id", {"client_id": None}),
+        ]
+        
+        all_passed = True
+        
+        for test_name, params in test_cases:
+            self.log(f"Testing {test_name}...")
+            response = self.make_request("GET", "/tasks", params, None, self.client_token)
+            
+            if not response:
+                self.log(f"❌ {test_name}: Request failed", "ERROR")
+                all_passed = False
+                continue
+                
+            if response.status_code == 500:
+                self.log(f"❌ {test_name}: Returns 500 Internal Server Error", "ERROR")
+                all_passed = False
+            elif response.status_code == 200:
+                try:
+                    tasks = response.json()
+                    self.log(f"✅ {test_name}: Returned {len(tasks)} tasks")
+                except Exception as e:
+                    self.log(f"❌ {test_name}: Failed to parse response: {e}", "ERROR")
+                    all_passed = False
+            else:
+                self.log(f"⚠️ {test_name}: Status {response.status_code}")
+        
+        return all_passed
+    
+    def test_unauthenticated_request(self):
+        """Test request without authentication"""
+        self.log("=== Testing Unauthenticated Request ===")
+        
+        response = self.make_request("GET", "/tasks")
+        
+        if not response:
+            self.log("❌ Request failed", "ERROR")
+            return False
+            
+        if response.status_code == 401:
+            self.log("✅ Correctly returns 401 Unauthorized for unauthenticated request")
+            return True
+        else:
+            self.log(f"❌ Expected 401, got {response.status_code}", "ERROR")
+            return False
+    
+    def run_booking_tests(self):
+        """Run all booking-related tests"""
+        self.log("🔍 Starting Client Dashboard Booking Fetch Flow Tests")
+        self.log(f"Backend URL: {BACKEND_URL}")
+        
+        tests = [
+            ("Client Login and ID Retrieval", self.test_client_login_and_get_id),
+            ("GET /api/tasks (no filter)", self.test_get_tasks_without_filter),
+            ("GET /api/tasks with client_id", self.test_get_tasks_with_client_id),
+            ("Edge Cases", self.test_edge_cases),
+            ("Unauthenticated Request", self.test_unauthenticated_request)
+        ]
+        
+        passed = 0
+        failed = 0
+        
+        for test_name, test_func in tests:
+            try:
+                if test_func():
+                    passed += 1
+                    self.log(f"✅ {test_name} PASSED", "SUCCESS")
+                else:
+                    failed += 1
+                    self.log(f"❌ {test_name} FAILED", "ERROR")
+            except Exception as e:
+                failed += 1
+                self.log(f"❌ {test_name} FAILED with exception: {e}", "ERROR")
+            
+            print("-" * 60)
+        
+        # Summary
+        total = passed + failed
+        self.log(f"📊 BOOKING TESTS SUMMARY: {passed}/{total} tests passed")
+        
+        if failed > 0:
+            self.log(f"❌ {failed} tests failed", "ERROR")
+            self.log("🔍 ROOT CAUSE ANALYSIS:", "ERROR")
+            self.log("The 'Failed to load bookings' error is caused by:", "ERROR")
+            self.log("- Pydantic validation error in Task model", "ERROR")
+            self.log("- assigned_tasker_id field cannot be None", "ERROR")
+            self.log("- Some tasks in database have assigned_tasker_id=None", "ERROR")
+            self.log("- This causes 500 Internal Server Error on GET /api/tasks", "ERROR")
+            return False
+        else:
+            self.log("✅ All booking tests passed!", "SUCCESS")
+            return True
+
 if __name__ == "__main__":
-    tester = TaskRabbitTester()
-    success = tester.run_all_tests()
-    sys.exit(0 if success else 1)
+    import sys
+    
+    if len(sys.argv) > 1 and sys.argv[1] == "booking":
+        # Run specific booking tests
+        booking_tester = ClientBookingsTester()
+        success = booking_tester.run_booking_tests()
+        sys.exit(0 if success else 1)
+    else:
+        # Run original end-to-end tests
+        tester = TaskRabbitTester()
+        success = tester.run_all_tests()
+        sys.exit(0 if success else 1)
