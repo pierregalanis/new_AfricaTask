@@ -172,7 +172,34 @@ const NewTaskerDashboard = () => {
         },
         (error) => {
           console.error('Error getting initial position:', error);
-          toast.error(language === 'en' ? 'Failed to get location' : 'Échec de la géolocalisation');
+          let errorMessage = language === 'en' ? 'Failed to get location' : 'Échec de la géolocalisation';
+          
+          if (error.code === error.PERMISSION_DENIED) {
+            errorMessage = language === 'en' 
+              ? 'Please allow location access to start GPS tracking' 
+              : 'Veuillez autoriser l\'accès à la localisation pour démarrer le suivi GPS';
+          } else if (error.code === error.POSITION_UNAVAILABLE) {
+            errorMessage = language === 'en' 
+              ? 'Location unavailable. Please check your GPS/WiFi.' 
+              : 'Localisation indisponible. Vérifiez votre GPS/WiFi.';
+          } else if (error.code === error.TIMEOUT) {
+            errorMessage = language === 'en' 
+              ? 'Location request timed out. Please try again.' 
+              : 'Délai d\'attente dépassé. Veuillez réessayer.';
+          }
+          
+          toast.error(errorMessage);
+          
+          // Stop tracking on backend if we couldn't get initial location
+          axios.post(
+            `${process.env.REACT_APP_BACKEND_URL}/api/tasks/${taskId}/stop-tracking`,
+            {},
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+              },
+            }
+          ).catch(err => console.error('Error stopping tracking:', err));
         },
         { enableHighAccuracy: true }
       );
