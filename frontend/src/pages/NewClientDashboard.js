@@ -13,6 +13,7 @@ const NewClientDashboard = () => {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState('all');
+  const [expandedBooking, setExpandedBooking] = useState(null); // Track which booking's GPS is expanded
   const navigate = useNavigate();
   const t = (key) => translations[language]?.[key] || key;
 
