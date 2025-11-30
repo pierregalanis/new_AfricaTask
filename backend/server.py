@@ -747,6 +747,16 @@ async def accept_task(
         {"$set": {"status": TaskStatus.IN_PROGRESS, "updated_at": datetime.utcnow()}}
     )
     
+    # Create notification for client
+    from notification_routes import create_notification
+    await create_notification(
+        db=db,
+        user_id=task["client_id"],
+        notification_type="task_accepted",
+        task_id=task_id,
+        task_title=task.get("title", "Task")
+    )
+    
     logger.info(f"Tasker {current_user.id} accepted task {task_id}")
     return {"message": "Task accepted"}
 
