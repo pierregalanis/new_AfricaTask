@@ -330,8 +330,10 @@ metadata:
 
 test_plan:
   current_focus:
+    - "WebSocket Real-time Chat"
     - "Client Bookings Fetch (Dashboard)"
   stuck_tasks: 
+    - "WebSocket Real-time Chat"
     - "Client Bookings Fetch (Dashboard)"
   test_all: false
   test_priority: "high_first"
