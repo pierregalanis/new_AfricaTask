@@ -436,6 +436,13 @@ const BookTasker = () => {
             </div>
           </div>
         </div>
+
+        {/* Reviews Section */}
+        <div className="mt-12">
+          <div className="fancy-card p-8 animate-fadeIn">
+            <TaskerReviews taskerId={taskerId} language={language} />
+          </div>
+        </div>
       </div>
     </div>
   );
