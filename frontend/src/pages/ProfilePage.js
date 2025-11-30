@@ -138,6 +138,25 @@ const ProfilePage = () => {
             </div>
           )}
 
+          {/* Stats Section for Clients */}
+          {user?.role === 'client' && stats && (
+            <div className="mb-8">
+              <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-lg p-6 border border-green-200 max-w-md">
+                <div className="flex items-center space-x-4">
+                  <div className="bg-green-600 rounded-full p-4">
+                    <CheckCircle className="w-8 h-8 text-white" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-green-600 font-medium">
+                      {language === 'en' ? 'Tasks Completed' : 'Tâches terminées'}
+                    </p>
+                    <p className="text-3xl font-bold text-green-900">{stats.total_completed_tasks || 0}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
           {isEditing ? (
             <form onSubmit={handleSaveProfile} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
