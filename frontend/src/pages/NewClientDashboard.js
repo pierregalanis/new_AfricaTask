@@ -5,7 +5,8 @@ import { translations } from '../utils/translations';
 import { tasksAPI } from '../api/client';
 import { toast } from 'react-toastify';
 import Navbar from '../components/Navbar';
-import { Search, Calendar, Briefcase, Clock, MessageCircle, Navigation, Star } from 'lucide-react';
+import LiveGPSTracker from '../components/LiveGPSTracker';
+import { Search, Calendar, Briefcase, Clock, MessageCircle, Navigation, Star, ChevronDown, ChevronUp } from 'lucide-react';
 
 const NewClientDashboard = () => {
   const { language, user } = useAuth();
