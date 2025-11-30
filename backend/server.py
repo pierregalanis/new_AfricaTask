@@ -1374,6 +1374,10 @@ app.include_router(payment_router)
 from review_routes import router as review_router
 app.include_router(review_router)
 
+# Include notification routes
+from notification_routes import router as notification_router
+app.include_router(notification_router)
+
 # Serve static files (uploads)
 app.mount("/uploads", StaticFiles(directory=str(Path(__file__).parent / "uploads")), name="uploads")
 
