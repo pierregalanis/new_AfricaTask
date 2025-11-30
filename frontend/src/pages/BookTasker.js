@@ -69,8 +69,70 @@ const BookTasker = () => {
     return (bookingData.duration_hours * (tasker?.tasker_profile?.hourly_rate || 0)).toFixed(0);
   };
 
+  const calculateDistance = (lat1, lon1, lat2, lon2) => {
+    const R = 6371; // Earth's radius in km
+    const dLat = (lat2 - lat1) * Math.PI / 180;
+    const dLon = (lon2 - lon1) * Math.PI / 180;
+    const a = 
+      Math.sin(dLat/2) * Math.sin(dLat/2) +
+      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+      Math.sin(dLon/2) * Math.sin(dLon/2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    return R * c;
+  };
+
+  const getDistanceToTasker = () => {
+    if (!bookingData.latitude || !bookingData.longitude || !tasker?.latitude || !tasker?.longitude) {
+      return null;
+    }
+    return calculateDistance(
+      tasker.latitude,
+      tasker.longitude,
+      bookingData.latitude,
+      bookingData.longitude
+    );
+  };
+
+  const canTaskerReach = () => {
+    const distance = getDistanceToTasker();
+    if (distance === null) return true; // Allow if distance not calculated yet
+    const maxDistance = tasker?.tasker_profile?.max_travel_distance || 50;
+    return distance <= maxDistance;
+  };
+
+  const handleLocationChange = (position) => {
+    setBookingData(prev => ({
+      ...prev,
+      latitude: position.lat,
+      longitude: position.lng,
+    }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Validate location
+    if (!bookingData.latitude || !bookingData.longitude) {
+      toast.error(
+        language === 'en' 
+          ? 'Please mark the job location on the map' 
+          : 'Veuillez marquer l\'emplacement du travail sur la carte'
+      );
+      return;
+    }
+
+    // Check if tasker can reach
+    if (!canTaskerReach()) {
+      const distance = getDistanceToTasker();
+      const maxDistance = tasker?.tasker_profile?.max_travel_distance || 50;
+      toast.error(
+        language === 'en'
+          ? `This location is ${distance.toFixed(1)} km away. This tasker only travels up to ${maxDistance} km.`
+          : `Cet emplacement est à ${distance.toFixed(1)} km. Ce tasker ne se déplace que jusqu'à ${maxDistance} km.`
+      );
+      return;
+    }
+
     setSubmitting(true);
 
     try {
