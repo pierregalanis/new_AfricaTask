@@ -80,6 +80,14 @@ function AppRoutes() {
         }
       />
       <Route
+        path="/tasker/:taskerId"
+        element={
+          <ProtectedRoute requiredRole="client">
+            <TaskerProfile />
+          </ProtectedRoute>
+        }
+      />
+      <Route
         path="/book-tasker/:taskerId"
         element={
           <ProtectedRoute requiredRole="client">
