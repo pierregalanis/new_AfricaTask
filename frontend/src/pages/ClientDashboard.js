@@ -9,10 +9,9 @@ import { Search, MapPin, Calendar, Briefcase, Clock, MessageCircle, Navigation }
 
 const ClientDashboard = () => {
   const { language, user } = useAuth();
-  const [tasks, setTasks] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [showCreateModal, setShowCreateModal] = useState(false);
+  const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [filter, setFilter] = useState('all'); // all, upcoming, completed
   const navigate = useNavigate();
   const t = (key) => translations[language]?.[key] || key;
 
