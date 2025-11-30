@@ -62,16 +62,17 @@ class UserCreate(UserBase):
 
 class TaskerProfile(BaseModel):
     bio: Optional[str] = None
-    hourly_rate: Optional[float] = None
-    service_categories: List[str] = []
+    hourly_rate: float = 0.0  # Required - price per hour in CFA
+    service_categories: List[str] = []  # List of category IDs they offer
     certifications: List[str] = []  # File paths
     portfolio_images: List[str] = []  # File paths
     profile_image: Optional[str] = None
     availability: Dict[str, Any] = {}  # e.g., {"monday": ["9:00-17:00"], ...}
-    is_available: bool = True
+    is_available: bool = True  # Currently accepting bookings
     completed_tasks: int = 0
     average_rating: float = 0.0
     total_reviews: int = 0
+    languages_spoken: List[str] = ["fr"]  # ["fr", "en"]
 
 
 class User(UserBase):
