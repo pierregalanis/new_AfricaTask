@@ -6,6 +6,7 @@ import { tasksAPI } from '../api/client';
 import { toast } from 'react-toastify';
 import Navbar from '../components/Navbar';
 import LiveGPSTracker from '../components/LiveGPSTracker';
+import ClientJobTimer from '../components/ClientJobTimer';
 import { Search, Calendar, Briefcase, Clock, MessageCircle, Navigation, Star, ChevronDown, ChevronUp } from 'lucide-react';
 
 const NewClientDashboard = () => {
