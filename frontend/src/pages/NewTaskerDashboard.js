@@ -6,7 +6,8 @@ import { tasksAPI } from '../api/client';
 import { toast } from 'react-toastify';
 import Navbar from '../components/Navbar';
 import JobTimer from '../components/JobTimer';
-import { Calendar, Clock, MapPin, DollarSign, Settings, CheckCircle, XCircle, Navigation, NavigationOff } from 'lucide-react';
+import ChatModal from '../components/ChatModal';
+import { Calendar, Clock, MapPin, DollarSign, Settings, CheckCircle, XCircle, Navigation, NavigationOff, MessageCircle } from 'lucide-react';
 import axios from 'axios';
 
 const NewTaskerDashboard = () => {
@@ -16,6 +17,9 @@ const NewTaskerDashboard = () => {
   const [filter, setFilter] = useState('pending');
   const [trackingStates, setTrackingStates] = useState({}); // {taskId: {isTracking, watchId}}
   const locationIntervalsRef = useRef({}); // Store interval IDs for each tracking task
+  const [chatModalOpen, setChatModalOpen] = useState(false);
+  const [selectedTaskForChat, setSelectedTaskForChat] = useState(null);
+  const [clientForChat, setClientForChat] = useState(null);
   const navigate = useNavigate();
   const t = (key) => translations[language]?.[key] || key;
 
