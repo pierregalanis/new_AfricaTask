@@ -1397,6 +1397,22 @@ async def get_unread_count(
 
 app.include_router(api_router)
 
+# Include auth routes
+from auth_routes import router as auth_router
+app.include_router(auth_router)
+
+# Include user routes
+from user_routes import router as user_router
+app.include_router(user_router)
+
+# Include category routes
+from category_routes import router as category_router
+app.include_router(category_router)
+
+# Include message routes
+from message_routes import router as message_router
+app.include_router(message_router)
+
 # Include payment routes
 from payment_routes import router as payment_router
 app.include_router(payment_router)
