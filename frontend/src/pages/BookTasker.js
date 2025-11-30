@@ -300,6 +300,63 @@ const BookTasker = () => {
                   </div>
                 </div>
 
+                {/* Job Location Picker */}
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    📍 {language === 'en' ? 'Exact Job Location' : 'Emplacement exact du travail'}
+                  </label>
+                  <LocationPicker
+                    country={user?.country || 'ivory_coast'}
+                    initialPosition={bookingData.latitude ? { lat: bookingData.latitude, lng: bookingData.longitude } : null}
+                    onLocationChange={handleLocationChange}
+                    height="300px"
+                    label={
+                      language === 'en' 
+                        ? 'Click on the map to mark where the job will be done' 
+                        : 'Cliquez sur la carte pour marquer où le travail sera effectué'
+                    }
+                  />
+                  
+                  {/* Distance and Reachability Info */}
+                  {bookingData.latitude && bookingData.longitude && tasker?.latitude && tasker?.longitude && (
+                    <div className="mt-4">
+                      {canTaskerReach() ? (
+                        <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                          <div className="flex items-center space-x-2">
+                            <Navigation className="w-5 h-5 text-green-600" />
+                            <div>
+                              <p className="font-semibold text-green-800">
+                                ✅ {language === 'en' ? 'Tasker can reach this location!' : 'Le tasker peut atteindre cet emplacement!'}
+                              </p>
+                              <p className="text-sm text-green-600 mt-1">
+                                {language === 'en' 
+                                  ? `Distance: ${getDistanceToTasker()?.toFixed(1)} km (within ${tasker?.tasker_profile?.max_travel_distance || 50} km range)` 
+                                  : `Distance: ${getDistanceToTasker()?.toFixed(1)} km (dans un rayon de ${tasker?.tasker_profile?.max_travel_distance || 50} km)`}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+                          <div className="flex items-center space-x-2">
+                            <Navigation className="w-5 h-5 text-red-600" />
+                            <div>
+                              <p className="font-semibold text-red-800">
+                                ⚠️ {language === 'en' ? 'Location too far!' : 'Emplacement trop éloigné!'}
+                              </p>
+                              <p className="text-sm text-red-600 mt-1">
+                                {language === 'en' 
+                                  ? `Distance: ${getDistanceToTasker()?.toFixed(1)} km (tasker only travels up to ${tasker?.tasker_profile?.max_travel_distance || 50} km)` 
+                                  : `Distance: ${getDistanceToTasker()?.toFixed(1)} km (le tasker ne se déplace que jusqu'à ${tasker?.tasker_profile?.max_travel_distance || 50} km)`}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+
                 {/* Special Instructions */}
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">
