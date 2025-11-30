@@ -4,16 +4,17 @@ Handles review submission, fetching, and rating calculations.
 """
 
 from fastapi import APIRouter, HTTPException, status, Depends
+from fastapi.security import OAuth2PasswordBearer
 from motor.motor_asyncio import AsyncIOMotorDatabase
 from datetime import datetime, timedelta
 from typing import List
 import logging
 
 from database import get_database
-from auth import get_current_user
 from models import User, UserRole, Review, ReviewCreate, TaskerRating
 
 logger = logging.getLogger(__name__)
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/login")
 
 router = APIRouter(prefix="/api/reviews", tags=["reviews"])
 
@@ -21,8 +22,8 @@ router = APIRouter(prefix="/api/reviews", tags=["reviews"])
 @router.post("", response_model=Review, status_code=status.HTTP_201_CREATED)
 async def create_review(
     review_data: ReviewCreate,
-    current_user: User = Depends(get_current_user),
-    db: AsyncIOMotorDatabase = Depends(get_database)
+    db: AsyncIOMotorDatabase = Depends(get_database),
+    token: str = Depends(oauth2_scheme)
 ):
     """
     Create a review for a tasker.
