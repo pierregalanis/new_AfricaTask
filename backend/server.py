@@ -382,19 +382,36 @@ async def create_task(
     db: AsyncIOMotorDatabase = Depends(get_database),
     token: str = Depends(oauth2_scheme)
 ):
-    """Create a new task (clients only)."""
+    """Instant booking - Create a task with assigned tasker (TaskRabbit style)."""
     from auth import get_current_user as get_user
     current_user = await get_user(token, db)
     
     if current_user.role != UserRole.CLIENT:
-        raise HTTPException(status_code=403, detail="Only clients can create tasks")
+        raise HTTPException(status_code=403, detail="Only clients can create bookings")
     
-    # Create task
+    # Verify tasker exists and is available
+    tasker = await db.users.find_one({"id": task.tasker_id, "role": "tasker"}, {"_id": 0})
+    if not tasker:
+        raise HTTPException(status_code=404, detail="Tasker not found")
+    
+    if not tasker.get("tasker_profile", {}).get("is_available", False):
+        raise HTTPException(status_code=400, detail="Tasker is not available")
+    
+    # Calculate total cost
+    total_cost = task.duration_hours * task.hourly_rate
+    
+    # Create task with instant assignment
     task_dict = task.model_dump()
-    new_task = Task(**task_dict, client_id=current_user.id)
+    new_task = Task(
+        **task_dict,
+        client_id=current_user.id,
+        assigned_tasker_id=task.tasker_id,
+        total_cost=total_cost,
+        status=TaskStatus.ASSIGNED
+    )
     
     await db.tasks.insert_one(new_task.model_dump())
-    logger.info(f"Task created: {new_task.id} by {current_user.email}")
+    logger.info(f"Instant booking created: {new_task.id} by {current_user.email} for tasker {task.tasker_id}")
     
     return new_task
 
