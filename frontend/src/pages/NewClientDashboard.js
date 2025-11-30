@@ -262,19 +262,28 @@ const NewClientDashboard = () => {
                   </div>
 
                   {/* Actions */}
-                  {booking.status === 'completed' && booking.is_paid && booking.can_review && (
+                  {booking.status === 'completed' && booking.is_paid && (
                     <div className="flex flex-col space-y-2">
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setSelectedTaskForReview(booking);
-                          setReviewModalOpen(true);
-                        }}
-                        className="px-6 py-3 bg-yellow-500 text-white rounded-xl font-semibold hover:bg-yellow-600 transition flex items-center justify-center space-x-2 shadow-lg"
-                      >
-                        <Star className="w-5 h-5" />
-                        <span>{language === 'en' ? 'Leave a Review' : 'Laisser un avis'}</span>
-                      </button>
+                      {booking.can_review && !booking.has_reviewed ? (
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setSelectedTaskForReview(booking);
+                            setReviewModalOpen(true);
+                          }}
+                          className="px-6 py-3 bg-yellow-500 text-white rounded-xl font-semibold hover:bg-yellow-600 transition flex items-center justify-center space-x-2 shadow-lg"
+                        >
+                          <Star className="w-5 h-5" />
+                          <span>{language === 'en' ? 'Leave a Review' : 'Laisser un avis'}</span>
+                        </button>
+                      ) : booking.has_reviewed ? (
+                        <div className="px-6 py-3 bg-green-100 border-2 border-green-300 rounded-xl font-semibold flex items-center justify-center space-x-2">
+                          <Star className="w-5 h-5 fill-green-600 text-green-600" />
+                          <span className="text-green-700">
+                            {language === 'en' ? '✓ Review Submitted' : '✓ Avis soumis'}
+                          </span>
+                        </div>
+                      ) : null}
                     </div>
                   )}
                   {booking.status === 'completed' && !booking.is_paid && (
