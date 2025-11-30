@@ -244,7 +244,7 @@ const ClientDashboard = () => {
               </div>
               <form onSubmit={handleCreateTask} className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
                     {t('taskTitle')}
                   </label>
                   <input
@@ -252,7 +252,8 @@ const ClientDashboard = () => {
                     required
                     value={newTask.title}
                     onChange={(e) => setNewTask({ ...newTask, title: e.target.value })}
-                    className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500"
+                    className="fancy-input"
+                    placeholder={language === 'en' ? 'e.g., Fix my kitchen sink' : 'ex: Réparer mon évier de cuisine'}
                     data-testid="task-title-input"
                   />
                 </div>
