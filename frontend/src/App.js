@@ -102,6 +102,14 @@ function AppRoutes() {
         }
       />
       <Route
+        path="/client-dashboard"
+        element={
+          <ProtectedRoute requiredRole="client">
+            <NewClientDashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
         path="/client/bookings"
         element={
           <ProtectedRoute requiredRole="client">
