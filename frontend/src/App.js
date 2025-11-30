@@ -53,37 +53,77 @@ function AppRoutes() {
       <Route path="/" element={<LandingPage />} />
       <Route 
         path="/login" 
-        element={isAuthenticated ? <Navigate to={user?.role === 'client' ? '/client/dashboard' : '/tasker/dashboard'} /> : <LoginPage />} 
+        element={isAuthenticated ? <Navigate to={user?.role === 'client' ? '/services' : '/tasker/dashboard'} /> : <LoginPage />} 
       />
       <Route 
         path="/register" 
-        element={isAuthenticated ? <Navigate to={user?.role === 'client' ? '/client/dashboard' : '/tasker/dashboard'} /> : <RegisterPage />} 
+        element={isAuthenticated ? <Navigate to={user?.role === 'client' ? '/services' : '/tasker/setup'} /> : <RegisterPage />} 
       />
       
       {/* Client Routes */}
       <Route
+        path="/services"
+        element={
+          <ProtectedRoute requiredRole="client">
+            <ServiceSelection />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/browse-taskers/:categoryId"
+        element={
+          <ProtectedRoute requiredRole="client">
+            <BrowseTaskersPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/book-tasker/:taskerId"
+        element={
+          <ProtectedRoute requiredRole="client">
+            <BookTasker />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/booking-confirmation/:taskId"
+        element={
+          <ProtectedRoute requiredRole="client">
+            <BookingConfirmation />
+          </ProtectedRoute>
+        }
+      />
+      <Route
         path="/client/dashboard"
         element={
           <ProtectedRoute requiredRole="client">
-            <ClientDashboard />
+            <NewClientDashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/client/bookings"
+        element={
+          <ProtectedRoute requiredRole="client">
+            <NewClientDashboard />
           </ProtectedRoute>
         }
       />
       
       {/* Tasker Routes */}
       <Route
-        path="/tasker/dashboard"
+        path="/tasker/setup"
         element={
           <ProtectedRoute requiredRole="tasker">
-            <TaskerDashboard />
+            <TaskerProfileSetup />
           </ProtectedRoute>
         }
       />
       <Route
-        path="/tasker/browse"
+        path="/tasker/dashboard"
         element={
           <ProtectedRoute requiredRole="tasker">
-            <BrowseTasks />
+            <NewTaskerDashboard />
           </ProtectedRoute>
         }
       />
