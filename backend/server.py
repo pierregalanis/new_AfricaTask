@@ -358,6 +358,7 @@ async def upload_portfolio_image(
 async def search_taskers(
     category_id: Optional[str] = Query(None),
     city: Optional[str] = Query(None),
+    country: Optional[str] = Query(None),
     min_rating: Optional[float] = Query(None),
     max_rate: Optional[float] = Query(None),
     is_available: Optional[bool] = Query(True),
@@ -370,6 +371,8 @@ async def search_taskers(
         query["tasker_profile.service_categories"] = category_id
     if city:
         query["city"] = {"$regex": city, "$options": "i"}
+    if country:
+        query["country"] = country
     if min_rating:
         query["tasker_profile.average_rating"] = {"$gte": min_rating}
     if max_rate:
