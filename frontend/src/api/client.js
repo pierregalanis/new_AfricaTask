@@ -76,3 +76,9 @@ export const paymentsAPI = {
   complete: (id) => apiClient.post(`/payments/${id}/complete`),
   getByTask: (taskId) => apiClient.get(`/payments/task/${taskId}`),
 };
+
+export const messagesAPI = {
+  send: (data) => apiClient.post('/messages', data),
+  getByTask: (taskId) => apiClient.get(`/messages/task/${taskId}`),
+  getUnreadCount: () => apiClient.get('/messages/unread'),
+};
