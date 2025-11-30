@@ -541,6 +541,20 @@ const NewTaskerDashboard = () => {
           </div>
         )}
       </div>
+      
+      {/* Chat Modal */}
+      <ChatModal
+        isOpen={chatModalOpen}
+        onClose={() => {
+          setChatModalOpen(false);
+          setSelectedTaskForChat(null);
+          setClientForChat(null);
+        }}
+        task={selectedTaskForChat}
+        currentUser={user}
+        otherUser={clientForChat}
+        language={language}
+      />
     </div>
   );
 };
