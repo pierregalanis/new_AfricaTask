@@ -217,20 +217,7 @@ async def search_taskers(
 # SERVICE CATEGORY ROUTES
 # ============================================================================
 
-@api_router.get("/categories", response_model=List[ServiceCategory])
-async def get_categories(db: AsyncIOMotorDatabase = Depends(get_database)):
-    """Get all service categories."""
-    categories = await db.service_categories.find({}, {"_id": 0}).to_list(100)
-    return [ServiceCategory(**cat) for cat in categories]
-
-
-@api_router.get("/categories/{category_id}", response_model=ServiceCategory)
-async def get_category(category_id: str, db: AsyncIOMotorDatabase = Depends(get_database)):
-    """Get category by ID."""
-    category = await db.service_categories.find_one({"id": category_id}, {"_id": 0})
-    if not category:
-        raise HTTPException(status_code=404, detail="Category not found")
-    return ServiceCategory(**category)
+# Category routes moved to category_routes.py
 
 
 # ============================================================================
