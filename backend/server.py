@@ -522,6 +522,52 @@ async def update_task_status(
     return Task(**updated_task)
 
 
+@api_router.post("/tasks/{task_id}/mark-paid-cash")
+async def mark_task_paid_cash(
+    task_id: str,
+    db: AsyncIOMotorDatabase = Depends(get_database),
+    token: str = Depends(oauth2_scheme)
+):
+    """Mark a completed task as paid (cash payment) - Tasker only."""
+    from auth import get_current_user as get_user
+    from models import PaymentMethod
+    current_user = await get_user(token, db)
+    
+    # Only taskers can mark as paid
+    if current_user.role != UserRole.TASKER:
+        raise HTTPException(status_code=403, detail="Only taskers can confirm cash payment")
+    
+    task = await db.tasks.find_one({"id": task_id}, {"_id": 0})
+    if not task:
+        raise HTTPException(status_code=404, detail="Task not found")
+    
+    # Verify this tasker is assigned to the task
+    if task.get("assigned_tasker_id") != current_user.id:
+        raise HTTPException(status_code=403, detail="Not authorized - not your task")
+    
+    # Verify task is completed
+    if task.get("status") != TaskStatus.COMPLETED:
+        raise HTTPException(status_code=400, detail="Task must be completed before marking as paid")
+    
+    # Check if already paid
+    if task.get("is_paid"):
+        raise HTTPException(status_code=400, detail="Task is already marked as paid")
+    
+    # Update task with payment info
+    await db.tasks.update_one(
+        {"id": task_id},
+        {"$set": {
+            "is_paid": True,
+            "payment_method": PaymentMethod.CASH,
+            "updated_at": datetime.utcnow()
+        }}
+    )
+    
+    updated_task = await db.tasks.find_one({"id": task_id}, {"_id": 0})
+    logger.info(f"Task {task_id} marked as paid (cash) by tasker {current_user.id}")
+    return Task(**updated_task)
+
+
 # ============================================================================
 # TASK APPLICATION ROUTES
 # ============================================================================
