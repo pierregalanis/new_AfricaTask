@@ -5,7 +5,9 @@ import { translations } from '../utils/translations';
 import { tasksAPI, usersAPI } from '../api/client';
 import { toast } from 'react-toastify';
 import Navbar from '../components/Navbar';
-import { MapPin, DollarSign, Calendar, User, Clock, ArrowLeft } from 'lucide-react';
+import ChatBox from '../components/ChatBox';
+import GPSTracker from '../components/GPSTracker';
+import { MapPin, DollarSign, Calendar, User, Clock, ArrowLeft, MessageCircle, Navigation } from 'lucide-react';
 
 const TaskDetails = () => {
   const { taskId } = useParams();
