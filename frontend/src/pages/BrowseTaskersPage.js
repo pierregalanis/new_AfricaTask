@@ -4,6 +4,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { translations } from '../utils/translations';
 import { taskersAPI, categoriesAPI } from '../api/client';
 import Navbar from '../components/Navbar';
+import TaskerRating from '../components/TaskerRating';
 import { Star, MapPin, Check, Filter, DollarSign, ArrowLeft } from 'lucide-react';
 
 const BrowseTaskersPage = () => {
