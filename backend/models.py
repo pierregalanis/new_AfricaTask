@@ -43,6 +43,11 @@ class Language(str, Enum):
     FRENCH = "fr"
 
 
+class Country(str, Enum):
+    IVORY_COAST = "ivory_coast"
+    SENEGAL = "senegal"
+
+
 # User Models
 class UserBase(BaseModel):
     email: EmailStr
@@ -50,6 +55,7 @@ class UserBase(BaseModel):
     phone: str
     role: UserRole
     language: Language = Language.FRENCH
+    country: Optional[Country] = None
     address: Optional[str] = None
     city: Optional[str] = None
     latitude: Optional[float] = None
