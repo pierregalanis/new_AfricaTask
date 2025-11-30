@@ -46,11 +46,14 @@ const NewClientDashboard = () => {
                 `${process.env.REACT_APP_BACKEND_URL}/api/reviews/task/${booking.id}/can-review`,
                 { headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }}
               );
-              return { ...booking, can_review: reviewCheck.data.can_review };
+              return { 
+                ...booking, 
+                can_review: reviewCheck.data.can_review,
+                has_reviewed: !reviewCheck.data.can_review && reviewCheck.data.reason === "Already reviewed"
+              };
             } catch (error) {
               console.error('Error checking review eligibility:', error);
-              // Default to true if API fails - let backend validate on submission
-              return { ...booking, can_review: true };
+              return { ...booking, can_review: false, has_reviewed: false };
             }
           }
           return booking;
