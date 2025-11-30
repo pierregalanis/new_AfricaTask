@@ -43,7 +43,7 @@ const NewTaskerDashboard = () => {
       fetchBookings();
     } catch (error) {
       console.error('Error accepting booking:', error);
-      toast.error(language === 'en' ? 'Failed to accept' : 'Échec de l\\'acceptation');
+      toast.error(language === 'en' ? 'Failed to accept' : "Échec de l'acceptation");
     }
   };
 
