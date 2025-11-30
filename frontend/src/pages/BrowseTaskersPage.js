@@ -43,6 +43,12 @@ const BrowseTaskersPage = () => {
       if (maxPrice) {
         params.max_rate = maxPrice;
       }
+      
+      // Add country filter if user has country
+      if (user?.country) {
+        params.country = user.country;
+      }
+      
       const response = await taskersAPI.search(params);
       
       // Calculate distances if user has location
@@ -52,21 +58,51 @@ const BrowseTaskersPage = () => {
             user.latitude, user.longitude,
             tasker.latitude, tasker.longitude
           );
-          return { ...tasker, distance };
+          
+          // Check if tasker can reach client's location
+          const canReach = distance <= (tasker.tasker_profile?.max_travel_distance || 50);
+          
+          return { ...tasker, distance, canReach };
         }
-        return { ...tasker, distance: null };
+        return { ...tasker, distance: null, canReach: true };
       });
 
-      // Sort taskers
-      taskersWithDistance = sortTaskers(taskersWithDistance);
+      // Store all taskers
+      setAllTaskers(taskersWithDistance);
       
-      setTaskers(taskersWithDistance);
+      // Apply filters and sort
+      applyFiltersAndSort(taskersWithDistance);
+      
     } catch (error) {
       console.error('Error fetching taskers:', error);
     } finally {
       setLoading(false);
     }
   };
+
+  const applyFiltersAndSort = (taskersList) => {
+    let filtered = [...taskersList];
+    
+    // Filter by distance
+    if (maxDistance < 100) {
+      filtered = filtered.filter(t => !t.distance || t.distance <= maxDistance);
+    }
+    
+    // Filter by tasker's ability to reach
+    filtered = filtered.filter(t => t.canReach);
+    
+    // Sort
+    filtered = sortTaskers(filtered);
+    
+    setTaskers(filtered);
+  };
+
+  // Re-apply filters when distance or sort changes
+  useEffect(() => {
+    if (allTaskers.length > 0) {
+      applyFiltersAndSort(allTaskers);
+    }
+  }, [maxDistance, sortBy]);
 
   const calculateDistance = (lat1, lon1, lat2, lon2) => {
     const R = 6371; // Earth's radius in km
