@@ -1345,6 +1345,10 @@ async def get_timer_status(
 
 app.include_router(api_router)
 
+# Include payment routes
+from payment_routes import router as payment_router
+app.include_router(payment_router)
+
 # Serve static files (uploads)
 app.mount("/uploads", StaticFiles(directory=str(Path(__file__).parent / "uploads")), name="uploads")
 
