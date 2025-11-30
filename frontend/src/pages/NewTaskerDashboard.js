@@ -54,7 +54,7 @@ const NewTaskerDashboard = () => {
       fetchBookings();
     } catch (error) {
       console.error('Error rejecting booking:', error);
-      toast.error(language === 'en' ? 'Failed to reject' : 'Échec du refus');
+      toast.error(language === 'en' ? 'Failed to reject' : "Échec du refus");
     }
   };
 
