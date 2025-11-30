@@ -309,3 +309,48 @@ async def get_client_stats(
             detail="Failed to fetch client stats"
         )
 
+
+
+
+@router.post("/translate")
+async def translate_review(
+    text: str,
+    target_lang: str
+):
+    """
+    Translate review text between English and French.
+    Supports: 'en' (English) and 'fr' (French)
+    """
+    try:
+        from deep_translator import GoogleTranslator
+        
+        # Validate target language
+        if target_lang not in ['en', 'fr']:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Only 'en' and 'fr' languages are supported"
+            )
+        
+        if not text or not text.strip():
+            return {"translated_text": text}
+        
+        # Translate the text
+        translator = GoogleTranslator(source='auto', target=target_lang)
+        translated_text = translator.translate(text)
+        
+        return {
+            "original_text": text,
+            "translated_text": translated_text,
+            "target_lang": target_lang
+        }
+    
+    except Exception as e:
+        logger.error(f"Translation error: {str(e)}", exc_info=True)
+        # Return original text if translation fails
+        return {
+            "original_text": text,
+            "translated_text": text,
+            "target_lang": target_lang,
+            "error": "Translation service unavailable"
+        }
+
