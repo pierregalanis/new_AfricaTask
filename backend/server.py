@@ -521,6 +521,17 @@ async def update_task_status(
     
     await db.tasks.update_one({"id": task_id}, {"$set": update_data})
     
+    # Create notification for client when task is completed
+    if new_status == TaskStatus.COMPLETED and current_user.role == UserRole.TASKER:
+        from notification_routes import create_notification
+        await create_notification(
+            db=db,
+            user_id=task["client_id"],
+            notification_type="task_completed",
+            task_id=task_id,
+            task_title=task.get("title", "Task")
+        )
+    
     updated_task = await db.tasks.find_one({"id": task_id}, {"_id": 0})
     return Task(**updated_task)
 
