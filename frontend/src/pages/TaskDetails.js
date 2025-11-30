@@ -16,6 +16,8 @@ const TaskDetails = () => {
   const [applications, setApplications] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showApplyModal, setShowApplyModal] = useState(false);
+  const [showChat, setShowChat] = useState(false);
+  const [showTracker, setShowTracker] = useState(false);
   const [applicationData, setApplicationData] = useState({
     proposed_rate: '',
     estimated_hours: '',
