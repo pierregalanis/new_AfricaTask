@@ -243,6 +243,21 @@ const NewClientDashboard = () => {
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
+                          setSelectedTaskForChat(booking);
+                          setTaskerForChat({
+                            id: booking.assigned_tasker_id,
+                            full_name: booking.tasker_name || 'Tasker'
+                          });
+                          setChatModalOpen(true);
+                        }}
+                        className="px-6 py-3 bg-green-600 text-white rounded-xl font-semibold hover:bg-green-700 transition flex items-center justify-center space-x-2"
+                      >
+                        <MessageCircle className="w-5 h-5" />
+                        <span>{language === 'en' ? 'Chat about Payment' : 'Discuter du paiement'}</span>
+                      </button>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
                           setSelectedTaskForPayment(booking);
                           setPaymentModalOpen(true);
                         }}
