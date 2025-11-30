@@ -1,17 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { translations } from '../utils/translations';
 import { tasksAPI } from '../api/client';
 import { toast } from 'react-toastify';
 import Navbar from '../components/Navbar';
-import { Calendar, Clock, MapPin, DollarSign, Settings, CheckCircle, XCircle } from 'lucide-react';
+import { Calendar, Clock, MapPin, DollarSign, Settings, CheckCircle, XCircle, Navigation, NavigationOff } from 'lucide-react';
+import axios from 'axios';
 
 const NewTaskerDashboard = () => {
   const { language, user } = useAuth();
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState('pending');
+  const [trackingStates, setTrackingStates] = useState({}); // {taskId: {isTracking, watchId}}
+  const locationIntervalsRef = useRef({}); // Store interval IDs for each tracking task
   const navigate = useNavigate();
   const t = (key) => translations[language]?.[key] || key;
 
