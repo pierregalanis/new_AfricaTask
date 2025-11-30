@@ -269,15 +269,16 @@ const ClientDashboard = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    {t('description')}
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    📝 {t('description')}
                   </label>
                   <textarea
                     required
                     rows="4"
                     value={newTask.description}
                     onChange={(e) => setNewTask({ ...newTask, description: e.target.value })}
-                    className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500"
+                    className="fancy-input"
+                    placeholder={language === 'en' ? 'Describe the task in detail...' : 'Décrivez la tâche en détail...'}
                     data-testid="task-description-input"
                   />
                 </div>
