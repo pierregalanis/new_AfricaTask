@@ -10,9 +10,13 @@ import '@/App.css';
 import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
-import ClientDashboard from './pages/ClientDashboard';
-import TaskerDashboard from './pages/TaskerDashboard';
-import BrowseTasks from './pages/BrowseTasks';
+import NewClientDashboard from './pages/NewClientDashboard';
+import NewTaskerDashboard from './pages/NewTaskerDashboard';
+import TaskerProfileSetup from './pages/TaskerProfileSetup';
+import ServiceSelection from './pages/ServiceSelection';
+import BrowseTaskersPage from './pages/BrowseTaskersPage';
+import BookTasker from './pages/BookTasker';
+import BookingConfirmation from './pages/BookingConfirmation';
 import TaskDetails from './pages/TaskDetails';
 import ProfilePage from './pages/ProfilePage';
 
