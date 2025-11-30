@@ -290,6 +290,15 @@ const ProfilePage = () => {
             </div>
           )}
         </div>
+
+        {/* Reviews Section for Taskers */}
+        {user?.role === 'tasker' && (
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+            <div className="bg-white rounded-lg shadow-md p-8">
+              <TaskerReviews taskerId={user.id} language={language} />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
