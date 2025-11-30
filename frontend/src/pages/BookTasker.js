@@ -5,7 +5,8 @@ import { translations } from '../utils/translations';
 import { usersAPI, tasksAPI, categoriesAPI } from '../api/client';
 import { toast } from 'react-toastify';
 import Navbar from '../components/Navbar';
-import { Calendar, Clock, DollarSign, MapPin, ArrowLeft, User, Star } from 'lucide-react';
+import LocationPicker from '../components/LocationPicker';
+import { Calendar, Clock, DollarSign, MapPin, ArrowLeft, User, Star, Navigation } from 'lucide-react';
 
 const BookTasker = () => {
   const { taskerId } = useParams();
@@ -26,8 +27,8 @@ const BookTasker = () => {
     duration_hours: 2,
     address: user?.address || '',
     city: user?.city || '',
-    latitude: user?.latitude || 5.345317,
-    longitude: user?.longitude || -4.024429,
+    latitude: user?.latitude || null,
+    longitude: user?.longitude || null,
     special_instructions: '',
   });
 
