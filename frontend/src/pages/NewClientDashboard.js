@@ -217,19 +217,41 @@ const NewClientDashboard = () => {
                         <MessageCircle className="w-4 h-4 inline mr-1" />
                         {language === 'en' ? 'Chat' : 'Discuter'}
                       </button>
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          navigate(`/tasks/${booking.id}`);
-                        }}
-                        className="btn-success px-4 py-2 text-sm"
-                      >
-                        <Navigation className="w-4 h-4 inline mr-1" />
-                        {language === 'en' ? 'Track' : 'Suivre'}
-                      </button>
+                      {booking.status === 'in_progress' && (
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setExpandedBooking(expandedBooking === booking.id ? null : booking.id);
+                          }}
+                          className="btn-success px-4 py-2 text-sm flex items-center justify-center"
+                        >
+                          <Navigation className="w-4 h-4 mr-1" />
+                          {language === 'en' ? 'Live Track' : 'Suivi en direct'}
+                          {expandedBooking === booking.id ? 
+                            <ChevronUp className="w-4 h-4 ml-1" /> : 
+                            <ChevronDown className="w-4 h-4 ml-1" />
+                          }
+                        </button>
+                      )}
                     </div>
                   )}
                 </div>
+                
+                {/* GPS Tracker - Expandable Section */}
+                {booking.status === 'in_progress' && expandedBooking === booking.id && (
+                  <div className="mt-6 pt-6 border-t border-gray-200 animate-fadeIn">
+                    <LiveGPSTracker
+                      taskId={booking.id}
+                      jobLocation={{
+                        latitude: booking.latitude,
+                        longitude: booking.longitude,
+                        address: booking.address || booking.city
+                      }}
+                      taskerName={booking.tasker_name || 'Tasker'}
+                      language={language}
+                    />
+                  </div>
+                )}
               </div>
             ))}
           </div>
