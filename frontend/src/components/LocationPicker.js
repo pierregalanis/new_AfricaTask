@@ -66,7 +66,7 @@ const LocationPicker = ({
   return (
     <div className="location-picker">
       <p className="text-sm text-gray-600 mb-2">{label}</p>
-      <div className="border-2 border-gray-300 rounded-lg overflow-hidden" style={{ height }}>
+      <div className={`border-2 rounded-lg overflow-hidden transition-all ${position ? 'border-green-500' : 'border-gray-300'}`} style={{ height }}>
         <MapContainer
           center={[center.lat, center.lng]}
           zoom={center.zoom}
@@ -79,9 +79,20 @@ const LocationPicker = ({
           <LocationMarker position={position} setPosition={setPosition} />
         </MapContainer>
       </div>
-      {position && (
-        <div className="mt-2 text-sm text-gray-600">
-          📍 Position: {position.lat.toFixed(6)}, {position.lng.toFixed(6)}
+      {position ? (
+        <div className="mt-2 p-3 bg-green-50 border border-green-200 rounded-lg">
+          <p className="text-sm font-semibold text-green-800">
+            ✅ Épingle placée avec succès!
+          </p>
+          <p className="text-xs text-green-600 mt-1">
+            📍 Coordonnées: {position.lat.toFixed(6)}, {position.lng.toFixed(6)}
+          </p>
+        </div>
+      ) : (
+        <div className="mt-2 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+          <p className="text-sm text-yellow-800">
+            👆 Cliquez sur la carte pour placer votre épingle
+          </p>
         </div>
       )}
     </div>
