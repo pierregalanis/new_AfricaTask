@@ -111,6 +111,30 @@ const LiveGPSTracker = ({ taskId, jobLocation, taskerName, language = 'fr' }) =>
           lastUpdate: data.last_location_update,
         });
         setError(null);
+        
+        // Check proximity and notify if within 2km
+        if (jobLocation) {
+          const distance = calculateDistance(
+            data.current_latitude,
+            data.current_longitude,
+            jobLocation.latitude,
+            jobLocation.longitude
+          );
+          
+          // Notify when tasker comes within 2km (only once)
+          if (distance <= 2 && !hasNotifiedProximity && previousDistance && previousDistance > 2) {
+            toast.info(
+              `📍 ${taskerName} ${language === 'en' ? 'is arriving soon! Less than 2 km away.' : 'arrive bientôt! Moins de 2 km.'}`,
+              {
+                position: "top-center",
+                autoClose: 7000,
+              }
+            );
+            setHasNotifiedProximity(true);
+          }
+          
+          setPreviousDistance(distance);
+        }
       } else if (data.is_tracking) {
         setError(language === 'en' ? 'Waiting for location...' : 'En attente de la localisation...');
       }
