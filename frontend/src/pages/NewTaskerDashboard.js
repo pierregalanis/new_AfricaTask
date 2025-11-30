@@ -459,6 +459,52 @@ const NewTaskerDashboard = () => {
                       </div>
                     </div>
                   )}
+                  {booking.status === 'completed' && (
+                    <div className="space-y-3">
+                      {/* Payment Status */}
+                      <div className={`px-4 py-3 rounded-lg border-2 ${
+                        booking.is_paid 
+                          ? 'bg-green-50 border-green-200' 
+                          : 'bg-yellow-50 border-yellow-200'
+                      }`}>
+                        <div className="flex items-center space-x-2">
+                          {booking.is_paid ? (
+                            <>
+                              <CheckCircle className="w-5 h-5 text-green-600" />
+                              <span className="font-semibold text-green-700">
+                                {language === 'en' ? '✅ Paid' : '✅ Payé'}
+                              </span>
+                            </>
+                          ) : (
+                            <>
+                              <Clock className="w-5 h-5 text-yellow-600" />
+                              <span className="font-semibold text-yellow-700">
+                                {language === 'en' ? 'Awaiting Payment' : 'En attente de paiement'}
+                              </span>
+                            </>
+                          )}
+                        </div>
+                        {booking.payment_method && (
+                          <p className="text-xs text-gray-600 mt-1">
+                            {language === 'en' ? 'Method: ' : 'Méthode: '}
+                            {booking.payment_method === 'cash' ? (language === 'en' ? 'Cash' : 'Espèces') : booking.payment_method}
+                          </p>
+                        )}
+                      </div>
+                      
+                      {/* Confirm Cash Payment Button */}
+                      {!booking.is_paid && (
+                        <button
+                          onClick={() => handleConfirmCashPayment(booking.id)}
+                          className="w-full px-6 py-3 bg-green-600 text-white rounded-xl font-semibold hover:bg-green-700 transition flex items-center justify-center space-x-2 shadow-lg"
+                          data-testid={`confirm-payment-button-${booking.id}`}
+                        >
+                          <DollarSign className="w-5 h-5" />
+                          <span>{language === 'en' ? 'Confirm Cash Payment' : 'Confirmer Paiement Espèces'}</span>
+                        </button>
+                      )}
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
