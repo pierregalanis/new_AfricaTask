@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { translations } from '../utils/translations';
 import { usersAPI, taskersAPI } from '../api/client';
 import { toast } from 'react-toastify';
 import Navbar from '../components/Navbar';
-import { User, Mail, Phone, MapPin, Briefcase, Star } from 'lucide-react';
+import { User, Mail, Phone, MapPin, Briefcase, Star, CheckCircle } from 'lucide-react';
+import axios from 'axios';
 
 const ProfilePage = () => {
   const { user, language } = useAuth();
   const [isEditing, setIsEditing] = useState(false);
+  const [stats, setStats] = useState(null);
   const [profileData, setProfileData] = useState({
     full_name: user?.full_name || '',
     phone: user?.phone || '',
@@ -16,6 +18,23 @@ const ProfilePage = () => {
     city: user?.city || '',
   });
   const t = (key) => translations[language]?.[key] || key;
+
+  useEffect(() => {
+    if (user?.role === 'tasker' && user?.id) {
+      fetchTaskerStats();
+    }
+  }, [user]);
+
+  const fetchTaskerStats = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/api/reviews/tasker/${user.id}/rating`
+      );
+      setStats(response.data);
+    } catch (error) {
+      console.error('Error fetching stats:', error);
+    }
+  };
 
   const handleSaveProfile = async (e) => {
     e.preventDefault();
