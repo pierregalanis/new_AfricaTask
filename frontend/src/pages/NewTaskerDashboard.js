@@ -348,6 +348,15 @@ const NewTaskerDashboard = () => {
           >
             {language === 'en' ? 'Active' : 'Actif'}
           </button>
+          <button
+            onClick={() => setFilter('completed')}
+            className={`px-6 py-3 rounded-xl font-semibold transition ${
+              filter === 'completed' ? 'bg-purple-600 text-white shadow-lg' : 'bg-white text-gray-700 hover:bg-gray-50 shadow'
+            }`}
+            data-testid="filter-completed"
+          >
+            {language === 'en' ? 'Completed' : 'Terminé'}
+          </button>
         </div>
 
         {filteredBookings.length === 0 ? (
