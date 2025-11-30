@@ -7,7 +7,8 @@ import { toast } from 'react-toastify';
 import Navbar from '../components/Navbar';
 import LiveGPSTracker from '../components/LiveGPSTracker';
 import ClientJobTimer from '../components/ClientJobTimer';
-import { Search, Calendar, Briefcase, Clock, MessageCircle, Navigation, Star, ChevronDown, ChevronUp } from 'lucide-react';
+import PaymentModal from '../components/PaymentModal';
+import { Search, Calendar, Briefcase, Clock, MessageCircle, Navigation, Star, ChevronDown, ChevronUp, CreditCard } from 'lucide-react';
 
 const NewClientDashboard = () => {
   const { language, user } = useAuth();
@@ -15,6 +16,8 @@ const NewClientDashboard = () => {
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState('all');
   const [expandedBooking, setExpandedBooking] = useState(null); // Track which booking's GPS is expanded
+  const [paymentModalOpen, setPaymentModalOpen] = useState(false);
+  const [selectedTaskForPayment, setSelectedTaskForPayment] = useState(null);
   const navigate = useNavigate();
   const t = (key) => translations[language]?.[key] || key;
 
