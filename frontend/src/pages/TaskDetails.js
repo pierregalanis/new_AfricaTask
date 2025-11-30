@@ -123,6 +123,11 @@ const TaskDetails = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-6">
+            {/* Location Sharing (Tasker Only - for assigned tasks) */}
+            {isTasker && task.assigned_tasker_id === user?.id && ['assigned', 'in_progress'].includes(task.status) && (
+              <LocationSharing task={task} />
+            )}
+
             {/* Task Info */}
             <div className="bg-white rounded-lg shadow-md p-6">
               <h1 className="text-3xl font-bold text-gray-900 mb-4" data-testid="task-details-title">{task.title}</h1>
