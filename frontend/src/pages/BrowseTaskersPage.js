@@ -372,7 +372,7 @@ const BrowseTaskersPage = () => {
                       className="btn-primary w-full"
                       data-testid={`book-button-${tasker.id}`}
                     >
-                      {language === 'en' ? 'Select & Book' : 'Sélectionner'}
+                      {language === 'en' ? 'View Profile' : 'Voir le profil'}
                     </button>
                   </div>
                 </div>
