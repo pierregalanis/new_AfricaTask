@@ -241,6 +241,21 @@ const NewClientDashboard = () => {
                   </div>
 
                   {/* Actions */}
+                  {booking.status === 'completed' && booking.is_paid && !booking.has_review && (
+                    <div className="flex flex-col space-y-2">
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setSelectedTaskForReview(booking);
+                          setReviewModalOpen(true);
+                        }}
+                        className="px-6 py-3 bg-yellow-500 text-white rounded-xl font-semibold hover:bg-yellow-600 transition flex items-center justify-center space-x-2 shadow-lg"
+                      >
+                        <Star className="w-5 h-5" />
+                        <span>{language === 'en' ? 'Leave a Review' : 'Laisser un avis'}</span>
+                      </button>
+                    </div>
+                  )}
                   {booking.status === 'completed' && !booking.is_paid && (
                     <div className="flex flex-col space-y-2">
                       <button
