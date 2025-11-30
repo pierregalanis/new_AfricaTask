@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import Navbar from '../components/Navbar';
 import ChatBox from '../components/ChatBox';
 import GPSTracker from '../components/GPSTracker';
+import LocationSharing from '../components/LocationSharing';
 import { MapPin, DollarSign, Calendar, User, Clock, ArrowLeft, MessageCircle, Navigation } from 'lucide-react';
 
 const TaskDetails = () => {
