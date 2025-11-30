@@ -426,6 +426,22 @@ const NewTaskerDashboard = () => {
                       {/* Job Timer */}
                       <JobTimer taskId={booking.id} language={language} />
                       
+                      {/* Chat Button */}
+                      <button
+                        onClick={() => {
+                          setSelectedTaskForChat(booking);
+                          setClientForChat({
+                            id: booking.client_id,
+                            full_name: booking.client_name || 'Client'
+                          });
+                          setChatModalOpen(true);
+                        }}
+                        className="w-full px-6 py-3 bg-green-600 text-white rounded-xl font-semibold hover:bg-green-700 transition flex items-center justify-center space-x-2"
+                      >
+                        <MessageCircle className="w-5 h-5" />
+                        <span>{language === 'en' ? 'Chat with Client' : 'Discuter avec client'}</span>
+                      </button>
+                      
                       {/* GPS Controls */}
                       <div className="flex flex-col space-y-2">
                         {trackingStates[booking.id]?.isTracking ? (
