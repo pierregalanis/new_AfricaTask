@@ -8,6 +8,7 @@ import Navbar from '../components/Navbar';
 import LiveGPSTracker from '../components/LiveGPSTracker';
 import ClientJobTimer from '../components/ClientJobTimer';
 import PaymentModal from '../components/PaymentModal';
+import ChatModal from '../components/ChatModal';
 import { Search, Calendar, Briefcase, Clock, MessageCircle, Navigation, Star, ChevronDown, ChevronUp, CreditCard } from 'lucide-react';
 
 const NewClientDashboard = () => {
@@ -18,6 +19,9 @@ const NewClientDashboard = () => {
   const [expandedBooking, setExpandedBooking] = useState(null); // Track which booking's GPS is expanded
   const [paymentModalOpen, setPaymentModalOpen] = useState(false);
   const [selectedTaskForPayment, setSelectedTaskForPayment] = useState(null);
+  const [chatModalOpen, setChatModalOpen] = useState(false);
+  const [selectedTaskForChat, setSelectedTaskForChat] = useState(null);
+  const [taskerForChat, setTaskerForChat] = useState(null);
   const navigate = useNavigate();
   const t = (key) => translations[language]?.[key] || key;
 
