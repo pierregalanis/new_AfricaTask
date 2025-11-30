@@ -5,7 +5,8 @@ import { translations } from '../utils/translations';
 import { taskersAPI, categoriesAPI } from '../api/client';
 import { toast } from 'react-toastify';
 import Navbar from '../components/Navbar';
-import { CheckCircle, DollarSign } from 'lucide-react';
+import LocationPicker from '../components/LocationPicker';
+import { CheckCircle, DollarSign, MapPin, Navigation } from 'lucide-react';
 
 const TaskerProfileSetup = () => {
   const { language, user } = useAuth();
@@ -21,6 +22,9 @@ const TaskerProfileSetup = () => {
     service_categories: [],
     languages_spoken: ['fr'],
     is_available: true,
+    max_travel_distance: 20,
+    latitude: user?.latitude || null,
+    longitude: user?.longitude || null,
   });
 
   useEffect(() => {
