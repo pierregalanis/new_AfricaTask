@@ -7,131 +7,181 @@ The user wants to build a clone of the TaskRabbit application, specifically tail
 - **User Roles:** Clients and Taskers.
 - **Key Features:**
     - **Service Categories:** A predefined, bilingual list of tasks.
-    - **Location Pin System:** Due to the lack of specific street addresses, users must be able to drop a pin on a map to define their location. Taskers must be able to set a maximum travel radius.
-    - **Real-time GPS Tracking:** Clients must be able to see the tasker's live location on a map with an ETA when they are en route to a job.
+    - **Location Pin System:** Users must be able to drop a pin on a map to define their location. Taskers must be able to set a maximum travel radius.
+    - **Real-time GPS Tracking:** Clients must be able to see the tasker's live location on a map with an ETA.
     - **In-App Chat:** A real-time messaging system for communication.
-    - **Job Timer:** A stopwatch for taskers to track hours worked on a job, which is visible to the client to ensure transparent billing.
+    - **Job Timer:** A stopwatch for taskers to track hours worked on a job.
     - **Proximity Alerts:** The client should be notified when the tasker is within a 2km radius of the job location.
-    - **Secure Payments:** Must support Cash and online payments via a gateway that handles Orange Money, Wave, and Cards for Ivory Coast and Senegal, with future expansion to France.
+    - **Secure Payments:** Must support Cash and online payments (Orange Money, Wave, Cards).
     - **Reviews and Ratings:** Clients can review taskers after a job is completed.
-- **Future Goal:** The application should be designed with a mobile-first approach for eventual conversion to a mobile app.
+    - **Review Rules:** 7-day window to leave a review, no edits allowed post-submission. Only clients with verified bookings can leave reviews. Reviews should have a translate button (EN/FR).
+- **Future Goal:** Mobile-first design for eventual conversion to a mobile app.
 
 **User's preferred language**: English
 
 **what currently exists?**
-The project is a full-stack application (FastAPI, React, MongoDB). The core TaskRabbit flow is fully functional: users can register, log in, browse services, find taskers, and book them.
-
-The following key features have been fully implemented and tested:
-- **Location Pin System:** Users set their location by dropping a pin on a map during registration. Taskers can set a service radius, and clients can filter by distance.
-- **Real-time GPS Tracking:** Taskers can start/stop broadcasting their location for active jobs. Clients can view the tasker's live position and ETA on a map in their dashboard.
-- **Job Timer & Proximity Alerts:** Taskers have a stopwatch to track job duration, which is visible to the client. The client receives a notification when the tasker is approaching (within 2km).
-
-The application has recovered from initial frontend compilation errors and is now stable and testable.
+The full-stack application (FastAPI, React, MongoDB) is largely feature-complete for its MVP. The core TaskRabbit flow is functional. Implemented features include:
+- **Core Booking:** User registration, login, service browsing, tasker booking.
+- **Location & GPS:** Map-based location selection, tasker service radius, and real-time GPS tracking for active jobs.
+- **Job Management:** Job timer for billable hours and a Mark as Completed flow for taskers.
+- **Payments:** A Cash payment flow is fully functional. A Paydunya integration has been scaffolded for online payments (UI modal is complete, backend routes are in place but flow is not end-to-end tested).
+- **In-App Chat:** A chat modal exists for clients and taskers on active/unpaid jobs. Backend WebSocket endpoint is created. However, **real-time functionality is broken** due to an infrastructure issue. It currently relies on manual refresh.
+- **Reviews & Ratings:** Clients can submit ratings and reviews for completed, paid tasks. The submission form and backend logic are working. A Leave Review button correctly appears and disappears. Displaying these ratings on tasker profiles has been started.
 
 **Last working item**:
-- **Last item agent was working:** Planning the payment integration strategy. The agent gathered information on different payment providers (Orange Money, Wave) and, based on user feedback, settled on a two-part plan: first, implement a simple Cash payment option, and second, integrate Flutterwave as a gateway for mobile money and card payments.
-- **Status:** NOT STARTED
-- **Agent Testing Done:** N/A
-- **Which testing method agent to use?** For the Cash feature, use  for backend API verification and the  tool for UI confirmation. For Flutterwave integration, use the  agent, followed by both  and  testing agents to validate the end-to-end payment flow and webhooks.
-- **User Testing Done:** N/A
+- **Last item agent was working:** Implementing a user request for three new features: 1) Show total tasks completed on profile, 2) Make chat pop up when a message is received, 3) Add a notification system. The agent began work on the first item, adding the necessary state and UI elements to  to display the total completed tasks for a user.
+- **Status:** IN PROGRESS
+- **Agent Testing Done:** N
+- **Which testing method agent to use?** screenshot tool to verify the new UI element on the profile page.
+- **User Testing Done:** N
 
 **All Pending/In progress Issue list**:
-There are no outstanding blocking issues.
+- **Issue 1: Real-Time Chat is Not Working (P0)**
+- **Issue 2: Leave Review button remains after submission (P1)**
+
+**Issues Detail:**
+- **Issue 1:** Real-Time Chat is Not Working (P0)
+    - **Attempted fixes:** The agent implemented a WebSocket endpoint and frontend client. When that failed, it added a 3-second polling mechanism, which caused a poor user experience (auto-scrolling) and was reverted at the user's request. A testing agent identified that WebSocket connections are being blocked by the Nginx/ingress configuration.
+    - **Next debug checklist:** This is an infrastructure issue, not a code issue. The K8s ingress configuration needs to be updated to allow WebSocket  requests. The file to investigate is likely a Kubernetes Ingress YAML resource definition, which the agent cannot directly edit. This will need to be fixed for production deployment.
+    - **Why fix this issue and what will be achieved with the fix?** To provide a modern, real-time chat experience, which is a core requirement.
+    - **Status:** BLOCKED (on infrastructure change)
+    - **Is recurring issue?** Y
+    - **Should Test frontend/backend/both after fix?** both
+    - **Blocked on other issue:** None
+
+- **Issue 2:** Leave Review button remains after submission (P1)
+    - **Attempted fixes:** The user reported this in message #528. The agent implemented a fix (messages #530-534) by updating the booking state directly in the parent component after a successful review submission and adding a Review Submitted badge.
+    - **Next debug checklist:** The user has not confirmed if the latest fix works. The agent should ask the user to test this specific flow: 1. Leave a review. 2. Verify the button is replaced by a Review Submitted badge. If it still fails, check the state management logic in  and how the  callback updates the  array.
+    - **Why fix this issue and what will be achieved with the fix?** Provides correct UI feedback to the user and prevents duplicate review submissions.
+    - **Status:** USER VERIFICATION PENDING
+    - **Is recurring issue?** Y
+    - **Should Test frontend/backend/both after fix?** frontend
+    - **Blocked on other issue:** None
 
 **In progress Task List**:
-- **Task 1: Payment Integration (P0)**
+- **Task 1: Complete Backend Refactoring (P1)**
+- **Task 2: Implement New Feature Requests (P0)**
 
 **Task Detail:**
-- **Task 1:**
-    - **Where to resume:** Begin implementation of **Part 1: Cash Payment Option**.
-        1.  **Backend:** Modify the  model to include payment status. Create a new API endpoint (e.g., ) that allows a tasker to mark a completed job as paid in cash.
-        2.  **Frontend:** On the tasker dashboard, add a Confirm Cash Payment button to completed job cards. This button should call the new API and update the UI to reflect the Paid status.
-    - **What will be achieved with this?** This will complete the first end-to-end user flow, including payment confirmation, enabling the app to be used for cash-based transactions.
-    - **Status:** NOT STARTED
+- **Task 1:** Complete Backend Refactoring (P1)
+    - **Where to resume:** The agent started splitting the monolithic  into smaller route files inside . So far,  and  have been created but are not fully populated or integrated. The next step is to continue moving endpoint groups (bookings, GPS, timer) into their own files and updating  to import and include these new routers.
+    - **What will be achieved with this?** A more maintainable, scalable, and organized backend codebase, reducing technical debt.
+    - **Status:** IN PROGRESS
+    - **Should Test frontend/backend/both after fix?** backend (via API tests)
+    - **Blocked on something:** None
+
+- **Task 2:** Implement New Feature Requests (P0)
+    - **Where to resume:** Resume work on the user's request from message #537.
+        1.  **Show total tasks done:** This is in progress. The UI is added to  but needs testing.
+        2.  **Chat to pop up on new message:** This is blocked by the WebSocket issue. Once fixed, the agent will need to implement a toast or notification component that listens for new messages and appears globally.
+        3.  **Notifications system:** This is not started. The agent needs to plan and implement a system for notifications when a task is accepted, refused, or a message is received. This will likely involve a new notifications component, a context provider, and possibly backend changes.
+    - **What will be achieved with this?** Major UX improvements that make the app more interactive and informative.
+    - **Status:** IN PROGRESS
     - **Should Test frontend/backend/both after fix?** both
-    - **Blocked on something:** None.
+    - **Blocked on something:** Chat pop-up is blocked by Issue 1: Real-Time Chat is Not Working.
 
 **Upcoming and Future Tasks**
 - **Upcoming Tasks:**
-    - **P0: Flutterwave Integration:** After the cash option is complete, integrate Flutterwave to handle online payments (Orange Money, Wave, Cards) for Senegal and Ivory Coast.
-    - **P1: In-App Chat UI:** The backend WebSocket for chat is set up, but the frontend  component needs to be fully implemented and integrated into the booking/dashboard pages.
-    - **P1: Reviews and Ratings System:** Implement the UI and logic for clients to leave reviews and ratings for taskers. Display ratings on tasker profiles.
+    - **P0: Display Ratings on Tasker Profiles:** The  component was created and added to , but it needs to be verified that it correctly fetches and displays the live average rating and review count.
+    - **P1: Translate Button for Reviews:** Implement a button on reviews to translate them between English and French, as requested by the user. This will likely require an external translation API or a simple library.
+    - **P2: End-to-End Paydunya Testing:** The user confirmed the UI looks correct, but the sandbox payment flow (redirecting to Paydunya and handling the IPN callback) has not been tested.
 - **Future Tasks:**
-    - **Hybrid Pricing Model:** Revisit the pricing structure to allow taskers to offer a fixed price for a service in addition to the current hourly rate.
-    - **UI/UX Polish:** Conduct a full review of the application's UI to enhance its professional look and feel.
-    - **Code Cleanup:** Remove deprecated files from the old job-posting flow to reduce code clutter.
+    - **UI/UX Polish:** A general pass to improve the professional look and feel of the application.
+    - **Hybrid Pricing Model:** Revisit the postponed feature to allow taskers to set a fixed price for services.
+    - **Code Cleanup:** Remove deprecated files from the old job-posting flow.
+    - **Tasker portfolio/gallery**.
+    - **Admin dashboard**.
 
 **Completed work in this session**
-- **Recently completed:**
-  - **Core Application Stabilized:** Fixed all frontend compilation errors and bugs related to login redirects and dashboard routing.
-  - **Location Pin System (DONE):** Fully implemented map-based location selection for users, service radius for taskers, and distance-based filtering.
-  - **Real-Time GPS Tracking (DONE):** Implemented live location tracking for clients to see a tasker's position and ETA on a map.
-  - **Job Timer & Proximity Alerts (DONE):** Added a stopwatch for tracking billable hours and an alert for when the tasker is nearby.
+- **Cash Payment Feature (DONE):** A full end-to-end flow for cash payments was implemented and verified by the user. This included adding a Mark as Completed button for taskers and payment status badges on both dashboards.
+- **Dashboard Loading Issues (RESOLVED):** Resolved several critical bugs that caused the client and tasker dashboards to fail loading tasks due to data inconsistencies and Pydantic validation errors.
+- **Paydunya Integration Scaffolding (DONE):** Researched and chose Paydunya as the payment gateway. Implemented the backend routes, service file, and a frontend payment modal with payment options (Card, Orange Money, Wave). User confirmed UI looks correct.
+- **Client Dashboard Navigation (DONE):** Added a Dashboard link to the main navbar for logged-in clients, fixing a major UX issue where users couldn't find their bookings page.
+- **Reviews & Ratings System (Partially DONE):** Implemented backend models and routes for reviews. Added a Leave Review modal and button on the client dashboard. Fixed several submission bugs. User confirmed review submission works.
+
+**Earlier issues found/mentioned but not fixed**
+- See . The main unfixed issue is the infrastructure block on WebSockets.
 
 **Known issue recurrence from previous fork**
-- **Issue recurrence in previous fork:** Frontend compilation failure due to JSX syntax errors.
-- **Recurrence count:** 1
-- **Status:** RESOLVED
+- **Issue recurrence in this fork:** Dashboards failing to load tasks for users.
+- **Recurrence count:** 4+ times.
+- **Status:** RESOLVED (for now). The root causes were inconsistent data in MongoDB (e.g., tasks with   or old statuses) causing Pydantic validation errors in the API. The agent applied fixes by filtering data and correcting the logic in the 'reject task' endpoint. This remains a sensitive part of the application.
 
 **Code Architecture**
 
 
 **Key Technical Concepts**
-- **Backend:** FastAPI, MongoDB (with ), WebSockets for real-time features.
-- **Frontend:** React, React Router, Tailwind CSS, , .
-- **Architecture:** Full-stack with REST APIs and WebSockets.
+- **Backend:** FastAPI, MongoDB (with ), WebSockets (broken), Pydantic.
+- **Frontend:** React, React Router, Tailwind CSS, , Axios.
+- **Payments:** Paydunya REST API integration.
+- **Architecture:** Full-stack with REST APIs. Refactoring towards a modular route structure in the backend.
 
 **key DB schema**
 - **users:** 
-- **tasker_profiles:** 
 - **bookings:** 
+- **reviews:** 
+
+**changes in tech stack**
+- Added  python library for backend payment processing.
 
 **All files**
 - **Created:**
-  - : Reusable map for selecting a location.
-  - : Client-side map for live tracking.
-  - : Tasker's stopwatch component.
-  - : Client-side view of the job timer.
+  - , , : For backend refactoring.
+  - , : For Paydunya integration.
+  - : UI for selecting Paydunya payment method.
+  - : UI for in-app messaging.
+  - : UI for submitting reviews.
+  - : UI to display tasker ratings.
 - **Updated:**
-  - : Added numerous endpoints for location, GPS, and timers.
-  - : Added fields to support new features.
-  - All major frontend pages (, , , , ) were updated to integrate the new location and GPS features.
+  - : Added numerous endpoints and WebSockets, now being refactored.
+  - : Added  and payment-related fields.
+  - : Added buttons for chat, payment, and reviews.
+  - : Added buttons for marking completion and chat.
+  - : Added link to client dashboard.
+  - : Added display for total completed tasks.
 
 **Areas that need refactoring**:
-- The  file has grown to over 1,000 lines and contains all API logic. It should be refactored by splitting routes into separate files (e.g., , ) for better maintainability.
+-  is still a large monolith despite the refactoring effort starting. This is the highest priority for code health.
 
 **key api endpoints**
--  (POST): Tasker starts GPS tracking.
--  (POST): Tasker sends location data.
--  (POST): Tasker starts the job timer.
--  (POST): Tasker stops the job timer.
--  (WebSocket): Handles real-time communication for GPS location updates.
+- : Marks a cash booking as paid.
+- : Creates a Paydunya payment invoice.
+- : Webhook for Paydunya to confirm payment.
+- : Submits a new review for a task.
+- : Gets all reviews for a tasker.
+- : Checks if a client can review a task.
+- : WebSocket endpoint for real-time chat (currently blocked).
 
 **Critical Info for New Agent**
-- Your immediate priority is to implement the payment system. Start with the Cash option as it's the simplest and provides a complete user flow. After that, move on to integrating Flutterwave.
-- The user has explicitly decided to postpone a more complex hybrid pricing model. Do not work on it unless the user reprioritizes it.
-- The backend  is a monolith. Plan to refactor it into smaller, feature-specific route files after the payment feature is complete to improve the codebase health.
+- **Priority:** The user wants to implement new features (Profile stats, Chat pop-ups, Notifications). Address these first, but be aware of the WebSocket blocker for the chat pop-up.
+- **WebSocket is BLOCKED:** Real-time chat will not work until the underlying infrastructure (Kubernetes Ingress) is configured to support it. Do not spend time debugging the WebSocket code; inform the user it's an infrastructure issue to be fixed during deployment preparation.
+- **Backend Refactoring is Incomplete:** The process of splitting  has started but is not finished. This is the next priority after the user's feature requests.
+- **Payment Gateway:** The user chose **Paydunya** over Flutterwave and PayPal.
+
+**documents created in this job**
+- None.
 
 **Last 5 User Messages and any pending user messages**
-- **User:** Suggested implementing a hybrid pricing model (hourly vs. fixed price). (PENDING - Postponed)
-- **Agent:** Advised to implement the payment gateway first to keep momentum and address a critical-path feature, suggesting the pricing model can be an enhancement later.
-- **User:** Agreed to postpone the pricing model and move on to payment integration. (RESOLVED)
-- **Agent:** Asked which payment methods to start with.
-- **User:** Confirmed to add a Cash option first, followed by a third-party gateway like Flutterwave to handle other methods for all target countries. (ACTIONABLE)
+- **User:** Requested three new features: show total tasks on profile, make chat pop up, and add notifications. (ACTIONABLE)
+- **Agent:** Agreed and started work on the first feature (showing tasks on profile). (IN PROGRESS)
+- **User:** Pointed out that the Leave Review button doesn't disappear after submission. (ADDRESSED - PENDING VERIFICATION)
+- **Agent:** Started backend code refactoring by creating new route files. (IN PROGRESS)
+- **User:** Chose Code Refactoring as the next step. (SUPERSEDED by the newer request for 3 features).
 
 **Project Health Check:**
-- The application is stable, functional, and all previously reported issues are resolved. The core features are working as per user testing.
+- **Broken:** Real-time chat via WebSockets is non-functional due to an infrastructure block.
+- **Mocked:** None.
 
 **Testing status**
-- **Testing agent used after significant changes:** NO (Agent self-tested with  and  tool)
-- **Troubleshoot agent used after agent stuck in loop:** NO
-- **Test files created:** None
-- **Known regressions:** None
+- **Testing agent used after significant changes:** YES. It correctly identified the WebSocket connection issue was not in the application code.
+- **Troubleshoot agent used after agent stuck in loop:** YES. It confirmed the WebSocket issue was a deployment configuration problem.
+- **Test files created:** None.
+- **Known regressions:** None.
 
 **Credentials to test flow:**
 - **Client:**  / 
 - **Tasker:**  / 
 
 **What agent forgot to execute**
-- The agent has not yet refactored the large  file. This is a significant piece of technical debt that should be addressed.
-- The user's original request included **PayPal**. The current plan focuses on Flutterwave as the primary gateway, and it hasn't been confirmed if PayPal is still a requirement or if it can be covered by Flutterwave. This should be clarified before starting the Flutterwave integration.</analysis>
+- The agent has not implemented the translate button for reviews, which was part of the user's requirements in message #373.
+- The agent started the backend refactoring but paused it to work on a new user request. This task remains largely incomplete.</analysis>
