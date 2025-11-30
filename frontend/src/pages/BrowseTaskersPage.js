@@ -316,15 +316,11 @@ const BrowseTaskersPage = () => {
 
                     {/* Rating & Distance */}
                     <div className="flex items-center space-x-4 mb-3">
-                      <div className="flex items-center space-x-1">
-                        <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-                        <span className="font-semibold">
-                          {tasker.tasker_profile?.average_rating?.toFixed(1) || '0.0'}
-                        </span>
-                        <span className="text-gray-500 text-sm">
-                          ({tasker.tasker_profile?.total_reviews || 0} {language === 'en' ? 'reviews' : 'avis'})
-                        </span>
-                      </div>
+                      <TaskerRating 
+                        taskerId={tasker.id} 
+                        showDetails={true}
+                        language={language}
+                      />
                       {tasker.distance !== null && (
                         <div className="flex items-center space-x-1 bg-blue-50 px-3 py-1 rounded-full">
                           <MapPin className="w-4 h-4 text-blue-600" />
