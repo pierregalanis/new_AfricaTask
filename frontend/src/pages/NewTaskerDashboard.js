@@ -456,6 +456,16 @@ const NewTaskerDashboard = () => {
                             <span>{language === 'en' ? 'Start En Route' : 'Démarrer En route'}</span>
                           </button>
                         )}
+                        
+                        {/* Complete Task Button */}
+                        <button
+                          onClick={() => handleCompleteTask(booking.id)}
+                          className="w-full px-6 py-3 bg-green-600 text-white rounded-xl font-semibold hover:bg-green-700 transition flex items-center justify-center space-x-2 shadow-lg"
+                          data-testid={`complete-task-button-${booking.id}`}
+                        >
+                          <CheckCircle className="w-5 h-5" />
+                          <span>{language === 'en' ? 'Mark as Completed' : 'Marquer comme terminé'}</span>
+                        </button>
                       </div>
                     </div>
                   )}
