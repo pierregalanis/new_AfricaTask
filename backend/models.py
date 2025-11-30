@@ -238,3 +238,21 @@ class Token(BaseModel):
 
 class TokenData(BaseModel):
     user_id: Optional[str] = None
+
+
+# Chat Models
+class MessageBase(BaseModel):
+    task_id: str
+    content: str
+
+class MessageCreate(MessageBase):
+    pass
+
+class Message(MessageBase):
+    model_config = ConfigDict(extra="ignore")
+    
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    sender_id: str
+    receiver_id: str
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+    is_read: bool = False
