@@ -16,6 +16,7 @@ import NewTaskerDashboard from './pages/NewTaskerDashboard';
 import TaskerProfileSetup from './pages/TaskerProfileSetup';
 import ServiceSelection from './pages/ServiceSelection';
 import BrowseTaskersPage from './pages/BrowseTaskersPage';
+import TaskerProfile from './pages/TaskerProfile';
 import BookTasker from './pages/BookTasker';
 import BookingConfirmation from './pages/BookingConfirmation';
 import TaskDetails from './pages/TaskDetails';
