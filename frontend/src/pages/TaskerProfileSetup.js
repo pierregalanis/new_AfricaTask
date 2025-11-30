@@ -63,6 +63,14 @@ const TaskerProfileSetup = () => {
     }));
   };
 
+  const handleLocationChange = (position) => {
+    setProfileData(prev => ({
+      ...prev,
+      latitude: position.lat,
+      longitude: position.lng,
+    }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     
@@ -76,6 +84,15 @@ const TaskerProfileSetup = () => {
       return;
     }
 
+    if (!profileData.latitude || !profileData.longitude) {
+      toast.error(
+        language === 'en' 
+          ? 'Please set your service location on the map' 
+          : 'Veuillez définir votre emplacement de service sur la carte'
+      );
+      return;
+    }
+
     setSubmitting(true);
     try {
       const formData = new FormData();
@@ -83,8 +100,23 @@ const TaskerProfileSetup = () => {
       formData.append('hourly_rate', parseFloat(profileData.hourly_rate));
       formData.append('service_categories', JSON.stringify(profileData.service_categories));
       formData.append('is_available', profileData.is_available);
+      formData.append('max_travel_distance', parseFloat(profileData.max_travel_distance));
 
       await taskersAPI.updateProfile(formData);
+      
+      // Also update user location
+      await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/users/location`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          latitude: profileData.latitude,
+          longitude: profileData.longitude,
+        }),
+      });
+      
       toast.success('✅ ' + (language === 'en' ? 'Profile setup complete!' : 'Profil configuré!'));
       navigate('/tasker/dashboard');
     } catch (error) {
