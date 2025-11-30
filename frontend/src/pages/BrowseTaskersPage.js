@@ -189,7 +189,7 @@ const BrowseTaskersPage = () => {
                     : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                 }`}
               >
-                {language === 'en' ? 'Today' : \"Aujourd'hui\"}
+                {language === 'en' ? 'Today' : "Aujourd'hui"}
               </button>
               <button
                 onClick={() => setFilterAvailability('week')}
