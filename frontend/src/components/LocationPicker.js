@@ -24,7 +24,7 @@ function LocationMarker({ position, setPosition }) {
     },
   });
 
-  return position ? <Marker position={[position.lat, position.lng]} /> : null;
+  return position ? <Marker position={[position.lat, position.lng]} icon={customIcon} /> : null;
 }
 
 const LocationPicker = ({ 
