@@ -346,15 +346,16 @@ const ClientDashboard = () => {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    {t('address')}
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    🏠 {t('address')}
                   </label>
                   <input
                     type="text"
                     required
                     value={newTask.address}
                     onChange={(e) => setNewTask({ ...newTask, address: e.target.value })}
-                    className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500"
+                    className="fancy-input"
+                    placeholder={language === 'en' ? 'Street address, building, etc.' : 'Adresse, bâtiment, etc.'}
                     data-testid="task-address-input"
                   />
                 </div>
