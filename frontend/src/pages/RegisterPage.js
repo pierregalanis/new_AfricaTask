@@ -180,6 +180,26 @@ const RegisterPage = () => {
                 </div>
               </div>
 
+              {/* Country */}
+              <div>
+                <label htmlFor="country" className="block text-sm font-medium text-gray-700">
+                  <Globe className="inline w-4 h-4 mr-1" />
+                  {language === 'en' ? 'Country' : 'Pays'}
+                </label>
+                <select
+                  id="country"
+                  name="country"
+                  value={formData.country}
+                  onChange={handleChange}
+                  required
+                  className="mt-1 block w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500"
+                  data-testid="country-select"
+                >
+                  <option value="ivory_coast">🇨🇮 {language === 'en' ? 'Ivory Coast' : 'Côte d\'Ivoire'}</option>
+                  <option value="senegal">🇸🇳 {language === 'en' ? 'Senegal' : 'Sénégal'}</option>
+                </select>
+              </div>
+
               {/* City */}
               <div>
                 <label htmlFor="city" className="block text-sm font-medium text-gray-700">
@@ -196,6 +216,7 @@ const RegisterPage = () => {
                     required
                     value={formData.city}
                     onChange={handleChange}
+                    placeholder={language === 'en' ? 'e.g., Abidjan, Dakar' : 'ex: Abidjan, Dakar'}
                     className="pl-10 block w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500"
                     data-testid="city-input"
                   />
@@ -205,7 +226,7 @@ const RegisterPage = () => {
               {/* Address */}
               <div>
                 <label htmlFor="address" className="block text-sm font-medium text-gray-700">
-                  {t('address')}
+                  {t('address')} <span className="text-gray-400">({language === 'en' ? 'Optional' : 'Facultatif'})</span>
                 </label>
                 <input
                   id="address"
@@ -213,6 +234,7 @@ const RegisterPage = () => {
                   type="text"
                   value={formData.address}
                   onChange={handleChange}
+                  placeholder={language === 'en' ? 'Street, neighborhood, landmark...' : 'Rue, quartier, point de repère...'}
                   className="mt-1 block w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500"
                   data-testid="address-input"
                 />
