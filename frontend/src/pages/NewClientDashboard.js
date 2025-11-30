@@ -313,6 +313,21 @@ const NewClientDashboard = () => {
           </div>
         )}
       </div>
+      
+      {/* Payment Modal */}
+      <PaymentModal
+        isOpen={paymentModalOpen}
+        onClose={() => {
+          setPaymentModalOpen(false);
+          setSelectedTaskForPayment(null);
+        }}
+        task={selectedTaskForPayment}
+        onPaymentSuccess={() => {
+          setPaymentModalOpen(false);
+          setSelectedTaskForPayment(null);
+          fetchBookings();
+        }}
+      />
     </div>
   );
 };
