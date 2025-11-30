@@ -119,6 +119,14 @@ const NewTaskerDashboard = () => {
             },
             (error) => {
               console.error('Geolocation error:', error);
+              if (error.code === error.PERMISSION_DENIED) {
+                toast.error(
+                  language === 'en' 
+                    ? 'Location permission denied. Please enable it in browser settings.' 
+                    : 'Permission de localisation refusée. Veuillez l\'activer dans les paramètres du navigateur.'
+                );
+                stopGPSTracking(taskId);
+              }
             },
             {
               enableHighAccuracy: true,
