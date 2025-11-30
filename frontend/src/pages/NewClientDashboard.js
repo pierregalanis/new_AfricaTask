@@ -47,7 +47,9 @@ const NewClientDashboard = () => {
               );
               return { ...booking, can_review: reviewCheck.data.can_review };
             } catch (error) {
-              return { ...booking, can_review: false };
+              console.error('Error checking review eligibility:', error);
+              // Default to true if API fails - let backend validate on submission
+              return { ...booking, can_review: true };
             }
           }
           return booking;
