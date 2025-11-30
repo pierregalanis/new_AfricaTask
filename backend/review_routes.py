@@ -204,11 +204,15 @@ async def get_tasker_rating(
 @router.get("/task/{task_id}/can-review")
 async def can_review_task(
     task_id: str,
-    current_user: User = Depends(get_current_user),
-    db: AsyncIOMotorDatabase = Depends(get_database)
+    db: AsyncIOMotorDatabase = Depends(get_database),
+    token: str = Depends(oauth2_scheme)
 ):
     """Check if current user can review this task."""
     try:
+        # Get current user
+        from auth import get_current_user as get_user
+        current_user = await get_user(token, db)
+        
         # Only clients can review
         if current_user.role != UserRole.CLIENT:
             return {
