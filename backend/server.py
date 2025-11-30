@@ -1469,3 +1469,88 @@ async def get_unread_count(
     return {"unread_count": count}
 
 
+# ============================================================================
+# WEBSOCKET FOR REAL-TIME CHAT
+# ============================================================================
+
+# Store active WebSocket connections
+active_connections: Dict[str, WebSocket] = {}
+
+
+@app.websocket("/ws/chat/{task_id}/{user_id}")
+async def websocket_chat_endpoint(
+    websocket: WebSocket,
+    task_id: str,
+    user_id: str,
+    db: AsyncIOMotorDatabase = Depends(get_database)
+):
+    """
+    WebSocket endpoint for real-time chat.
+    Client connects with their user_id and task_id.
+    """
+    await websocket.accept()
+    connection_key = f"{task_id}:{user_id}"
+    active_connections[connection_key] = websocket
+    
+    logger.info(f"WebSocket connected: {connection_key}")
+    
+    try:
+        while True:
+            # Receive message from client
+            data = await websocket.receive_json()
+            
+            # Store message in database
+            message_data = {
+                "task_id": task_id,
+                "content": data.get("content"),
+                "sender_id": user_id,
+                "receiver_id": data.get("receiver_id"),
+                "created_at": datetime.utcnow(),
+                "is_read": False
+            }
+            
+            from models import Message
+            new_message = Message(**message_data)
+            await db.messages.insert_one(new_message.model_dump())
+            
+            # Send to receiver if they're connected
+            receiver_key = f"{task_id}:{data.get('receiver_id')}"
+            if receiver_key in active_connections:
+                try:
+                    await active_connections[receiver_key].send_json({
+                        "type": "new_message",
+                        "message": {
+                            "id": new_message.id,
+                            "content": new_message.content,
+                            "sender_id": new_message.sender_id,
+                            "receiver_id": new_message.receiver_id,
+                            "created_at": new_message.created_at.isoformat(),
+                            "is_read": new_message.is_read
+                        }
+                    })
+                except Exception as e:
+                    logger.error(f"Error sending to receiver: {e}")
+            
+            # Echo back to sender
+            await websocket.send_json({
+                "type": "message_sent",
+                "message": {
+                    "id": new_message.id,
+                    "content": new_message.content,
+                    "sender_id": new_message.sender_id,
+                    "receiver_id": new_message.receiver_id,
+                    "created_at": new_message.created_at.isoformat(),
+                    "is_read": new_message.is_read
+                }
+            })
+            
+    except WebSocketDisconnect:
+        if connection_key in active_connections:
+            del active_connections[connection_key]
+        logger.info(f"WebSocket disconnected: {connection_key}")
+    except Exception as e:
+        logger.error(f"WebSocket error: {e}")
+        if connection_key in active_connections:
+            del active_connections[connection_key]
+
+
