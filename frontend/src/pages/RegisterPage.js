@@ -36,8 +36,27 @@ const RegisterPage = () => {
     }
   };
 
+  const handleLocationChange = (position) => {
+    setFormData(prev => ({
+      ...prev,
+      latitude: position.lat,
+      longitude: position.lng,
+    }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Validate location pin
+    if (!formData.latitude || !formData.longitude) {
+      toast.error(
+        language === 'en' 
+          ? 'Please place a pin on the map to mark your location' 
+          : 'Veuillez placer une épingle sur la carte pour marquer votre position'
+      );
+      return;
+    }
+    
     setLoading(true);
 
     try {
