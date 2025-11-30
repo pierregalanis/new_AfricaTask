@@ -153,6 +153,12 @@ class Task(TaskBase):
     current_latitude: Optional[float] = None
     current_longitude: Optional[float] = None
     last_location_update: Optional[datetime] = None
+    
+    # Job Timer fields
+    timer_started_at: Optional[datetime] = None
+    timer_stopped_at: Optional[datetime] = None
+    actual_hours_worked: Optional[float] = None
+    is_timer_running: bool = False
 
 
 # Task Application Models
