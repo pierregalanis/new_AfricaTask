@@ -790,6 +790,16 @@ async def reject_task(
         }}
     )
     
+    # Create notification for client
+    from notification_routes import create_notification
+    await create_notification(
+        db=db,
+        user_id=task["client_id"],
+        notification_type="task_rejected",
+        task_id=task_id,
+        task_title=task.get("title", "Task")
+    )
+    
     logger.info(f"Tasker {current_user.id} rejected task {task_id}")
     return {"message": "Task rejected"}
 
