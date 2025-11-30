@@ -340,6 +340,18 @@ const NewClientDashboard = () => {
           fetchBookings();
         }}
       />
+
+      {/* Chat Modal */}
+      <ChatModal
+        isOpen={chatModalOpen}
+        onClose={() => {
+          setChatModalOpen(false);
+          setSelectedTaskForChat(null);
+          setTaskerForChat(null);
+        }}
+        task={selectedTaskForChat}
+        tasker={taskerForChat}
+      />
     </div>
   );
 };
