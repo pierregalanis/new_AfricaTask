@@ -387,6 +387,21 @@ const NewClientDashboard = () => {
         otherUser={taskerForChat}
         language={language}
       />
+      
+      {/* Review Modal */}
+      <ReviewModal
+        isOpen={reviewModalOpen}
+        onClose={() => {
+          setReviewModalOpen(false);
+          setSelectedTaskForReview(null);
+        }}
+        task={selectedTaskForReview}
+        taskerName={selectedTaskForReview?.tasker_name || 'Tasker'}
+        onReviewSuccess={() => {
+          fetchBookings();
+        }}
+        language={language}
+      />
     </div>
   );
 };
