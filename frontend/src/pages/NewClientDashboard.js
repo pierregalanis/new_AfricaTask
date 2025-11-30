@@ -35,7 +35,26 @@ const NewClientDashboard = () => {
   const fetchBookings = async () => {
     try {
       const response = await tasksAPI.getAll({ client_id: user?.id });
-      setBookings(response.data);
+      
+      // Check review status for each completed & paid task
+      const bookingsWithReviewStatus = await Promise.all(
+        response.data.map(async (booking) => {
+          if (booking.status === 'completed' && booking.is_paid) {
+            try {
+              const reviewCheck = await axios.get(
+                `${process.env.REACT_APP_BACKEND_URL}/api/reviews/task/${booking.id}/can-review`,
+                { headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }}
+              );
+              return { ...booking, can_review: reviewCheck.data.can_review };
+            } catch (error) {
+              return { ...booking, can_review: false };
+            }
+          }
+          return booking;
+        })
+      );
+      
+      setBookings(bookingsWithReviewStatus);
     } catch (error) {
       console.error('Error fetching bookings:', error);
       toast.error(language === 'en' ? 'Failed to load bookings' : 'Échec du chargement');
