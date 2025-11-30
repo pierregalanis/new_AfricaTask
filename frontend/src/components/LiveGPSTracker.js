@@ -50,6 +50,7 @@ const LiveGPSTracker = ({ taskId, jobLocation, taskerName, language = 'fr' }) =>
   const [trackingData, setTrackingData] = useState(null);
   const [isTracking, setIsTracking] = useState(false);
   const [error, setError] = useState(null);
+  const [hasNotified, setHasNotified] = useState(false);
   const intervalRef = useRef(null);
 
   useEffect(() => {
