@@ -279,3 +279,33 @@ class Message(MessageBase):
     receiver_id: str
     created_at: datetime = Field(default_factory=datetime.utcnow)
     is_read: bool = False
+
+
+# Review Models
+class ReviewBase(BaseModel):
+    task_id: str
+    rating: int = Field(ge=1, le=5, description="Rating from 1 to 5 stars")
+    comment: Optional[str] = Field(None, max_length=500, description="Optional review comment")
+
+class ReviewCreate(ReviewBase):
+    pass
+
+class Review(ReviewBase):
+    model_config = ConfigDict(extra="ignore")
+    
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    client_id: str
+    tasker_id: str
+    client_name: str
+    verified_booking: bool = True
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+    updated_at: datetime = Field(default_factory=datetime.utcnow)
+
+
+class TaskerRating(BaseModel):
+    """Aggregated rating information for a tasker."""
+    tasker_id: str
+    average_rating: float
+    total_reviews: int
+    total_completed_tasks: int
+    rating_distribution: Dict[int, int] = Field(default_factory=dict)  # {5: 10, 4: 5, 3: 2, 2: 1, 1: 0}
