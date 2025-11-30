@@ -61,6 +61,157 @@ const NewTaskerDashboard = () => {
     }
   };
 
+  const startGPSTracking = async (taskId) => {
+    if (!navigator.geolocation) {
+      toast.error(language === 'en' ? 'Geolocation not supported' : 'Géolocalisation non prise en charge');
+      return;
+    }
+
+    try {
+      // Start tracking on backend
+      await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/api/tasks/${taskId}/start-tracking`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        }
+      );
+
+      // Get initial position
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          const { latitude, longitude } = position.coords;
+
+          // Send initial location
+          await axios.post(
+            `${process.env.REACT_APP_BACKEND_URL}/api/tasks/${taskId}/update-location`,
+            { latitude, longitude },
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+              },
+            }
+          );
+
+          // Watch position and update every 10 seconds
+          const watchId = navigator.geolocation.watchPosition(
+            (pos) => {
+              // Position updates handled by interval below
+            },
+            (error) => {
+              console.error('Geolocation error:', error);
+            },
+            {
+              enableHighAccuracy: true,
+              timeout: 10000,
+              maximumAge: 0,
+            }
+          );
+
+          // Set up interval to send updates every 10 seconds
+          const intervalId = setInterval(async () => {
+            navigator.geolocation.getCurrentPosition(
+              async (pos) => {
+                try {
+                  await axios.post(
+                    `${process.env.REACT_APP_BACKEND_URL}/api/tasks/${taskId}/update-location`,
+                    {
+                      latitude: pos.coords.latitude,
+                      longitude: pos.coords.longitude,
+                    },
+                    {
+                      headers: {
+                        Authorization: `Bearer ${localStorage.getItem('token')}`,
+                      },
+                    }
+                  );
+                } catch (err) {
+                  console.error('Error updating location:', err);
+                }
+              },
+              (err) => console.error('Error getting position:', err),
+              { enableHighAccuracy: true }
+            );
+          }, 10000); // 10 seconds
+
+          // Save tracking state
+          setTrackingStates(prev => ({
+            ...prev,
+            [taskId]: { isTracking: true, watchId }
+          }));
+          locationIntervalsRef.current[taskId] = intervalId;
+
+          toast.success('🚗 ' + (language === 'en' ? 'GPS tracking started!' : 'Suivi GPS démarré!'));
+        },
+        (error) => {
+          console.error('Error getting initial position:', error);
+          toast.error(language === 'en' ? 'Failed to get location' : 'Échec de la géolocalisation');
+        },
+        { enableHighAccuracy: true }
+      );
+    } catch (error) {
+      console.error('Error starting tracking:', error);
+      toast.error(language === 'en' ? 'Failed to start tracking' : 'Échec du démarrage du suivi');
+    }
+  };
+
+  const stopGPSTracking = async (taskId) => {
+    try {
+      // Stop tracking on backend
+      await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/api/tasks/${taskId}/stop-tracking`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        }
+      );
+
+      // Stop watching position
+      const trackingState = trackingStates[taskId];
+      if (trackingState?.watchId) {
+        navigator.geolocation.clearWatch(trackingState.watchId);
+      }
+
+      // Clear interval
+      if (locationIntervalsRef.current[taskId]) {
+        clearInterval(locationIntervalsRef.current[taskId]);
+        delete locationIntervalsRef.current[taskId];
+      }
+
+      // Update state
+      setTrackingStates(prev => {
+        const newState = { ...prev };
+        delete newState[taskId];
+        return newState;
+      });
+
+      toast.success(language === 'en' ? 'GPS tracking stopped' : 'Suivi GPS arrêté');
+    } catch (error) {
+      console.error('Error stopping tracking:', error);
+      toast.error(language === 'en' ? 'Failed to stop tracking' : 'Échec de l\'arrêt du suivi');
+    }
+  };
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      // Clear all intervals
+      Object.values(locationIntervalsRef.current).forEach(intervalId => {
+        clearInterval(intervalId);
+      });
+      // Clear all watch positions
+      Object.values(trackingStates).forEach(state => {
+        if (state.watchId) {
+          navigator.geolocation.clearWatch(state.watchId);
+        }
+      });
+    };
+  }, []);
+
   const filteredBookings = bookings.filter(booking => {
     if (filter === 'pending') return booking.status === 'assigned';
     if (filter === 'active') return booking.status === 'in_progress';
