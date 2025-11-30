@@ -79,6 +79,17 @@ const NewTaskerDashboard = () => {
     }
   };
 
+  const handleConfirmCashPayment = async (taskId) => {
+    try {
+      await tasksAPI.markPaidCash(taskId);
+      toast.success('✅ ' + (language === 'en' ? 'Cash payment confirmed!' : 'Paiement en espèces confirmé!'));
+      fetchBookings();
+    } catch (error) {
+      console.error('Error confirming payment:', error);
+      toast.error(language === 'en' ? 'Failed to confirm payment' : 'Échec de la confirmation du paiement');
+    }
+  };
+
   const startGPSTracking = async (taskId) => {
     if (!navigator.geolocation) {
       toast.error(language === 'en' ? 'Geolocation not supported' : 'Géolocalisation non prise en charge');
