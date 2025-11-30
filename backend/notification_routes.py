@@ -64,7 +64,7 @@ async def get_notifications(
 ):
     """Get all notifications for the current user."""
     try:
-        user = await get_current_user(token, db)
+        user = await get_current_user_from_token(token, db)
         
         # Get all notifications for user, sorted by newest first
         notifications = await db.notifications.find(
@@ -99,7 +99,7 @@ async def mark_notification_as_read(
 ):
     """Mark a notification as read."""
     try:
-        user = await get_current_user(token, db)
+        user = await get_current_user_from_token(token, db)
         
         # Update notification
         result = await db.notifications.update_one(
@@ -132,7 +132,7 @@ async def mark_all_notifications_as_read(
 ):
     """Mark all notifications as read for the current user."""
     try:
-        user = await get_current_user(token, db)
+        user = await get_current_user_from_token(token, db)
         
         await db.notifications.update_many(
             {"user_id": user.id, "is_read": False},
@@ -157,7 +157,7 @@ async def delete_notification(
 ):
     """Delete a notification."""
     try:
-        user = await get_current_user(token, db)
+        user = await get_current_user_from_token(token, db)
         
         result = await db.notifications.delete_one({
             "id": notification_id,
