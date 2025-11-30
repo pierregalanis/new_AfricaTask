@@ -20,13 +20,21 @@ const ChatModal = ({ isOpen, onClose, task, currentUser, otherUser, language = '
     if (isOpen && task && currentUser) {
       fetchMessages();
       connectWebSocket();
+      
+      // Set up polling as fallback (every 3 seconds)
+      const pollingInterval = setInterval(() => {
+        if (isOpen) {
+          fetchMessages();
+        }
+      }, 3000);
+      
+      return () => {
+        if (ws) {
+          ws.close();
+        }
+        clearInterval(pollingInterval);
+      };
     }
-
-    return () => {
-      if (ws) {
-        ws.close();
-      }
-    };
   }, [isOpen, task, currentUser]);
 
   useEffect(() => {
