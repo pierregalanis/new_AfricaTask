@@ -3,6 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 import { Navigation, Clock, MapPin } from 'lucide-react';
 
 // Custom icons for tasker and job location
