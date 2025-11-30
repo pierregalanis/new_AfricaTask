@@ -147,7 +147,7 @@ const BrowseTaskersPage = () => {
   };
 
   const handleBookTasker = (taskerId) => {
-    navigate(`/book-tasker/${taskerId}?category=${categoryId}`);
+    navigate(`/tasker/${taskerId}?category=${categoryId}`);
   };
 
   if (loading) {
