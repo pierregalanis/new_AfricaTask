@@ -5,6 +5,7 @@ import { translations } from '../utils/translations';
 import { tasksAPI } from '../api/client';
 import { toast } from 'react-toastify';
 import Navbar from '../components/Navbar';
+import JobTimer from '../components/JobTimer';
 import { Calendar, Clock, MapPin, DollarSign, Settings, CheckCircle, XCircle, Navigation, NavigationOff } from 'lucide-react';
 import axios from 'axios';
 
