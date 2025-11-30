@@ -4,6 +4,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { translations } from '../utils/translations';
 import { tasksAPI } from '../api/client';
 import { toast } from 'react-toastify';
+import axios from 'axios';
 import Navbar from '../components/Navbar';
 import LiveGPSTracker from '../components/LiveGPSTracker';
 import ClientJobTimer from '../components/ClientJobTimer';
