@@ -20,8 +20,12 @@ const ProfilePage = () => {
   const t = (key) => translations[language]?.[key] || key;
 
   useEffect(() => {
-    if (user?.role === 'tasker' && user?.id) {
-      fetchTaskerStats();
+    if (user?.id) {
+      if (user.role === 'tasker') {
+        fetchTaskerStats();
+      } else if (user.role === 'client') {
+        fetchClientStats();
+      }
     }
   }, [user]);
 
@@ -29,6 +33,17 @@ const ProfilePage = () => {
     try {
       const response = await axios.get(
         `${process.env.REACT_APP_BACKEND_URL}/api/reviews/tasker/${user.id}/rating`
+      );
+      setStats(response.data);
+    } catch (error) {
+      console.error('Error fetching stats:', error);
+    }
+  };
+
+  const fetchClientStats = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/api/reviews/client/${user.id}/stats`
       );
       setStats(response.data);
     } catch (error) {
