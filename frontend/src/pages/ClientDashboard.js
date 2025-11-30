@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { translations } from '../utils/translations';
-import { tasksAPI, categoriesAPI } from '../api/client';
+import { tasksAPI } from '../api/client';
 import { toast } from 'react-toastify';
 import Navbar from '../components/Navbar';
-import { Plus, MapPin, DollarSign, Calendar, Briefcase } from 'lucide-react';
+import { Search, MapPin, Calendar, Briefcase, Clock, MessageCircle, Navigation } from 'lucide-react';
 
 const ClientDashboard = () => {
   const { language, user } = useAuth();
