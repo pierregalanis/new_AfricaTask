@@ -366,6 +366,9 @@ const BrowseTaskersPage = () => {
                       <p className="text-3xl font-bold text-orange-600">
                         {tasker.tasker_profile?.hourly_rate || 0} <span className="text-lg">CFA/hr</span>
                       </p>
+                      <p className="text-sm text-gray-500 mt-1">
+                        {language === 'en' ? 'e.g. 3h' : 'ex: 3h'} = {((tasker.tasker_profile?.hourly_rate || 0) * 3).toLocaleString()} CFA
+                      </p>
                     </div>
                     <button
                       onClick={() => handleBookTasker(tasker.id)}
