@@ -1447,6 +1447,10 @@ app.include_router(api_router)
 from payment_routes import router as payment_router
 app.include_router(payment_router)
 
+# Include review routes
+from review_routes import router as review_router
+app.include_router(review_router)
+
 # Serve static files (uploads)
 app.mount("/uploads", StaticFiles(directory=str(Path(__file__).parent / "uploads")), name="uploads")
 
