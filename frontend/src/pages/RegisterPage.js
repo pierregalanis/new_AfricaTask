@@ -4,7 +4,8 @@ import { useAuth } from '../contexts/AuthContext';
 import { translations } from '../utils/translations';
 import { toast } from 'react-toastify';
 import Navbar from '../components/Navbar';
-import { Mail, Lock, User, Phone, MapPin } from 'lucide-react';
+import LocationPicker from '../components/LocationPicker';
+import { Mail, Lock, User, Phone, MapPin, Globe } from 'lucide-react';
 
 const RegisterPage = () => {
   const [formData, setFormData] = useState({
@@ -12,10 +13,13 @@ const RegisterPage = () => {
     password: '',
     full_name: '',
     phone: '',
+    country: 'ivory_coast',
     address: '',
     city: '',
     role: 'client',
     language: 'fr',
+    latitude: null,
+    longitude: null,
   });
   const [loading, setLoading] = useState(false);
   const { register, language, changeLanguage } = useAuth();
