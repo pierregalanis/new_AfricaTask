@@ -2,134 +2,136 @@
 The user wants to build a clone of the TaskRabbit application, specifically tailored for the African market (starting with Ivory Coast and Senegal).
 
 **PRODUCT REQUIREMENTS:**
-- **Core Flow:** Users (clients) should browse services, find available taskers, filter them (by distance, price, availability), and book them directly. This is a change from the initial implementation where clients posted jobs and taskers applied.
+- **Core Flow:** Users (clients) should browse services, find available taskers, filter them (by distance, price, availability), and book them directly.
 - **Bilingual Support:** The entire application must support both English and French.
-- **User Roles:**
-    - **Clients:** Can create accounts, search for taskers, book services, track tasker location, chat, and leave reviews.
-    - **Taskers:** Can create accounts, set up their profile with services they offer, define their hourly rate, manage their availability, accept bookings, chat with clients, and be reviewed.
+- **User Roles:** Clients and Taskers.
 - **Key Features:**
-    - **Service Categories:** A predefined, bilingual list of tasks (e.g., Home Repairs, Cleaning, Tutoring, Beauty Services).
-    - **Real-time GPS Tracking:** Clients must be able to see the tasker's live location on a map with an ETA when they are en route.
-    - **In-App Chat:** A real-time messaging system for communication between clients and taskers. Phone numbers should not be exchanged.
-    - **Secure Payments:** Must support Cash, Orange Money, Wave, and PayPal.
+    - **Service Categories:** A predefined, bilingual list of tasks.
+    - **Location Pin System:** Due to the lack of specific street addresses, users must be able to drop a pin on a map to define their location. Taskers must be able to set a maximum travel radius.
+    - **Real-time GPS Tracking:** Clients must be able to see the tasker's live location on a map with an ETA when they are en route to a job.
+    - **In-App Chat:** A real-time messaging system for communication.
+    - **Job Timer:** A stopwatch for taskers to track hours worked on a job, which is visible to the client to ensure transparent billing.
+    - **Proximity Alerts:** The client should be notified when the tasker is within a 2km radius of the job location.
+    - **Secure Payments:** Must support Cash and online payments via a gateway that handles Orange Money, Wave, and Cards for Ivory Coast and Senegal, with future expansion to France.
     - **Reviews and Ratings:** Clients can review taskers after a job is completed.
-- **Future Goal:** The application should be designed with a mobile-first approach, as the ultimate goal is to convert it into a mobile app.
+- **Future Goal:** The application should be designed with a mobile-first approach for eventual conversion to a mobile app.
 
 **User's preferred language**: English
 
 **what currently exists?**
-The project is a full-stack application with a Python/FastAPI backend and a React frontend using a MongoDB database.
+The project is a full-stack application (FastAPI, React, MongoDB). The core TaskRabbit flow is fully functional: users can register, log in, browse services, find taskers, and book them.
 
-The application has undergone a significant rebuild to match the TaskRabbit user flow.
-- **Backend:** Models and API endpoints for users (clients/taskers), bilingual service categories, and direct bookings are in place. WebSocket endpoints for chat and GPS have been set up but are not fully implemented on the frontend.
-- **Frontend:** The original job posting UI has been replaced with new pages for a direct booking flow: service selection, browsing taskers, and booking. However, the frontend is currently **broken** and will not compile due to syntax errors introduced during the rebuild.
+The following key features have been fully implemented and tested:
+- **Location Pin System:** Users set their location by dropping a pin on a map during registration. Taskers can set a service radius, and clients can filter by distance.
+- **Real-time GPS Tracking:** Taskers can start/stop broadcasting their location for active jobs. Clients can view the tasker's live position and ETA on a map in their dashboard.
+- **Job Timer & Proximity Alerts:** Taskers have a stopwatch to track job duration, which is visible to the client. The client receives a notification when the tasker is approaching (within 2km).
+
+The application has recovered from initial frontend compilation errors and is now stable and testable.
 
 **Last working item**:
-- **Last item agent was working:** Fixing critical syntax errors in several newly created React components (, , and ) that are part of the major application rebuild.
-- **Status:** IN PROGRESS
-- **Agent Testing Done:** N
-- **Which testing method agent to use?** manual testing by curl
-- **User Testing Done:** N
+- **Last item agent was working:** Planning the payment integration strategy. The agent gathered information on different payment providers (Orange Money, Wave) and, based on user feedback, settled on a two-part plan: first, implement a simple Cash payment option, and second, integrate Flutterwave as a gateway for mobile money and card payments.
+- **Status:** NOT STARTED
+- **Agent Testing Done:** N/A
+- **Which testing method agent to use?** For the Cash feature, use  for backend API verification and the  tool for UI confirmation. For Flutterwave integration, use the  agent, followed by both  and  testing agents to validate the end-to-end payment flow and webhooks.
+- **User Testing Done:** N/A
 
 **All Pending/In progress Issue list**:
-- **Issue 1:** Frontend compilation failure (P0)
-
-**Issues Detail:**
-- **Issue 1:**
-    - **Description:** The frontend build is failing with s in multiple files, including , , and . This makes the application completely unusable and un-previewable.
-    - **Attempted fixes:** The agent has tried to fix the files by editing them and then by recreating them using  commands. These attempts failed because the agent repeatedly generated code with unescaped quotes and backslashes (e.g.,  and ), which are invalid in JSX strings.
-    - **Next debug checklist:**
-        1. View the contents of , , and  to identify all remaining syntax errors.
-        2. Correct the invalid string literals. For French text with apostrophes (e.g., ), use proper JSX string syntax like  or template literals. For class names, use standard double quotes .
-        3. Use  to apply all fixes at once to prevent further errors.
-        4. Restart the frontend service: frontend: ERROR (not running)
-frontend: started.
-        5. Check the logs for compilation success: ==> /var/log/supervisor/frontend.err.log <==
-
-==> /var/log/supervisor/frontend.out.log <==
-yarn run v1.22.22
-$ craco start.
-    - **Why fix this issue and what will be achieved with the fix?** This is the highest priority blocker. Fixing it will make the frontend compile, allowing the new TaskRabbit flow to be tested for the first time.
-    - **Status:** IN PROGRESS
-    - **Is recurring issue?** Y
-    - **Should Test frontend/backend/both after fix?** frontend
-    - **Blocked on other issue:** None. This issue is blocking all other progress.
+There are no outstanding blocking issues.
 
 **In progress Task List**:
-- **Task 1:** Complete the TaskRabbit Flow Rebuild (P0)
+- **Task 1: Payment Integration (P0)**
 
 **Task Detail:**
 - **Task 1:**
-    - **Where to resume:** After the compilation errors (Issue 1) are fixed, the agent must verify the end-to-end functionality of the new user flow:
-        1. Client selects a service from .
-        2. Client is redirected to  to see a list of relevant taskers.
-        3. Client can filter taskers.
-        4. Client can click to book a tasker, navigating to .
-        5. Client completes booking and lands on a confirmation page .
-        6. Bookings appear correctly in the new client and tasker dashboards (, ).
-    - **What will be achieved with this?** The core user experience of the application will match the user's requirement of a TaskRabbit clone.
-    - **Status:** BLOCKED
+    - **Where to resume:** Begin implementation of **Part 1: Cash Payment Option**.
+        1.  **Backend:** Modify the  model to include payment status. Create a new API endpoint (e.g., ) that allows a tasker to mark a completed job as paid in cash.
+        2.  **Frontend:** On the tasker dashboard, add a Confirm Cash Payment button to completed job cards. This button should call the new API and update the UI to reflect the Paid status.
+    - **What will be achieved with this?** This will complete the first end-to-end user flow, including payment confirmation, enabling the app to be used for cash-based transactions.
+    - **Status:** NOT STARTED
     - **Should Test frontend/backend/both after fix?** both
-    - **Blocked on something:** Issue 1: Frontend compilation failure.
+    - **Blocked on something:** None.
 
 **Upcoming and Future Tasks**
 - **Upcoming Tasks:**
-  - **P1: Implement Real-time GPS Tracking UI:** The backend WebSocket is ready. The frontend component  needs to be fully developed with a map (like Leaflet) to display the tasker's live location and integrated into the booking details page.
-  - **P1: Implement In-App Chat UI:** The backend WebSocket is ready. The  component needs to be fully implemented to allow real-time messaging and integrated into the booking details page.
-  - **P2: Tasker Profile Setup Flow:** The  page needs to be fully implemented to allow taskers to select their skills (categories), set their hourly rate, and define their availability.
-  - **P2: Payment Flow Integration:** Implement the full payment flow on both the frontend and backend for Cash, Orange Money, Wave, and PayPal. This includes the UI for payment selection and API calls to process payments.
+    - **P0: Flutterwave Integration:** After the cash option is complete, integrate Flutterwave to handle online payments (Orange Money, Wave, Cards) for Senegal and Ivory Coast.
+    - **P1: In-App Chat UI:** The backend WebSocket for chat is set up, but the frontend  component needs to be fully implemented and integrated into the booking/dashboard pages.
+    - **P1: Reviews and Ratings System:** Implement the UI and logic for clients to leave reviews and ratings for taskers. Display ratings on tasker profiles.
 - **Future Tasks:**
-  - **UI/UX Polish:** Conduct a full review of the application's UI to make it fancier and more professional, as requested by the user.
-  - **Code Cleanup:** Remove deprecated files and components from the old job-posting flow (e.g., , ).
+    - **Hybrid Pricing Model:** Revisit the pricing structure to allow taskers to offer a fixed price for a service in addition to the current hourly rate.
+    - **UI/UX Polish:** Conduct a full review of the application's UI to enhance its professional look and feel.
+    - **Code Cleanup:** Remove deprecated files from the old job-posting flow to reduce code clutter.
 
 **Completed work in this session**
 - **Recently completed:**
-  - **Backend Restructure for TaskRabbit Flow:** The database models and API endpoints were modified to support direct booking of taskers instead of a job-board system.
-  - **Initial Frontend Rebuild:** Created new pages and components for the TaskRabbit flow (, , , etc.). Note: This is the source of the current blocking issue.
-  - **Bilingual Service Category Seeding:** The database was successfully seeded with a list of service categories in both English and French.
+  - **Core Application Stabilized:** Fixed all frontend compilation errors and bugs related to login redirects and dashboard routing.
+  - **Location Pin System (DONE):** Fully implemented map-based location selection for users, service radius for taskers, and distance-based filtering.
+  - **Real-Time GPS Tracking (DONE):** Implemented live location tracking for clients to see a tasker's position and ETA on a map.
+  - **Job Timer & Proximity Alerts (DONE):** Added a stopwatch for tracking billable hours and an alert for when the tasker is nearby.
+
+**Known issue recurrence from previous fork**
+- **Issue recurrence in previous fork:** Frontend compilation failure due to JSX syntax errors.
+- **Recurrence count:** 1
+- **Status:** RESOLVED
 
 **Code Architecture**
 
 
 **Key Technical Concepts**
-- **Backend:** FastAPI, MongoDB (with ), WebSockets, JWT Authentication
-- **Frontend:** React, React Router, Tailwind CSS, , 
-- **Architecture:** Full-stack, REST APIs, WebSocket for real-time features.
+- **Backend:** FastAPI, MongoDB (with ), WebSockets for real-time features.
+- **Frontend:** React, React Router, Tailwind CSS, , .
+- **Architecture:** Full-stack with REST APIs and WebSockets.
 
 **key DB schema**
-- : 
-- : 
-- : 
-- : 
-- : 
+- **users:** 
+- **tasker_profiles:** 
+- **bookings:** 
 
 **All files**
-- **/app/frontend/src/pages/BrowseTaskersPage.js:** Newly created page to display and filter taskers. **Currently has syntax errors.**
-- **/app/frontend/src/pages/NewTaskerDashboard.js:** New dashboard for taskers. **Currently has syntax errors.**
-- **/app/frontend/src/pages/TaskerProfileSetup.js:** New page for taskers to set up their profile. **Currently has syntax errors.**
-- **/app/frontend/src/pages/ServiceSelection.js:** New homepage/landing page for clients to select a service category.
-- **/app/frontend/src/pages/BookTasker.js:** New page for the booking process.
-- **/app/frontend/src/pages/BookingConfirmation.js:** New page to confirm a successful booking.
-- **/app/frontend/src/pages/NewClientDashboard.js:** New dashboard for clients to view their bookings.
-- **/app/frontend/src/App.js:** Updated to include React Router routes for all the new pages.
-- **/app/backend/models.py:** Updated to reflect the direct booking model, including a  and changing  to .
-- **/app/backend/server.py:** API endpoints were modified to support the new TaskRabbit flow (e.g., fetching taskers by category, creating bookings).
+- **Created:**
+  - : Reusable map for selecting a location.
+  - : Client-side map for live tracking.
+  - : Tasker's stopwatch component.
+  - : Client-side view of the job timer.
+- **Updated:**
+  - : Added numerous endpoints for location, GPS, and timers.
+  - : Added fields to support new features.
+  - All major frontend pages (, , , , ) were updated to integrate the new location and GPS features.
+
+**Areas that need refactoring**:
+- The  file has grown to over 1,000 lines and contains all API logic. It should be refactored by splitting routes into separate files (e.g., , ) for better maintainability.
+
+**key api endpoints**
+-  (POST): Tasker starts GPS tracking.
+-  (POST): Tasker sends location data.
+-  (POST): Tasker starts the job timer.
+-  (POST): Tasker stops the job timer.
+-  (WebSocket): Handles real-time communication for GPS location updates.
 
 **Critical Info for New Agent**
-The project's core logic was recently pivoted from a client posts a job model to a client books a tasker directly model (like TaskRabbit). As a result, many new frontend files have been created (, , etc.). The previous agent failed to generate these files with correct syntax, causing the entire frontend application to fail compilation. The immediate priority is to fix these syntax errors. The old dashboard files (, ) are now deprecated and should eventually be removed.
+- Your immediate priority is to implement the payment system. Start with the Cash option as it's the simplest and provides a complete user flow. After that, move on to integrating Flutterwave.
+- The user has explicitly decided to postpone a more complex hybrid pricing model. Do not work on it unless the user reprioritizes it.
+- The backend  is a monolith. Plan to refactor it into smaller, feature-specific route files after the payment feature is complete to improve the codebase health.
 
 **Last 5 User Messages and any pending user messages**
-1. **User:** Confirmed that a task can be posted but stated the flow is wrong. Described the desired TaskRabbit flow (select service -> browse taskers -> filter -> book) and provided example images.
-2. **Agent:** Recommended a complete rebuild to match the TaskRabbit flow.
-3. **User:** Agreed to the full rebuild and restated all core requirements (bilingual, chat, GPS, payments, service list).
-4. **Agent:** Started the full rebuild.
-5. **User:** Reported that the preview is not working and provided the frontend compilation error logs.
+- **User:** Suggested implementing a hybrid pricing model (hourly vs. fixed price). (PENDING - Postponed)
+- **Agent:** Advised to implement the payment gateway first to keep momentum and address a critical-path feature, suggesting the pricing model can be an enhancement later.
+- **User:** Agreed to postpone the pricing model and move on to payment integration. (RESOLVED)
+- **Agent:** Asked which payment methods to start with.
+- **User:** Confirmed to add a Cash option first, followed by a third-party gateway like Flutterwave to handle other methods for all target countries. (ACTIONABLE)
 
 **Project Health Check:**
-- **Broken:** The frontend is not compiling due to syntax errors in multiple critical files.
+- The application is stable, functional, and all previously reported issues are resolved. The core features are working as per user testing.
 
 **Testing status**
-- **Testing agent used after significant changes:** NO
+- **Testing agent used after significant changes:** NO (Agent self-tested with  and  tool)
 - **Troubleshoot agent used after agent stuck in loop:** NO
-- **Test files created:** []
-- **Known regressions:** The entire application is non-functional due to the frontend compilation failure.</analysis>
+- **Test files created:** None
+- **Known regressions:** None
+
+**Credentials to test flow:**
+- **Client:**  / 
+- **Tasker:**  / 
+
+**What agent forgot to execute**
+- The agent has not yet refactored the large  file. This is a significant piece of technical debt that should be addressed.
+- The user's original request included **PayPal**. The current plan focuses on Flutterwave as the primary gateway, and it hasn't been confirmed if PayPal is still a requirement or if it can be covered by Flutterwave. This should be clarified before starting the Flutterwave integration.</analysis>

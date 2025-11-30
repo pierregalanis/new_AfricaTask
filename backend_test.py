@@ -11,7 +11,7 @@ import sys
 import os
 
 # Get backend URL from frontend .env
-BACKEND_URL = "https://service-finder-214.preview.emergentagent.com/api"
+BACKEND_URL = "https://taskafy.preview.emergentagent.com/api"
 
 # Test credentials
 CLIENT_CREDENTIALS = {
