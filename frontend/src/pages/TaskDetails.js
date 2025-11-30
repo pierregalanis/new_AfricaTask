@@ -267,6 +267,12 @@ const TaskDetails = () => {
           </div>
         </div>
 
+        {/* Chat Component */}
+        {showChat && <ChatBox task={task} onClose={() => setShowChat(false)} />}
+
+        {/* GPS Tracker Component */}
+        {showTracker && <GPSTracker task={task} onClose={() => setShowTracker(false)} />}
+
         {/* Apply Modal */}
         {showApplyModal && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
