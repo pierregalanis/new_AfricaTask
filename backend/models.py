@@ -75,6 +75,7 @@ class TaskerProfile(BaseModel):
     profile_image: Optional[str] = None
     availability: Dict[str, Any] = {}  # e.g., {"monday": ["9:00-17:00"], ...}
     is_available: bool = True  # Currently accepting bookings
+    max_travel_distance: Optional[float] = 50.0  # Maximum distance willing to travel in KM
     completed_tasks: int = 0
     average_rating: float = 0.0
     total_reviews: int = 0
