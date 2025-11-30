@@ -60,18 +60,28 @@ const ClientDashboard = () => {
     e.preventDefault();
     try {
       const taskData = {
-        ...newTask,
+        title: newTask.title,
+        description: newTask.description,
+        category_id: newTask.category_id,
         budget: parseFloat(newTask.budget),
         task_date: new Date(newTask.task_date).toISOString(),
+        address: newTask.address,
+        city: newTask.city,
+        latitude: newTask.latitude,
+        longitude: newTask.longitude,
       };
       
-      // Only add estimated_hours if it has a value
+      // Only add optional fields if they have values
       if (newTask.estimated_hours) {
         taskData.estimated_hours = parseFloat(newTask.estimated_hours);
       }
+      if (newTask.subcategory && newTask.subcategory.trim()) {
+        taskData.subcategory = newTask.subcategory;
+      }
       
+      console.log('Creating task with data:', taskData);
       await tasksAPI.create(taskData);
-      toast.success(language === 'en' ? 'Task created!' : 'Tâche créée!');
+      toast.success(language === 'en' ? '✅ Task created!' : '✅ Tâche créée!');
       setShowCreateModal(false);
       fetchTasks();
       setNewTask({
@@ -89,7 +99,8 @@ const ClientDashboard = () => {
       });
     } catch (error) {
       console.error('Error creating task:', error);
-      const errorMsg = error.response?.data?.detail || (language === 'en' ? 'Failed to create task' : 'Échec de la création de la tâche');
+      console.error('Error details:', error.response?.data);
+      const errorMsg = error.response?.data?.detail || (language === 'en' ? 'Failed to create task. Please check all fields.' : 'Échec de la création. Vérifiez tous les champs.');
       toast.error(errorMsg);
     }
   };
