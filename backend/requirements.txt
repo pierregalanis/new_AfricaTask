@@ -39,6 +39,7 @@ packaging==25.0
 pandas==2.3.3
 passlib==1.7.4
 pathspec==0.12.1
+paydunya==1.0.7
 pillow==12.0.0
 platformdirs==4.5.0
 pluggy==1.6.0
