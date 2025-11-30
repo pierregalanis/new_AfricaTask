@@ -31,6 +31,10 @@ async def create_review(
     Reviews must be submitted within 7 days of task completion.
     """
     try:
+        # Get current user
+        from auth import get_current_user as get_user
+        current_user = await get_user(token, db)
+        
         # Verify user is a client
         if current_user.role != UserRole.CLIENT:
             raise HTTPException(
