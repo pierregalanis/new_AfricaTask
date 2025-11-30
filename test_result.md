@@ -306,8 +306,9 @@ metadata:
 
 test_plan:
   current_focus:
-    - "TaskRabbit End-to-End Flow"
-  stuck_tasks: []
+    - "Client Bookings Fetch (Dashboard)"
+  stuck_tasks: 
+    - "Client Bookings Fetch (Dashboard)"
   test_all: false
   test_priority: "high_first"
 
