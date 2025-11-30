@@ -398,39 +398,45 @@ const NewTaskerDashboard = () => {
                     </div>
                   )}
                   {booking.status === 'in_progress' && (
-                    <div className="flex flex-col space-y-2">
-                      {trackingStates[booking.id]?.isTracking ? (
-                        <div>
-                          <div className="mb-3 px-4 py-2 bg-green-50 border border-green-200 rounded-lg">
-                            <div className="flex items-center space-x-2 text-green-700">
-                              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                              <span className="text-sm font-semibold">
-                                {language === 'en' ? 'GPS Active' : 'GPS Actif'}
-                              </span>
+                    <div className="space-y-3">
+                      {/* Job Timer */}
+                      <JobTimer taskId={booking.id} language={language} />
+                      
+                      {/* GPS Controls */}
+                      <div className="flex flex-col space-y-2">
+                        {trackingStates[booking.id]?.isTracking ? (
+                          <div>
+                            <div className="mb-3 px-4 py-2 bg-green-50 border border-green-200 rounded-lg">
+                              <div className="flex items-center space-x-2 text-green-700">
+                                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                                <span className="text-sm font-semibold">
+                                  {language === 'en' ? 'GPS Active' : 'GPS Actif'}
+                                </span>
+                              </div>
+                              <p className="text-xs text-green-600 mt-1">
+                                {language === 'en' ? 'Client can see your location' : 'Le client peut voir votre position'}
+                              </p>
                             </div>
-                            <p className="text-xs text-green-600 mt-1">
-                              {language === 'en' ? 'Client can see your location' : 'Le client peut voir votre position'}
-                            </p>
+                            <button
+                              onClick={() => stopGPSTracking(booking.id)}
+                              className="w-full px-6 py-3 bg-red-600 text-white rounded-xl font-semibold hover:bg-red-700 transition flex items-center justify-center space-x-2"
+                              data-testid={`stop-tracking-button-${booking.id}`}
+                            >
+                              <NavigationOff className="w-5 h-5" />
+                              <span>{language === 'en' ? 'Stop GPS' : 'Arrêter GPS'}</span>
+                            </button>
                           </div>
+                        ) : (
                           <button
-                            onClick={() => stopGPSTracking(booking.id)}
-                            className="w-full px-6 py-3 bg-red-600 text-white rounded-xl font-semibold hover:bg-red-700 transition flex items-center justify-center space-x-2"
-                            data-testid={`stop-tracking-button-${booking.id}`}
+                            onClick={() => startGPSTracking(booking.id)}
+                            className="w-full px-6 py-3 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 transition flex items-center justify-center space-x-2 shadow-lg"
+                            data-testid={`start-tracking-button-${booking.id}`}
                           >
-                            <NavigationOff className="w-5 h-5" />
-                            <span>{language === 'en' ? 'Stop GPS' : 'Arrêter GPS'}</span>
+                            <Navigation className="w-5 h-5" />
+                            <span>{language === 'en' ? 'Start En Route' : 'Démarrer En route'}</span>
                           </button>
-                        </div>
-                      ) : (
-                        <button
-                          onClick={() => startGPSTracking(booking.id)}
-                          className="w-full px-6 py-3 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 transition flex items-center justify-center space-x-2 shadow-lg"
-                          data-testid={`start-tracking-button-${booking.id}`}
-                        >
-                          <Navigation className="w-5 h-5" />
-                          <span>{language === 'en' ? 'Start En Route' : 'Démarrer En route'}</span>
-                        </button>
-                      )}
+                        )}
+                      </div>
                     </div>
                   )}
                 </div>
