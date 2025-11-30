@@ -771,12 +771,11 @@ async def reject_task(
     if task.get("assigned_tasker_id") != current_user.id:
         raise HTTPException(status_code=403, detail="Task not assigned to you")
     
-    # Update task status back to posted
+    # Mark task as cancelled (keep assigned_tasker_id for reference)
     await db.tasks.update_one(
         {"id": task_id},
         {"$set": {
-            "assigned_tasker_id": None,
-            "status": TaskStatus.POSTED,
+            "status": TaskStatus.CANCELLED,
             "updated_at": datetime.utcnow()
         }}
     )
