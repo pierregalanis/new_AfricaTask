@@ -64,8 +64,8 @@ async def test_websocket_connection():
                 print("⏰ No response received (timeout)")
                 return True  # Connection worked, just no response
                 
-    except websockets.exceptions.InvalidStatusCode as e:
-        print(f"❌ WebSocket connection failed with status: {e.status_code}")
+    except websockets.exceptions.InvalidStatus as e:
+        print(f"❌ WebSocket connection failed with status: {e}")
         return False
     except websockets.exceptions.ConnectionClosed as e:
         print(f"❌ WebSocket connection closed: {e}")
