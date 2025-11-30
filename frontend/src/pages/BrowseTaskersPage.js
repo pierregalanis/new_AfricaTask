@@ -313,7 +313,7 @@ const BrowseTaskersPage = () => {
                       )}
                     </div>
 
-                    {/* Rating */}
+                    {/* Rating & Distance */}
                     <div className="flex items-center space-x-4 mb-3">
                       <div className="flex items-center space-x-1">
                         <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
@@ -324,13 +324,24 @@ const BrowseTaskersPage = () => {
                           ({tasker.tasker_profile?.total_reviews || 0} {language === 'en' ? 'reviews' : 'avis'})
                         </span>
                       </div>
-                      {tasker.distance && (
-                        <div className="flex items-center space-x-1 text-gray-600">
-                          <MapPin className="w-4 h-4" />
-                          <span className="text-sm">{tasker.distance.toFixed(1)} km</span>
+                      {tasker.distance !== null && (
+                        <div className="flex items-center space-x-1 bg-blue-50 px-3 py-1 rounded-full">
+                          <MapPin className="w-4 h-4 text-blue-600" />
+                          <span className="text-sm font-semibold text-blue-700">
+                            {tasker.distance.toFixed(1)} km {language === 'en' ? 'away' : 'de distance'}
+                          </span>
                         </div>
                       )}
                     </div>
+
+                    {/* Travel Range Badge */}
+                    {tasker.tasker_profile?.max_travel_distance && (
+                      <div className="mb-3">
+                        <span className="inline-flex items-center px-2 py-1 bg-green-50 text-green-700 text-xs rounded-full">
+                          🚗 {language === 'en' ? 'Travels up to' : 'Se déplace jusqu\'à'} {tasker.tasker_profile.max_travel_distance} km
+                        </span>
+                      </div>
+                    )}
 
                     {/* Stats */}
                     <div className="flex items-center space-x-1 text-sm text-gray-600 mb-3">
