@@ -47,6 +47,10 @@ const Navbar = () => {
                   <LayoutDashboard className="w-4 h-4" />
                   <span className="text-sm">{language === 'en' ? 'Dashboard' : 'Tableau de bord'}</span>
                 </Link>
+                
+                {/* Notification Bell */}
+                <NotificationBell />
+                
                 <Link
                   to="/profile"
                   className="flex items-center space-x-2 px-4 py-2 rounded-md hover:bg-gray-100"
