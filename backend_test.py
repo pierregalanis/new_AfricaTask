@@ -54,7 +54,10 @@ class TaskRabbitTester:
             elif method.upper() == "POST":
                 if "Content-Type" not in headers:
                     headers["Content-Type"] = "application/x-www-form-urlencoded"
-                response = requests.post(url, data=data, headers=headers)
+                if headers.get("Content-Type") == "application/json":
+                    response = requests.post(url, json=data, headers=headers)
+                else:
+                    response = requests.post(url, data=data, headers=headers)
             elif method.upper() == "PUT":
                 headers["Content-Type"] = "application/json"
                 response = requests.put(url, json=data, headers=headers)
