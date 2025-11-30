@@ -20,21 +20,12 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/login")
 router = APIRouter(prefix="/api/notifications", tags=["notifications"])
 
 
-async def get_current_user(token: str, db: AsyncIOMotorDatabase) -> User:
+async def get_current_user_from_token(token: str, db: AsyncIOMotorDatabase) -> User:
     """Get current user from token."""
-    from auth import decode_token
+    from auth import get_current_user as auth_get_current_user
     
-    payload = decode_token(token)
-    user_id = payload.get("user_id")
-    
-    user_doc = await db.users.find_one({"id": user_id}, {"_id": 0})
-    if not user_doc:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="User not found"
-        )
-    
-    return User(**user_doc)
+    user = await auth_get_current_user(token, db)
+    return user
 
 
 async def create_notification(
