@@ -146,6 +146,13 @@ class Task(TaskBase):
     completed_at: Optional[datetime] = None
     payment_method: Optional[PaymentMethod] = None
     is_paid: bool = False
+    
+    # GPS Tracking fields
+    is_tracking: bool = False
+    tracking_started_at: Optional[datetime] = None
+    current_latitude: Optional[float] = None
+    current_longitude: Optional[float] = None
+    last_location_update: Optional[datetime] = None
 
 
 # Task Application Models
