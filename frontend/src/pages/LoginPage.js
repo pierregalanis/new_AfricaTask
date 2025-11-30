@@ -21,7 +21,24 @@ const LoginPage = () => {
     try {
       await login(email, password);
       toast.success(language === 'en' ? 'Login successful!' : 'Connexion réussie!');
-      // Navigation will be handled by AuthContext
+      
+      // Redirect based on user role after login completes
+      const userData = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/auth/me`, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      }).then(res => res.json());
+      
+      if (userData.role === 'client') {
+        navigate('/services');
+      } else if (userData.role === 'tasker') {
+        // Check if tasker has set up their profile
+        if (userData.tasker_profile?.hourly_rate > 0) {
+          navigate('/tasker/dashboard');
+        } else {
+          navigate('/tasker/setup');
+        }
+      }
     } catch (error) {
       console.error('Login error:', error);
       toast.error(
