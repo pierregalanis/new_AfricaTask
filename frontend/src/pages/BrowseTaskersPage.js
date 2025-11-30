@@ -219,51 +219,51 @@ const BrowseTaskersPage = () => {
             {taskers.map((tasker, index) => (
               <div
                 key={tasker.id}
-                className=\"fancy-card p-6 hover-glow animate-fadeIn\"
+                className="fancy-card p-6 hover-glow animate-fadeIn"
                 style={{ animationDelay: `${index * 0.05}s` }}
                 data-testid={`tasker-card-${tasker.id}`}
               >
-                <div className=\"flex flex-col md:flex-row md:items-center gap-6\">
+                <div className="flex flex-col md:flex-row md:items-center gap-6">
                   {/* Profile Image */}
-                  <div className=\"flex-shrink-0\">
-                    <div className=\"w-24 h-24 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center text-white text-3xl font-bold\">
+                  <div className="flex-shrink-0">
+                    <div className="w-24 h-24 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center text-white text-3xl font-bold">
                       {tasker.full_name?.charAt(0).toUpperCase()}
                     </div>
                   </div>
 
                   {/* Info */}
-                  <div className=\"flex-1\">
-                    <div className=\"flex items-center space-x-3 mb-2\">
-                      <h3 className=\"text-xl font-bold text-gray-900\">{tasker.full_name}</h3>
+                  <div className="flex-1">
+                    <div className="flex items-center space-x-3 mb-2">
+                      <h3 className="text-xl font-bold text-gray-900">{tasker.full_name}</h3>
                       {tasker.tasker_profile?.completed_tasks > 50 && (
-                        <span className=\"px-3 py-1 bg-purple-100 text-purple-800 text-xs font-semibold rounded-full\">
+                        <span className="px-3 py-1 bg-purple-100 text-purple-800 text-xs font-semibold rounded-full">
                           ⭐ {language === 'en' ? 'ELITE' : 'ÉLITE'}
                         </span>
                       )}
                     </div>
 
                     {/* Rating */}
-                    <div className=\"flex items-center space-x-4 mb-3\">
-                      <div className=\"flex items-center space-x-1\">
-                        <Star className=\"w-5 h-5 fill-yellow-400 text-yellow-400\" />
-                        <span className=\"font-semibold\">
+                    <div className="flex items-center space-x-4 mb-3">
+                      <div className="flex items-center space-x-1">
+                        <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+                        <span className="font-semibold">
                           {tasker.tasker_profile?.average_rating?.toFixed(1) || '0.0'}
                         </span>
-                        <span className=\"text-gray-500 text-sm\">
+                        <span className="text-gray-500 text-sm">
                           ({tasker.tasker_profile?.total_reviews || 0} {language === 'en' ? 'reviews' : 'avis'})
                         </span>
                       </div>
                       {tasker.distance && (
-                        <div className=\"flex items-center space-x-1 text-gray-600\">
-                          <MapPin className=\"w-4 h-4\" />
-                          <span className=\"text-sm\">{tasker.distance.toFixed(1)} km</span>
+                        <div className="flex items-center space-x-1 text-gray-600">
+                          <MapPin className="w-4 h-4" />
+                          <span className="text-sm">{tasker.distance.toFixed(1)} km</span>
                         </div>
                       )}
                     </div>
 
                     {/* Stats */}
-                    <div className=\"flex items-center space-x-1 text-sm text-gray-600 mb-3\">
-                      <Check className=\"w-4 h-4 text-green-600\" />
+                    <div className="flex items-center space-x-1 text-sm text-gray-600 mb-3">
+                      <Check className="w-4 h-4 text-green-600" />
                       <span>
                         {tasker.tasker_profile?.completed_tasks || 0} {language === 'en' ? 'tasks completed' : 'tâches terminées'}
                       </span>
@@ -271,26 +271,26 @@ const BrowseTaskersPage = () => {
 
                     {/* Bio */}
                     {tasker.tasker_profile?.bio && (
-                      <p className=\"text-gray-700 text-sm line-clamp-2 mb-3\">
+                      <p className="text-gray-700 text-sm line-clamp-2 mb-3">
                         {tasker.tasker_profile.bio}
                       </p>
                     )}
                   </div>
 
                   {/* Price & Book */}
-                  <div className=\"flex-shrink-0 text-right\">
-                    <div className=\"mb-4\">
-                      <div className=\"flex items-center justify-end space-x-1 text-gray-500 text-sm mb-1\">
-                        <DollarSign className=\"w-4 h-4\" />
+                  <div className="flex-shrink-0 text-right">
+                    <div className="mb-4">
+                      <div className="flex items-center justify-end space-x-1 text-gray-500 text-sm mb-1">
+                        <DollarSign className="w-4 h-4" />
                         <span>{language === 'en' ? 'Hourly rate' : 'Tarif horaire'}</span>
                       </div>
-                      <p className=\"text-3xl font-bold text-orange-600\">
-                        {tasker.tasker_profile?.hourly_rate || 0} <span className=\"text-lg\">CFA/hr</span>
+                      <p className="text-3xl font-bold text-orange-600">
+                        {tasker.tasker_profile?.hourly_rate || 0} <span className="text-lg">CFA/hr</span>
                       </p>
                     </div>
                     <button
                       onClick={() => handleBookTasker(tasker.id)}
-                      className=\"btn-primary w-full\"
+                      className="btn-primary w-full"
                       data-testid={`book-button-${tasker.id}`}
                     >
                       {language === 'en' ? 'Select & Book' : 'Sélectionner'}
