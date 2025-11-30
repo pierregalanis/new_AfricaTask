@@ -43,7 +43,7 @@ async def test_websocket_connection():
     
     try:
         # Set a longer timeout for connection
-        async with websockets.connect(ws_url, timeout=10) as websocket:
+        async with websockets.connect(ws_url) as websocket:
             print("✅ WebSocket connected successfully!")
             
             # Send a test message
