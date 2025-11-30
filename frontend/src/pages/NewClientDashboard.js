@@ -234,6 +234,21 @@ const NewClientDashboard = () => {
                   </div>
 
                   {/* Actions */}
+                  {booking.status === 'completed' && !booking.is_paid && (
+                    <div className="flex flex-col space-y-2">
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setSelectedTaskForPayment(booking);
+                          setPaymentModalOpen(true);
+                        }}
+                        className="px-6 py-3 bg-orange-600 text-white rounded-xl font-semibold hover:bg-orange-700 transition flex items-center justify-center space-x-2 shadow-lg"
+                      >
+                        <CreditCard className="w-5 h-5" />
+                        <span>{language === 'en' ? 'Pay Online' : 'Payer en ligne'}</span>
+                      </button>
+                    </div>
+                  )}
                   {['assigned', 'in_progress'].includes(booking.status) && (
                     <div className="flex flex-col space-y-2">
                       <button
