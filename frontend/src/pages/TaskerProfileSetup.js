@@ -221,6 +221,76 @@ const TaskerProfileSetup = () => {
             </div>
           </div>
 
+          {/* Service Location */}
+          <div className="fancy-card p-8 animate-fadeIn">
+            <h2 className="text-2xl font-bold gradient-text mb-4">
+              📍 {language === 'en' ? 'Your Service Location' : 'Votre emplacement de service'}
+            </h2>
+            <p className="text-gray-600 mb-4">
+              {language === 'en' 
+                ? 'Mark where you are based or where you provide your services' 
+                : 'Indiquez où vous êtes basé ou où vous fournissez vos services'}
+            </p>
+            <LocationPicker
+              country={user?.country || 'ivory_coast'}
+              initialPosition={profileData.latitude ? { lat: profileData.latitude, lng: profileData.longitude } : null}
+              onLocationChange={handleLocationChange}
+              height="350px"
+              label={
+                language === 'en' 
+                  ? 'Click on the map to set your service location' 
+                  : 'Cliquez sur la carte pour définir votre emplacement'
+              }
+            />
+          </div>
+
+          {/* Max Travel Distance */}
+          <div className="fancy-card p-8 animate-fadeIn">
+            <h2 className="text-2xl font-bold gradient-text mb-4">
+              🚗 {language === 'en' ? 'Maximum Travel Distance' : 'Distance maximale de déplacement'}
+            </h2>
+            <p className="text-gray-600 mb-4">
+              {language === 'en' 
+                ? 'How far are you willing to travel for a job?' 
+                : 'Jusqu\'où êtes-vous prêt à vous déplacer pour un travail?'}
+            </p>
+            
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <span className="text-3xl font-bold text-orange-600">
+                  {profileData.max_travel_distance} km
+                </span>
+                <Navigation className="w-8 h-8 text-orange-500" />
+              </div>
+              
+              <input
+                type="range"
+                min="5"
+                max="100"
+                step="5"
+                value={profileData.max_travel_distance}
+                onChange={(e) => setProfileData({ ...profileData, max_travel_distance: e.target.value })}
+                className="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-orange-600"
+              />
+              
+              <div className="flex justify-between text-xs text-gray-500">
+                <span>5 km</span>
+                <span>25 km</span>
+                <span>50 km</span>
+                <span>75 km</span>
+                <span>100 km</span>
+              </div>
+              
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                <p className="text-sm text-blue-800">
+                  💡 {language === 'en' 
+                    ? `Clients within ${profileData.max_travel_distance} km of your location will be able to book you.` 
+                    : `Les clients situés dans un rayon de ${profileData.max_travel_distance} km de votre emplacement pourront vous réserver.`}
+                </p>
+              </div>
+            </div>
+          </div>
+
           <button
             type="submit"
             disabled={submitting}
