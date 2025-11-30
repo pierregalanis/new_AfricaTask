@@ -106,24 +106,24 @@ class ServiceCategory(BaseModel):
     subcategories: List[Dict[str, str]] = []  # [{"en": "...", "fr": "..."}]
 
 
-# Task Models
+# Task Models (Booking Model - TaskRabbit style)
 class TaskBase(BaseModel):
     title: str
     description: str
     category_id: str
     subcategory: Optional[str] = None
-    budget: float
-    estimated_hours: Optional[float] = None
+    duration_hours: float  # How many hours the task will take
+    hourly_rate: float  # Agreed hourly rate (from tasker)
     task_date: datetime
     address: str
     city: str
     latitude: float
     longitude: float
-    images: List[str] = []  # Task-related images
+    special_instructions: Optional[str] = None
 
 
 class TaskCreate(TaskBase):
-    pass
+    tasker_id: str  # Instant booking - tasker is selected upfront
 
 
 class Task(TaskBase):
@@ -131,12 +131,14 @@ class Task(TaskBase):
     
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     client_id: str
-    status: TaskStatus = TaskStatus.POSTED
-    assigned_tasker_id: Optional[str] = None
+    assigned_tasker_id: str  # Always assigned on creation (instant booking)
+    status: TaskStatus = TaskStatus.ASSIGNED  # Start as assigned
+    total_cost: float  # Calculated: duration_hours * hourly_rate
     created_at: datetime = Field(default_factory=datetime.utcnow)
     updated_at: datetime = Field(default_factory=datetime.utcnow)
     completed_at: Optional[datetime] = None
-    applications_count: int = 0
+    payment_method: Optional[PaymentMethod] = None
+    is_paid: bool = False
 
 
 # Task Application Models
