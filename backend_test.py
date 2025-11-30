@@ -671,14 +671,434 @@ class ClientBookingsTester:
             self.log("✅ All booking tests passed!", "SUCCESS")
             return True
 
+class WebSocketChatTester:
+    """Test WebSocket real-time chat functionality"""
+    
+    def __init__(self):
+        self.client_token = None
+        self.tasker_token = None
+        self.client_id = None
+        self.tasker_id = None
+        self.task_id = "chat-test-task-active-001"
+        self.client_messages = []
+        self.tasker_messages = []
+        self.client_ws = None
+        self.tasker_ws = None
+        
+    def log(self, message, status="INFO"):
+        print(f"[{status}] {message}")
+        
+    def make_request(self, method, endpoint, data=None, headers=None, token=None):
+        """Make HTTP request with proper error handling"""
+        url = f"{BACKEND_URL}{endpoint}"
+        
+        if headers is None:
+            headers = {}
+            
+        if token:
+            headers["Authorization"] = f"Bearer {token}"
+            
+        if method.upper() == "GET":
+            headers["Content-Type"] = "application/json"
+            
+        try:
+            if method.upper() == "GET":
+                response = requests.get(url, headers=headers, params=data)
+            elif method.upper() == "POST":
+                if "Content-Type" not in headers:
+                    headers["Content-Type"] = "application/x-www-form-urlencoded"
+                if headers.get("Content-Type") == "application/json":
+                    response = requests.post(url, json=data, headers=headers)
+                else:
+                    response = requests.post(url, data=data, headers=headers)
+            else:
+                raise ValueError(f"Unsupported method: {method}")
+                
+            self.log(f"{method} {url} -> {response.status_code}")
+            
+            if response.status_code >= 400:
+                self.log(f"Error response: {response.text}", "ERROR")
+                
+            return response
+            
+        except Exception as e:
+            self.log(f"Request failed: {str(e)}", "ERROR")
+            return None
+    
+    def test_authentication(self):
+        """Test client and tasker authentication"""
+        self.log("=== Testing Authentication ===")
+        
+        # Client login
+        response = self.make_request("POST", "/auth/login", CLIENT_CREDENTIALS)
+        if not response or response.status_code != 200:
+            self.log("❌ Client login failed", "ERROR")
+            return False
+            
+        try:
+            data = response.json()
+            self.client_token = data.get("access_token")
+            if not self.client_token:
+                self.log("❌ No client access token", "ERROR")
+                return False
+        except Exception as e:
+            self.log(f"❌ Failed to parse client login response: {e}", "ERROR")
+            return False
+            
+        # Get client ID
+        response = self.make_request("GET", "/auth/me", None, None, self.client_token)
+        if not response or response.status_code != 200:
+            self.log("❌ Failed to get client info", "ERROR")
+            return False
+            
+        try:
+            user_data = response.json()
+            self.client_id = user_data.get("id")
+            if not self.client_id:
+                self.log("❌ No client ID", "ERROR")
+                return False
+        except Exception as e:
+            self.log(f"❌ Failed to parse client info: {e}", "ERROR")
+            return False
+            
+        # Tasker login
+        response = self.make_request("POST", "/auth/login", TASKER_CREDENTIALS)
+        if not response or response.status_code != 200:
+            self.log("❌ Tasker login failed", "ERROR")
+            return False
+            
+        try:
+            data = response.json()
+            self.tasker_token = data.get("access_token")
+            if not self.tasker_token:
+                self.log("❌ No tasker access token", "ERROR")
+                return False
+        except Exception as e:
+            self.log(f"❌ Failed to parse tasker login response: {e}", "ERROR")
+            return False
+            
+        # Get tasker ID
+        response = self.make_request("GET", "/auth/me", None, None, self.tasker_token)
+        if not response or response.status_code != 200:
+            self.log("❌ Failed to get tasker info", "ERROR")
+            return False
+            
+        try:
+            user_data = response.json()
+            self.tasker_id = user_data.get("id")
+            if not self.tasker_id:
+                self.log("❌ No tasker ID", "ERROR")
+                return False
+        except Exception as e:
+            self.log(f"❌ Failed to parse tasker info: {e}", "ERROR")
+            return False
+            
+        self.log(f"✅ Authentication successful - Client: {self.client_id}, Tasker: {self.tasker_id}")
+        return True
+    
+    def test_create_test_task(self):
+        """Create a test task for chat testing"""
+        self.log("=== Creating Test Task ===")
+        
+        if not self.client_token or not self.tasker_id:
+            self.log("❌ Missing authentication data", "ERROR")
+            return False
+            
+        # Future date for booking
+        future_date = (datetime.now() + timedelta(days=1)).strftime("%Y-%m-%dT10:00:00")
+        
+        task_data = {
+            "id": self.task_id,  # Use specific task ID for testing
+            "title": "Chat Test Task",
+            "description": "Test task for WebSocket chat functionality",
+            "category_id": "home-repairs",  # Use a default category
+            "tasker_id": self.tasker_id,
+            "duration_hours": 2,
+            "hourly_rate": 5000.0,
+            "task_date": future_date,
+            "address": "123 Test Street, Abidjan",
+            "city": "Abidjan",
+            "latitude": 5.3364,
+            "longitude": -4.0267
+        }
+        
+        headers = {"Content-Type": "application/json"}
+        response = self.make_request("POST", "/tasks", task_data, headers, self.client_token)
+        
+        if response and response.status_code == 201:
+            self.log(f"✅ Test task created: {self.task_id}")
+            return True
+        elif response and response.status_code == 400:
+            # Task might already exist, check if we can get it
+            response = self.make_request("GET", f"/tasks/{self.task_id}")
+            if response and response.status_code == 200:
+                self.log(f"✅ Test task already exists: {self.task_id}")
+                return True
+                
+        self.log("❌ Failed to create/find test task", "ERROR")
+        return False
+    
+    async def websocket_client_handler(self, uri, user_type, user_id, messages_list):
+        """Handle WebSocket connection for a user"""
+        try:
+            self.log(f"Connecting {user_type} WebSocket to {uri}")
+            
+            async with websockets.connect(uri) as websocket:
+                if user_type == "client":
+                    self.client_ws = websocket
+                else:
+                    self.tasker_ws = websocket
+                    
+                self.log(f"✅ {user_type} WebSocket connected")
+                
+                # Listen for messages
+                async for message in websocket:
+                    try:
+                        data = json.loads(message)
+                        messages_list.append(data)
+                        self.log(f"📨 {user_type} received: {data.get('type', 'unknown')}")
+                        
+                        if data.get('type') == 'new_message':
+                            msg_content = data.get('message', {}).get('content', '')
+                            self.log(f"💬 {user_type} got message: '{msg_content}'")
+                            
+                    except json.JSONDecodeError as e:
+                        self.log(f"❌ {user_type} JSON decode error: {e}", "ERROR")
+                    except Exception as e:
+                        self.log(f"❌ {user_type} message handling error: {e}", "ERROR")
+                        
+        except websockets.exceptions.ConnectionClosed:
+            self.log(f"🔌 {user_type} WebSocket connection closed")
+        except Exception as e:
+            self.log(f"❌ {user_type} WebSocket error: {e}", "ERROR")
+    
+    async def send_websocket_message(self, websocket, content, receiver_id):
+        """Send a message via WebSocket"""
+        try:
+            message_data = {
+                "content": content,
+                "receiver_id": receiver_id
+            }
+            await websocket.send(json.dumps(message_data))
+            self.log(f"📤 Sent message: '{content}'")
+            return True
+        except Exception as e:
+            self.log(f"❌ Failed to send message: {e}", "ERROR")
+            return False
+    
+    async def test_websocket_chat(self):
+        """Test real-time WebSocket chat"""
+        self.log("=== Testing WebSocket Chat ===")
+        
+        if not self.client_id or not self.tasker_id:
+            self.log("❌ Missing user IDs", "ERROR")
+            return False
+            
+        # Construct WebSocket URLs (use wss for https)
+        backend_url = BACKEND_URL.replace("/api", "").replace("https://", "").replace("http://", "")
+        protocol = "wss" if "https" in BACKEND_URL else "ws"
+        
+        client_ws_url = f"{protocol}://{backend_url}/ws/chat/{self.task_id}/{self.client_id}"
+        tasker_ws_url = f"{protocol}://{backend_url}/ws/chat/{self.task_id}/{self.tasker_id}"
+        
+        self.log(f"Client WebSocket URL: {client_ws_url}")
+        self.log(f"Tasker WebSocket URL: {tasker_ws_url}")
+        
+        try:
+            # Create tasks for both connections
+            client_task = asyncio.create_task(
+                self.websocket_client_handler(client_ws_url, "client", self.client_id, self.client_messages)
+            )
+            tasker_task = asyncio.create_task(
+                self.websocket_client_handler(tasker_ws_url, "tasker", self.tasker_id, self.tasker_messages)
+            )
+            
+            # Wait a bit for connections to establish
+            await asyncio.sleep(2)
+            
+            # Test 1: Client sends message to tasker
+            if self.client_ws:
+                success = await self.send_websocket_message(
+                    self.client_ws, 
+                    "Hello from client", 
+                    self.tasker_id
+                )
+                if not success:
+                    return False
+                    
+                # Wait for message to be received
+                await asyncio.sleep(2)
+                
+                # Check if tasker received the message
+                tasker_received = any(
+                    msg.get('type') == 'new_message' and 
+                    'Hello from client' in msg.get('message', {}).get('content', '')
+                    for msg in self.tasker_messages
+                )
+                
+                if tasker_received:
+                    self.log("✅ Tasker received client message in real-time")
+                else:
+                    self.log("❌ Tasker did not receive client message", "ERROR")
+                    return False
+            
+            # Test 2: Tasker sends reply to client
+            if self.tasker_ws:
+                success = await self.send_websocket_message(
+                    self.tasker_ws, 
+                    "Hello from tasker", 
+                    self.client_id
+                )
+                if not success:
+                    return False
+                    
+                # Wait for message to be received
+                await asyncio.sleep(2)
+                
+                # Check if client received the message
+                client_received = any(
+                    msg.get('type') == 'new_message' and 
+                    'Hello from tasker' in msg.get('message', {}).get('content', '')
+                    for msg in self.client_messages
+                )
+                
+                if client_received:
+                    self.log("✅ Client received tasker message in real-time")
+                else:
+                    self.log("❌ Client did not receive tasker message", "ERROR")
+                    return False
+            
+            # Clean up
+            client_task.cancel()
+            tasker_task.cancel()
+            
+            try:
+                await client_task
+            except asyncio.CancelledError:
+                pass
+                
+            try:
+                await tasker_task
+            except asyncio.CancelledError:
+                pass
+            
+            self.log("✅ WebSocket chat test completed successfully")
+            return True
+            
+        except Exception as e:
+            self.log(f"❌ WebSocket chat test failed: {e}", "ERROR")
+            return False
+    
+    def test_websocket_chat_sync(self):
+        """Synchronous wrapper for WebSocket chat test"""
+        try:
+            return asyncio.run(self.test_websocket_chat())
+        except Exception as e:
+            self.log(f"❌ WebSocket test failed: {e}", "ERROR")
+            return False
+    
+    def test_http_fallback(self):
+        """Test HTTP message API as fallback"""
+        self.log("=== Testing HTTP Message Fallback ===")
+        
+        if not self.client_token or not self.tasker_id:
+            self.log("❌ Missing authentication data", "ERROR")
+            return False
+            
+        # Send message via HTTP API
+        message_data = {
+            "task_id": self.task_id,
+            "content": "HTTP fallback test message"
+        }
+        
+        headers = {"Content-Type": "application/json"}
+        response = self.make_request("POST", "/messages", message_data, headers, self.client_token)
+        
+        if not response or response.status_code != 201:
+            self.log("❌ Failed to send message via HTTP", "ERROR")
+            return False
+            
+        # Fetch messages to verify
+        response = self.make_request("GET", f"/messages/task/{self.task_id}", None, None, self.client_token)
+        
+        if not response or response.status_code != 200:
+            self.log("❌ Failed to fetch messages", "ERROR")
+            return False
+            
+        try:
+            messages = response.json()
+            found_message = any(
+                "HTTP fallback test message" in msg.get('content', '')
+                for msg in messages
+            )
+            
+            if found_message:
+                self.log("✅ HTTP message API working correctly")
+                return True
+            else:
+                self.log("❌ HTTP message not found in chat history", "ERROR")
+                return False
+                
+        except Exception as e:
+            self.log(f"❌ Failed to parse messages response: {e}", "ERROR")
+            return False
+    
+    def run_websocket_tests(self):
+        """Run all WebSocket chat tests"""
+        self.log("🚀 Starting WebSocket Chat Tests")
+        self.log(f"Backend URL: {BACKEND_URL}")
+        self.log(f"Test Task ID: {self.task_id}")
+        
+        tests = [
+            ("Authentication", self.test_authentication),
+            ("Create Test Task", self.test_create_test_task),
+            ("WebSocket Real-time Chat", self.test_websocket_chat_sync),
+            ("HTTP Message Fallback", self.test_http_fallback)
+        ]
+        
+        passed = 0
+        failed = 0
+        
+        for test_name, test_func in tests:
+            try:
+                self.log(f"\n--- {test_name} ---")
+                if test_func():
+                    passed += 1
+                    self.log(f"✅ {test_name} PASSED", "SUCCESS")
+                else:
+                    failed += 1
+                    self.log(f"❌ {test_name} FAILED", "ERROR")
+            except Exception as e:
+                failed += 1
+                self.log(f"❌ {test_name} FAILED with exception: {e}", "ERROR")
+            
+            print("-" * 60)
+        
+        # Summary
+        total = passed + failed
+        self.log(f"📊 WEBSOCKET TESTS SUMMARY: {passed}/{total} tests passed")
+        
+        if failed > 0:
+            self.log(f"❌ {failed} tests failed", "ERROR")
+            return False
+        else:
+            self.log("✅ All WebSocket tests passed!", "SUCCESS")
+            return True
+
 if __name__ == "__main__":
     import sys
     
-    if len(sys.argv) > 1 and sys.argv[1] == "booking":
-        # Run specific booking tests
-        booking_tester = ClientBookingsTester()
-        success = booking_tester.run_booking_tests()
-        sys.exit(0 if success else 1)
+    if len(sys.argv) > 1:
+        if sys.argv[1] == "booking":
+            # Run specific booking tests
+            booking_tester = ClientBookingsTester()
+            success = booking_tester.run_booking_tests()
+            sys.exit(0 if success else 1)
+        elif sys.argv[1] == "websocket":
+            # Run WebSocket chat tests
+            ws_tester = WebSocketChatTester()
+            success = ws_tester.run_websocket_tests()
+            sys.exit(0 if success else 1)
     else:
         # Run original end-to-end tests
         tester = TaskRabbitTester()
