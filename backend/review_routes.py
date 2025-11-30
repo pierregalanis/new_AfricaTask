@@ -91,13 +91,13 @@ async def create_review(
                 )
         
         # Create review
-        review = Review(
-            **review_data.model_dump(),
-            client_id=current_user.id,
-            tasker_id=task.get("assigned_tasker_id"),
-            client_name=current_user.full_name,
-            verified_booking=True
-        )
+        review_dict = review_data.model_dump()
+        review_dict["client_id"] = current_user.id
+        review_dict["tasker_id"] = task.get("assigned_tasker_id")
+        review_dict["client_name"] = current_user.full_name
+        review_dict["verified_booking"] = True
+        
+        review = Review(**review_dict)
         
         await db.reviews.insert_one(review.model_dump())
         
