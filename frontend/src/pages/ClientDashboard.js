@@ -128,25 +128,37 @@ const ClientDashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen">
       <Navbar />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Header */}
-        <div className="flex justify-between items-center mb-8">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900" data-testid="dashboard-title">
-              {language === 'en' ? 'Welcome back, ' : 'Bon retour, '}{user?.full_name}!
-            </h1>
-            <p className="text-gray-600 mt-1">{t('myTasks')}</p>
+        {/* Fancy Header with Gradient */}
+        <div className="fancy-card p-8 mb-8 bg-gradient-to-r from-orange-500 to-orange-600 text-white animate-fadeIn">
+          <div className="flex justify-between items-center">
+            <div className="flex-1">
+              <h1 className="text-4xl font-bold mb-2" data-testid="dashboard-title">
+                {language === 'en' ? '👋 Welcome back, ' : '👋 Bon retour, '}{user?.full_name}!
+              </h1>
+              <p className="text-orange-100 text-lg">{t('myTasks')}</p>
+              <div className="mt-4 flex items-center space-x-4">
+                <div className="bg-white/20 backdrop-blur px-4 py-2 rounded-lg">
+                  <span className="text-sm opacity-90">{language === 'en' ? 'Total Tasks' : 'Total des tâches'}</span>
+                  <p className="text-2xl font-bold">{tasks.length}</p>
+                </div>
+                <div className="bg-white/20 backdrop-blur px-4 py-2 rounded-lg">
+                  <span className="text-sm opacity-90">{language === 'en' ? 'Active' : 'Actives'}</span>
+                  <p className="text-2xl font-bold">{tasks.filter(t => ['posted', 'assigned', 'in_progress'].includes(t.status)).length}</p>
+                </div>
+              </div>
+            </div>
+            <button
+              onClick={() => setShowCreateModal(true)}
+              className="btn-primary bg-white text-orange-600 hover:bg-gray-50 shadow-2xl"
+              data-testid="post-task-button"
+            >
+              <Plus className="w-5 h-5 inline mr-2" />
+              <span>{t('postTask')}</span>
+            </button>
           </div>
-          <button
-            onClick={() => setShowCreateModal(true)}
-            className="flex items-center space-x-2 px-6 py-3 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition"
-            data-testid="post-task-button"
-          >
-            <Plus className="w-5 h-5" />
-            <span>{t('postTask')}</span>
-          </button>
         </div>
 
         {/* Tasks Grid */}
