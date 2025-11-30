@@ -203,6 +203,32 @@ async def update_profile(
     return UserResponse(**updated_user)
 
 
+@api_router.put("/users/location")
+async def update_user_location(
+    location_data: dict,
+    db: AsyncIOMotorDatabase = Depends(get_database),
+    token: str = Depends(oauth2_scheme)
+):
+    """Update user location (latitude/longitude)."""
+    from auth import get_current_user as get_user
+    current_user = await get_user(token, db)
+    
+    update_data = {}
+    if "latitude" in location_data:
+        update_data["latitude"] = location_data["latitude"]
+    if "longitude" in location_data:
+        update_data["longitude"] = location_data["longitude"]
+    
+    if update_data:
+        await db.users.update_one(
+            {"id": current_user.id},
+            {"$set": update_data}
+        )
+    
+    updated_user = await db.users.find_one({"id": current_user.id}, {"_id": 0, "hashed_password": 0})
+    return UserResponse(**updated_user)
+
+
 @api_router.post("/users/profile/image")
 async def upload_profile_image(
     file: UploadFile = File(...),
