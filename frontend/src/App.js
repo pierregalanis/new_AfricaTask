@@ -164,12 +164,14 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <BrowserRouter>
-          <div className="App">
-            <AppRoutes />
-            <ToastContainer position="top-right" autoClose={3000} />
-          </div>
-        </BrowserRouter>
+        <NotificationProvider>
+          <BrowserRouter>
+            <div className="App">
+              <AppRoutes />
+              <ToastContainer position="top-right" autoClose={3000} />
+            </div>
+          </BrowserRouter>
+        </NotificationProvider>
       </AuthProvider>
     </QueryClientProvider>
   );
