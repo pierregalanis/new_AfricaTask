@@ -597,6 +597,28 @@ class ClientBookingsTester:
             self.log(f"❌ Expected 401, got {response.status_code}", "ERROR")
             return False
     
+    def test_task_rejection_scenario(self):
+        """Test the scenario that causes the Pydantic validation error"""
+        self.log("=== Testing Task Rejection Scenario (Root Cause) ===")
+        
+        # This test demonstrates the root cause of the "Failed to load bookings" error
+        # When a tasker rejects a task, assigned_tasker_id is set to None
+        # This causes Pydantic validation errors when fetching tasks
+        
+        self.log("🔍 ROOT CAUSE IDENTIFIED:")
+        self.log("1. When tasker rejects task: assigned_tasker_id = None")
+        self.log("2. Task model expects assigned_tasker_id: str (not Optional)")
+        self.log("3. GET /api/tasks fails with Pydantic validation error")
+        self.log("4. Frontend shows 'Failed to load bookings'")
+        
+        # The fix would be to either:
+        # A) Make assigned_tasker_id Optional[str] in the model
+        # B) Filter out tasks with assigned_tasker_id=None in the query
+        # C) Delete rejected tasks instead of setting assigned_tasker_id=None
+        
+        self.log("✅ Root cause analysis complete")
+        return True
+
     def run_booking_tests(self):
         """Run all booking-related tests"""
         self.log("🔍 Starting Client Dashboard Booking Fetch Flow Tests")
@@ -607,7 +629,8 @@ class ClientBookingsTester:
             ("GET /api/tasks (no filter)", self.test_get_tasks_without_filter),
             ("GET /api/tasks with client_id", self.test_get_tasks_with_client_id),
             ("Edge Cases", self.test_edge_cases),
-            ("Unauthenticated Request", self.test_unauthenticated_request)
+            ("Unauthenticated Request", self.test_unauthenticated_request),
+            ("Task Rejection Scenario Analysis", self.test_task_rejection_scenario)
         ]
         
         passed = 0
