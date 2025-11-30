@@ -312,11 +312,15 @@ async def get_client_stats(
 
 
 
-@router.post("/translate")
-async def translate_review(
-    text: str,
+from pydantic import BaseModel
+
+class TranslateRequest(BaseModel):
+    text: str
     target_lang: str
-):
+
+
+@router.post("/translate")
+async def translate_review(request: TranslateRequest):
     """
     Translate review text between English and French.
     Supports: 'en' (English) and 'fr' (French)
@@ -325,32 +329,32 @@ async def translate_review(
         from deep_translator import GoogleTranslator
         
         # Validate target language
-        if target_lang not in ['en', 'fr']:
+        if request.target_lang not in ['en', 'fr']:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail="Only 'en' and 'fr' languages are supported"
             )
         
-        if not text or not text.strip():
-            return {"translated_text": text}
+        if not request.text or not request.text.strip():
+            return {"translated_text": request.text}
         
         # Translate the text
-        translator = GoogleTranslator(source='auto', target=target_lang)
-        translated_text = translator.translate(text)
+        translator = GoogleTranslator(source='auto', target=request.target_lang)
+        translated_text = translator.translate(request.text)
         
         return {
-            "original_text": text,
+            "original_text": request.text,
             "translated_text": translated_text,
-            "target_lang": target_lang
+            "target_lang": request.target_lang
         }
     
     except Exception as e:
         logger.error(f"Translation error: {str(e)}", exc_info=True)
         # Return original text if translation fails
         return {
-            "original_text": text,
-            "translated_text": text,
-            "target_lang": target_lang,
+            "original_text": request.text,
+            "translated_text": request.text,
+            "target_lang": request.target_lang,
             "error": "Translation service unavailable"
         }
 
