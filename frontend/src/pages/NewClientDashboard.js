@@ -350,7 +350,9 @@ const NewClientDashboard = () => {
           setTaskerForChat(null);
         }}
         task={selectedTaskForChat}
-        tasker={taskerForChat}
+        currentUser={user}
+        otherUser={taskerForChat}
+        language={language}
       />
     </div>
   );
