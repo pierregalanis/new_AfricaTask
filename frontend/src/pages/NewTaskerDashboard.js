@@ -61,6 +61,23 @@ const NewTaskerDashboard = () => {
     }
   };
 
+  const handleCompleteTask = async (taskId) => {
+    try {
+      // Stop GPS tracking if active
+      if (trackingStates[taskId]?.isTracking) {
+        await stopGPSTracking(taskId);
+      }
+      
+      // Mark task as completed
+      await tasksAPI.completeTask(taskId);
+      toast.success('✅ ' + (language === 'en' ? 'Task completed!' : 'Tâche terminée!'));
+      fetchBookings();
+    } catch (error) {
+      console.error('Error completing task:', error);
+      toast.error(language === 'en' ? 'Failed to complete task' : "Échec de la finalisation");
+    }
+  };
+
   const startGPSTracking = async (taskId) => {
     if (!navigator.geolocation) {
       toast.error(language === 'en' ? 'Geolocation not supported' : 'Géolocalisation non prise en charge');
