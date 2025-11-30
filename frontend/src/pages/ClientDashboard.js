@@ -346,20 +346,20 @@ const ClientDashboard = () => {
                     data-testid="task-address-input"
                   />
                 </div>
-                <div className="flex space-x-4 pt-4">
+                <div className="flex space-x-4 pt-6 border-t">
                   <button
                     type="button"
                     onClick={() => setShowCreateModal(false)}
-                    className="flex-1 px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+                    className="flex-1 px-6 py-3 border-2 border-gray-300 rounded-xl text-gray-700 font-semibold hover:bg-gray-50 transition-all duration-300 hover:border-gray-400"
                   >
                     {t('cancel')}
                   </button>
                   <button
                     type="submit"
-                    className="flex-1 px-4 py-2 bg-orange-600 text-white rounded-md hover:bg-orange-700"
+                    className="flex-1 btn-primary"
                     data-testid="create-task-submit-button"
                   >
-                    {t('submit')}
+                    ✨ {t('submit')}
                   </button>
                 </div>
               </form>
