@@ -37,6 +37,15 @@ const Navbar = () => {
 
             {isAuthenticated ? (
               <>
+                {/* Dashboard Link - shows for both clients and taskers */}
+                <Link
+                  to={user?.role === 'tasker' ? '/tasker/dashboard' : '/client/dashboard'}
+                  className="flex items-center space-x-2 px-4 py-2 rounded-md hover:bg-gray-100 text-orange-600 font-medium"
+                  data-testid="dashboard-link"
+                >
+                  <LayoutDashboard className="w-4 h-4" />
+                  <span className="text-sm">{language === 'en' ? 'Dashboard' : 'Tableau de bord'}</span>
+                </Link>
                 <Link
                   to="/profile"
                   className="flex items-center space-x-2 px-4 py-2 rounded-md hover:bg-gray-100"
