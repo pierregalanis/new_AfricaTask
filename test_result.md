@@ -105,6 +105,30 @@
 user_problem_statement: "Test the TaskRabbit flow end-to-end for the application"
 
 backend:
+  - task: "WebSocket Real-time Chat"
+    implemented: true
+    working: false
+    file: "server.py"
+    stuck_count: 1
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: false
+        agent: "testing"
+        comment: "CRITICAL INFRASTRUCTURE ISSUE: WebSocket endpoint /ws/chat/{task_id}/{user_id} is not accessible due to nginx/ingress routing configuration. WebSocket connections timeout during handshake because requests are being routed to frontend instead of backend. HTTP message API works perfectly as fallback. Backend WebSocket code is correct but infrastructure doesn't support WebSocket upgrade requests. This prevents real-time chat - messages only appear after page refresh."
+
+  - task: "HTTP Message API (Chat Fallback)"
+    implemented: true
+    working: true
+    file: "server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "HTTP message API working perfectly. Messages can be sent via POST /api/messages and retrieved via GET /api/messages/task/{task_id}. Authentication working correctly. This serves as fallback when WebSocket is unavailable."
+
   - task: "Client Authentication"
     implemented: true
     working: true
