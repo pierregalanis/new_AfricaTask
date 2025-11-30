@@ -241,6 +241,39 @@ const BrowseTaskersPage = () => {
               </button>
             </div>
           </div>
+          
+          {/* Distance Filter */}
+          {user?.latitude && user?.longitude && (
+            <div className="mt-6 pt-6 border-t border-gray-200">
+              <h3 className="text-sm font-semibold text-gray-700 mb-3 flex items-center">
+                <MapPin className="w-4 h-4 mr-2" />
+                {language === 'en' ? 'Maximum Distance' : 'Distance maximale'}
+              </h3>
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-2xl font-bold text-orange-600">
+                    {maxDistance >= 100 ? (language === 'en' ? 'Any distance' : 'Toute distance') : `${maxDistance} km`}
+                  </span>
+                </div>
+                <input
+                  type="range"
+                  min="5"
+                  max="100"
+                  step="5"
+                  value={maxDistance}
+                  onChange={(e) => setMaxDistance(parseInt(e.target.value))}
+                  className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-orange-600"
+                />
+                <div className="flex justify-between text-xs text-gray-500">
+                  <span>5 km</span>
+                  <span>25 km</span>
+                  <span>50 km</span>
+                  <span>75 km</span>
+                  <span>{language === 'en' ? 'Any' : 'Tout'}</span>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Taskers List */}
