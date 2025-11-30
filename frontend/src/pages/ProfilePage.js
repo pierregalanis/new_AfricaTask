@@ -74,6 +74,55 @@ const ProfilePage = () => {
             </button>
           </div>
 
+          {/* Stats Section for Taskers */}
+          {user?.role === 'tasker' && stats && (
+            <div className="mb-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg p-4 border border-purple-200">
+                <div className="flex items-center space-x-3">
+                  <div className="bg-purple-600 rounded-full p-3">
+                    <Star className="w-6 h-6 text-white fill-white" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-purple-600 font-medium">
+                      {language === 'en' ? 'Average Rating' : 'Note moyenne'}
+                    </p>
+                    <p className="text-2xl font-bold text-purple-900">
+                      {stats.average_rating > 0 ? stats.average_rating.toFixed(1) : '0.0'} ⭐
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-lg p-4 border border-green-200">
+                <div className="flex items-center space-x-3">
+                  <div className="bg-green-600 rounded-full p-3">
+                    <CheckCircle className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-green-600 font-medium">
+                      {language === 'en' ? 'Tasks Completed' : 'Tâches terminées'}
+                    </p>
+                    <p className="text-2xl font-bold text-green-900">{stats.total_completed_tasks}</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg p-4 border border-orange-200">
+                <div className="flex items-center space-x-3">
+                  <div className="bg-orange-600 rounded-full p-3">
+                    <Briefcase className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-orange-600 font-medium">
+                      {language === 'en' ? 'Total Reviews' : 'Total avis'}
+                    </p>
+                    <p className="text-2xl font-bold text-orange-900">{stats.total_reviews}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
           {isEditing ? (
             <form onSubmit={handleSaveProfile} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
