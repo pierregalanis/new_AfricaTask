@@ -10,11 +10,13 @@ const BrowseTaskersPage = () => {
   const { categoryId } = useParams();
   const { language, user } = useAuth();
   const [taskers, setTaskers] = useState([]);
+  const [allTaskers, setAllTaskers] = useState([]); // Store all taskers before filtering
   const [category, setCategory] = useState(null);
   const [loading, setLoading] = useState(true);
   const [sortBy, setSortBy] = useState('recommended');
   const [filterAvailability, setFilterAvailability] = useState('all');
   const [maxPrice, setMaxPrice] = useState(null);
+  const [maxDistance, setMaxDistance] = useState(100); // Max distance filter in km
   const navigate = useNavigate();
   const t = (key) => translations[language]?.[key] || key;
 
