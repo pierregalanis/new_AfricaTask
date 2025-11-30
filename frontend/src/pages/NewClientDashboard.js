@@ -186,6 +186,17 @@ const NewClientDashboard = () => {
                       <span className={`badge ${getStatusColor(booking.status)}`}>
                         {getStatusText(booking.status)}
                       </span>
+                      {booking.status === 'completed' && (
+                        <span className={`badge ${
+                          booking.is_paid 
+                            ? 'bg-green-100 text-green-800' 
+                            : 'bg-yellow-100 text-yellow-800'
+                        }`}>
+                          {booking.is_paid 
+                            ? (language === 'en' ? '✅ Paid' : '✅ Payé')
+                            : (language === 'en' ? '💰 Unpaid' : '💰 Non payé')}
+                        </span>
+                      )}
                     </div>
                     
                     <p className="text-gray-600 text-sm mb-3 line-clamp-2">{booking.description}</p>
@@ -203,6 +214,20 @@ const NewClientDashboard = () => {
                         <span>{booking.total_cost} CFA</span>
                       </div>
                     </div>
+                    
+                    {/* Payment Details for Completed Tasks */}
+                    {booking.status === 'completed' && booking.payment_method && (
+                      <div className="mt-3 text-xs text-gray-600 flex items-center space-x-2">
+                        <span className="font-medium">
+                          {language === 'en' ? 'Payment Method:' : 'Méthode de paiement:'}
+                        </span>
+                        <span className="px-2 py-1 bg-gray-100 rounded">
+                          {booking.payment_method === 'cash' 
+                            ? (language === 'en' ? 'Cash' : 'Espèces') 
+                            : booking.payment_method}
+                        </span>
+                      </div>
+                    )}
                   </div>
 
                   {/* Actions */}
