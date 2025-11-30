@@ -238,19 +238,31 @@ const NewClientDashboard = () => {
                   )}
                 </div>
                 
-                {/* GPS Tracker - Expandable Section */}
-                {booking.status === 'in_progress' && expandedBooking === booking.id && (
-                  <div className="mt-6 pt-6 border-t border-gray-200 animate-fadeIn">
-                    <LiveGPSTracker
+                {/* Job Timer and GPS Tracker for in-progress bookings */}
+                {booking.status === 'in_progress' && (
+                  <div className="mt-6 pt-6 border-t border-gray-200 space-y-4">
+                    {/* Job Timer */}
+                    <ClientJobTimer 
                       taskId={booking.id}
-                      jobLocation={{
-                        latitude: booking.latitude,
-                        longitude: booking.longitude,
-                        address: booking.address || booking.city
-                      }}
-                      taskerName={booking.tasker_name || 'Tasker'}
+                      hourlyRate={booking.hourly_rate || 5000}
                       language={language}
                     />
+                    
+                    {/* GPS Tracker - Expandable Section */}
+                    {expandedBooking === booking.id && (
+                      <div className="animate-fadeIn">
+                        <LiveGPSTracker
+                          taskId={booking.id}
+                          jobLocation={{
+                            latitude: booking.latitude,
+                            longitude: booking.longitude,
+                            address: booking.address || booking.city
+                          }}
+                          taskerName={booking.tasker_name || 'Tasker'}
+                          language={language}
+                        />
+                      </div>
+                    )}
                   </div>
                 )}
               </div>
