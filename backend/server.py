@@ -19,7 +19,8 @@ from models import (
     ReviewCreate, Review,
     LocationUpdate, TaskerLocation,
     PaymentCreate, Payment, PaymentStatus,
-    Token, Language, ServiceCategory
+    Token, Language, ServiceCategory,
+    MessageCreate, Message
 )
 from auth import (
     get_password_hash, verify_password, create_access_token,
