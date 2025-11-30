@@ -33,6 +33,8 @@ export const tasksAPI = {
   assignTasker: (taskId, taskerId) => apiClient.post(`/tasks/${taskId}/assign/${taskerId}`),
   acceptTask: (id) => apiClient.post(`/tasks/${id}/accept`),
   rejectTask: (id) => apiClient.post(`/tasks/${id}/reject`),
+  markPaidCash: (id) => apiClient.post(`/tasks/${id}/mark-paid-cash`),
+  completeTask: (id) => apiClient.put(`/tasks/${id}/status`, null, { params: { new_status: 'completed' } }),
 };
 
 export const taskersAPI = {
