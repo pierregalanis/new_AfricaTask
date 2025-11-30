@@ -232,11 +232,16 @@ const ClientDashboard = () => {
           </div>
         )}
 
-        {/* Create Task Modal */}
+        {/* Fancy Create Task Modal */}
         {showCreateModal && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-            <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6">
-              <h2 className="text-2xl font-bold mb-6">{t('postTask')}</h2>
+          <div className="fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-fadeIn">
+            <div className="fancy-card max-w-2xl w-full max-h-[90vh] overflow-y-auto p-8 animate-scaleIn">
+              <div className="flex items-center space-x-3 mb-6">
+                <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center">
+                  <Plus className="w-6 h-6 text-white" />
+                </div>
+                <h2 className="text-3xl font-bold gradient-text">{t('postTask')}</h2>
+              </div>
               <form onSubmit={handleCreateTask} className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
