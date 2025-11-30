@@ -213,6 +213,18 @@ backend:
         agent: "testing"
         comment: "GET /api/tasks/{id} shows status changed from 'assigned' to 'in_progress' after acceptance."
 
+  - task: "Client Bookings Fetch (Dashboard)"
+    implemented: true
+    working: false
+    file: "server.py"
+    stuck_count: 1
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: false
+        agent: "testing"
+        comment: "CRITICAL BUG FOUND: 'Failed to load bookings' error caused by Pydantic validation error. When tasker rejects task (POST /api/tasks/{id}/reject), assigned_tasker_id is set to None (line 778). Task model expects assigned_tasker_id: str, not Optional (line 141 in models.py). This causes 500 Internal Server Error when GET /api/tasks tries to return tasks with assigned_tasker_id=None. Backend logs show ValidationError. Fix required: either make assigned_tasker_id Optional[str] in model OR filter out None values in query OR handle rejection differently."
+
 frontend:
   - task: "Client Login Flow"
     implemented: true
