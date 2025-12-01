@@ -671,6 +671,638 @@ class ClientBookingsTester:
             self.log("✅ All booking tests passed!", "SUCCESS")
             return True
 
+class NewFeaturesTester:
+    """Test the 7 new features implemented"""
+    
+    def __init__(self):
+        self.client_token = None
+        self.tasker_token = None
+        self.admin_token = None
+        self.client_id = None
+        self.tasker_id = None
+        self.admin_id = None
+        self.test_task_id = None
+        self.test_dispute_id = None
+        self.test_recurring_task_id = None
+        
+    def log(self, message, status="INFO"):
+        print(f"[{status}] {message}")
+        
+    def make_request(self, method, endpoint, data=None, headers=None, token=None, files=None):
+        """Make HTTP request with proper error handling"""
+        url = f"{BACKEND_URL}{endpoint}"
+        
+        if headers is None:
+            headers = {}
+            
+        if token:
+            headers["Authorization"] = f"Bearer {token}"
+            
+        try:
+            if method.upper() == "GET":
+                if "Content-Type" not in headers:
+                    headers["Content-Type"] = "application/json"
+                response = requests.get(url, headers=headers, params=data)
+            elif method.upper() == "POST":
+                if files:
+                    # For file uploads, don't set Content-Type (let requests handle it)
+                    if "Content-Type" in headers:
+                        del headers["Content-Type"]
+                    response = requests.post(url, data=data, files=files, headers=headers)
+                elif "Content-Type" not in headers:
+                    headers["Content-Type"] = "application/x-www-form-urlencoded"
+                    response = requests.post(url, data=data, headers=headers)
+                elif headers.get("Content-Type") == "application/json":
+                    response = requests.post(url, json=data, headers=headers)
+                else:
+                    response = requests.post(url, data=data, headers=headers)
+            elif method.upper() == "PUT":
+                if "Content-Type" not in headers:
+                    headers["Content-Type"] = "application/x-www-form-urlencoded"
+                if headers.get("Content-Type") == "application/json":
+                    response = requests.put(url, json=data, headers=headers)
+                else:
+                    response = requests.put(url, data=data, headers=headers)
+            elif method.upper() == "DELETE":
+                headers["Content-Type"] = "application/json"
+                response = requests.delete(url, headers=headers)
+            else:
+                raise ValueError(f"Unsupported method: {method}")
+                
+            self.log(f"{method} {url} -> {response.status_code}")
+            
+            if response.status_code >= 400:
+                self.log(f"Error response: {response.text}", "ERROR")
+                
+            return response
+            
+        except Exception as e:
+            self.log(f"Request failed: {str(e)}", "ERROR")
+            return None
+    
+    def test_authentication(self):
+        """Test authentication for all user types"""
+        self.log("=== Testing Authentication ===")
+        
+        # Test client login
+        response = self.make_request("POST", "/auth/login", {
+            "username": "testclient@demo.com",
+            "password": "test123"
+        })
+        
+        if not response or response.status_code != 200:
+            self.log("❌ Client login failed", "ERROR")
+            return False
+            
+        try:
+            data = response.json()
+            self.client_token = data.get("access_token")
+            if not self.client_token:
+                self.log("❌ No client access token", "ERROR")
+                return False
+        except Exception as e:
+            self.log(f"❌ Failed to parse client login response: {e}", "ERROR")
+            return False
+            
+        # Get client ID
+        response = self.make_request("GET", "/auth/me", None, None, self.client_token)
+        if response and response.status_code == 200:
+            try:
+                user_data = response.json()
+                self.client_id = user_data.get("id")
+            except Exception as e:
+                self.log(f"❌ Failed to parse client info: {e}", "ERROR")
+                return False
+        
+        # Test tasker login
+        response = self.make_request("POST", "/auth/login", {
+            "username": "testtasker@demo.com",
+            "password": "test123"
+        })
+        
+        if not response or response.status_code != 200:
+            self.log("❌ Tasker login failed", "ERROR")
+            return False
+            
+        try:
+            data = response.json()
+            self.tasker_token = data.get("access_token")
+            if not self.tasker_token:
+                self.log("❌ No tasker access token", "ERROR")
+                return False
+        except Exception as e:
+            self.log(f"❌ Failed to parse tasker login response: {e}", "ERROR")
+            return False
+            
+        # Get tasker ID
+        response = self.make_request("GET", "/auth/me", None, None, self.tasker_token)
+        if response and response.status_code == 200:
+            try:
+                user_data = response.json()
+                self.tasker_id = user_data.get("id")
+            except Exception as e:
+                self.log(f"❌ Failed to parse tasker info: {e}", "ERROR")
+                return False
+        
+        # Test admin login
+        response = self.make_request("POST", "/auth/login", {
+            "username": "admin@africatask.com",
+            "password": "admin123"
+        })
+        
+        if response and response.status_code == 200:
+            try:
+                data = response.json()
+                self.admin_token = data.get("access_token")
+                if self.admin_token:
+                    # Get admin ID
+                    response = self.make_request("GET", "/auth/me", None, None, self.admin_token)
+                    if response and response.status_code == 200:
+                        user_data = response.json()
+                        self.admin_id = user_data.get("id")
+                        self.log("✅ Admin login successful")
+                    else:
+                        self.log("⚠️ Admin login successful but couldn't get admin info")
+                else:
+                    self.log("⚠️ Admin login failed - no access token")
+            except Exception as e:
+                self.log(f"⚠️ Admin login failed: {e}")
+        else:
+            self.log("⚠️ Admin login failed - will skip admin-only tests")
+        
+        if self.client_token and self.tasker_token:
+            self.log(f"✅ Authentication successful - Client: {self.client_id}, Tasker: {self.tasker_id}")
+            return True
+        else:
+            self.log("❌ Authentication failed", "ERROR")
+            return False
+    
+    def test_advanced_search_filters(self):
+        """Test 1: Advanced Search & Filters"""
+        self.log("=== Testing Advanced Search & Filters ===")
+        
+        # Test search with category filter
+        response = self.make_request("GET", "/taskers/search", {
+            "category_id": "home-repairs"
+        })
+        
+        if not response or response.status_code != 200:
+            self.log("❌ Search with category filter failed", "ERROR")
+            return False
+        
+        try:
+            taskers = response.json()
+            self.log(f"✅ Category search returned {len(taskers)} taskers")
+        except Exception as e:
+            self.log(f"❌ Failed to parse search response: {e}", "ERROR")
+            return False
+        
+        # Test search with max_rate filter
+        response = self.make_request("GET", "/taskers/search", {
+            "max_rate": 10000
+        })
+        
+        if not response or response.status_code != 200:
+            self.log("❌ Search with max_rate filter failed", "ERROR")
+            return False
+        
+        try:
+            taskers = response.json()
+            self.log(f"✅ Max rate search returned {len(taskers)} taskers")
+        except Exception as e:
+            self.log(f"❌ Failed to parse max rate search response: {e}", "ERROR")
+            return False
+        
+        # Test search with min_rating filter
+        response = self.make_request("GET", "/taskers/search", {
+            "min_rating": 3.0
+        })
+        
+        if not response or response.status_code != 200:
+            self.log("❌ Search with min_rating filter failed", "ERROR")
+            return False
+        
+        try:
+            taskers = response.json()
+            self.log(f"✅ Min rating search returned {len(taskers)} taskers")
+            return True
+        except Exception as e:
+            self.log(f"❌ Failed to parse min rating search response: {e}", "ERROR")
+            return False
+    
+    def test_portfolio_system(self):
+        """Test 2: Portfolio/Gallery System"""
+        self.log("=== Testing Portfolio/Gallery System ===")
+        
+        if not self.tasker_token:
+            self.log("❌ No tasker token available", "ERROR")
+            return False
+        
+        # Test portfolio image upload (simulate with dummy file)
+        dummy_file_content = b"fake image content for testing"
+        files = {'file': ('test_image.jpg', dummy_file_content, 'image/jpeg')}
+        
+        response = self.make_request("POST", "/taskers/portfolio", None, None, self.tasker_token, files)
+        
+        if not response or response.status_code not in [200, 201]:
+            self.log("❌ Portfolio image upload failed", "ERROR")
+            return False
+        
+        try:
+            result = response.json()
+            image_path = result.get("file_path")
+            if image_path:
+                self.log(f"✅ Portfolio image uploaded: {image_path}")
+                
+                # Test portfolio image deletion
+                response = self.make_request("DELETE", f"/taskers/portfolio/{image_path}", None, None, self.tasker_token)
+                
+                if response and response.status_code == 200:
+                    self.log("✅ Portfolio image deleted successfully")
+                    return True
+                else:
+                    self.log("❌ Portfolio image deletion failed", "ERROR")
+                    return False
+            else:
+                self.log("❌ No file path in upload response", "ERROR")
+                return False
+        except Exception as e:
+            self.log(f"❌ Failed to parse portfolio upload response: {e}", "ERROR")
+            return False
+    
+    def test_task_cancellation(self):
+        """Test 3: Task Cancellation"""
+        self.log("=== Testing Task Cancellation ===")
+        
+        if not self.client_token or not self.tasker_id:
+            self.log("❌ Missing authentication data", "ERROR")
+            return False
+        
+        # First create a test task
+        future_date = (datetime.now() + timedelta(days=1)).strftime("%Y-%m-%dT10:00:00")
+        
+        task_data = {
+            "title": "Cancellation Test Task",
+            "description": "Test task for cancellation feature",
+            "category_id": "home-repairs",
+            "tasker_id": self.tasker_id,
+            "duration_hours": 2,
+            "hourly_rate": 5000.0,
+            "task_date": future_date,
+            "address": "123 Test Street, Abidjan",
+            "city": "Abidjan",
+            "latitude": 5.3364,
+            "longitude": -4.0267
+        }
+        
+        headers = {"Content-Type": "application/json"}
+        response = self.make_request("POST", "/tasks", task_data, headers, self.client_token)
+        
+        if not response or response.status_code != 201:
+            self.log("❌ Failed to create test task for cancellation", "ERROR")
+            return False
+        
+        try:
+            task = response.json()
+            self.test_task_id = task.get("id")
+            if not self.test_task_id:
+                self.log("❌ No task ID in response", "ERROR")
+                return False
+        except Exception as e:
+            self.log(f"❌ Failed to parse task creation response: {e}", "ERROR")
+            return False
+        
+        # Accept the task first (to test in_progress cancellation)
+        response = self.make_request("POST", f"/tasks/{self.test_task_id}/accept", None, None, self.tasker_token)
+        
+        if not response or response.status_code != 200:
+            self.log("❌ Failed to accept task", "ERROR")
+            return False
+        
+        # Now test cancellation
+        cancel_data = {
+            "reason": "Testing cancellation feature"
+        }
+        
+        response = self.make_request("POST", f"/tasks/{self.test_task_id}/cancel", cancel_data, None, self.client_token)
+        
+        if not response or response.status_code != 200:
+            self.log("❌ Task cancellation failed", "ERROR")
+            return False
+        
+        try:
+            result = response.json()
+            penalty_amount = result.get("penalty_amount", 0)
+            self.log(f"✅ Task cancelled successfully. Penalty: {penalty_amount} CFA")
+            return True
+        except Exception as e:
+            self.log(f"❌ Failed to parse cancellation response: {e}", "ERROR")
+            return False
+    
+    def test_dispute_resolution(self):
+        """Test 4: Dispute Resolution"""
+        self.log("=== Testing Dispute Resolution ===")
+        
+        if not self.client_token or not self.test_task_id:
+            self.log("❌ Missing authentication data or test task", "ERROR")
+            return False
+        
+        # First mark the task as completed (disputes only work on completed tasks)
+        response = self.make_request("PUT", f"/tasks/{self.test_task_id}/status", {
+            "new_status": "completed"
+        }, {"Content-Type": "application/json"}, self.tasker_token)
+        
+        if not response or response.status_code != 200:
+            self.log("⚠️ Could not mark task as completed, creating dispute anyway")
+        
+        # Create a dispute
+        dispute_data = {
+            "task_id": self.test_task_id,
+            "reason": "Quality issues",
+            "description": "Testing dispute resolution system"
+        }
+        
+        response = self.make_request("POST", "/disputes", dispute_data, None, self.client_token)
+        
+        if not response or response.status_code != 201:
+            self.log("❌ Dispute creation failed", "ERROR")
+            return False
+        
+        try:
+            dispute = response.json()
+            self.test_dispute_id = dispute.get("id")
+            if not self.test_dispute_id:
+                self.log("❌ No dispute ID in response", "ERROR")
+                return False
+            self.log(f"✅ Dispute created: {self.test_dispute_id}")
+        except Exception as e:
+            self.log(f"❌ Failed to parse dispute creation response: {e}", "ERROR")
+            return False
+        
+        # Test getting disputes
+        response = self.make_request("GET", "/disputes", None, None, self.client_token)
+        
+        if not response or response.status_code != 200:
+            self.log("❌ Failed to get disputes", "ERROR")
+            return False
+        
+        try:
+            disputes = response.json()
+            self.log(f"✅ Retrieved {len(disputes)} disputes")
+        except Exception as e:
+            self.log(f"❌ Failed to parse disputes response: {e}", "ERROR")
+            return False
+        
+        # Test getting specific dispute
+        response = self.make_request("GET", f"/disputes/{self.test_dispute_id}", None, None, self.client_token)
+        
+        if not response or response.status_code != 200:
+            self.log("❌ Failed to get specific dispute", "ERROR")
+            return False
+        
+        # Test admin dispute resolution (if admin token available)
+        if self.admin_token:
+            resolution_data = {
+                "resolution": "Dispute resolved in favor of client"
+            }
+            
+            response = self.make_request("PUT", f"/disputes/{self.test_dispute_id}/resolve", resolution_data, None, self.admin_token)
+            
+            if response and response.status_code == 200:
+                self.log("✅ Admin dispute resolution successful")
+                return True
+            else:
+                self.log("❌ Admin dispute resolution failed", "ERROR")
+                return False
+        else:
+            self.log("✅ Dispute system working (admin resolution skipped - no admin token)")
+            return True
+    
+    def test_admin_panel_endpoints(self):
+        """Test 5: Admin Panel Endpoints"""
+        self.log("=== Testing Admin Panel Endpoints ===")
+        
+        if not self.admin_token:
+            self.log("⚠️ No admin token - skipping admin panel tests")
+            return True
+        
+        # Test admin can access all disputes
+        response = self.make_request("GET", "/disputes", None, None, self.admin_token)
+        
+        if not response or response.status_code != 200:
+            self.log("❌ Admin cannot access all disputes", "ERROR")
+            return False
+        
+        try:
+            disputes = response.json()
+            self.log(f"✅ Admin can access all disputes: {len(disputes)} found")
+        except Exception as e:
+            self.log(f"❌ Failed to parse admin disputes response: {e}", "ERROR")
+            return False
+        
+        # Test non-admin cannot resolve disputes
+        if self.test_dispute_id:
+            resolution_data = {
+                "resolution": "Test resolution by non-admin"
+            }
+            
+            response = self.make_request("PUT", f"/disputes/{self.test_dispute_id}/resolve", resolution_data, None, self.client_token)
+            
+            if response and response.status_code == 403:
+                self.log("✅ Non-admin correctly blocked from resolving disputes")
+                return True
+            else:
+                self.log("❌ Non-admin was able to resolve dispute (security issue)", "ERROR")
+                return False
+        
+        return True
+    
+    def test_coin_system(self):
+        """Test 6: Coin System"""
+        self.log("=== Testing Coin System ===")
+        
+        if not self.client_token:
+            self.log("❌ No client token available", "ERROR")
+            return False
+        
+        # Test get coin balance
+        response = self.make_request("GET", "/coins/balance", None, None, self.client_token)
+        
+        if not response or response.status_code != 200:
+            self.log("❌ Failed to get coin balance", "ERROR")
+            return False
+        
+        try:
+            balance_data = response.json()
+            current_balance = balance_data.get("balance", 0)
+            self.log(f"✅ Current coin balance: {current_balance}")
+        except Exception as e:
+            self.log(f"❌ Failed to parse balance response: {e}", "ERROR")
+            return False
+        
+        # Test get coin transactions
+        response = self.make_request("GET", "/coins/transactions", None, None, self.client_token)
+        
+        if not response or response.status_code != 200:
+            self.log("❌ Failed to get coin transactions", "ERROR")
+            return False
+        
+        try:
+            transactions = response.json()
+            self.log(f"✅ Retrieved {len(transactions)} coin transactions")
+        except Exception as e:
+            self.log(f"❌ Failed to parse transactions response: {e}", "ERROR")
+            return False
+        
+        # Test spend coins (if we have a task and sufficient balance)
+        if self.test_task_id and current_balance >= 10:
+            spend_data = {
+                "amount": 10,
+                "task_id": self.test_task_id
+            }
+            
+            response = self.make_request("POST", "/coins/spend", spend_data, None, self.client_token)
+            
+            if response and response.status_code == 200:
+                try:
+                    result = response.json()
+                    new_balance = result.get("new_balance")
+                    discount_amount = result.get("discount_amount")
+                    self.log(f"✅ Coins spent successfully. New balance: {new_balance}, Discount: {discount_amount} CFA")
+                    return True
+                except Exception as e:
+                    self.log(f"❌ Failed to parse spend response: {e}", "ERROR")
+                    return False
+            else:
+                self.log("❌ Failed to spend coins", "ERROR")
+                return False
+        else:
+            self.log("✅ Coin system endpoints working (spend test skipped - insufficient balance or no task)")
+            return True
+    
+    def test_recurring_tasks(self):
+        """Test 7: Recurring Tasks"""
+        self.log("=== Testing Recurring Tasks ===")
+        
+        if not self.client_token or not self.tasker_id:
+            self.log("❌ Missing authentication data", "ERROR")
+            return False
+        
+        # Create a recurring task
+        recurring_data = {
+            "assigned_tasker_id": self.tasker_id,
+            "title": "Weekly Cleaning Service",
+            "description": "Recurring weekly cleaning",
+            "category_id": "home-repairs",
+            "frequency": "weekly",
+            "scheduled_time": "09:00",
+            "day_of_week": 1,  # Monday
+            "hourly_rate": 5000.0,
+            "estimated_hours": 3.0
+        }
+        
+        response = self.make_request("POST", "/recurring-tasks", recurring_data, None, self.client_token)
+        
+        if not response or response.status_code != 201:
+            self.log("❌ Failed to create recurring task", "ERROR")
+            return False
+        
+        try:
+            recurring_task = response.json()
+            self.test_recurring_task_id = recurring_task.get("id")
+            if not self.test_recurring_task_id:
+                self.log("❌ No recurring task ID in response", "ERROR")
+                return False
+            self.log(f"✅ Recurring task created: {self.test_recurring_task_id}")
+        except Exception as e:
+            self.log(f"❌ Failed to parse recurring task creation response: {e}", "ERROR")
+            return False
+        
+        # Test get recurring tasks
+        response = self.make_request("GET", "/recurring-tasks", None, None, self.client_token)
+        
+        if not response or response.status_code != 200:
+            self.log("❌ Failed to get recurring tasks", "ERROR")
+            return False
+        
+        try:
+            recurring_tasks = response.json()
+            self.log(f"✅ Retrieved {len(recurring_tasks)} recurring tasks")
+        except Exception as e:
+            self.log(f"❌ Failed to parse recurring tasks response: {e}", "ERROR")
+            return False
+        
+        # Test toggle recurring task
+        response = self.make_request("PUT", f"/recurring-tasks/{self.test_recurring_task_id}/toggle", None, None, self.client_token)
+        
+        if not response or response.status_code != 200:
+            self.log("❌ Failed to toggle recurring task", "ERROR")
+            return False
+        
+        try:
+            result = response.json()
+            is_active = result.get("is_active")
+            self.log(f"✅ Recurring task toggled. Active: {is_active}")
+        except Exception as e:
+            self.log(f"❌ Failed to parse toggle response: {e}", "ERROR")
+            return False
+        
+        # Test delete recurring task
+        response = self.make_request("DELETE", f"/recurring-tasks/{self.test_recurring_task_id}", None, None, self.client_token)
+        
+        if not response or response.status_code != 200:
+            self.log("❌ Failed to delete recurring task", "ERROR")
+            return False
+        
+        self.log("✅ Recurring task deleted successfully")
+        return True
+    
+    def run_new_features_tests(self):
+        """Run all new features tests"""
+        self.log("🚀 Starting New Features Testing")
+        self.log(f"Backend URL: {BACKEND_URL}")
+        
+        tests = [
+            ("Authentication", self.test_authentication),
+            ("Advanced Search & Filters", self.test_advanced_search_filters),
+            ("Portfolio/Gallery System", self.test_portfolio_system),
+            ("Task Cancellation", self.test_task_cancellation),
+            ("Dispute Resolution", self.test_dispute_resolution),
+            ("Admin Panel Endpoints", self.test_admin_panel_endpoints),
+            ("Coin System", self.test_coin_system),
+            ("Recurring Tasks", self.test_recurring_tasks)
+        ]
+        
+        passed = 0
+        failed = 0
+        
+        for test_name, test_func in tests:
+            try:
+                self.log(f"\n--- {test_name} ---")
+                if test_func():
+                    passed += 1
+                    self.log(f"✅ {test_name} PASSED", "SUCCESS")
+                else:
+                    failed += 1
+                    self.log(f"❌ {test_name} FAILED", "ERROR")
+            except Exception as e:
+                failed += 1
+                self.log(f"❌ {test_name} FAILED with exception: {e}", "ERROR")
+            
+            print("-" * 60)
+        
+        # Summary
+        total = passed + failed
+        self.log(f"📊 NEW FEATURES TESTS SUMMARY: {passed}/{total} tests passed")
+        
+        if failed > 0:
+            self.log(f"❌ {failed} tests failed", "ERROR")
+            return False
+        else:
+            self.log("✅ All new features tests passed!", "SUCCESS")
+            return True
+
+
 class WebSocketChatTester:
     """Test WebSocket real-time chat functionality"""
     
