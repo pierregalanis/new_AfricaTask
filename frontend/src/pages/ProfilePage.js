@@ -61,13 +61,30 @@ const ProfilePage = () => {
       Object.keys(profileData).forEach(key => {
         if (profileData[key]) formData.append(key, profileData[key]);
       });
-      await usersAPI.updateProfile(formData);
-      toast.success(language === 'en' ? 'Profile updated!' : 'Profil mis à jour!');
+      
+      console.log('Updating profile with data:', Object.fromEntries(formData));
+      const response = await usersAPI.updateProfile(formData);
+      console.log('Profile update response:', response);
+      
+      toast.success(language === 'en' ? 'Profile updated successfully!' : 'Profil mis à jour avec succès!');
       setIsEditing(false);
-      window.location.reload();
+      
+      // Update local state instead of reloading
+      if (response.data) {
+        setProfileData({
+          full_name: response.data.full_name || '',
+          phone: response.data.phone || '',
+          address: response.data.address || '',
+          city: response.data.city || '',
+        });
+      }
     } catch (error) {
       console.error('Error updating profile:', error);
-      toast.error(language === 'en' ? 'Failed to update profile' : 'Échec de la mise à jour du profil');
+      console.error('Error details:', error.response?.data);
+      toast.error(
+        error.response?.data?.detail || 
+        (language === 'en' ? 'Failed to update profile' : 'Échec de la mise à jour du profil')
+      );
     }
   };
 
