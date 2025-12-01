@@ -76,7 +76,7 @@ const Navbar = () => {
                 {user?.email === 'admin@africatask.com' && (
                   <Link
                     to="/admin"
-                    className="flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-purple-50 text-purple-600"
+                    className="flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-emerald-50 dark:hover:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 transition-colors"
                     title="Admin Panel"
                   >
                     <Shield className="w-4 h-4" />
@@ -88,7 +88,7 @@ const Navbar = () => {
                 
                 <Link
                   to="/profile"
-                  className="flex items-center space-x-2 px-4 py-2 rounded-md hover:bg-gray-100"
+                  className="flex items-center space-x-2 px-4 py-2 rounded-md hover:bg-emerald-50 dark:hover:bg-emerald-900/30 text-gray-700 dark:text-gray-200 transition-colors"
                   data-testid="profile-link"
                 >
                   <User className="w-4 h-4" />
@@ -96,7 +96,7 @@ const Navbar = () => {
                 </Link>
                 <button
                   onClick={handleLogout}
-                  className="flex items-center space-x-2 px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
+                  className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-md hover:from-red-600 hover:to-red-700 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
                   data-testid="logout-button"
                 >
                   <LogOut className="w-4 h-4" />
