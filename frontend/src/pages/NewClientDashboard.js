@@ -187,27 +187,10 @@ const NewClientDashboard = () => {
         </div>
 
         {/* Bookings List */}
-        {filteredBookings.length === 0 ? (
-          <div className="fancy-card text-center py-16 animate-fadeIn">
-            <div className="inline-block p-6 bg-gradient-to-br from-orange-100 to-orange-200 rounded-full mb-6">
-              <Briefcase className="w-16 h-16 text-orange-600" />
-            </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-2">
-              {language === 'en' ? 'No bookings yet!' : 'Aucune réservation encore!'}
-            </h3>
-            <p className="text-gray-600 mb-6">
-              {language === 'en' 
-                ? 'Browse services and book your first tasker!' 
-                : 'Parcourez les services et réservez votre premier tasker!'}
-            </p>
-            <button
-              onClick={() => navigate('/services')}
-              className="btn-primary"
-            >
-              <Search className="w-5 h-5 inline mr-2" />
-              {language === 'en' ? 'Browse Services' : 'Parcourir les services'}
-            </button>
-          </div>
+        {loading ? (
+          <SkeletonList count={3} />
+        ) : filteredBookings.length === 0 ? (
+          <NoBookingsFound language={language} userRole={user?.role} />
         ) : (
           <div className="space-y-4">
             {filteredBookings.map((booking, index) => (
