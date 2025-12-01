@@ -82,21 +82,93 @@ const BrowseTaskersPage = () => {
     }
   };
 
-  const applyFiltersAndSort = (taskersList) => {
+  const applyFiltersAndSort = (taskersList, customFilters = null) => {
     let filtered = [...taskersList];
     
+    const activeFilters = customFilters || {
+      priceMin: '',
+      priceMax: '',
+      minRating: 0,
+      maxDistance: maxDistance,
+      sortBy: sortBy,
+      searchQuery: ''
+    };
+    
+    // Filter by search query (name, bio, skills)
+    if (activeFilters.searchQuery) {
+      const query = activeFilters.searchQuery.toLowerCase();
+      filtered = filtered.filter(t => 
+        t.full_name?.toLowerCase().includes(query) ||
+        t.tasker_profile?.bio?.toLowerCase().includes(query) ||
+        t.tasker_profile?.services?.some(s => s.toLowerCase().includes(query))
+      );
+    }
+    
+    // Filter by price range
+    if (activeFilters.priceMin) {
+      filtered = filtered.filter(t => 
+        (t.tasker_profile?.hourly_rate || 0) >= parseFloat(activeFilters.priceMin)
+      );
+    }
+    if (activeFilters.priceMax) {
+      filtered = filtered.filter(t => 
+        (t.tasker_profile?.hourly_rate || 0) <= parseFloat(activeFilters.priceMax)
+      );
+    }
+    
+    // Filter by minimum rating
+    if (activeFilters.minRating > 0) {
+      filtered = filtered.filter(t => 
+        (t.tasker_profile?.average_rating || 0) >= activeFilters.minRating
+      );
+    }
+    
     // Filter by distance
-    if (maxDistance < 100) {
-      filtered = filtered.filter(t => !t.distance || t.distance <= maxDistance);
+    if (activeFilters.maxDistance < 100) {
+      filtered = filtered.filter(t => !t.distance || t.distance <= activeFilters.maxDistance);
     }
     
     // Filter by tasker's ability to reach
     filtered = filtered.filter(t => t.canReach);
     
-    // Sort
-    filtered = sortTaskers(filtered);
+    // Sort based on active filters
+    const sortKey = activeFilters.sortBy || sortBy;
+    filtered = sortTaskersWithKey(filtered, sortKey);
     
     setTaskers(filtered);
+  };
+
+  const sortTaskersWithKey = (taskersList, key) => {
+    switch (key) {
+      case 'price-low':
+        return [...taskersList].sort((a, b) => 
+          (a.tasker_profile?.hourly_rate || 0) - (b.tasker_profile?.hourly_rate || 0)
+        );
+      case 'price-high':
+        return [...taskersList].sort((a, b) => 
+          (b.tasker_profile?.hourly_rate || 0) - (a.tasker_profile?.hourly_rate || 0)
+        );
+      case 'distance':
+        return [...taskersList].sort((a, b) => (a.distance || 999) - (b.distance || 999));
+      case 'rating':
+        return [...taskersList].sort((a, b) => 
+          (b.tasker_profile?.average_rating || 0) - (a.tasker_profile?.average_rating || 0)
+        );
+      case 'reviews':
+        return [...taskersList].sort((a, b) => 
+          (b.tasker_profile?.total_reviews || 0) - (a.tasker_profile?.total_reviews || 0)
+        );
+      default: // recommended
+        return [...taskersList].sort((a, b) => {
+          const scoreA = (a.tasker_profile?.average_rating || 0) * 
+                        (a.tasker_profile?.completed_tasks || 0) / 
+                        ((a.distance || 10) + 1);
+          const scoreB = (b.tasker_profile?.average_rating || 0) * 
+                        (b.tasker_profile?.completed_tasks || 0) / 
+                        ((b.distance || 10) + 1);
+          return scoreB - scoreA;
+        });
+    }
   };
 
   // Re-apply filters when distance or sort changes
