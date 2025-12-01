@@ -484,22 +484,26 @@ async def mark_task_paid_cash(
     if task.get("is_paid"):
         raise HTTPException(status_code=400, detail="Task is already marked as paid")
     
-    # Calculate total_amount if not already set
-    total_amount = task.get("total_amount", 0)
-    if total_amount == 0 or total_amount is None:
-        hours = task.get("hours_worked") or task.get("estimated_hours", 2)  # Default to 2 hours if no data
-        rate = task.get("hourly_rate", 0)
-        total_amount = hours * rate
+    # Determine hours worked (priority: manual input > timer > estimated > default)
+    final_hours = hours_worked or task.get("hours_worked") or task.get("estimated_hours", 2)
+    
+    # Calculate total_amount
+    rate = task.get("hourly_rate", 0)
+    total_amount = final_hours * rate
     
     # Update task with payment info
+    update_data = {
+        "is_paid": True,
+        "payment_method": PaymentMethod.CASH,
+        "total_amount": total_amount,
+        "hours_worked": final_hours,  # Save the actual hours
+        "paid_at": datetime.utcnow(),
+        "updated_at": datetime.utcnow()
+    }
+    
     await db.tasks.update_one(
         {"id": task_id},
-        {"$set": {
-            "is_paid": True,
-            "payment_method": PaymentMethod.CASH,
-            "total_amount": total_amount,
-            "updated_at": datetime.utcnow()
-        }}
+        {"$set": update_data}
     )
     
     updated_task = await db.tasks.find_one({"id": task_id}, {"_id": 0})
