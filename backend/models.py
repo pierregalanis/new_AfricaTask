@@ -70,7 +70,7 @@ class UserCreate(UserBase):
 class TaskerProfile(BaseModel):
     bio: Optional[str] = None
     hourly_rate: float = 0.0  # Required - price per hour in CFA
-    service_categories: List[str] = []  # List of category IDs they offer
+    services: List[str] = []  # List of service names they offer
     certifications: List[str] = []  # File paths
     portfolio_images: List[str] = []  # File paths
     profile_image: Optional[str] = None
