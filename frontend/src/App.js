@@ -14,6 +14,7 @@ import RegisterPage from './pages/RegisterPage';
 import NewClientDashboard from './pages/NewClientDashboard';
 import NewTaskerDashboard from './pages/NewTaskerDashboard';
 import TaskerProfileSetup from './pages/TaskerProfileSetup';
+import TaskerServicesManagement from './pages/TaskerServicesManagement';
 import ServiceSelection from './pages/ServiceSelection';
 import BrowseTaskersPage from './pages/BrowseTaskersPage';
 import TaskerProfile from './pages/TaskerProfile';
