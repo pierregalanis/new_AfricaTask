@@ -192,17 +192,36 @@ const TaskerServicesManagement = () => {
             </div>
 
             {/* Add New Service */}
-            <div className="flex gap-2">
-              <input
-                type="text"
-                value={newService}
-                onChange={(e) => setNewService(e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' && handleAddService()}
-                placeholder={language === 'en' ? 'Enter service name...' : 'Nom du service...'}
-                className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-              />
+            <div className="relative flex gap-2">
+              <div className="flex-1 relative">
+                <input
+                  type="text"
+                  value={newService}
+                  onChange={(e) => handleServiceInputChange(e.target.value)}
+                  onKeyPress={(e) => e.key === 'Enter' && handleAddService()}
+                  onFocus={() => newService && setShowSuggestions(filteredServices.length > 0)}
+                  placeholder={language === 'en' ? 'Enter service name...' : 'Nom du service...'}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                />
+                
+                {/* Autocomplete Dropdown */}
+                {showSuggestions && filteredServices.length > 0 && (
+                  <div className="absolute z-10 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg max-h-60 overflow-y-auto">
+                    {filteredServices.map((service, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => handleAddService(service)}
+                        className="w-full text-left px-4 py-2 hover:bg-orange-50 text-gray-700 hover:text-orange-700 transition-colors"
+                      >
+                        {service}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+              
               <button
-                onClick={handleAddService}
+                onClick={() => handleAddService()}
                 className="bg-orange-600 text-white px-6 py-2 rounded-lg hover:bg-orange-700 flex items-center space-x-2"
               >
                 <Plus className="w-5 h-5" />
