@@ -19,24 +19,30 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white shadow-md sticky top-0 z-50">
+    <nav className="glass sticky top-0 z-50 backdrop-blur-xl border-b dark:border-emerald-500/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
-            <Link to="/" className="flex items-center space-x-2">
-              <span className="text-2xl font-bold text-orange-600">{t('appName')}</span>
+            <Link to="/" className="flex items-center space-x-2 group">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-lg shadow-emerald-500/30 group-hover:shadow-emerald-500/50 transition-all duration-300 group-hover:scale-110">
+                <span className="text-white font-bold text-xl">Q</span>
+              </div>
+              <span className="text-2xl font-bold gradient-text">{t('appName')}</span>
             </Link>
           </div>
 
           <div className="flex items-center space-x-4">
+            {/* Theme Toggle */}
+            <ThemeToggle />
+            
             {/* Language Toggle */}
             <button
               onClick={() => changeLanguage(language === 'en' ? 'fr' : 'en')}
-              className="flex items-center space-x-1 px-3 py-2 rounded-md hover:bg-gray-100"
+              className="flex items-center space-x-1 px-3 py-2 rounded-md hover:bg-emerald-50 dark:hover:bg-emerald-900/30 transition-colors"
               data-testid="language-toggle"
             >
-              <Globe className="w-4 h-4" />
-              <span className="text-sm font-medium">{language.toUpperCase()}</span>
+              <Globe className="w-4 h-4 text-gray-700 dark:text-emerald-400" />
+              <span className="text-sm font-medium text-gray-700 dark:text-emerald-400">{language.toUpperCase()}</span>
             </button>
 
             {isAuthenticated ? (
