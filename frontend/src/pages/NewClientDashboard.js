@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import Navbar from '../components/Navbar';
 import LiveGPSTracker from '../components/LiveGPSTracker';
+import LiveGPSTrackerWithRoute from '../components/LiveGPSTrackerWithRoute';
 import ClientJobTimer from '../components/ClientJobTimer';
 import PaymentModal from '../components/PaymentModal';
 import ChatModal from '../components/ChatModal';
