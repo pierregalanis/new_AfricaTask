@@ -9,7 +9,7 @@ const ImprovedNotificationCenter = ({ language = 'en' }) => {
   const [loading, setLoading] = useState(false);
   const { user } = useAuth();
 
-  const unreadCount = notifications.filter(n => !n.read).length;
+  const unreadCount = Array.isArray(notifications) ? notifications.filter(n => !n.read).length : 0;
 
   useEffect(() => {
     if (user && isOpen) {
