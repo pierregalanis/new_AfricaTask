@@ -120,7 +120,7 @@ async def create_recurring_task(
     
     await db.recurring_tasks.insert_one(recurring_task)
     
-    return recurring_task
+    return RecurringTask(**recurring_task)
 
 
 @router.get("", response_model=List[RecurringTask])
