@@ -270,6 +270,23 @@ const NewClientDashboard = () => {
                   </div>
 
                   {/* Actions */}
+                  {/* Mark as Paid Button (Tasker Only) */}
+                  {user?.role === 'tasker' && booking.status === 'completed' && !booking.is_paid && (
+                    <div className="flex flex-col space-y-2">
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setSelectedTaskForPayment(booking);
+                          setMarkAsPaidModalOpen(true);
+                        }}
+                        className="px-6 py-3 bg-green-600 text-white rounded-xl font-semibold hover:bg-green-700 transition flex items-center justify-center space-x-2 shadow-lg"
+                      >
+                        <DollarSign className="w-5 h-5" />
+                        <span>{language === 'en' ? 'Mark as Paid' : 'Marquer comme payé'}</span>
+                      </button>
+                    </div>
+                  )}
+
                   {booking.status === 'completed' && booking.is_paid && (
                     <div className="flex flex-col space-y-2">
                       {booking.can_review && !booking.has_reviewed ? (
