@@ -138,9 +138,13 @@ async def update_tasker_profile(
     
     if services:
         try:
+            logger.info(f"Received services string: {services}")
             services_list = json.loads(services)
+            logger.info(f"Parsed services list: {services_list}")
             update_data["tasker_profile.services"] = services_list
-        except json.JSONDecodeError:
+            logger.info(f"Update data with services: {update_data}")
+        except json.JSONDecodeError as e:
+            logger.error(f"JSON decode error for services: {e}")
             raise HTTPException(status_code=400, detail="Invalid services format")
     
     if hourly_rate is not None:
