@@ -178,9 +178,34 @@ async def upload_portfolio_image(
             {"$push": {"tasker_profile.portfolio_images": file_path}}
         )
         
-        return {"file_path": file_path}
+        return {"file_path": file_path, "message": "Portfolio image uploaded successfully"}
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
+
+
+@api_router.delete("/taskers/portfolio/{image_path:path}")
+async def delete_portfolio_image(
+    image_path: str,
+    db: AsyncIOMotorDatabase = Depends(get_database),
+    token: str = Depends(oauth2_scheme)
+):
+    """Delete portfolio image."""
+    from auth import get_current_user as get_user
+    current_user = await get_user(token, db)
+    
+    if current_user.role != UserRole.TASKER:
+        raise HTTPException(status_code=403, detail="Only taskers can delete portfolio images")
+    
+    # Remove from tasker's portfolio
+    result = await db.users.update_one(
+        {"id": current_user.id},
+        {"$pull": {"tasker_profile.portfolio_images": image_path}}
+    )
+    
+    if result.modified_count > 0:
+        return {"message": "Portfolio image deleted successfully"}
+    else:
+        raise HTTPException(status_code=404, detail="Image not found in portfolio")
 
 
 @api_router.get("/taskers/search", response_model=List[UserResponse])
