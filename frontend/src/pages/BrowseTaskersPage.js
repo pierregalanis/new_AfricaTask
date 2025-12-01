@@ -190,35 +190,6 @@ const BrowseTaskersPage = () => {
     return R * c;
   };
 
-  const sortTaskers = (taskersList) => {
-    switch (sortBy) {
-      case 'price_low':
-        return [...taskersList].sort((a, b) => 
-          (a.tasker_profile?.hourly_rate || 0) - (b.tasker_profile?.hourly_rate || 0)
-        );
-      case 'price_high':
-        return [...taskersList].sort((a, b) => 
-          (b.tasker_profile?.hourly_rate || 0) - (a.tasker_profile?.hourly_rate || 0)
-        );
-      case 'distance':
-        return [...taskersList].sort((a, b) => (a.distance || 999) - (b.distance || 999));
-      case 'rating':
-        return [...taskersList].sort((a, b) => 
-          (b.tasker_profile?.average_rating || 0) - (a.tasker_profile?.average_rating || 0)
-        );
-      default: // recommended
-        return [...taskersList].sort((a, b) => {
-          const scoreA = (a.tasker_profile?.average_rating || 0) * 
-                        (a.tasker_profile?.completed_tasks || 0) / 
-                        ((a.distance || 10) + 1);
-          const scoreB = (b.tasker_profile?.average_rating || 0) * 
-                        (b.tasker_profile?.completed_tasks || 0) / 
-                        ((b.distance || 10) + 1);
-          return scoreB - scoreA;
-        });
-    }
-  };
-
   const handleBookTasker = (taskerId) => {
     navigate(`/tasker/${taskerId}?category=${categoryId}`);
   };
