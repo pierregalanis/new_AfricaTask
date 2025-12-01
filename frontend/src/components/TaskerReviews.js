@@ -7,6 +7,7 @@ const TaskerReviews = ({ taskerId, language = 'en' }) => {
   const [loading, setLoading] = useState(true);
   const [translatedTexts, setTranslatedTexts] = useState({});
   const [translating, setTranslating] = useState({});
+  const [showTranslation, setShowTranslation] = useState({}); // Track which reviews show translation
 
   useEffect(() => {
     if (taskerId) {
