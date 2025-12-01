@@ -40,7 +40,12 @@ const TaskerServicesManagement = () => {
       const response = await axios.get(
         `${process.env.REACT_APP_BACKEND_URL}/api/users/${user.id}`
       );
+      console.log('Fetched user profile:', response.data);
+      
       const profile = response.data.tasker_profile || {};
+      console.log('Tasker profile:', profile);
+      console.log('Services in profile:', profile.services);
+      
       setTaskerProfile(profile);
       setServices(profile.services || []);
       setHourlyRate(profile.hourly_rate || '');
@@ -49,6 +54,7 @@ const TaskerServicesManagement = () => {
       setIsAvailable(profile.is_available !== undefined ? profile.is_available : true);
     } catch (error) {
       console.error('Error fetching profile:', error);
+      console.error('Error details:', error.response?.data);
     } finally {
       setLoading(false);
     }
