@@ -376,6 +376,82 @@ async def update_task_status(
     return Task(**updated_task)
 
 
+@api_router.post("/tasks/{task_id}/cancel")
+async def cancel_task(
+    task_id: str,
+    reason: str = Form(...),
+    db: AsyncIOMotorDatabase = Depends(get_database),
+    token: str = Depends(oauth2_scheme)
+):
+    """Cancel a task with optional penalty."""
+    from auth import get_current_user as get_user
+    from notification_routes import create_notification
+    current_user = await get_user(token, db)
+    
+    task = await db.tasks.find_one({"id": task_id}, {"_id": 0})
+    if not task:
+        raise HTTPException(status_code=404, detail="Task not found")
+    
+    # Check permissions
+    is_client = current_user.id == task["client_id"]
+    is_tasker = current_user.id == task.get("assigned_tasker_id")
+    
+    if not (is_client or is_tasker):
+        raise HTTPException(status_code=403, detail="Not authorized to cancel this task")
+    
+    # Check if task can be cancelled
+    if task["status"] in [TaskStatus.COMPLETED, "cancelled"]:
+        raise HTTPException(
+            status_code=400, 
+            detail=f"Cannot cancel a task that is already {task['status']}"
+        )
+    
+    # Calculate penalty if applicable
+    penalty_amount = 0
+    penalty_reason = ""
+    
+    # If task is in progress, apply penalty
+    if task["status"] == TaskStatus.IN_PROGRESS:
+        hours_passed = 0
+        if task.get("timer_start_time"):
+            hours_passed = (datetime.utcnow() - task["timer_start_time"]).total_seconds() / 3600
+        
+        if hours_passed > 0:
+            penalty_amount = hours_passed * task.get("hourly_rate", 0) * 0.5  # 50% penalty
+            penalty_reason = "Task cancelled after work started"
+    
+    # Update task status
+    update_data = {
+        "status": "cancelled",
+        "cancellation_reason": reason,
+        "cancelled_by": current_user.id,
+        "cancelled_by_role": current_user.role.value,
+        "cancelled_at": datetime.utcnow(),
+        "penalty_amount": penalty_amount,
+        "penalty_reason": penalty_reason
+    }
+    
+    await db.tasks.update_one({"id": task_id}, {"$set": update_data})
+    
+    # Send notification to the other party
+    notify_user_id = task["client_id"] if is_tasker else task.get("assigned_tasker_id")
+    if notify_user_id:
+        await create_notification(
+            db=db,
+            user_id=notify_user_id,
+            notification_type="task_cancelled",
+            task_id=task_id,
+            task_title=task.get("title", "Task"),
+            message=f"Task has been cancelled. Reason: {reason}"
+        )
+    
+    return {
+        "message": "Task cancelled successfully",
+        "penalty_amount": penalty_amount,
+        "penalty_reason": penalty_reason
+    }
+
+
 @api_router.post("/tasks/{task_id}/mark-paid-cash")
 async def mark_task_paid_cash(
     task_id: str,
