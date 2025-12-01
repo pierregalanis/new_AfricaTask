@@ -155,7 +155,9 @@ const TaskerEarnings = () => {
             </button>
           </div>
 
-          {earnings?.payment_history && earnings.payment_history.length > 0 ? (
+          {loading ? (
+            <SkeletonTable rows={5} cols={6} />
+          ) : earnings?.payment_history && earnings.payment_history.length > 0 ? (
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead className="bg-gray-50 border-b">
