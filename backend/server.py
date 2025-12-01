@@ -1129,6 +1129,10 @@ app.include_router(auth_router)
 from user_routes import router as user_router
 app.include_router(user_router)
 
+# Include tasker routes
+from tasker_routes import router as tasker_router
+app.include_router(tasker_router)
+
 # Include category routes
 from category_routes import router as category_router
 app.include_router(category_router)
