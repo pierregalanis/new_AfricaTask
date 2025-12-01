@@ -107,14 +107,14 @@ const Navbar = () => {
               <>
                 <Link
                   to="/login"
-                  className="px-4 py-2 text-gray-700 hover:text-gray-900 hidden md:block"
+                  className="px-4 py-2 text-gray-700 dark:text-gray-200 hover:text-emerald-600 dark:hover:text-emerald-400 hidden md:block transition-colors"
                   data-testid="login-link"
                 >
                   {t('login')}
                 </Link>
                 <Link
                   to="/register"
-                  className="px-4 py-2 bg-orange-600 text-white rounded-md hover:bg-orange-700 hidden md:block"
+                  className="px-4 py-2 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-md hover:from-emerald-600 hover:to-teal-700 hidden md:block shadow-lg shadow-emerald-500/30 hover:shadow-emerald-500/50 transition-all duration-300 hover:scale-105"
                   data-testid="register-link"
                 >
                   {t('register')}
