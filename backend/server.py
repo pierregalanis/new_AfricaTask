@@ -91,7 +91,7 @@ async def shutdown_event():
 async def update_tasker_profile(
     bio: Optional[str] = Form(None),
     hourly_rate: Optional[float] = Form(None),
-    service_categories: Optional[str] = Form(None),  # JSON string
+    services: Optional[str] = Form(None),  # JSON string of services array
     availability: Optional[str] = Form(None),  # JSON string
     is_available: Optional[bool] = Form(None),
     max_travel_distance: Optional[float] = Form(None),
@@ -110,8 +110,9 @@ async def update_tasker_profile(
         update_data["tasker_profile.bio"] = bio
     if hourly_rate is not None:
         update_data["tasker_profile.hourly_rate"] = hourly_rate
-    if service_categories:
-        update_data["tasker_profile.service_categories"] = json.loads(service_categories)
+    if services:
+        services_list = json.loads(services)
+        update_data["tasker_profile.services"] = services_list
     if availability:
         update_data["tasker_profile.availability"] = json.loads(availability)
     if is_available is not None:
