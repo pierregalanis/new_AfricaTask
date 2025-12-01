@@ -152,6 +152,9 @@ async def update_tasker_profile(
     if max_travel_distance is not None:
         update_data["tasker_profile.max_travel_distance"] = max_travel_distance
     
+    if is_available is not None:
+        update_data["tasker_profile.is_available"] = is_available
+    
     if certifications:
         try:
             cert_list = json.loads(certifications)
