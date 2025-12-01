@@ -119,6 +119,7 @@ const TaskerServicesManagement = () => {
       formData.append('hourly_rate', hourlyRate);
       formData.append('bio', bio);
       formData.append('max_travel_distance', maxTravelDistance || 10);
+      formData.append('is_available', isAvailable);
 
       await axios.put(
         `${process.env.REACT_APP_BACKEND_URL}/api/taskers/profile`,
