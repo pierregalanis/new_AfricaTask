@@ -52,6 +52,8 @@ const ImprovedNotificationCenter = ({ language = 'en' }) => {
 
   const markAllAsRead = async () => {
     try {
+      if (!Array.isArray(notifications)) return;
+      
       const unreadIds = notifications.filter(n => !n.read).map(n => n.notification_id);
       if (unreadIds.length === 0) return;
 
@@ -60,7 +62,7 @@ const ImprovedNotificationCenter = ({ language = 'en' }) => {
         { notification_ids: unreadIds },
         { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       );
-      setNotifications(prev => prev.map(n => ({ ...n, read: true })));
+      setNotifications(prev => Array.isArray(prev) ? prev.map(n => ({ ...n, read: true })) : []);
     } catch (error) {
       console.error('Error marking all as read:', error);
     }
