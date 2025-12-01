@@ -6,6 +6,7 @@ import { Globe, LogOut, User, LayoutDashboard, Shield, Repeat } from 'lucide-rea
 import ImprovedNotificationCenter from './ImprovedNotificationCenter';
 import CoinBalanceWidget from './CoinBalanceWidget';
 import MobileNav from './MobileNav';
+import ThemeToggle from './ThemeToggle';
 
 const Navbar = () => {
   const { isAuthenticated, user, logout, language, changeLanguage } = useAuth();
