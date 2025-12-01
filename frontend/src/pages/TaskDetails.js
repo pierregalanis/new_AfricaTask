@@ -226,6 +226,32 @@ const TaskDetails = () => {
                   )}
                 </div>
               )}
+
+              {/* Cancel Button (for active tasks) */}
+              {task.status !== 'completed' && task.status !== 'cancelled' && (
+                <div className="mt-3">
+                  <button
+                    onClick={() => setShowCancelModal(true)}
+                    className="w-full py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition font-semibold flex items-center justify-center space-x-2"
+                  >
+                    <XCircle className="w-5 h-5" />
+                    <span>{language === 'en' ? 'Cancel Task' : 'Annuler la tâche'}</span>
+                  </button>
+                </div>
+              )}
+
+              {/* Dispute Button (for completed tasks) */}
+              {task.status === 'completed' && (
+                <div className="mt-3">
+                  <button
+                    onClick={() => setShowDisputeModal(true)}
+                    className="w-full py-3 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition font-semibold flex items-center justify-center space-x-2"
+                  >
+                    <AlertTriangle className="w-5 h-5" />
+                    <span>{language === 'en' ? 'Raise Dispute' : 'Soulever un litige'}</span>
+                  </button>
+                </div>
+              )}
             </div>
           </div>
 
