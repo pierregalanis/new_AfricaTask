@@ -46,6 +46,7 @@ const TaskerServicesManagement = () => {
       setHourlyRate(profile.hourly_rate || '');
       setBio(profile.bio || '');
       setMaxTravelDistance(profile.max_travel_distance || '');
+      setIsAvailable(profile.is_available !== undefined ? profile.is_available : true);
     } catch (error) {
       console.error('Error fetching profile:', error);
     } finally {
