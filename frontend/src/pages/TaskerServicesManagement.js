@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { translations } from '../utils/translations';
 import axios from 'axios';
 import Navbar from '../components/Navbar';
+import TaskerPortfolio from '../components/TaskerPortfolio';
 import { Plus, X, Save, Briefcase } from 'lucide-react';
 import { toast } from 'react-toastify';
 
