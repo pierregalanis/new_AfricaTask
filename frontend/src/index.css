@@ -59,13 +59,6 @@
     @apply text-white font-semibold px-6 py-3 rounded-xl;
     @apply shadow-lg shadow-emerald-500/50 hover:shadow-emerald-500/70;
     @apply transform transition-all duration-300 hover:scale-105 hover:-translate-y-0.5;
-    @apply group;
-  }
-
-  .btn-primary::before {
-    content: '';
-    @apply absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
   }
 
   .btn-secondary {
