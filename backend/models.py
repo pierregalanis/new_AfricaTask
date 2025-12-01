@@ -8,6 +8,7 @@ import uuid
 class UserRole(str, Enum):
     CLIENT = "client"
     TASKER = "tasker"
+    ADMIN = "admin"
 
 
 class TaskStatus(str, Enum):
