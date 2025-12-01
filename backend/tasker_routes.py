@@ -19,6 +19,99 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/login")
 router = APIRouter(prefix="/api/taskers", tags=["taskers"])
 
 
+@router.get("/earnings")
+async def get_tasker_earnings(
+    period: str = "all",  # all, week, month
+    db: AsyncIOMotorDatabase = Depends(get_database),
+    token: str = Depends(oauth2_scheme)
+):
+    """Get tasker earnings summary and history."""
+    from auth import get_current_user as get_user
+    from datetime import datetime, timedelta
+    
+    current_user = await get_user(token, db)
+    
+    if current_user.role != UserRole.TASKER:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Only taskers can view earnings"
+        )
+    
+    # Calculate date range
+    now = datetime.utcnow()
+    date_filter = {}
+    
+    if period == "week":
+        week_ago = now - timedelta(days=7)
+        date_filter = {"completed_at": {"$gte": week_ago}}
+    elif period == "month":
+        month_ago = now - timedelta(days=30)
+        date_filter = {"completed_at": {"$gte": month_ago}}
+    
+    # Get all completed & paid tasks
+    base_query = {
+        "assigned_tasker_id": current_user.id,
+        "status": "completed",
+        "is_paid": True
+    }
+    
+    paid_tasks = await db.tasks.find({**base_query, **date_filter}, {"_id": 0}).to_list(1000)
+    
+    # Get pending tasks (completed but not paid)
+    pending_tasks = await db.tasks.find({
+        "assigned_tasker_id": current_user.id,
+        "status": "completed",
+        "is_paid": False
+    }, {"_id": 0}).to_list(1000)
+    
+    # Calculate totals
+    total_earnings = sum(task.get("total_amount", 0) for task in paid_tasks)
+    pending_earnings = sum(task.get("total_amount", 0) for task in pending_tasks)
+    
+    # Week and month earnings
+    week_ago = now - timedelta(days=7)
+    month_ago = now - timedelta(days=30)
+    
+    week_earnings = sum(
+        task.get("total_amount", 0) 
+        for task in paid_tasks 
+        if task.get("completed_at") and task["completed_at"] >= week_ago
+    )
+    
+    month_earnings = sum(
+        task.get("total_amount", 0) 
+        for task in paid_tasks 
+        if task.get("completed_at") and task["completed_at"] >= month_ago
+    )
+    
+    # Payment history
+    payment_history = [
+        {
+            "title": task.get("title"),
+            "client_name": task.get("client_name", "Unknown"),
+            "completed_at": task.get("completed_at"),
+            "hours_worked": task.get("hours_worked"),
+            "total_amount": task.get("total_amount", 0),
+            "is_paid": task.get("is_paid", False),
+            "payment_method": task.get("payment_method", "cash")
+        }
+        for task in (paid_tasks + pending_tasks)
+    ]
+    
+    # Sort by date descending
+    payment_history.sort(key=lambda x: x.get("completed_at") or datetime.min, reverse=True)
+    
+    return {
+        "total_earnings": total_earnings,
+        "pending_earnings": pending_earnings,
+        "pending_count": len(pending_tasks),
+        "week_earnings": week_earnings,
+        "month_earnings": month_earnings,
+        "total_tasks": len(paid_tasks),
+        "payment_history": payment_history[:50]  # Latest 50
+    }
+
+
 @router.put("/profile", response_model=UserResponse)
 async def update_tasker_profile(
     services: Optional[str] = Form(None),  # JSON string of services array
