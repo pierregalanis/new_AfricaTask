@@ -97,18 +97,19 @@ const RecurringTasksPage = () => {
         </div>
 
         {/* Tasks List */}
-        {recurringTasks.length === 0 ? (
-          <div className="bg-white rounded-xl shadow-lg p-12 text-center">
-            <Repeat className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-            <p className="text-gray-600 mb-2">
-              {language === 'en' ? 'No recurring tasks yet' : 'Aucune tâche récurrente pour le moment'}
-            </p>
-            <p className="text-sm text-gray-500">
-              {language === 'en' 
-                ? 'Create a recurring schedule to automate your regular bookings' 
-                : 'Créez un calendrier récurrent pour automatiser vos réservations régulières'}
-            </p>
-          </div>
+        {loading ? (
+          <SkeletonList count={3} />
+        ) : recurringTasks.length === 0 ? (
+          <EmptyState
+            icon={Repeat}
+            illustration="🔄"
+            title={language === 'en' ? 'No Recurring Tasks Yet' : 'Aucune tâche récurrente'}
+            description={language === 'en' 
+              ? 'Create a recurring schedule to automate your regular bookings and save time.' 
+              : 'Créez un calendrier récurrent pour automatiser vos réservations régulières.'}
+            actionLabel={language === 'en' ? 'Browse Services' : 'Parcourir les services'}
+            actionLink="/services"
+          />
         ) : (
           <div className="space-y-4">
             {recurringTasks.map((task) => (
