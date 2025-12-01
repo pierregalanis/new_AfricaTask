@@ -468,6 +468,23 @@ const NewClientDashboard = () => {
         }}
         language={language}
       />
+
+      {/* Mark as Paid Modal */}
+      {markAsPaidModalOpen && selectedTaskForPayment && (
+        <MarkAsPaidModal
+          task={selectedTaskForPayment}
+          onClose={() => {
+            setMarkAsPaidModalOpen(false);
+            setSelectedTaskForPayment(null);
+          }}
+          onSuccess={() => {
+            fetchBookings(); // Refresh bookings
+            setMarkAsPaidModalOpen(false);
+            setSelectedTaskForPayment(null);
+          }}
+          language={language}
+        />
+      )}
     </div>
   );
 };
