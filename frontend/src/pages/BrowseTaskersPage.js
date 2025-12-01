@@ -258,97 +258,11 @@ const BrowseTaskersPage = () => {
           </p>
         </div>
 
-        {/* Filters */}
-        <div className="fancy-card p-6 mb-8 animate-fadeIn">
-          <div className="flex flex-wrap items-center gap-4">
-            {/* Sort By */}
-            <div className="flex items-center space-x-2">
-              <Filter className="w-5 h-5 text-gray-500" />
-              <select
-                value={sortBy}
-                onChange={(e) => {
-                  setSortBy(e.target.value);
-                  setTaskers(sortTaskers(taskers));
-                }}
-                className="fancy-input py-2"
-                data-testid="sort-select"
-              >
-                <option value="recommended">{language === 'en' ? 'Recommended' : 'Recommandé'}</option>
-                <option value="price_low">{language === 'en' ? 'Price: Low to High' : 'Prix: Bas à Haut'}</option>
-                <option value="price_high">{language === 'en' ? 'Price: High to Low' : 'Prix: Haut à Bas'}</option>
-                <option value="distance">{language === 'en' ? 'Nearest' : 'Plus proche'}</option>
-                <option value="rating">{language === 'en' ? 'Highest Rated' : 'Mieux noté'}</option>
-              </select>
-            </div>
-
-            {/* Availability Filter */}
-            <div className="flex space-x-2">
-              <button
-                onClick={() => setFilterAvailability('all')}
-                className={`px-4 py-2 rounded-full font-semibold transition ${
-                  filterAvailability === 'all'
-                    ? 'bg-orange-600 text-white'
-                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                }`}
-              >
-                {language === 'en' ? 'All' : 'Tous'}
-              </button>
-              <button
-                onClick={() => setFilterAvailability('today')}
-                className={`px-4 py-2 rounded-full font-semibold transition ${
-                  filterAvailability === 'today'
-                    ? 'bg-orange-600 text-white'
-                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                }`}
-              >
-                {language === 'en' ? 'Today' : "Aujourd'hui"}
-              </button>
-              <button
-                onClick={() => setFilterAvailability('week')}
-                className={`px-4 py-2 rounded-full font-semibold transition ${
-                  filterAvailability === 'week'
-                    ? 'bg-orange-600 text-white'
-                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                }`}
-              >
-                {language === 'en' ? 'This Week' : 'Cette semaine'}
-              </button>
-            </div>
-          </div>
-          
-          {/* Distance Filter */}
-          {user?.latitude && user?.longitude && (
-            <div className="mt-6 pt-6 border-t border-gray-200">
-              <h3 className="text-sm font-semibold text-gray-700 mb-3 flex items-center">
-                <MapPin className="w-4 h-4 mr-2" />
-                {language === 'en' ? 'Maximum Distance' : 'Distance maximale'}
-              </h3>
-              <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="text-2xl font-bold text-orange-600">
-                    {maxDistance >= 100 ? (language === 'en' ? 'Any distance' : 'Toute distance') : `${maxDistance} km`}
-                  </span>
-                </div>
-                <input
-                  type="range"
-                  min="5"
-                  max="100"
-                  step="5"
-                  value={maxDistance}
-                  onChange={(e) => setMaxDistance(parseInt(e.target.value))}
-                  className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-orange-600"
-                />
-                <div className="flex justify-between text-xs text-gray-500">
-                  <span>5 km</span>
-                  <span>25 km</span>
-                  <span>50 km</span>
-                  <span>75 km</span>
-                  <span>{language === 'en' ? 'Any' : 'Tout'}</span>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
+        {/* Advanced Search & Filters */}
+        <AdvancedSearchFilters 
+          onFilterChange={(filters) => applyFiltersAndSort(allTaskers, filters)}
+          language={language}
+        />
 
         {/* Taskers List */}
         {taskers.length === 0 ? (
