@@ -3,6 +3,8 @@ import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Navbar from '../components/Navbar';
+import { SkeletonCard, SkeletonTable } from '../components/LoadingStates';
+import { NoEarningsFound } from '../components/EmptyStates';
 import { DollarSign, TrendingUp, Clock, Calendar, Download, Filter } from 'lucide-react';
 
 const TaskerEarnings = () => {
