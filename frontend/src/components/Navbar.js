@@ -63,10 +63,10 @@ const Navbar = () => {
                 {/* Recurring Tasks Link */}
                 <Link
                   to="/recurring-tasks"
-                  className="flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-gray-100"
+                  className="flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-emerald-50 dark:hover:bg-emerald-900/30 transition-colors"
                   title={language === 'en' ? 'Recurring Tasks' : 'Tâches récurrentes'}
                 >
-                  <Repeat className="w-4 h-4 text-gray-700" />
+                  <Repeat className="w-4 h-4 text-gray-700 dark:text-emerald-400" />
                 </Link>
 
                 {/* Notification Center */}
