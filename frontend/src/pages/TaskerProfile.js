@@ -238,6 +238,31 @@ const TaskerProfile = () => {
           </div>
         )}
 
+        {/* Portfolio Gallery */}
+        {profile.portfolio_images && profile.portfolio_images.length > 0 && (
+          <div className="bg-white rounded-xl shadow-md p-6 mb-8">
+            <h2 className="text-xl font-semibold mb-4 flex items-center space-x-2">
+              <Award className="w-6 h-6 text-orange-600" />
+              <span>{language === 'en' ? 'Portfolio' : 'Portfolio'}</span>
+            </h2>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {profile.portfolio_images.map((image, idx) => (
+                <div
+                  key={idx}
+                  className="relative rounded-lg overflow-hidden aspect-square bg-gray-100 cursor-pointer hover:opacity-90 transition-opacity"
+                  onClick={() => window.open(`${process.env.REACT_APP_BACKEND_URL}${image}`, '_blank')}
+                >
+                  <img
+                    src={`${process.env.REACT_APP_BACKEND_URL}${image}`}
+                    alt={`Portfolio ${idx + 1}`}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* Reviews Section */}
         <div className="bg-white rounded-xl shadow-md p-8">
           <TaskerReviews taskerId={taskerId} language={language} />
