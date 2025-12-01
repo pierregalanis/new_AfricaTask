@@ -161,7 +161,7 @@ const ImprovedNotificationCenter = ({ language = 'en' }) => {
                 <div className="flex items-center justify-center py-12">
                   <div className="w-8 h-8 border-4 border-orange-600 border-t-transparent rounded-full animate-spin"></div>
                 </div>
-              ) : notifications.length === 0 ? (
+              ) : !Array.isArray(notifications) || notifications.length === 0 ? (
                 <div className="text-center py-12">
                   <Bell className="w-12 h-12 text-gray-300 mx-auto mb-3" />
                   <p className="text-gray-500">
