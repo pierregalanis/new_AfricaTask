@@ -3,8 +3,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { translations } from '../utils/translations';
 import { Globe, LogOut, User, LayoutDashboard, Shield, Repeat } from 'lucide-react';
-import NotificationBell from './NotificationBell';
+import ImprovedNotificationCenter from './ImprovedNotificationCenter';
 import CoinBalanceWidget from './CoinBalanceWidget';
+import MobileNav from './MobileNav';
 
 const Navbar = () => {
   const { isAuthenticated, user, logout, language, changeLanguage } = useAuth();
