@@ -118,6 +118,7 @@ async def update_tasker_profile(
     hourly_rate: Optional[float] = Form(None),
     bio: Optional[str] = Form(None),
     max_travel_distance: Optional[float] = Form(None),
+    is_available: Optional[bool] = Form(None),
     certifications: Optional[str] = Form(None),  # JSON string
     db: AsyncIOMotorDatabase = Depends(get_database),
     token: str = Depends(oauth2_scheme)
