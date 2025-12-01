@@ -21,6 +21,7 @@ const TaskerServicesManagement = () => {
   const [hourlyRate, setHourlyRate] = useState('');
   const [bio, setBio] = useState('');
   const [maxTravelDistance, setMaxTravelDistance] = useState('');
+  const [isAvailable, setIsAvailable] = useState(true);
   const [saving, setSaving] = useState(false);
 
   const t = (key) => translations[language][key] || key;
