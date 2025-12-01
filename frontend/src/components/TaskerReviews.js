@@ -29,9 +29,11 @@ const TaskerReviews = ({ taskerId, language = 'en' }) => {
   };
 
   const translateText = async (reviewId, text, targetLang) => {
-    // Check if already translated
     const cacheKey = `${reviewId}_${targetLang}`;
+    
+    // If already translated, just toggle display
     if (translatedTexts[cacheKey]) {
+      setShowTranslation(prev => ({ ...prev, [reviewId]: !prev[reviewId] }));
       return;
     }
 
@@ -50,6 +52,9 @@ const TaskerReviews = ({ taskerId, language = 'en' }) => {
         ...prev,
         [cacheKey]: response.data.translated_text
       }));
+      
+      // Show translation after fetching
+      setShowTranslation(prev => ({ ...prev, [reviewId]: true }));
     } catch (error) {
       console.error('Translation error:', error);
     } finally {
