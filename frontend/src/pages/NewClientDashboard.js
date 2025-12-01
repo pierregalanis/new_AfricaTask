@@ -28,6 +28,8 @@ const NewClientDashboard = () => {
   const [taskerForChat, setTaskerForChat] = useState(null);
   const [reviewModalOpen, setReviewModalOpen] = useState(false);
   const [selectedTaskForReview, setSelectedTaskForReview] = useState(null);
+  const [markAsPaidModalOpen, setMarkAsPaidModalOpen] = useState(false);
+  const [selectedTaskForPayment, setSelectedTaskForPayment] = useState(null);
   const navigate = useNavigate();
   const t = (key) => translations[language]?.[key] || key;
 
