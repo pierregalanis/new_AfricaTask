@@ -64,7 +64,14 @@ const TaskerReviews = ({ taskerId, language = 'en' }) => {
 
   const getDisplayText = (reviewId, originalText, currentLang) => {
     const cacheKey = `${reviewId}_${currentLang}`;
-    return translatedTexts[cacheKey] || originalText;
+    const isShowingTranslation = showTranslation[reviewId];
+    
+    // Show translation only if toggle is on AND translation exists
+    if (isShowingTranslation && translatedTexts[cacheKey]) {
+      return translatedTexts[cacheKey];
+    }
+    
+    return originalText;
   };
 
   const renderStars = (rating) => {
