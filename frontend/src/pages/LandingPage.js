@@ -171,7 +171,7 @@ const LandingPage = () => {
                   Faites les choses
                   <br />
                   <span className="bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">
-                    N\'importe quand
+                    n'importe quand
                   </span>
                 </>
               )}
