@@ -167,10 +167,12 @@ async def update_tasker_profile(
             raise HTTPException(status_code=400, detail="Invalid certifications format")
     
     if update_data:
-        await db.users.update_one(
+        logger.info(f"Final update_data before MongoDB: {update_data}")
+        result = await db.users.update_one(
             {"id": current_user.id},
             {"$set": update_data}
         )
+        logger.info(f"MongoDB update result - matched: {result.matched_count}, modified: {result.modified_count}")
         logger.info(f"Tasker profile updated: {current_user.id}")
     
     # Get updated user
