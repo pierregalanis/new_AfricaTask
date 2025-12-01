@@ -31,13 +31,22 @@ const TaskerReviews = ({ taskerId, language = 'en' }) => {
   const translateText = async (reviewId, text, targetLang) => {
     const cacheKey = `${reviewId}_${targetLang}`;
     
-    // If already translated, just toggle display
+    // If already translated, just toggle display for THIS review only
     if (translatedTexts[cacheKey]) {
-      setShowTranslation(prev => ({ ...prev, [reviewId]: !prev[reviewId] }));
+      setShowTranslation(prev => {
+        const newState = { ...prev };
+        newState[reviewId] = !newState[reviewId];
+        return newState;
+      });
       return;
     }
 
-    setTranslating(prev => ({ ...prev, [reviewId]: true }));
+    // Set translating state for THIS review only
+    setTranslating(prev => {
+      const newState = { ...prev };
+      newState[reviewId] = true;
+      return newState;
+    });
 
     try {
       const response = await axios.post(
@@ -48,17 +57,27 @@ const TaskerReviews = ({ taskerId, language = 'en' }) => {
         }
       );
 
-      setTranslatedTexts(prev => ({
-        ...prev,
-        [cacheKey]: response.data.translated_text
-      }));
+      // Store translation with unique cache key
+      setTranslatedTexts(prev => {
+        const newState = { ...prev };
+        newState[cacheKey] = response.data.translated_text;
+        return newState;
+      });
       
-      // Show translation after fetching
-      setShowTranslation(prev => ({ ...prev, [reviewId]: true }));
+      // Show translation for THIS review only
+      setShowTranslation(prev => {
+        const newState = { ...prev };
+        newState[reviewId] = true;
+        return newState;
+      });
     } catch (error) {
-      console.error('Translation error:', error);
+      console.error('Translation error for review', reviewId, ':', error);
     } finally {
-      setTranslating(prev => ({ ...prev, [reviewId]: false }));
+      setTranslating(prev => {
+        const newState = { ...prev };
+        newState[reviewId] = false;
+        return newState;
+      });
     }
   };
 
