@@ -12,6 +12,7 @@ import ClientJobTimer from '../components/ClientJobTimer';
 import PaymentModal from '../components/PaymentModal';
 import ChatModal from '../components/ChatModal';
 import ReviewModal from '../components/ReviewModal';
+import MarkAsPaidModal from '../components/MarkAsPaidModal';
 import { Search, Calendar, Briefcase, Clock, MessageCircle, Navigation, Star, ChevronDown, ChevronUp, CreditCard } from 'lucide-react';
 
 const NewClientDashboard = () => {
