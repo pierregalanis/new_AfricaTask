@@ -75,6 +75,9 @@ const Navbar = () => {
                     <Shield className="w-4 h-4" />
                   </Link>
                 )}
+
+                {/* Mobile Navigation */}
+                <MobileNav language={language} />
                 
                 <Link
                   to="/profile"
@@ -97,7 +100,7 @@ const Navbar = () => {
               <>
                 <Link
                   to="/login"
-                  className="px-4 py-2 text-gray-700 hover:text-gray-900"
+                  className="px-4 py-2 text-gray-700 hover:text-gray-900 hidden md:block"
                   data-testid="login-link"
                 >
                   {t('login')}
