@@ -1731,6 +1731,11 @@ if __name__ == "__main__":
             ws_tester = WebSocketChatTester()
             success = ws_tester.run_websocket_tests()
             sys.exit(0 if success else 1)
+        elif sys.argv[1] == "features":
+            # Run new features tests
+            features_tester = NewFeaturesTester()
+            success = features_tester.run_new_features_tests()
+            sys.exit(0 if success else 1)
     else:
         # Run original end-to-end tests
         tester = TaskRabbitTester()
