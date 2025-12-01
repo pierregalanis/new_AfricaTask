@@ -914,9 +914,10 @@ class NewFeaturesTester:
             if image_path:
                 self.log(f"✅ Portfolio image uploaded: {image_path}")
                 
-                # Test portfolio image deletion (remove leading slash if present)
-                clean_path = image_path.lstrip('/')
-                response = self.make_request("DELETE", f"/taskers/portfolio/{clean_path}", None, None, self.tasker_token)
+                # Test portfolio image deletion (use exact path returned)
+                import urllib.parse
+                encoded_path = urllib.parse.quote(image_path, safe='')
+                response = self.make_request("DELETE", f"/taskers/portfolio/{encoded_path}", None, None, self.tasker_token)
                 
                 if response and response.status_code == 200:
                     self.log("✅ Portfolio image deleted successfully")
