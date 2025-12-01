@@ -13,6 +13,8 @@ import PaymentModal from '../components/PaymentModal';
 import ChatModal from '../components/ChatModal';
 import ReviewModal from '../components/ReviewModal';
 import MarkAsPaidModal from '../components/MarkAsPaidModal';
+import { SkeletonCard, SkeletonList } from '../components/LoadingStates';
+import { NoBookingsFound } from '../components/EmptyStates';
 import { Search, Calendar, Briefcase, Clock, MessageCircle, Navigation, Star, ChevronDown, ChevronUp, CreditCard } from 'lucide-react';
 
 const NewClientDashboard = () => {
