@@ -317,6 +317,15 @@ const TaskerServicesManagement = () => {
             </button>
           </div>
         </div>
+
+        {/* Portfolio Gallery */}
+        <div className="mt-8">
+          <TaskerPortfolio 
+            portfolio={taskerProfile?.portfolio_images || []}
+            onUpdate={fetchTaskerProfile}
+            language={language}
+          />
+        </div>
       </div>
     </div>
   );
