@@ -107,11 +107,14 @@ const Navbar = () => {
                 </Link>
                 <Link
                   to="/register"
-                  className="px-4 py-2 bg-orange-600 text-white rounded-md hover:bg-orange-700"
+                  className="px-4 py-2 bg-orange-600 text-white rounded-md hover:bg-orange-700 hidden md:block"
                   data-testid="register-link"
                 >
                   {t('register')}
                 </Link>
+                
+                {/* Mobile Navigation for non-authenticated */}
+                <MobileNav language={language} />
               </>
             )}
           </div>
