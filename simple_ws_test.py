@@ -10,7 +10,7 @@ import requests
 import time
 
 # Configuration
-BACKEND_URL = "https://afrihandyman.preview.emergentagent.com/api"
+BACKEND_URL = "https://localhelp-africa.preview.emergentagent.com/api"
 WS_URL = "wss://taskafy.preview.emergentagent.com"
 
 CLIENT_CREDENTIALS = {
