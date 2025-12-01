@@ -5,6 +5,7 @@ import { translations } from '../utils/translations';
 import { taskersAPI, categoriesAPI } from '../api/client';
 import Navbar from '../components/Navbar';
 import TaskerRating from '../components/TaskerRating';
+import AdvancedSearchFilters from '../components/AdvancedSearchFilters';
 import { Star, MapPin, Check, Filter, DollarSign, ArrowLeft } from 'lucide-react';
 
 const BrowseTaskersPage = () => {
