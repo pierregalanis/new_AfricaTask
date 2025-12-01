@@ -121,7 +121,10 @@ const TaskerServicesManagement = () => {
       formData.append('max_travel_distance', maxTravelDistance || 10);
       formData.append('is_available', isAvailable);
 
-      await axios.put(
+      console.log('Saving services:', services);
+      console.log('FormData services:', formData.get('services'));
+      
+      const response = await axios.put(
         `${process.env.REACT_APP_BACKEND_URL}/api/taskers/profile`,
         formData,
         {
@@ -132,8 +135,12 @@ const TaskerServicesManagement = () => {
         }
       );
 
+      console.log('Save response:', response.data);
+      
       toast.success(language === 'en' ? 'Profile updated successfully!' : 'Profil mis à jour avec succès!');
-      navigate('/profile');
+      
+      // Refresh the profile data instead of navigating away
+      await fetchTaskerProfile();
     } catch (error) {
       console.error('Error updating profile:', error);
       toast.error(language === 'en' ? 'Failed to update profile' : 'Échec de la mise à jour du profil');
