@@ -128,7 +128,7 @@ const TaskerReviews = ({ taskerId, language = 'en' }) => {
         {reviews.map((review) => {
           const targetLang = language === 'en' ? 'en' : 'fr';
           const displayText = getDisplayText(review.review_id, review.comment, targetLang);
-          const isTranslated = translatedTexts[`${review.review_id}_${targetLang}`];
+          const isTranslated = showTranslation[review.review_id] && translatedTexts[`${review.review_id}_${targetLang}`];
 
           return (
             <div
