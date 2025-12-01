@@ -1254,6 +1254,10 @@ app.include_router(review_router)
 from notification_routes import router as notification_router
 app.include_router(notification_router)
 
+# Dispute routes
+from routes.dispute_routes import router as dispute_router
+app.include_router(dispute_router)
+
 # Serve static files (uploads)
 app.mount("/uploads", StaticFiles(directory=str(Path(__file__).parent / "uploads")), name="uploads")
 
