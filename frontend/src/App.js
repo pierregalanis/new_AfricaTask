@@ -196,16 +196,23 @@ function AppRoutes() {
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <NotificationProvider>
-          <BrowserRouter>
-            <div className="App">
-              <AppRoutes />
-              <ToastContainer position="top-right" autoClose={3000} />
-            </div>
-          </BrowserRouter>
-        </NotificationProvider>
-      </AuthProvider>
+      <ThemeProvider>
+        <AuthProvider>
+          <NotificationProvider>
+            <BrowserRouter>
+              <div className="App min-h-screen transition-colors duration-300">
+                <AppRoutes />
+                <ToastContainer 
+                  position="top-right" 
+                  autoClose={3000}
+                  theme="dark"
+                  toastClassName="dark:bg-gray-800 dark:text-white"
+                />
+              </div>
+            </BrowserRouter>
+          </NotificationProvider>
+        </AuthProvider>
+      </ThemeProvider>
     </QueryClientProvider>
   );
 }
