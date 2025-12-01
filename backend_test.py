@@ -1009,7 +1009,7 @@ class NewFeaturesTester:
             return False
         
         # First mark the task as completed (disputes only work on completed tasks)
-        response = self.make_request("PUT", f"/tasks/{self.test_task_id}/status?new_status=completed", None, None, self.tasker_token)
+        response = self.make_request("PUT", f"/tasks/{self.test_task_id}/status", {"new_status": "completed"}, None, self.tasker_token)
         
         if not response or response.status_code != 200:
             self.log("⚠️ Could not mark task as completed, creating dispute anyway")
