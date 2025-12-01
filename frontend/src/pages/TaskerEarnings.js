@@ -217,9 +217,7 @@ const TaskerEarnings = () => {
               </table>
             </div>
           ) : (
-            <div className="text-center py-12 text-gray-500">
-              {language === 'en' ? 'No payment history yet' : 'Aucun historique de paiement'}
-            </div>
+            <NoEarningsFound language={language} />
           )}
         </div>
       </div>
