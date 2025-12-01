@@ -11,6 +11,7 @@ import NewTaskerDashboard from './pages/NewTaskerDashboard';
 import TaskerProfileSetup from './pages/TaskerProfileSetup';
 import TaskerServicesManagement from './pages/TaskerServicesManagement';
 import TaskerEarnings from './pages/TaskerEarnings';
+import AdminDashboard from './pages/AdminDashboard';
 import ServiceSelection from './pages/ServiceSelection';
 import BrowseTaskersPage from './pages/BrowseTaskersPage';
 import TaskerProfile from './pages/TaskerProfile';
