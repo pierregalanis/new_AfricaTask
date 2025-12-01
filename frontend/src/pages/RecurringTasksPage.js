@@ -66,16 +66,7 @@ const RecurringTasksPage = () => {
     }
   };
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-orange-50 to-white">
-        <Navbar />
-        <div className="flex items-center justify-center h-96">
-          <div className="text-xl">{language === 'en' ? 'Loading...' : 'Chargement...'}</div>
-        </div>
-      </div>
-    );
-  }
+  // Don't return early - render loading in place
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 to-white">
