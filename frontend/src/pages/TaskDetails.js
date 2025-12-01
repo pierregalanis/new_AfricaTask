@@ -376,6 +376,26 @@ const TaskDetails = () => {
             </div>
           </div>
         )}
+
+        {/* Cancel Task Modal */}
+        {showCancelModal && (
+          <CancelTaskModal
+            task={task}
+            onClose={() => setShowCancelModal(false)}
+            onSuccess={fetchTaskDetails}
+            language={language}
+          />
+        )}
+
+        {/* Dispute Modal */}
+        {showDisputeModal && (
+          <DisputeModal
+            task={task}
+            onClose={() => setShowDisputeModal(false)}
+            onSuccess={fetchTaskDetails}
+            language={language}
+          />
+        )}
       </div>
     </div>
   );
