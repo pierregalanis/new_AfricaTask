@@ -421,6 +421,13 @@ test_plan:
     - "Client Bookings Fetch (Dashboard)"
   test_all: false
   test_priority: "high_first"
+  completed_features:
+    - "Advanced Search & Filters"
+    - "Portfolio/Gallery System"
+    - "Task Cancellation"
+    - "Dispute Resolution"
+    - "Coin System"
+    - "Recurring Tasks"
 
 agent_communication:
   - agent: "testing"
