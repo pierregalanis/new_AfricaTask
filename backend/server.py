@@ -455,6 +455,7 @@ async def cancel_task(
 @api_router.post("/tasks/{task_id}/mark-paid-cash")
 async def mark_task_paid_cash(
     task_id: str,
+    hours_worked: float = Form(None),
     db: AsyncIOMotorDatabase = Depends(get_database),
     token: str = Depends(oauth2_scheme)
 ):
