@@ -62,8 +62,8 @@ const Navbar = () => {
                   <Repeat className="w-4 h-4 text-gray-700" />
                 </Link>
 
-                {/* Notification Bell */}
-                <NotificationBell />
+                {/* Notification Center */}
+                <ImprovedNotificationCenter language={language} />
 
                 {/* Admin Link (if admin) */}
                 {user?.email === 'admin@africatask.com' && (
