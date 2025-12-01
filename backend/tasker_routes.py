@@ -124,6 +124,17 @@ async def update_tasker_profile(
     token: str = Depends(oauth2_scheme)
 ):
     """Update tasker profile."""
+    # DEBUG: Write params to file
+    import datetime
+    with open('/tmp/tasker_update_debug.log', 'a') as f:
+        f.write(f"\n{'='*60}\n")
+        f.write(f"[{datetime.datetime.now()}]\n")
+        f.write(f"services: {services}\n")
+        f.write(f"hourly_rate: {hourly_rate}\n")
+        f.write(f"bio: {bio}\n")
+        f.write(f"max_travel_distance: {max_travel_distance}\n")
+        f.write(f"is_available: {is_available}\n")
+    
     from auth import get_current_user as get_user
     current_user = await get_user(token, db)
     
