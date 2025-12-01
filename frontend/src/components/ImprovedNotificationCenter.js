@@ -25,9 +25,11 @@ const ImprovedNotificationCenter = ({ language = 'en' }) => {
         `${process.env.REACT_APP_BACKEND_URL}/api/notifications`,
         { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       );
-      setNotifications(response.data);
+      // Ensure we always set an array
+      setNotifications(Array.isArray(response.data) ? response.data : []);
     } catch (error) {
       console.error('Error fetching notifications:', error);
+      setNotifications([]); // Set empty array on error
     } finally {
       setLoading(false);
     }
