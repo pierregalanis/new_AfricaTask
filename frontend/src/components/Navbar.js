@@ -50,7 +50,7 @@ const Navbar = () => {
                 {/* Dashboard Link - shows for both clients and taskers */}
                 <Link
                   to={user?.role === 'tasker' ? '/tasker/dashboard' : '/client/dashboard'}
-                  className="flex items-center space-x-2 px-4 py-2 rounded-md hover:bg-gray-100 text-orange-600 font-medium"
+                  className="flex items-center space-x-2 px-4 py-2 rounded-md hover:bg-emerald-50 dark:hover:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 font-medium transition-colors"
                   data-testid="dashboard-link"
                 >
                   <LayoutDashboard className="w-4 h-4" />
