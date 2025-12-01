@@ -11,6 +11,7 @@ import axios from 'axios';
 
 const ProfilePage = () => {
   const { user, language } = useAuth();
+  const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);
   const [stats, setStats] = useState(null);
   const [profileData, setProfileData] = useState({
