@@ -499,7 +499,7 @@ agent_communication:
 
 **Testing Method**: Comprehensive API testing via backend_test.py
 **Test Credentials**: testclient@demo.com / testtasker@demo.com
-**Backend URL**: https://localhelp-africa.preview.emergentagent.com/api
+**Backend URL**: https://quick-task-6.preview.emergentagent.com/api
 
 #### Feature 1: Advanced Search & Filters ✅ WORKING
 **Status**: TESTED & WORKING
@@ -595,7 +595,7 @@ agent_communication:
 
 **Testing Method**: Comprehensive UI testing via Playwright automation
 **Test Credentials**: testclient@demo.com / testtasker@demo.com / test123
-**Frontend URL**: https://localhelp-africa.preview.emergentagent.com
+**Frontend URL**: https://quick-task-6.preview.emergentagent.com
 **Testing Agent**: testing_agent
 
 #### Feature 1: Advanced Search & Filters ✅ WORKING

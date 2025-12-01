@@ -7,7 +7,7 @@ import requests
 import json
 
 # Configuration
-BACKEND_URL = "https://localhelp-africa.preview.emergentagent.com/api"
+BACKEND_URL = "https://quick-task-6.preview.emergentagent.com/api"
 TASK_ID = "chat-test-task-active-001"
 
 CLIENT_CREDENTIALS = {
