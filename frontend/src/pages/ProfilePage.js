@@ -256,6 +256,19 @@ const ProfilePage = () => {
                 </div>
               )}
 
+              {/* Manage Services Button for Taskers */}
+              {user?.role === 'tasker' && (
+                <div className="border-t pt-6 mt-6">
+                  <button
+                    onClick={() => navigate('/tasker/services')}
+                    className="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-orange-600 hover:to-orange-700 flex items-center justify-center space-x-2"
+                  >
+                    <Briefcase className="w-5 h-5" />
+                    <span>{language === 'en' ? 'Manage My Services' : 'Gérer mes services'}</span>
+                  </button>
+                </div>
+              )}
+
               {/* Tasker Stats */}
               {user?.role === 'tasker' && user?.tasker_profile && (
                 <div className="border-t pt-6 mt-6">
