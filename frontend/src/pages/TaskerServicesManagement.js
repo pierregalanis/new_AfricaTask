@@ -15,6 +15,8 @@ const TaskerServicesManagement = () => {
   const [services, setServices] = useState([]);
   const [newService, setNewService] = useState('');
   const [availableCategories, setAvailableCategories] = useState([]);
+  const [filteredServices, setFilteredServices] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
   const [hourlyRate, setHourlyRate] = useState('');
   const [bio, setBio] = useState('');
   const [maxTravelDistance, setMaxTravelDistance] = useState('');
