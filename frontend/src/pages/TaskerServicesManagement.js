@@ -62,10 +62,35 @@ const TaskerServicesManagement = () => {
     }
   };
 
-  const handleAddService = () => {
-    if (newService.trim() && !services.includes(newService.trim())) {
-      setServices([...services, newService.trim()]);
+  const handleAddService = (serviceName = null) => {
+    const serviceToAdd = serviceName || newService.trim();
+    if (serviceToAdd && !services.includes(serviceToAdd)) {
+      setServices([...services, serviceToAdd]);
       setNewService('');
+      setShowSuggestions(false);
+      setFilteredServices([]);
+    }
+  };
+
+  const handleServiceInputChange = (value) => {
+    setNewService(value);
+    
+    if (value.trim().length > 0) {
+      // Filter available services based on input
+      const allServices = availableCategories.map(cat => 
+        language === 'en' ? cat.name_en : cat.name_fr
+      );
+      
+      const filtered = allServices.filter(service => 
+        service.toLowerCase().includes(value.toLowerCase()) &&
+        !services.includes(service)
+      );
+      
+      setFilteredServices(filtered);
+      setShowSuggestions(filtered.length > 0);
+    } else {
+      setFilteredServices([]);
+      setShowSuggestions(false);
     }
   };
 
