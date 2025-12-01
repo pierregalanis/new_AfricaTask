@@ -21,6 +21,8 @@ const TaskDetails = () => {
   const [showApplyModal, setShowApplyModal] = useState(false);
   const [showChat, setShowChat] = useState(false);
   const [showTracker, setShowTracker] = useState(false);
+  const [showCancelModal, setShowCancelModal] = useState(false);
+  const [showDisputeModal, setShowDisputeModal] = useState(false);
   const [applicationData, setApplicationData] = useState({
     proposed_rate: '',
     estimated_hours: '',
