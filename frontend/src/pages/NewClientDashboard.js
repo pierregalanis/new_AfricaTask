@@ -371,11 +371,15 @@ const NewClientDashboard = () => {
                       language={language}
                     />
                     
-                    {/* GPS Tracker - Expandable Section */}
+                    {/* GPS Tracker with Route - Expandable Section */}
                     {expandedBooking === booking.id && (
-                      <div className="animate-fadeIn">
-                        <LiveGPSTracker
+                      <div className="animate-fadeIn h-96">
+                        <LiveGPSTrackerWithRoute
                           taskId={booking.id}
+                          taskerLocation={{
+                            latitude: booking.tasker_latitude || booking.latitude,
+                            longitude: booking.tasker_longitude || booking.longitude
+                          }}
                           jobLocation={{
                             latitude: booking.latitude,
                             longitude: booking.longitude,
