@@ -238,14 +238,12 @@ const BrowseTaskersPage = () => {
         />
 
         {/* Taskers List */}
-        {taskers.length === 0 ? (
-          <div className="fancy-card text-center py-12">
-            <p className="text-gray-600">
-              {language === 'en' 
-                ? 'No taskers available for this service yet' 
-                : 'Aucun tasker disponible pour ce service pour le moment'}
-            </p>
+        {loading ? (
+          <div className="grid grid-cols-1 gap-4">
+            {[...Array(3)].map((_, i) => <SkeletonCard key={i} />)}
           </div>
+        ) : taskers.length === 0 ? (
+          <NoSearchResults language={language} query={category?.name_en || 'this service'} />
         ) : (
           <div className="space-y-4">
             {taskers.map((tasker, index) => (
