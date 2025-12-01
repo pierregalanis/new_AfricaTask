@@ -1258,6 +1258,14 @@ app.include_router(notification_router)
 from routes.dispute_routes import router as dispute_router
 app.include_router(dispute_router)
 
+# Coin system routes
+from routes.coin_routes import router as coin_router
+app.include_router(coin_router)
+
+# Scheduled task routes
+from routes.scheduled_task_routes import router as scheduled_task_router
+app.include_router(scheduled_task_router)
+
 # Serve static files (uploads)
 app.mount("/uploads", StaticFiles(directory=str(Path(__file__).parent / "uploads")), name="uploads")
 
