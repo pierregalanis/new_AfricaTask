@@ -146,6 +146,14 @@ function AppRoutes() {
           </ProtectedRoute>
         }
       />
+      <Route
+        path="/tasker/services"
+        element={
+          <ProtectedRoute requiredRole="tasker">
+            <TaskerServicesManagement />
+          </ProtectedRoute>
+        }
+      />
       
       {/* Common Routes */}
       <Route
