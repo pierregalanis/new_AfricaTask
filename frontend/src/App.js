@@ -22,6 +22,7 @@ import TaskDetails from './pages/TaskDetails';
 import ProfilePage from './pages/ProfilePage';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { NotificationProvider } from './contexts/NotificationContext';
+import { ThemeProvider } from './contexts/ThemeContext';
 import '@/App.css';
 
 const queryClient = new QueryClient();
