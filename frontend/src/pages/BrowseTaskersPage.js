@@ -6,6 +6,8 @@ import { taskersAPI, categoriesAPI } from '../api/client';
 import Navbar from '../components/Navbar';
 import TaskerRating from '../components/TaskerRating';
 import AdvancedSearchFilters from '../components/AdvancedSearchFilters';
+import { SkeletonCard } from '../components/LoadingStates';
+import { NoSearchResults } from '../components/EmptyStates';
 import { Star, MapPin, Check, Filter, DollarSign, ArrowLeft } from 'lucide-react';
 
 const BrowseTaskersPage = () => {
