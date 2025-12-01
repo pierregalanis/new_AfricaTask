@@ -120,7 +120,7 @@ async def create_dispute(
             message=f"A dispute has been raised for task: {task.get('title')}"
         )
     
-    return dispute
+    return Dispute(**dispute)
 
 
 @router.get("", response_model=List[Dispute])
