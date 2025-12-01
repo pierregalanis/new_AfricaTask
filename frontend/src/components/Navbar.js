@@ -49,8 +49,31 @@ const Navbar = () => {
                   <span className="text-sm">{language === 'en' ? 'Dashboard' : 'Tableau de bord'}</span>
                 </Link>
                 
+                {/* Coin Balance */}
+                <CoinBalanceWidget language={language} />
+
+                {/* Recurring Tasks Link */}
+                <Link
+                  to="/recurring-tasks"
+                  className="flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-gray-100"
+                  title={language === 'en' ? 'Recurring Tasks' : 'Tâches récurrentes'}
+                >
+                  <Repeat className="w-4 h-4 text-gray-700" />
+                </Link>
+
                 {/* Notification Bell */}
                 <NotificationBell />
+
+                {/* Admin Link (if admin) */}
+                {user?.email === 'admin@africatask.com' && (
+                  <Link
+                    to="/admin"
+                    className="flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-purple-50 text-purple-600"
+                    title="Admin Panel"
+                  >
+                    <Shield className="w-4 h-4" />
+                  </Link>
+                )}
                 
                 <Link
                   to="/profile"
