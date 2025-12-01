@@ -289,7 +289,7 @@ const TaskerServicesManagement = () => {
           </div>
 
           {/* Travel Distance */}
-          <div className="mb-8">
+          <div className="mb-6">
             <label className="block text-sm font-medium text-gray-700 mb-2">
               {language === 'en' ? 'Maximum Travel Distance (km)' : 'Distance maximale de déplacement (km)'}
             </label>
@@ -300,6 +300,45 @@ const TaskerServicesManagement = () => {
               placeholder="10"
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
             />
+          </div>
+
+          {/* Availability Toggle */}
+          <div className="mb-8 bg-gray-50 rounded-lg p-4 border border-gray-200">
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-1">
+                  {language === 'en' ? 'Availability Status' : 'Statut de disponibilité'}
+                </h3>
+                <p className="text-sm text-gray-600">
+                  {language === 'en' 
+                    ? 'Toggle your availability to accept or pause new bookings' 
+                    : 'Basculez votre disponibilité pour accepter ou mettre en pause les nouvelles réservations'}
+                </p>
+              </div>
+              <button
+                onClick={() => setIsAvailable(!isAvailable)}
+                className={`relative inline-flex h-8 w-16 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 ${
+                  isAvailable ? 'bg-green-600' : 'bg-gray-300'
+                }`}
+              >
+                <span
+                  className={`inline-block h-6 w-6 transform rounded-full bg-white transition-transform ${
+                    isAvailable ? 'translate-x-9' : 'translate-x-1'
+                  }`}
+                />
+              </button>
+            </div>
+            <div className="mt-3">
+              <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${
+                isAvailable 
+                  ? 'bg-green-100 text-green-800' 
+                  : 'bg-gray-200 text-gray-700'
+              }`}>
+                {isAvailable 
+                  ? (language === 'en' ? '✓ Available for bookings' : '✓ Disponible pour les réservations')
+                  : (language === 'en' ? '⏸ Not accepting bookings' : '⏸ N\'accepte pas de réservations')}
+              </span>
+            </div>
           </div>
 
           {/* Save Button */}
