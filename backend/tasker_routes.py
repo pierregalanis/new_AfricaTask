@@ -136,23 +136,15 @@ async def update_tasker_profile(
     # Build update dict
     update_data = {}
     
-    print(f"DEBUG: Received services parameter: {services}")
-    print(f"DEBUG: Type of services: {type(services)}")
+    # DEBUG: Temporarily raise exception to see what we're receiving
+    # raise HTTPException(status_code=400, detail=f"DEBUG - services: {services}, type: {type(services)}")
     
     if services:
         try:
-            logger.info(f"Received services string: {services}")
             services_list = json.loads(services)
-            logger.info(f"Parsed services list: {services_list}")
-            print(f"DEBUG: Parsed services list: {services_list}")
             update_data["tasker_profile.services"] = services_list
-            logger.info(f"Update data with services: {update_data}")
         except json.JSONDecodeError as e:
-            logger.error(f"JSON decode error for services: {e}")
-            print(f"DEBUG ERROR: JSON decode error: {e}")
-            raise HTTPException(status_code=400, detail="Invalid services format")
-    else:
-        print(f"DEBUG: services parameter is None or empty")
+            raise HTTPException(status_code=400, detail=f"Invalid services format: {str(e)}")
     
     if hourly_rate is not None:
         update_data["tasker_profile.hourly_rate"] = hourly_rate
