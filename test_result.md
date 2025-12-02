@@ -453,9 +453,11 @@ metadata:
 
 test_plan:
   current_focus:
+    - "Notification Bell UI Display"
     - "WebSocket Real-time Chat"
     - "Client Bookings Fetch (Dashboard)"
   stuck_tasks: 
+    - "Notification Bell UI Display"
     - "WebSocket Real-time Chat"
     - "Client Bookings Fetch (Dashboard)"
   test_all: false
@@ -468,6 +470,7 @@ test_plan:
     - "Coin System"
     - "Recurring Tasks"
     - "Backend Refactoring Verification"
+    - "Tasker Service Management"
 
 agent_communication:
   - agent: "testing"
