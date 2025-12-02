@@ -77,6 +77,14 @@ function AppRoutes() {
         }
       />
       <Route
+        path="/favorites"
+        element={
+          <ProtectedRoute requiredRole="client">
+            <FavoritesPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
         path="/browse-taskers/:categoryId"
         element={
           <ProtectedRoute requiredRole="client">
