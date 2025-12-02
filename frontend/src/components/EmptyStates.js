@@ -172,15 +172,12 @@ export const NoFavorites = ({ onBrowse }) => (
 
 export default {
   NoTasksFound,
-  NoActiveTasks,
-  NoCompletedTasks,
-  NoPendingTasks,
-  NoReviews,
-  NoNotifications,
-  NoMessages,
-  NoDisputes,
-  NoPortfolioItems,
-  NoScheduledTasks,
-  NoEarnings,
+  NoBookingsFound,
+  NoReviewsFound,
+  NoMessagesFound,
+  NoNotificationsFound,
+  NoSearchResults,
+  ErrorState,
+  NoEarningsFound,
   NoFavorites
 };
