@@ -4,6 +4,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { translations } from '../utils/translations';
 import { tasksAPI, usersAPI } from '../api/client';
 import { toast } from 'react-toastify';
+import axios from 'axios';
 import Navbar from '../components/Navbar';
 import ChatBox from '../components/ChatBox';
 import GPSTracker from '../components/GPSTracker';
