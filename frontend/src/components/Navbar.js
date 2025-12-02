@@ -69,6 +69,17 @@ const Navbar = () => {
                   <Repeat className="w-4 h-4 text-gray-700 dark:text-gray-300 dark:text-emerald-400" />
                 </Link>
 
+                {/* Favorites Link (clients only) */}
+                {user?.role === 'client' && (
+                  <Link
+                    to="/favorites"
+                    className="flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-emerald-50 dark:hover:bg-emerald-900/30 transition-colors"
+                    title={language === 'en' ? 'Favorites' : 'Favoris'}
+                  >
+                    <Heart className="w-4 h-4 text-gray-700 dark:text-gray-300 dark:text-emerald-400" />
+                  </Link>
+                )}
+
                 {/* Notification Center */}
                 <ImprovedNotificationCenter language={language} />
 
