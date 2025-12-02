@@ -306,7 +306,7 @@ const LandingPage = () => {
             {howItWorks.map((item, index) => (
               <div key={index} className="relative z-10">
                 <div className="bg-white rounded-2xl p-6 text-center shadow-lg border-2 border-emerald-100 hover:border-emerald-400 transition-all">
-                  <div className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-red-500 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4 shadow-lg">
+                  <div className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-emerald-500 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4 shadow-lg">
                     {item.step}
                   </div>
                   <h3 className="text-lg font-bold text-gray-900 mb-2">
@@ -364,7 +364,7 @@ const LandingPage = () => {
       </section>
 
       {/* Testimonials */}
-      <section className="py-20 bg-gradient-to-br from-emerald-500 to-red-600 text-white">
+      <section className="py-20 bg-gradient-to-br from-emerald-500 to-emerald-600 text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold mb-4">
@@ -428,7 +428,7 @@ const LandingPage = () => {
           <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4">
             <Link
               to="/register"
-              className="px-10 py-4 bg-gradient-to-r from-emerald-600 to-red-600 text-white rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all"
+              className="px-10 py-4 bg-gradient-to-r from-emerald-600 to-emerald-600 text-white rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all"
             >
               {language === 'en' ? 'Sign Up Now' : 'S\'inscrire maintenant'}
             </Link>
