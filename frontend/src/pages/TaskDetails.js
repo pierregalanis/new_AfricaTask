@@ -16,6 +16,7 @@ const TaskDetails = () => {
   const { taskId } = useParams();
   const { language, user, isClient, isTasker } = useAuth();
   const [task, setTask] = useState(null);
+  const [tasker, setTasker] = useState(null);
   const [applications, setApplications] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showApplyModal, setShowApplyModal] = useState(false);
@@ -37,6 +38,13 @@ const TaskDetails = () => {
       fetchApplications();
     }
   }, [taskId]);
+
+  useEffect(() => {
+    // Fetch tasker details when task is loaded and has assigned tasker
+    if (task?.assigned_tasker_id) {
+      fetchTaskerDetails(task.assigned_tasker_id);
+    }
+  }, [task?.assigned_tasker_id]);
 
   const fetchTaskDetails = async () => {
     try {
