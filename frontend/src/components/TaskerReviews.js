@@ -70,11 +70,10 @@ const TaskerReviews = ({ taskerId, language = 'en' }) => {
       });
       
       // Show translation for THIS review only
-      setShowTranslation(prev => {
-        const newState = { ...prev };
-        newState[reviewId] = true;
-        return newState;
-      });
+      setShowTranslation(prev => ({
+        ...prev,
+        [reviewId]: true
+      }));
     } catch (error) {
       console.error('Translation error for review', reviewId, ':', error);
     } finally {
