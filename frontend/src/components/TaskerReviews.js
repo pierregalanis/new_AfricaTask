@@ -38,10 +38,11 @@ const TaskerReviews = ({ taskerId, language = 'en' }) => {
     if (translatedTexts[cacheKey]) {
       console.log(`[translateText] Toggling existing translation for ${reviewId}`);
       setShowTranslation(prev => {
-        const newState = { ...prev };
-        newState[reviewId] = !newState[reviewId];
-        console.log(`[translateText] New showTranslation state:`, newState);
-        return newState;
+        console.log(`[translateText] New showTranslation state for ${reviewId}:`, !prev[reviewId]);
+        return {
+          ...prev,
+          [reviewId]: !prev[reviewId]
+        };
       });
       return;
     }
