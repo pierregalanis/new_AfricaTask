@@ -1,5 +1,5 @@
 from fastapi import FastAPI, APIRouter
-from fast api.staticfiles import StaticFiles
+from fastapi.staticfiles import StaticFiles
 from starlette.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 from pathlib import Path
