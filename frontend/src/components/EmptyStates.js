@@ -170,4 +170,17 @@ export const NoFavorites = ({ onBrowse }) => (
   />
 );
 
-export default EmptyState;
+export default {
+  NoTasksFound,
+  NoActiveTasks,
+  NoCompletedTasks,
+  NoPendingTasks,
+  NoReviews,
+  NoNotifications,
+  NoMessages,
+  NoDisputes,
+  NoPortfolioItems,
+  NoScheduledTasks,
+  NoEarnings,
+  NoFavorites
+};
