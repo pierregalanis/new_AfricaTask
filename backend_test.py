@@ -1490,20 +1490,40 @@ class FavoritesAndBadgesTester:
             "tasker_id": test_tasker_id
         }, None, self.client_token)
         
-        if not response or response.status_code not in [200, 201]:
-            # Check if already in favorites (400 error is expected if already added)
-            if response and response.status_code == 400 and "Already in favorites" in response.text:
-                self.log("✅ Tasker already in favorites (expected)")
+        if response and response.status_code == 400 and "Already in favorites" in response.text:
+            self.log("✅ Tasker already in favorites - removing first to test add functionality")
+            # Remove from favorites first
+            remove_response = self.make_request("DELETE", f"/favorites/{test_tasker_id}", None, None, self.client_token)
+            if remove_response and remove_response.status_code == 200:
+                self.log("✅ Removed existing favorite")
+                # Try adding again
+                response = self.make_request("POST", "/favorites", {
+                    "tasker_id": test_tasker_id
+                }, None, self.client_token)
+                
+                if response and response.status_code in [200, 201]:
+                    try:
+                        result = response.json()
+                        self.log(f"✅ Added tasker to favorites: {result.get('message')}")
+                    except Exception as e:
+                        self.log(f"❌ Failed to parse add favorite response: {e}", "ERROR")
+                        return False
+                else:
+                    self.log("❌ Failed to add tasker to favorites after removal", "ERROR")
+                    return False
             else:
-                self.log("❌ Failed to add tasker to favorites", "ERROR")
+                self.log("❌ Failed to remove existing favorite", "ERROR")
                 return False
-        else:
+        elif response and response.status_code in [200, 201]:
             try:
                 result = response.json()
                 self.log(f"✅ Added tasker to favorites: {result.get('message')}")
             except Exception as e:
                 self.log(f"❌ Failed to parse add favorite response: {e}", "ERROR")
                 return False
+        else:
+            self.log("❌ Failed to add tasker to favorites", "ERROR")
+            return False
         
         # Test 2: Check if tasker is in favorites
         self.log(f"Checking if tasker {test_tasker_id} is favorited...")
