@@ -3,6 +3,7 @@ from motor.motor_asyncio import AsyncIOMotorDatabase
 from typing import List
 from datetime import datetime
 import logging
+import uuid
 
 from models import PaymentCreate, Payment, PaymentStatus, UserRole
 from auth import get_current_user, oauth2_scheme
