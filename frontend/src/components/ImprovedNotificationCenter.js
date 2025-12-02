@@ -168,19 +168,19 @@ const ImprovedNotificationCenter = ({ language = 'en' }) => {
                 </div>
               ) : !Array.isArray(notifications) || notifications.length === 0 ? (
                 <div className="text-center py-12">
-                  <Bell className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-                  <p className="text-gray-500">
+                  <Bell className="w-12 h-12 text-gray-300 dark:text-gray-600 mx-auto mb-3" />
+                  <p className="text-gray-500 dark:text-gray-400">
                     {language === 'en' ? 'No notifications yet' : 'Aucune notification'}
                   </p>
                 </div>
               ) : (
-                <div className="divide-y divide-gray-100">
+                <div className="divide-y divide-gray-100 dark:divide-gray-700">
                   {notifications.map((notification) => (
                     <div
                       key={notification.id}
                       onClick={() => !notification.is_read && markAsRead(notification.id)}
                       className={`p-4 cursor-pointer transition-colors ${
-                        !notification.is_read ? 'bg-emerald-50 hover:bg-emerald-100' : 'hover:bg-gray-50'
+                        !notification.is_read ? 'bg-emerald-50 dark:bg-emerald-900/30 hover:bg-emerald-100 dark:hover:bg-emerald-900/50' : 'hover:bg-gray-50 dark:hover:bg-gray-700/50'
                       }`}
                     >
                       <div className="flex items-start space-x-3">
@@ -189,11 +189,11 @@ const ImprovedNotificationCenter = ({ language = 'en' }) => {
                         </div>
                         <div className="flex-1 min-w-0">
                           <p className={`text-sm ${
-                            !notification.is_read ? 'font-semibold text-gray-900' : 'text-gray-700'
+                            !notification.is_read ? 'font-semibold text-gray-900 dark:text-gray-100' : 'text-gray-700 dark:text-gray-200'
                           }`}>
                             {notification.message}
                           </p>
-                          <p className="text-xs text-gray-500 mt-1">
+                          <p className="text-xs text-gray-600 dark:text-gray-300 mt-1">
                             {timeAgo(notification.created_at)}
                           </p>
                         </div>
