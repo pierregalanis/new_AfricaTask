@@ -85,7 +85,7 @@ const RegisterPage = () => {
             </h2>
             <p className="mt-2 text-center text-sm text-gray-600">
               {t('alreadyHaveAccount')}{' '}
-              <Link to="/login" className="font-medium text-orange-600 hover:text-orange-500">
+              <Link to="/login" className="font-medium text-emerald-600 hover:text-emerald-500">
                 {t('login')}
               </Link>
             </p>
@@ -108,7 +108,7 @@ const RegisterPage = () => {
                     required
                     value={formData.full_name}
                     onChange={handleChange}
-                    className="pl-10 block w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500"
+                    className="pl-10 block w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500"
                     data-testid="fullname-input"
                   />
                 </div>
@@ -130,7 +130,7 @@ const RegisterPage = () => {
                     required
                     value={formData.email}
                     onChange={handleChange}
-                    className="pl-10 block w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500"
+                    className="pl-10 block w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500"
                     data-testid="email-input"
                   />
                 </div>
@@ -152,7 +152,7 @@ const RegisterPage = () => {
                     required
                     value={formData.password}
                     onChange={handleChange}
-                    className="pl-10 block w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500"
+                    className="pl-10 block w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500"
                     data-testid="password-input"
                   />
                 </div>
@@ -174,7 +174,7 @@ const RegisterPage = () => {
                     required
                     value={formData.phone}
                     onChange={handleChange}
-                    className="pl-10 block w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500"
+                    className="pl-10 block w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500"
                     data-testid="phone-input"
                   />
                 </div>
@@ -192,7 +192,7 @@ const RegisterPage = () => {
                   value={formData.country}
                   onChange={handleChange}
                   required
-                  className="mt-1 block w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500"
+                  className="mt-1 block w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500"
                   data-testid="country-select"
                 >
                   <option value="ivory_coast">🇨🇮 {language === 'en' ? 'Ivory Coast' : 'Côte d\'Ivoire'}</option>
@@ -217,7 +217,7 @@ const RegisterPage = () => {
                     value={formData.city}
                     onChange={handleChange}
                     placeholder={language === 'en' ? 'e.g., Abidjan, Dakar' : 'ex: Abidjan, Dakar'}
-                    className="pl-10 block w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500"
+                    className="pl-10 block w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500"
                     data-testid="city-input"
                   />
                 </div>
@@ -235,7 +235,7 @@ const RegisterPage = () => {
                   value={formData.address}
                   onChange={handleChange}
                   placeholder={language === 'en' ? 'Street, neighborhood, landmark...' : 'Rue, quartier, point de repère...'}
-                  className="mt-1 block w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500"
+                  className="mt-1 block w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500"
                   data-testid="address-input"
                 />
               </div>
@@ -250,7 +250,7 @@ const RegisterPage = () => {
                   name="role"
                   value={formData.role}
                   onChange={handleChange}
-                  className="mt-1 block w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500"
+                  className="mt-1 block w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500"
                   data-testid="role-select"
                 >
                   <option value="client">{t('client')}</option>
@@ -268,7 +268,7 @@ const RegisterPage = () => {
                   name="language"
                   value={formData.language}
                   onChange={handleChange}
-                  className="mt-1 block w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500"
+                  className="mt-1 block w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500"
                   data-testid="language-select"
                 >
                   <option value="fr">Français</option>
@@ -299,7 +299,7 @@ const RegisterPage = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 disabled:opacity-50"
+                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 disabled:opacity-50"
                 data-testid="register-submit-button"
               >
                 {loading ? t('loading') : t('register')}
