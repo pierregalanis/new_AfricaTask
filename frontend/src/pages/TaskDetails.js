@@ -224,17 +224,22 @@ const TaskDetails = () => {
                         {tasker.full_name}
                       </h4>
                       {tasker.tasker_profile && (
-                        <div className="flex items-center space-x-3 mt-1">
-                          <div className="flex items-center space-x-1">
-                            <span className="text-yellow-500">⭐</span>
-                            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                              {tasker.tasker_profile.average_rating?.toFixed(1) || 'N/A'}
+                        <>
+                          <div className="flex items-center space-x-3 mt-1">
+                            <div className="flex items-center space-x-1">
+                              <span className="text-yellow-500">⭐</span>
+                              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                                {tasker.tasker_profile.average_rating?.toFixed(1) || 'N/A'}
+                              </span>
+                            </div>
+                            <span className="text-sm text-gray-500 dark:text-gray-400">
+                              {tasker.tasker_profile.completed_tasks || 0} {language === 'en' ? 'tasks completed' : 'tâches terminées'}
                             </span>
                           </div>
-                          <span className="text-sm text-gray-500 dark:text-gray-400">
-                            {tasker.tasker_profile.completed_tasks || 0} {language === 'en' ? 'tasks completed' : 'tâches terminées'}
-                          </span>
-                        </div>
+                          <div className="mt-2">
+                            <BadgeDisplay taskerId={tasker.id} />
+                          </div>
+                        </>
                       )}
                       {tasker.phone && (
                         <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
