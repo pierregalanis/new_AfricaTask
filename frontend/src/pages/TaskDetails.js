@@ -67,6 +67,15 @@ const TaskDetails = () => {
     }
   };
 
+  const fetchTaskerDetails = async (taskerId) => {
+    try {
+      const response = await usersAPI.getById(taskerId);
+      setTasker(response.data);
+    } catch (error) {
+      console.error('Error fetching tasker details:', error);
+    }
+  };
+
   const handleApply = async (e) => {
     e.preventDefault();
     try {
