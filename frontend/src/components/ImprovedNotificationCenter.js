@@ -44,7 +44,7 @@ const ImprovedNotificationCenter = ({ language = 'en' }) => {
         { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       );
       setNotifications(prev => 
-        prev.map(n => n.notification_id === notificationId ? { ...n, read: true } : n)
+        prev.map(n => n.notification_id === notificationId ? { ...n, is_read: true } : n)
       );
     } catch (error) {
       console.error('Error marking notification as read:', error);
@@ -55,7 +55,7 @@ const ImprovedNotificationCenter = ({ language = 'en' }) => {
     try {
       if (!Array.isArray(notifications)) return;
       
-      const unreadIds = notifications.filter(n => !n.read).map(n => n.notification_id);
+      const unreadIds = notifications.filter(n => !n.is_read).map(n => n.notification_id);
       if (unreadIds.length === 0) return;
 
       await axios.post(
@@ -63,7 +63,7 @@ const ImprovedNotificationCenter = ({ language = 'en' }) => {
         { notification_ids: unreadIds },
         { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       );
-      setNotifications(prev => Array.isArray(prev) ? prev.map(n => ({ ...n, read: true })) : []);
+      setNotifications(prev => Array.isArray(prev) ? prev.map(n => ({ ...n, is_read: true })) : []);
     } catch (error) {
       console.error('Error marking all as read:', error);
     }
@@ -174,9 +174,9 @@ const ImprovedNotificationCenter = ({ language = 'en' }) => {
                   {notifications.map((notification) => (
                     <div
                       key={notification.notification_id}
-                      onClick={() => !notification.read && markAsRead(notification.notification_id)}
+                      onClick={() => !notification.is_read && markAsRead(notification.notification_id)}
                       className={`p-4 cursor-pointer transition-colors ${
-                        !notification.read ? 'bg-emerald-50 hover:bg-emerald-100' : 'hover:bg-gray-50'
+                        !notification.is_read ? 'bg-emerald-50 hover:bg-emerald-100' : 'hover:bg-gray-50'
                       }`}
                     >
                       <div className="flex items-start space-x-3">
@@ -185,7 +185,7 @@ const ImprovedNotificationCenter = ({ language = 'en' }) => {
                         </div>
                         <div className="flex-1 min-w-0">
                           <p className={`text-sm ${
-                            !notification.read ? 'font-semibold text-gray-900' : 'text-gray-700'
+                            !notification.is_read ? 'font-semibold text-gray-900' : 'text-gray-700'
                           }`}>
                             {notification.message}
                           </p>
@@ -193,7 +193,7 @@ const ImprovedNotificationCenter = ({ language = 'en' }) => {
                             {timeAgo(notification.created_at)}
                           </p>
                         </div>
-                        {!notification.read && (
+                        {!notification.is_read && (
                           <div className="w-2 h-2 bg-emerald-600 rounded-full mt-2"></div>
                         )}
                       </div>
