@@ -47,21 +47,20 @@ const TaskerServicesManagement = () => {
       );
       console.log('Fetched user profile:', response.data);
       
-      // Services are stored at the top level of user object
       const userData = response.data;
       const profile = userData.tasker_profile || {};
       
       console.log('User data:', userData);
-      console.log('Services from user:', userData.services);
       console.log('Tasker profile:', profile);
+      console.log('Services from tasker_profile:', profile.services);
       
       setTaskerProfile(profile);
-      // Services are stored on the user object, not in tasker_profile
-      setServices(userData.services || []);
+      // Services are stored inside tasker_profile
+      setServices(profile.services || []);
       setHourlyRate(profile.hourly_rate || '');
       setBio(profile.bio || '');
       setMaxTravelDistance(profile.max_travel_distance || '');
-      setIsAvailable(userData.is_available !== undefined ? userData.is_available : true);
+      setIsAvailable(profile.is_available !== undefined ? profile.is_available : true);
     } catch (error) {
       console.error('Error fetching profile:', error);
       console.error('Error details:', error.response?.data);
