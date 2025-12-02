@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import BadgeDisplay from '../components/BadgeDisplay';
 import EmptyStates from '../components/EmptyStates';
-import LoadingStates from '../components/LoadingStates';
+import { SkeletonCard } from '../components/LoadingStates';
 import { toast } from 'react-toastify';
 
 const FavoritesPage = () => {
