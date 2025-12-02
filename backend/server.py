@@ -1280,6 +1280,14 @@ app.include_router(coin_router)
 from routes.scheduled_task_routes import router as scheduled_task_router
 app.include_router(scheduled_task_router)
 
+# Favorites routes
+from routes.favorites_routes import router as favorites_router
+app.include_router(favorites_router)
+
+# Badge routes
+from routes.badge_routes import router as badge_router
+app.include_router(badge_router)
+
 # Serve static files (uploads)
 app.mount("/uploads", StaticFiles(directory=str(Path(__file__).parent / "uploads")), name="uploads")
 
