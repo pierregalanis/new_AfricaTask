@@ -63,11 +63,7 @@ async def add_favorite(
     
     await db.favorites.insert_one(favorite)
     
-    # Convert datetime to ISO format for JSON response
-    favorite_response = favorite.copy()
-    favorite_response["added_at"] = favorite["added_at"].isoformat()
-    
-    return {"message": "Tasker added to favorites", "favorite": favorite_response}
+    return {"message": "Tasker added to favorites", "favorite_id": favorite["id"]}
 
 
 @router.get("", response_model=List[Favorite])
