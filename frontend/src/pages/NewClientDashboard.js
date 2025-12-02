@@ -222,7 +222,7 @@ const NewClientDashboard = () => {
                       )}
                     </div>
                     
-                    <p className="text-gray-600 dark:text-gray-400 text-sm mb-3 line-clamp-2">{booking.description}</p>
+                    <p className="text-gray-600 dark:text-gray-400 dark:text-gray-300 text-sm mb-3 line-clamp-2">{booking.description}</p>
                     
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
                       <div className="flex items-center space-x-2 text-gray-600">
@@ -240,7 +240,7 @@ const NewClientDashboard = () => {
                     
                     {/* Payment Details for Completed Tasks */}
                     {booking.status === 'completed' && booking.payment_method && (
-                      <div className="mt-3 text-xs text-gray-600 dark:text-gray-400 flex items-center space-x-2">
+                      <div className="mt-3 text-xs text-gray-600 dark:text-gray-400 dark:text-gray-300 flex items-center space-x-2">
                         <span className="font-medium">
                           {language === 'en' ? 'Payment Method:' : 'Méthode de paiement:'}
                         </span>
