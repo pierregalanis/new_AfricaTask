@@ -337,7 +337,7 @@ const NewTaskerDashboard = () => {
           <button
             onClick={() => setFilter('pending')}
             className={`px-6 py-3 rounded-xl font-semibold transition ${
-              filter === 'pending' ? 'bg-purple-600 text-white shadow-lg' : 'bg-white dark:bg-gray-800/70 text-gray-700 dark:text-gray-300 hover:bg-gray-50 shadow'
+              filter === 'pending' ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-500/30' : 'bg-white dark:bg-gray-800/70 text-gray-700 dark:text-gray-200 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 shadow'
             }`}
             data-testid="filter-pending"
           >
@@ -346,7 +346,7 @@ const NewTaskerDashboard = () => {
           <button
             onClick={() => setFilter('active')}
             className={`px-6 py-3 rounded-xl font-semibold transition ${
-              filter === 'active' ? 'bg-purple-600 text-white shadow-lg' : 'bg-white dark:bg-gray-800/70 text-gray-700 dark:text-gray-300 hover:bg-gray-50 shadow'
+              filter === 'active' ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-500/30' : 'bg-white dark:bg-gray-800/70 text-gray-700 dark:text-gray-200 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 shadow'
             }`}
             data-testid="filter-active"
           >
@@ -355,7 +355,7 @@ const NewTaskerDashboard = () => {
           <button
             onClick={() => setFilter('completed')}
             className={`px-6 py-3 rounded-xl font-semibold transition ${
-              filter === 'completed' ? 'bg-purple-600 text-white shadow-lg' : 'bg-white dark:bg-gray-800/70 text-gray-700 dark:text-gray-300 hover:bg-gray-50 shadow'
+              filter === 'completed' ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-500/30' : 'bg-white dark:bg-gray-800/70 text-gray-700 dark:text-gray-200 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 shadow'
             }`}
             data-testid="filter-completed"
           >
