@@ -1490,8 +1490,7 @@ class FavoritesAndBadgesTester:
             "tasker_id": test_tasker_id
         }, None, self.client_token)
         
-        # Handle the case where tasker is already in favorites
-        if not response:
+        if response is None:
             self.log("❌ No response received", "ERROR")
             return False
         elif response.status_code == 400:
