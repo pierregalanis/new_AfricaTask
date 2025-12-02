@@ -74,13 +74,13 @@ app.include_router(timer_router)
 from routes.payment_routes import router as payment_router
 app.include_router(payment_router)
 
-from routes.review_router import router as review_router
+from review_routes import router as review_router
 app.include_router(review_router)
 
-from routes.notification_routes import router as notification_router
+from notification_routes import router as notification_router
 app.include_router(notification_router)
 
-from routes.message_routes import router as message_router
+from message_routes import router as message_router
 app.include_router(message_router)
 
 from routes.dispute_routes import router as dispute_router
