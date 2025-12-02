@@ -301,12 +301,12 @@ const LandingPage = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
             {/* Connection Line */}
-            <div className="hidden md:block absolute top-1/4 left-0 right-0 h-1 bg-gradient-to-r from-orange-200 via-orange-400 to-orange-600" style={{ zIndex: 0 }} />
+            <div className="hidden md:block absolute top-1/4 left-0 right-0 h-1 bg-gradient-to-r from-emerald-200 via-emerald-400 to-emerald-600" style={{ zIndex: 0 }} />
             
             {howItWorks.map((item, index) => (
               <div key={index} className="relative z-10">
-                <div className="bg-white rounded-2xl p-6 text-center shadow-lg border-2 border-orange-100 hover:border-orange-400 transition-all">
-                  <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-500 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4 shadow-lg">
+                <div className="bg-white rounded-2xl p-6 text-center shadow-lg border-2 border-emerald-100 hover:border-emerald-400 transition-all">
+                  <div className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-red-500 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4 shadow-lg">
                     {item.step}
                   </div>
                   <h3 className="text-lg font-bold text-gray-900 mb-2">
@@ -339,7 +339,7 @@ const LandingPage = () => {
               <Link
                 key={index}
                 to="/services"
-                className="group bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 text-center border border-gray-100 hover:border-orange-400 transform hover:-translate-y-1"
+                className="group bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 text-center border border-gray-100 hover:border-emerald-400 transform hover:-translate-y-1"
               >
                 <div className="text-5xl mb-3 group-hover:scale-110 transition-transform">
                   {cat.icon}
@@ -354,7 +354,7 @@ const LandingPage = () => {
           <div className="text-center mt-10">
             <Link
               to="/services"
-              className="inline-flex items-center space-x-2 px-6 py-3 bg-orange-600 text-white rounded-lg font-semibold hover:bg-orange-700 transition"
+              className="inline-flex items-center space-x-2 px-6 py-3 bg-emerald-600 text-white rounded-lg font-semibold hover:bg-emerald-700 transition"
             >
               <span>{language === 'en' ? 'View All Services' : 'Voir tous les services'}</span>
               <ArrowRight className="w-5 h-5" />
@@ -364,7 +364,7 @@ const LandingPage = () => {
       </section>
 
       {/* Testimonials */}
-      <section className="py-20 bg-gradient-to-br from-orange-500 to-red-600 text-white">
+      <section className="py-20 bg-gradient-to-br from-emerald-500 to-red-600 text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold mb-4">
@@ -383,7 +383,7 @@ const LandingPage = () => {
                     <div className="text-5xl">{testimonial.image}</div>
                     <div>
                       <h4 className="font-bold text-xl">{testimonial.name}</h4>
-                      <p className="text-orange-100">{testimonial.role}</p>
+                      <p className="text-emerald-100">{testimonial.role}</p>
                     </div>
                     <div className="ml-auto flex space-x-1">
                       {[...Array(testimonial.rating)].map((_, i) => (
@@ -428,7 +428,7 @@ const LandingPage = () => {
           <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4">
             <Link
               to="/register"
-              className="px-10 py-4 bg-gradient-to-r from-orange-600 to-red-600 text-white rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all"
+              className="px-10 py-4 bg-gradient-to-r from-emerald-600 to-red-600 text-white rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all"
             >
               {language === 'en' ? 'Sign Up Now' : 'S\'inscrire maintenant'}
             </Link>
@@ -457,14 +457,14 @@ const LandingPage = () => {
             <div>
               <h4 className="text-white font-semibold mb-4">{language === 'en' ? 'For Clients' : 'Pour les clients'}</h4>
               <ul className="space-y-2 text-sm">
-                <li><Link to="/services" className="hover:text-orange-500 transition">Browse Services</Link></li>
-                <li><Link to="/register" className="hover:text-orange-500 transition">Sign Up</Link></li>
+                <li><Link to="/services" className="hover:text-emerald-500 transition">Browse Services</Link></li>
+                <li><Link to="/register" className="hover:text-emerald-500 transition">Sign Up</Link></li>
               </ul>
             </div>
             <div>
               <h4 className="text-white font-semibold mb-4">{language === 'en' ? 'For Taskers' : 'Pour les taskers'}</h4>
               <ul className="space-y-2 text-sm">
-                <li><Link to="/register" className="hover:text-orange-500 transition">Become a Tasker</Link></li>
+                <li><Link to="/register" className="hover:text-emerald-500 transition">Become a Tasker</Link></li>
               </ul>
             </div>
             <div>
