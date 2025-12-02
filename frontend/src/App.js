@@ -13,6 +13,7 @@ import TaskerServicesManagement from './pages/TaskerServicesManagement';
 import TaskerEarnings from './pages/TaskerEarnings';
 import AdminDashboard from './pages/AdminDashboard';
 import RecurringTasksPage from './pages/RecurringTasksPage';
+import FavoritesPage from './pages/FavoritesPage';
 import ServiceSelection from './pages/ServiceSelection';
 import BrowseTaskersPage from './pages/BrowseTaskersPage';
 import TaskerProfile from './pages/TaskerProfile';
