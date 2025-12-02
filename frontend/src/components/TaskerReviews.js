@@ -181,14 +181,14 @@ const TaskerReviews = ({ taskerId, language = 'en' }) => {
                 {/* Translate Button */}
                 {review.comment && (
                   <button
-                    onClick={() => translateText(review.review_id, review.comment, targetLang)}
-                    disabled={translating[review.review_id]}
-                    className="flex items-center space-x-1 px-3 py-1.5 text-sm text-blue-600 hover:bg-blue-50 rounded-lg transition-colors disabled:opacity-50"
+                    onClick={() => translateText(reviewId, review.comment, targetLang)}
+                    disabled={translating[reviewId]}
+                    className="flex items-center space-x-1 px-3 py-1.5 text-sm text-blue-600 hover:bg-blue-50 dark:text-blue-400 dark:hover:bg-blue-900/30 rounded-lg transition-colors disabled:opacity-50"
                     title={language === 'en' ? 'Translate' : 'Traduire'}
                   >
                     <Languages className="w-4 h-4" />
                     <span>
-                      {translating[review.review_id]
+                      {translating[reviewId]
                         ? '...'
                         : isTranslated
                         ? (language === 'en' ? 'Original' : 'Original')
