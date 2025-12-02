@@ -402,7 +402,8 @@ class RefactoredEndpointsTester:
             "longitude": -4.0300
         }
         
-        response = self.make_request("POST", "/location/update", location_data, None, self.tasker_token)
+        headers = {"Content-Type": "application/json"}
+        response = self.make_request("POST", "/location/update", location_data, headers, self.tasker_token)
         
         if not response or response.status_code != 200:
             self.log("❌ POST /api/location/update failed", "ERROR")
