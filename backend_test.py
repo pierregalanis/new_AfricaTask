@@ -1490,6 +1490,8 @@ class FavoritesAndBadgesTester:
             "tasker_id": test_tasker_id
         }, None, self.client_token)
         
+        self.log(f"DEBUG: Response status: {response.status_code if response else 'None'}")
+        
         if response and response.status_code == 400:
             self.log(f"✅ Tasker already in favorites (400 error: {response.text}) - removing first to test add functionality")
             # Remove from favorites first
