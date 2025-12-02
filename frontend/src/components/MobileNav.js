@@ -34,11 +34,6 @@ const MobileNav = ({ language = 'en' }) => {
       icon: <Briefcase className="w-5 h-5" />,
       path: '/services'
     },
-    {
-      label: language === 'en' ? 'Recurring Tasks' : 'Tâches récurrentes',
-      icon: <Repeat className="w-5 h-5" />,
-      path: '/recurring-tasks'
-    },
     ...(user.email === 'admin@africatask.com' ? [{
       label: 'Admin Panel',
       icon: <Shield className="w-5 h-5" />,
