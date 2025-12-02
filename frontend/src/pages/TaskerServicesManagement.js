@@ -206,6 +206,13 @@ const TaskerServicesManagement = () => {
               {language === 'en' ? 'Services You Offer' : 'Services que vous proposez'}
             </h2>
             
+            {/* DEBUG INFO */}
+            <div className="mb-4 p-3 bg-yellow-100 dark:bg-yellow-900/30 border border-yellow-300 rounded-lg">
+              <p className="text-sm font-mono text-gray-900 dark:text-white">
+                <strong>DEBUG:</strong> Services count: {services.length}, Array: {JSON.stringify(services)}
+              </p>
+            </div>
+            
             {/* Current Services */}
             <div className="flex flex-wrap gap-2 mb-4">
               {services.length > 0 && services.map((service, idx) => (
