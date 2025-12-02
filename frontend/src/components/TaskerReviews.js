@@ -63,11 +63,10 @@ const TaskerReviews = ({ taskerId, language = 'en' }) => {
       );
 
       // Store translation with unique cache key
-      setTranslatedTexts(prev => {
-        const newState = { ...prev };
-        newState[cacheKey] = response.data.translated_text;
-        return newState;
-      });
+      setTranslatedTexts(prev => ({
+        ...prev,
+        [cacheKey]: response.data.translated_text
+      }));
       
       // Show translation for THIS review only
       setShowTranslation(prev => ({
