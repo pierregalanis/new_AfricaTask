@@ -160,4 +160,14 @@ export const NoEarningsFound = ({ language = 'en' }) => (
   />
 );
 
+export const NoFavorites = ({ onBrowse }) => (
+  <EmptyState
+    illustration="❤️"
+    title="No Favorites Yet"
+    description="Start adding your favorite taskers to quickly find and book them again!"
+    actionLabel="Browse Taskers"
+    onAction={onBrowse}
+  />
+);
+
 export default EmptyState;
