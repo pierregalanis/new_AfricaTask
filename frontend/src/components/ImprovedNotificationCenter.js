@@ -90,10 +90,12 @@ const ImprovedNotificationCenter = ({ language = 'en' }) => {
     switch (type) {
       case 'task_accepted':
       case 'task_completed':
-        return 'bg-green-50 border-green-200';
+      case 'tasker_on_way':
+        return 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-700';
       case 'task_rejected':
+      case 'task_cancelled':
       case 'dispute_raised':
-        return 'bg-red-50 border-red-200';
+        return 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-700';
       case 'new_message':
         return 'bg-blue-50 border-blue-200';
       default:
