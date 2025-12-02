@@ -1,69 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Heart } from 'lucide-react';
 import axios from 'axios';
+import { useAuth } from '../contexts/AuthContext';
 import { toast } from 'react-toastify';
 
-const FavoriteButton = ({ taskerId, language = 'en', size = 'md' }) => {
+const FavoriteButton = ({ taskerId, size = 'md' }) => {
+  const { user } = useAuth();
   const [isFavorite, setIsFavorite] = useState(false);
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    checkFavorite();
-  }, [taskerId]);
-
-  const checkFavorite = async () => {
-    try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/api/favorites/check/${taskerId}`,
-        {
-          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-        }
-      );
-      setIsFavorite(response.data.is_favorite);
-    } catch (error) {
-      console.error('Error checking favorite:', error);
-    }
-  };
-
-  const toggleFavorite = async (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    
-    setLoading(true);
-    try {
-      if (isFavorite) {
-        await axios.delete(
-          `${process.env.REACT_APP_BACKEND_URL}/api/favorites/${taskerId}`,
-          {
-            headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-          }
-        );
-        setIsFavorite(false);
-        toast.success(language === 'en' ? 'Removed from favorites' : 'Retiré des favoris');
-      } else {
-        const formData = new FormData();
-        formData.append('tasker_id', taskerId);
-        
-        await axios.post(
-          `${process.env.REACT_APP_BACKEND_URL}/api/favorites`,
-          formData,
-          {
-            headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-          }
-        );
-        setIsFavorite(true);
-        toast.success(language === 'en' ? 'Added to favorites' : 'Ajouté aux favoris');
-      }
-    } catch (error) {
-      console.error('Error toggling favorite:', error);
-      toast.error(
-        error.response?.data?.detail ||
-        (language === 'en' ? 'Failed to update favorites' : 'Échec de la mise à jour')
-      );
-    } finally {
-      setLoading(false);
-    }
-  };
+  const API_URL = process.env.REACT_APP_BACKEND_URL;
 
   const sizes = {
     sm: 'w-8 h-8',
@@ -77,22 +22,94 @@ const FavoriteButton = ({ taskerId, language = 'en', size = 'md' }) => {
     lg: 'w-6 h-6'
   };
 
+  useEffect(() => {
+    checkFavoriteStatus();
+  }, [taskerId]);
+
+  const checkFavoriteStatus = async () => {
+    if (!user) return;
+    
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.get(
+        `${API_URL}/api/favorites/check/${taskerId}`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      setIsFavorite(response.data.is_favorite);
+    } catch (error) {
+      console.error('Error checking favorite status:', error);
+    }
+  };
+
+  const toggleFavorite = async (e) => {
+    e.stopPropagation(); // Prevent parent click events
+    
+    if (!user) {
+      toast.error('Please login to add favorites');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const token = localStorage.getItem('token');
+      
+      if (isFavorite) {
+        // Remove from favorites
+        await axios.delete(
+          `${API_URL}/api/favorites/${taskerId}`,
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+        setIsFavorite(false);
+        toast.success('Removed from favorites');
+      } else {
+        // Add to favorites
+        const formData = new FormData();
+        formData.append('tasker_id', taskerId);
+        
+        await axios.post(
+          `${API_URL}/api/favorites`,
+          formData,
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+        setIsFavorite(true);
+        toast.success('Added to favorites');
+      }
+    } catch (error) {
+      console.error('Error toggling favorite:', error);
+      toast.error(error.response?.data?.detail || 'Failed to update favorites');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (!user || user.role !== 'client') return null;
+
   return (
     <button
       onClick={toggleFavorite}
       disabled={loading}
-      className={`${sizes[size]} rounded-full flex items-center justify-center transition-all duration-200 ${
-        isFavorite
-          ? 'bg-red-100 text-red-600 hover:bg-red-200'
-          : 'bg-gray-100 text-gray-400 hover:bg-gray-200 hover:text-red-500'
-      } ${loading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'} shadow-md hover:shadow-lg`}
-      title={isFavorite 
-        ? (language === 'en' ? 'Remove from favorites' : 'Retirer des favoris')
-        : (language === 'en' ? 'Add to favorites' : 'Ajouter aux favoris')
-      }
+      className={`
+        ${sizes[size]}
+        rounded-full
+        flex items-center justify-center
+        transition-all duration-300
+        ${isFavorite 
+          ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/50' 
+          : 'bg-white/10 dark:bg-gray-800/50 backdrop-blur-sm border-2 border-emerald-500/30 text-gray-600 dark:text-gray-400 hover:border-emerald-500 hover:text-emerald-500'
+        }
+        hover:scale-110
+        active:scale-95
+        disabled:opacity-50 disabled:cursor-not-allowed
+        group
+      `}
+      title={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
     >
       <Heart 
-        className={`${iconSizes[size]} ${isFavorite ? 'fill-current' : ''} transition-transform ${loading ? 'animate-pulse' : 'hover:scale-110'}`} 
+        className={`
+          ${iconSizes[size]}
+          transition-all duration-300
+          ${isFavorite ? 'fill-current' : 'group-hover:fill-current'}
+        `}
       />
     </button>
   );
