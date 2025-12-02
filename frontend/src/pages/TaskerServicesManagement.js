@@ -175,6 +175,10 @@ const TaskerServicesManagement = () => {
     );
   }
 
+  console.log('[RENDER] Current services state:', services);
+  console.log('[RENDER] Services length:', services.length);
+  console.log('[RENDER] Services array:', JSON.stringify(services));
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-white dark:from-gray-950 dark:to-gray-900">
       <Navbar />
@@ -196,7 +200,7 @@ const TaskerServicesManagement = () => {
             
             {/* Current Services */}
             <div className="flex flex-wrap gap-2 mb-4">
-              {services.map((service, idx) => (
+              {services.length > 0 && services.map((service, idx) => (
                 <div
                   key={idx}
                   className="flex items-center space-x-2 bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300 px-4 py-2 rounded-full border border-emerald-200 dark:border-emerald-700"
