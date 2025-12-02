@@ -67,7 +67,7 @@ const ChatBox = ({ task, onClose }) => {
   return (
     <div className="fixed inset-0 md:inset-auto md:bottom-4 md:right-4 md:w-96 md:h-[600px] bg-white md:rounded-lg shadow-2xl z-50 flex flex-col">
       {/* Header */}
-      <div className="bg-orange-600 text-white p-4 md:rounded-t-lg flex justify-between items-center">
+      <div className="bg-emerald-600 text-white p-4 md:rounded-t-lg flex justify-between items-center">
         <div className="flex items-center space-x-2">
           <MessageCircle className="w-5 h-5" />
           <div>
@@ -79,7 +79,7 @@ const ChatBox = ({ task, onClose }) => {
         </div>
         <button
           onClick={onClose}
-          className="hover:bg-orange-700 rounded-full p-1 transition"
+          className="hover:bg-emerald-700 rounded-full p-1 transition"
           data-testid="close-chat-button"
         >
           <X className="w-5 h-5" />
@@ -110,14 +110,14 @@ const ChatBox = ({ task, onClose }) => {
                 <div
                   className={`max-w-[75%] rounded-lg px-4 py-2 ${
                     isMyMessage
-                      ? 'bg-orange-600 text-white'
+                      ? 'bg-emerald-600 text-white'
                       : 'bg-white text-gray-900 border border-gray-200'
                   }`}
                 >
                   <p className="break-words">{msg.content}</p>
                   <p
                     className={`text-xs mt-1 ${
-                      isMyMessage ? 'text-orange-100' : 'text-gray-500'
+                      isMyMessage ? 'text-emerald-100' : 'text-gray-500'
                     }`}
                   >
                     {formatTime(msg.created_at)}
@@ -138,13 +138,13 @@ const ChatBox = ({ task, onClose }) => {
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
             placeholder={language === 'en' ? 'Type a message...' : 'Tapez un message...'}
-            className="flex-1 border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500"
+            className="flex-1 border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500"
             data-testid="message-input"
           />
           <button
             type="submit"
             disabled={!newMessage.trim()}
-            className="bg-orange-600 text-white rounded-full p-2 hover:bg-orange-700 disabled:opacity-50 disabled:cursor-not-allowed transition"
+            className="bg-emerald-600 text-white rounded-full p-2 hover:bg-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed transition"
             data-testid="send-message-button"
           >
             <Send className="w-5 h-5" />

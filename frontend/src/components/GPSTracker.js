@@ -59,7 +59,7 @@ const GPSTracker = ({ task, onClose }) => {
   return (
     <div className="fixed inset-0 md:inset-auto md:top-4 md:right-4 md:w-[500px] md:h-[600px] bg-white md:rounded-lg shadow-2xl z-50 flex flex-col">
       {/* Header */}
-      <div className="bg-orange-600 text-white p-4 md:rounded-t-lg flex justify-between items-center">
+      <div className="bg-emerald-600 text-white p-4 md:rounded-t-lg flex justify-between items-center">
         <div className="flex items-center space-x-2">
           <Navigation className="w-5 h-5" />
           <div>
@@ -71,7 +71,7 @@ const GPSTracker = ({ task, onClose }) => {
         </div>
         <button
           onClick={onClose}
-          className="hover:bg-orange-700 rounded-full p-1 transition"
+          className="hover:bg-emerald-700 rounded-full p-1 transition"
           data-testid="close-tracker-button"
         >
           <X className="w-5 h-5" />
@@ -161,7 +161,7 @@ const GPSTracker = ({ task, onClose }) => {
       <div className="border-t p-3 bg-gray-50 md:rounded-b-lg">
         <div className="flex justify-around text-xs">
           <div className="flex items-center space-x-1">
-            <div className="w-3 h-3 bg-orange-500 rounded-full"></div>
+            <div className="w-3 h-3 bg-emerald-500 rounded-full"></div>
             <span>{language === 'en' ? 'Task Location' : 'Tâche'}</span>
           </div>
           {taskerPos && (

@@ -96,7 +96,7 @@ const Navbar = () => {
                 </Link>
                 <button
                   onClick={handleLogout}
-                  className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-md hover:from-red-600 hover:to-red-700 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+                  className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-teal-500 to-emerald-600 text-white rounded-md hover:from-teal-600 hover:to-emerald-700 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
                   data-testid="logout-button"
                 >
                   <LogOut className="w-4 h-4" />

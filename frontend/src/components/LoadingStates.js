@@ -76,7 +76,7 @@ export const SpinnerLoader = ({ size = 'md', color = 'orange' }) => {
   };
 
   const colors = {
-    orange: 'border-orange-600',
+    orange: 'border-emerald-600',
     blue: 'border-blue-600',
     green: 'border-green-600',
     white: 'border-white'
@@ -88,7 +88,7 @@ export const SpinnerLoader = ({ size = 'md', color = 'orange' }) => {
 };
 
 export const FullPageLoader = ({ message }) => (
-  <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-50 to-white">
+  <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-emerald-50 to-white">
     <div className="text-center">
       <SpinnerLoader size="xl" />
       {message && <p className="mt-4 text-gray-600 font-medium">{message}</p>}

@@ -7,9 +7,9 @@ const PaymentModal = ({ isOpen, onClose, task, onPaymentSuccess }) => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [selectedChannels, setSelectedChannels] = useState([
     'card',
-    'orange-money-senegal',
+    'emerald-money-senegal',
     'wave-senegal',
-    'orange-money-ci',
+    'emerald-money-ci',
     'wave-ci'
   ]);
 
@@ -83,7 +83,7 @@ const PaymentModal = ({ isOpen, onClose, task, onPaymentSuccess }) => {
             <p className="text-sm text-gray-600 mb-3">{task.description}</p>
             <div className="flex justify-between items-center">
               <span className="text-sm text-gray-600">Montant à payer:</span>
-              <span className="text-2xl font-bold text-orange-600">
+              <span className="text-2xl font-bold text-emerald-600">
                 {task.total_cost?.toLocaleString()} CFA
               </span>
             </div>
@@ -99,8 +99,8 @@ const PaymentModal = ({ isOpen, onClose, task, onPaymentSuccess }) => {
                 <CreditCard className="w-5 h-5 text-blue-600" />
                 <span className="text-sm font-medium text-gray-700">Carte bancaire</span>
               </div>
-              <div className="flex items-center space-x-3 p-3 bg-orange-50 rounded-lg">
-                <Smartphone className="w-5 h-5 text-orange-600" />
+              <div className="flex items-center space-x-3 p-3 bg-emerald-50 rounded-lg">
+                <Smartphone className="w-5 h-5 text-emerald-600" />
                 <span className="text-sm font-medium text-gray-700">Orange Money</span>
               </div>
               <div className="flex items-center space-x-3 p-3 bg-pink-50 rounded-lg">
@@ -130,7 +130,7 @@ const PaymentModal = ({ isOpen, onClose, task, onPaymentSuccess }) => {
           <button
             onClick={handlePayment}
             disabled={isProcessing}
-            className="flex-1 px-6 py-3 bg-orange-600 text-white rounded-lg font-semibold hover:bg-orange-700 transition disabled:bg-gray-400 disabled:cursor-not-allowed"
+            className="flex-1 px-6 py-3 bg-emerald-600 text-white rounded-lg font-semibold hover:bg-emerald-700 transition disabled:bg-gray-400 disabled:cursor-not-allowed"
           >
             {isProcessing ? (
               <span className="flex items-center justify-center">

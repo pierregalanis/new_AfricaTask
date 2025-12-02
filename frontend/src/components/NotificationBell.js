@@ -129,7 +129,7 @@ const NotificationBell = () => {
             {notifications.length > 0 && (
               <button
                 onClick={markAllAsRead}
-                className="text-sm text-orange-600 hover:text-orange-700 font-medium flex items-center space-x-1"
+                className="text-sm text-emerald-600 hover:text-emerald-700 font-medium flex items-center space-x-1"
               >
                 <CheckCheck className="w-4 h-4" />
                 <span>{language === 'en' ? 'Mark all read' : 'Tout marquer'}</span>

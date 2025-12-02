@@ -75,7 +75,7 @@ const MarkAsPaidModal = ({ task, onClose, onSuccess, language = 'en' }) => {
           <p className="font-semibold text-gray-900">{task.title}</p>
           <p className="text-sm text-gray-600 mt-2">
             {language === 'en' ? 'Hourly Rate:' : 'Taux horaire:'}{' '}
-            <span className="font-semibold text-orange-600">{hourlyRate.toLocaleString()} CFA/h</span>
+            <span className="font-semibold text-emerald-600">{hourlyRate.toLocaleString()} CFA/h</span>
           </p>
         </div>
 

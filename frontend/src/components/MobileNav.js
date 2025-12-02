@@ -82,7 +82,7 @@ const MobileNav = ({ language = 'en' }) => {
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header */}
-          <div className="bg-gradient-to-r from-orange-600 to-red-600 text-white p-6">
+          <div className="bg-gradient-to-r from-emerald-600 to-emerald-600 text-white p-6">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-xl font-bold">AfricaTask</h2>
               <button
@@ -99,7 +99,7 @@ const MobileNav = ({ language = 'en' }) => {
                 </div>
                 <div>
                   <p className="font-semibold">{user.full_name}</p>
-                  <p className="text-sm text-orange-100 capitalize">{user.role}</p>
+                  <p className="text-sm text-emerald-100 capitalize">{user.role}</p>
                 </div>
               </div>
             )}
@@ -112,12 +112,12 @@ const MobileNav = ({ language = 'en' }) => {
                 key={index}
                 to={item.path}
                 onClick={() => setIsOpen(false)}
-                className="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-orange-50 transition-colors group"
+                className="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-emerald-50 transition-colors group"
               >
-                <span className="text-gray-600 group-hover:text-orange-600">
+                <span className="text-gray-600 group-hover:text-emerald-600">
                   {item.icon}
                 </span>
-                <span className="font-medium text-gray-700 group-hover:text-orange-600">
+                <span className="font-medium text-gray-700 group-hover:text-emerald-600">
                   {item.label}
                 </span>
               </Link>
@@ -144,14 +144,14 @@ const MobileNav = ({ language = 'en' }) => {
                 <Link
                   to="/login"
                   onClick={() => setIsOpen(false)}
-                  className="block px-4 py-3 bg-orange-600 text-white text-center rounded-lg font-semibold hover:bg-orange-700 transition"
+                  className="block px-4 py-3 bg-emerald-600 text-white text-center rounded-lg font-semibold hover:bg-emerald-700 transition"
                 >
                   {language === 'en' ? 'Sign In' : 'Se connecter'}
                 </Link>
                 <Link
                   to="/register"
                   onClick={() => setIsOpen(false)}
-                  className="block px-4 py-3 border-2 border-orange-600 text-orange-600 text-center rounded-lg font-semibold hover:bg-orange-50 transition"
+                  className="block px-4 py-3 border-2 border-emerald-600 text-emerald-600 text-center rounded-lg font-semibold hover:bg-emerald-50 transition"
                 >
                   {language === 'en' ? 'Sign Up' : 'S\'inscrire'}
                 </Link>

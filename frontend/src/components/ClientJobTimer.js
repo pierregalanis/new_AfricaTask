@@ -123,7 +123,7 @@ const ClientJobTimer = ({ taskId, hourlyRate, language = 'fr' }) => {
             <DollarSign className="w-4 h-4" />
             <span>{language === 'en' ? 'Current cost' : 'Coût actuel'}</span>
           </div>
-          <p className="text-2xl font-bold text-orange-600">
+          <p className="text-2xl font-bold text-emerald-600">
             {calculateCurrentCost()} CFA
           </p>
           <p className="text-xs text-gray-500 mt-1">

@@ -89,7 +89,7 @@ const TaskerPortfolio = ({ portfolio = [], onUpdate, language = 'en' }) => {
       <div className="flex items-center justify-between mb-6">
         <div>
           <h2 className="text-2xl font-bold text-gray-900 flex items-center space-x-2">
-            <ImageIcon className="w-6 h-6 text-orange-600" />
+            <ImageIcon className="w-6 h-6 text-emerald-600" />
             <span>{language === 'en' ? 'Portfolio Gallery' : 'Galerie de portfolio'}</span>
           </h2>
           <p className="text-gray-600 text-sm mt-1">
@@ -101,7 +101,7 @@ const TaskerPortfolio = ({ portfolio = [], onUpdate, language = 'en' }) => {
         
         {/* Upload Button */}
         <label className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-semibold cursor-pointer transition ${
-          uploading ? 'bg-gray-300 cursor-not-allowed' : 'bg-orange-600 text-white hover:bg-orange-700'
+          uploading ? 'bg-gray-300 cursor-not-allowed' : 'bg-emerald-600 text-white hover:bg-emerald-700'
         }`}>
           {uploading ? (
             <>

@@ -162,7 +162,7 @@ const ChatModal = ({ isOpen, onClose, task, currentUser, otherUser, language = '
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full h-[600px] flex flex-col">
         {/* Header */}
-        <div className="flex justify-between items-center p-4 border-b bg-gradient-to-r from-purple-600 to-orange-500">
+        <div className="flex justify-between items-center p-4 border-b bg-gradient-to-r from-purple-600 to-emerald-500">
           <div className="flex items-center space-x-3">
             <MessageCircle className="w-6 h-6 text-white" />
             <div>

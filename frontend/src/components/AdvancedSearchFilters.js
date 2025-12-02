@@ -44,7 +44,7 @@ const AdvancedSearchFilters = ({ onFilterChange, language = 'en' }) => {
             placeholder={language === 'en' ? 'Search by skill or keyword...' : 'Rechercher par compétence...'}
             value={filters.searchQuery}
             onChange={(e) => handleFilterChange('searchQuery', e.target.value)}
-            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
           />
         </div>
         
@@ -52,14 +52,14 @@ const AdvancedSearchFilters = ({ onFilterChange, language = 'en' }) => {
           onClick={() => setIsOpen(!isOpen)}
           className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors ${
             hasActiveFilters 
-              ? 'bg-orange-600 text-white' 
+              ? 'bg-emerald-600 text-white' 
               : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
           }`}
         >
           <SlidersHorizontal className="w-5 h-5" />
           <span>{language === 'en' ? 'Filters' : 'Filtres'}</span>
           {hasActiveFilters && (
-            <span className="bg-white text-orange-600 text-xs font-bold px-2 py-0.5 rounded-full">
+            <span className="bg-white text-emerald-600 text-xs font-bold px-2 py-0.5 rounded-full">
               •
             </span>
           )}
@@ -77,7 +77,7 @@ const AdvancedSearchFilters = ({ onFilterChange, language = 'en' }) => {
             <select
               value={filters.sortBy}
               onChange={(e) => handleFilterChange('sortBy', e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500"
             >
               <option value="rating">{language === 'en' ? 'Highest Rated' : 'Mieux notés'}</option>
               <option value="price-low">{language === 'en' ? 'Price: Low to High' : 'Prix: Croissant'}</option>
@@ -100,7 +100,7 @@ const AdvancedSearchFilters = ({ onFilterChange, language = 'en' }) => {
                   placeholder="Min"
                   value={filters.priceMin}
                   onChange={(e) => handleFilterChange('priceMin', e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500"
                 />
                 <span className="text-gray-500">-</span>
                 <input
@@ -108,7 +108,7 @@ const AdvancedSearchFilters = ({ onFilterChange, language = 'en' }) => {
                   placeholder="Max"
                   value={filters.priceMax}
                   onChange={(e) => handleFilterChange('priceMax', e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500"
                 />
               </div>
             </div>
@@ -122,7 +122,7 @@ const AdvancedSearchFilters = ({ onFilterChange, language = 'en' }) => {
               <select
                 value={filters.minRating}
                 onChange={(e) => handleFilterChange('minRating', parseFloat(e.target.value))}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500"
               >
                 <option value="0">{language === 'en' ? 'Any rating' : 'Tous'}</option>
                 <option value="3">3.0+ ⭐⭐⭐</option>
@@ -146,7 +146,7 @@ const AdvancedSearchFilters = ({ onFilterChange, language = 'en' }) => {
               step="5"
               value={filters.maxDistance}
               onChange={(e) => handleFilterChange('maxDistance', parseInt(e.target.value))}
-              className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-orange-600"
+              className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-emerald-600"
             />
             <div className="flex justify-between text-xs text-gray-500 mt-1">
               <span>5 km</span>

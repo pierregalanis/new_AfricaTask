@@ -52,7 +52,7 @@ const ReviewModal = ({ isOpen, onClose, task, taskerName, onReviewSuccess, langu
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-lg shadow-xl max-w-lg w-full">
         {/* Header */}
-        <div className="flex justify-between items-center p-6 border-b bg-gradient-to-r from-purple-600 to-orange-500">
+        <div className="flex justify-between items-center p-6 border-b bg-gradient-to-r from-purple-600 to-emerald-500">
           <h2 className="text-2xl font-bold text-white">
             {language === 'en' ? 'Leave a Review' : 'Laisser un avis'}
           </h2>

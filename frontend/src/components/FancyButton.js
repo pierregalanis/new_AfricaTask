@@ -24,8 +24,8 @@ const FancyButton = ({
       glow: '0 0 15px rgba(107, 114, 128, 0.3)'
     },
     danger: {
-      base: 'bg-gradient-to-r from-red-500 to-red-600',
-      hover: 'hover:from-red-600 hover:to-red-700',
+      base: 'bg-gradient-to-r from-teal-500 to-emerald-600',
+      hover: 'hover:from-teal-600 hover:to-emerald-700',
       shadow: 'shadow-lg shadow-red-500/50 hover:shadow-red-500/70',
       glow: '0 0 20px rgba(239, 68, 68, 0.4)'
     },

@@ -12,7 +12,7 @@ const NotificationToast = ({ notification, onClose, onClick }) => {
       case 'cancelled':
         return <XCircle className="w-6 h-6 text-red-600" />;
       default:
-        return <AlertCircle className="w-6 h-6 text-orange-600" />;
+        return <AlertCircle className="w-6 h-6 text-emerald-600" />;
     }
   };
 
@@ -26,7 +26,7 @@ const NotificationToast = ({ notification, onClose, onClick }) => {
       case 'cancelled':
         return 'bg-red-50 border-red-200';
       default:
-        return 'bg-orange-50 border-orange-200';
+        return 'bg-emerald-50 border-emerald-200';
     }
   };
 

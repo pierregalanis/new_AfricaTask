@@ -76,7 +76,7 @@ const CancelTaskModal = ({ task, onClose, onSuccess, language = 'en' }) => {
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center space-x-3">
-            <AlertTriangle className="w-6 h-6 text-orange-600" />
+            <AlertTriangle className="w-6 h-6 text-emerald-600" />
             <h2 className="text-xl font-bold text-gray-900">
               {language === 'en' ? 'Cancel Task' : 'Annuler la tâche'}
             </h2>
@@ -124,7 +124,7 @@ const CancelTaskModal = ({ task, onClose, onSuccess, language = 'en' }) => {
                 onClick={() => setReason(r)}
                 className={`w-full text-left px-4 py-2 rounded-lg border transition ${
                   reason === r
-                    ? 'bg-orange-50 border-orange-500 text-orange-700'
+                    ? 'bg-emerald-50 border-emerald-500 text-emerald-700'
                     : 'bg-white border-gray-300 hover:bg-gray-50'
                 }`}
               >
@@ -139,7 +139,7 @@ const CancelTaskModal = ({ task, onClose, onSuccess, language = 'en' }) => {
               value={reason === (language === 'en' ? 'Other' : 'Autre') ? '' : reason}
               onChange={(e) => setReason(e.target.value)}
               placeholder={language === 'en' ? 'Enter your reason...' : 'Entrez votre raison...'}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500"
               rows={3}
             />
           )}

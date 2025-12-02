@@ -57,12 +57,12 @@ const TaskCard = ({ task, language = 'en', onAction }) => {
   return (
     <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden group">
       {/* Header with gradient */}
-      <div className="bg-gradient-to-r from-orange-50 to-red-50 px-6 py-4 border-b border-gray-100">
+      <div className="bg-gradient-to-r from-emerald-50 to-emerald-50 px-6 py-4 border-b border-gray-100">
         <div className="flex items-start justify-between">
           <div className="flex-1">
             <Link 
               to={`/tasks/${task.id}`}
-              className="text-lg font-bold text-gray-900 hover:text-orange-600 transition line-clamp-1"
+              className="text-lg font-bold text-gray-900 hover:text-emerald-600 transition line-clamp-1"
             >
               {task.title}
             </Link>
@@ -81,14 +81,14 @@ const TaskCard = ({ task, language = 'en', onAction }) => {
         {/* Location */}
         {task.location && (
           <div className="flex items-center space-x-2 text-sm text-gray-600">
-            <MapPin className="w-4 h-4 text-orange-600 flex-shrink-0" />
+            <MapPin className="w-4 h-4 text-emerald-600 flex-shrink-0" />
             <span className="line-clamp-1">{task.location}</span>
           </div>
         )}
 
         {/* Date */}
         <div className="flex items-center space-x-2 text-sm text-gray-600">
-          <Calendar className="w-4 h-4 text-orange-600 flex-shrink-0" />
+          <Calendar className="w-4 h-4 text-emerald-600 flex-shrink-0" />
           <span>{formatDate(task.task_date || task.created_at)}</span>
         </div>
 
@@ -96,12 +96,12 @@ const TaskCard = ({ task, language = 'en', onAction }) => {
         <div className="flex items-center justify-between">
           {task.estimated_hours && (
             <div className="flex items-center space-x-2 text-sm text-gray-600">
-              <Clock className="w-4 h-4 text-orange-600 flex-shrink-0" />
+              <Clock className="w-4 h-4 text-emerald-600 flex-shrink-0" />
               <span>{task.estimated_hours}h</span>
             </div>
           )}
           {task.hourly_rate && (
-            <div className="flex items-center space-x-2 text-sm font-semibold text-orange-600">
+            <div className="flex items-center space-x-2 text-sm font-semibold text-emerald-600">
               <DollarSign className="w-4 h-4 flex-shrink-0" />
               <span>{task.hourly_rate.toLocaleString()} CFA/h</span>
             </div>
@@ -151,7 +151,7 @@ const TaskCard = ({ task, language = 'en', onAction }) => {
       <div className="px-6 py-4 bg-gray-50 border-t border-gray-100">
         <Link
           to={`/tasks/${task.id}`}
-          className="block w-full text-center px-4 py-2 bg-orange-600 text-white rounded-lg font-semibold hover:bg-orange-700 transition group-hover:shadow-md"
+          className="block w-full text-center px-4 py-2 bg-emerald-600 text-white rounded-lg font-semibold hover:bg-emerald-700 transition group-hover:shadow-md"
         >
           {language === 'en' ? 'View Details' : 'Voir les détails'}
         </Link>

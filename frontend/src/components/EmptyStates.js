@@ -29,14 +29,14 @@ const EmptyState = ({
       actionLink ? (
         <Link
           to={actionLink}
-          className="px-6 py-3 bg-orange-600 text-white rounded-lg font-semibold hover:bg-orange-700 transition"
+          className="px-6 py-3 bg-emerald-600 text-white rounded-lg font-semibold hover:bg-emerald-700 transition"
         >
           {actionLabel}
         </Link>
       ) : (
         <button
           onClick={onAction}
-          className="px-6 py-3 bg-orange-600 text-white rounded-lg font-semibold hover:bg-orange-700 transition"
+          className="px-6 py-3 bg-emerald-600 text-white rounded-lg font-semibold hover:bg-emerald-700 transition"
         >
           {actionLabel}
         </button>

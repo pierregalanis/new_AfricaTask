@@ -79,7 +79,7 @@ const ImprovedNotificationCenter = ({ language = 'en' }) => {
       case 'new_message':
         return <MessageCircle className="w-5 h-5 text-blue-600" />;
       default:
-        return <Briefcase className="w-5 h-5 text-orange-600" />;
+        return <Briefcase className="w-5 h-5 text-emerald-600" />;
     }
   };
 
@@ -94,7 +94,7 @@ const ImprovedNotificationCenter = ({ language = 'en' }) => {
       case 'new_message':
         return 'bg-blue-50 border-blue-200';
       default:
-        return 'bg-orange-50 border-orange-200';
+        return 'bg-emerald-50 border-emerald-200';
     }
   };
 
@@ -141,7 +141,7 @@ const ImprovedNotificationCenter = ({ language = 'en' }) => {
                 {unreadCount > 0 && (
                   <button
                     onClick={markAllAsRead}
-                    className="text-xs text-orange-600 hover:text-orange-700 font-medium"
+                    className="text-xs text-emerald-600 hover:text-emerald-700 font-medium"
                   >
                     {language === 'en' ? 'Mark all read' : 'Tout marquer lu'}
                   </button>
@@ -159,7 +159,7 @@ const ImprovedNotificationCenter = ({ language = 'en' }) => {
             <div className="overflow-y-auto flex-1">
               {loading ? (
                 <div className="flex items-center justify-center py-12">
-                  <div className="w-8 h-8 border-4 border-orange-600 border-t-transparent rounded-full animate-spin"></div>
+                  <div className="w-8 h-8 border-4 border-emerald-600 border-t-transparent rounded-full animate-spin"></div>
                 </div>
               ) : !Array.isArray(notifications) || notifications.length === 0 ? (
                 <div className="text-center py-12">
@@ -175,7 +175,7 @@ const ImprovedNotificationCenter = ({ language = 'en' }) => {
                       key={notification.notification_id}
                       onClick={() => !notification.read && markAsRead(notification.notification_id)}
                       className={`p-4 cursor-pointer transition-colors ${
-                        !notification.read ? 'bg-orange-50 hover:bg-orange-100' : 'hover:bg-gray-50'
+                        !notification.read ? 'bg-emerald-50 hover:bg-emerald-100' : 'hover:bg-gray-50'
                       }`}
                     >
                       <div className="flex items-start space-x-3">
@@ -193,7 +193,7 @@ const ImprovedNotificationCenter = ({ language = 'en' }) => {
                           </p>
                         </div>
                         {!notification.read && (
-                          <div className="w-2 h-2 bg-orange-600 rounded-full mt-2"></div>
+                          <div className="w-2 h-2 bg-emerald-600 rounded-full mt-2"></div>
                         )}
                       </div>
                     </div>
