@@ -71,7 +71,43 @@ const TaskDetails = () => {
   const fetchTaskerDetails = async (taskerId) => {
     try {
       const response = await usersAPI.getById(taskerId);
-      setTasker(response.data);
+      const taskerData = response.data;
+      
+      // Fetch real-time statistics
+      try {
+        const API_URL = process.env.REACT_APP_BACKEND_URL;
+        const token = localStorage.getItem('token');
+        
+        // Fetch actual completed tasks count
+        const tasksResponse = await axios.get(
+          `${API_URL}/api/tasks?tasker_id=${taskerId}&status=completed`,
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+        const completedTasks = Array.isArray(tasksResponse.data) ? tasksResponse.data.length : 0;
+        
+        // Fetch reviews
+        const reviewsResponse = await axios.get(
+          `${API_URL}/api/reviews/tasker/${taskerId}`,
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+        const reviews = reviewsResponse.data || [];
+        const totalReviews = reviews.length;
+        const averageRating = totalReviews > 0
+          ? reviews.reduce((sum, r) => sum + r.rating, 0) / totalReviews
+          : 0;
+        
+        // Update tasker data with real stats
+        if (taskerData.tasker_profile) {
+          taskerData.tasker_profile.completed_tasks = completedTasks;
+          taskerData.tasker_profile.total_reviews = totalReviews;
+          taskerData.tasker_profile.average_rating = averageRating;
+        }
+      } catch (statsError) {
+        console.error('Error fetching real-time stats:', statsError);
+        // Continue with existing data if stats fetch fails
+      }
+      
+      setTasker(taskerData);
     } catch (error) {
       console.error('Error fetching tasker details:', error);
     }
