@@ -48,11 +48,10 @@ const TaskerReviews = ({ taskerId, language = 'en' }) => {
     }
 
     // Set translating state for THIS review only
-    setTranslating(prev => {
-      const newState = { ...prev };
-      newState[reviewId] = true;
-      return newState;
-    });
+    setTranslating(prev => ({
+      ...prev,
+      [reviewId]: true
+    }));
 
     try {
       const response = await axios.post(
