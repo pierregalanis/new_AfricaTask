@@ -206,16 +206,9 @@ const TaskerServicesManagement = () => {
               {language === 'en' ? 'Services You Offer' : 'Services que vous proposez'}
             </h2>
             
-            {/* DEBUG INFO */}
-            <div className="mb-4 p-3 bg-yellow-100 dark:bg-yellow-900/30 border border-yellow-300 rounded-lg">
-              <p className="text-sm font-mono text-gray-900 dark:text-white">
-                <strong>DEBUG:</strong> Services count: {services.length}, Array: {JSON.stringify(services)}
-              </p>
-            </div>
-            
             {/* Current Services */}
             <div className="flex flex-wrap gap-2 mb-4">
-              {services.length > 0 && services.map((service, idx) => (
+              {services.map((service, idx) => (
                 <div
                   key={idx}
                   className="flex items-center space-x-2 bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300 px-4 py-2 rounded-full border border-emerald-200 dark:border-emerald-700"
