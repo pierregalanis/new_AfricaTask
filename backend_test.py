@@ -1311,8 +1311,8 @@ class FavoritesAndBadgesTester:
         self.tasker_token = None
         self.client_id = None
         self.tasker_id = None
-        # Use the specific tasker IDs from the review request
-        self.test_tasker_ids = ["afca3c56-daba-41c0-a212-fb53ea68042f", "0331876e-f975-45e3-8782-17000f009340"]
+        # Use the available tasker IDs from the database
+        self.test_tasker_ids = ["0331876e-f975-45e3-8782-17000f009340", "402fb413-3c73-4bf8-90e4-cf372cda3a7b"]
         
     def log(self, message, status="INFO"):
         print(f"[{status}] {message}")
