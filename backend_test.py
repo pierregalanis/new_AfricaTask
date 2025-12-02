@@ -15,7 +15,7 @@ import threading
 import time
 
 # Get backend URL from frontend .env
-BACKEND_URL = "https://quick-task-6.preview.emergentagent.com/api"
+BACKEND_URL = "https://localhelp-15.preview.emergentagent.com/api"
 
 # Test credentials
 CLIENT_CREDENTIALS = {

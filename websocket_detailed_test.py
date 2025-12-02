@@ -12,7 +12,7 @@ from datetime import datetime
 import time
 
 # Configuration
-BACKEND_URL = "https://quick-task-6.preview.emergentagent.com/api"
+BACKEND_URL = "https://localhelp-15.preview.emergentagent.com/api"
 WS_URL = "wss://taskafy.preview.emergentagent.com"
 TASK_ID = "chat-test-task-active-001"
 
