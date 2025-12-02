@@ -36,7 +36,7 @@ const LoginPage = () => {
         if (userData.tasker_profile?.hourly_rate > 0) {
           navigate('/tasker/dashboard');
         } else {
-          navigate('/tasker/setup');
+          navigate('/tasker-profile-setup');
         }
       }
     } catch (error) {
