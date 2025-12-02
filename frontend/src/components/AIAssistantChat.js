@@ -125,8 +125,10 @@ const AIAssistantChat = () => {
             <button
               onClick={() => setIsOpen(false)}
               className="text-white hover:bg-white/20 p-2 rounded-lg transition"
+              aria-label={language === 'en' ? 'Close chat' : 'Fermer le chat'}
+              title={language === 'en' ? 'Close' : 'Fermer'}
             >
-              <X className="w-5 h-5" />
+              <X className="w-6 h-6" />
             </button>
           </div>
 
