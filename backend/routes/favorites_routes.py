@@ -46,13 +46,18 @@ async def add_favorite(
     if existing:
         raise HTTPException(status_code=400, detail="Already in favorites")
     
+    # Ensure all fields are JSON serializable
+    services = tasker.get("tasker_profile", {}).get("services", [])
+    if not isinstance(services, list):
+        services = []
+    
     favorite = {
         "id": str(uuid4()),
-        "user_id": current_user.id,
-        "tasker_id": tasker_id,
-        "tasker_name": tasker.get("full_name", "Unknown"),
-        "tasker_rating": tasker.get("tasker_profile", {}).get("average_rating", 0),
-        "tasker_services": tasker.get("tasker_profile", {}).get("services", []),
+        "user_id": str(current_user.id),
+        "tasker_id": str(tasker_id),
+        "tasker_name": str(tasker.get("full_name", "Unknown")),
+        "tasker_rating": float(tasker.get("tasker_profile", {}).get("average_rating", 0)),
+        "tasker_services": [str(s) for s in services],
         "added_at": datetime.utcnow()
     }
     
