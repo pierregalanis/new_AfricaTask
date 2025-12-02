@@ -450,7 +450,7 @@ class RefactoredEndpointsTester:
         payment_data = {
             "task_id": self.test_task_id,
             "amount": 10000.0,
-            "payment_method": "mobile_money",
+            "payment_method": "orange_money",
             "description": "Payment for refactoring test task"
         }
         
