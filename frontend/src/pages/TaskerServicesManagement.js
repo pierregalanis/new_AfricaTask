@@ -181,7 +181,7 @@ const TaskerServicesManagement = () => {
 
           {/* Services Section */}
           <div className="mb-8">
-            <h2 className="text-xl font-semibold mb-4">
+            <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">
               {language === 'en' ? 'Services You Offer' : 'Services que vous proposez'}
             </h2>
             
@@ -190,19 +190,19 @@ const TaskerServicesManagement = () => {
               {services.map((service, idx) => (
                 <div
                   key={idx}
-                  className="flex items-center space-x-2 bg-emerald-100 text-emerald-700 px-4 py-2 rounded-full"
+                  className="flex items-center space-x-2 bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300 px-4 py-2 rounded-full border border-emerald-200 dark:border-emerald-700"
                 >
                   <span className="font-medium">{service}</span>
                   <button
                     onClick={() => handleRemoveService(service)}
-                    className="hover:bg-emerald-200 rounded-full p-1"
+                    className="hover:bg-emerald-200 dark:hover:bg-emerald-800 rounded-full p-1 transition-colors"
                   >
                     <X className="w-4 h-4" />
                   </button>
                 </div>
               ))}
               {services.length === 0 && (
-                <p className="text-gray-500 italic">
+                <p className="text-gray-500 dark:text-gray-400 italic">
                   {language === 'en' ? 'No services added yet' : 'Aucun service ajouté'}
                 </p>
               )}
