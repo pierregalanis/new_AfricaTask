@@ -85,6 +85,8 @@ const TaskerReviews = ({ taskerId, language = 'en' }) => {
     const cacheKey = `${reviewId}_${currentLang}`;
     const isShowingTranslation = showTranslation[reviewId];
     
+    console.log(`[getDisplayText] ReviewID: ${reviewId}, ShowTranslation: ${isShowingTranslation}, CacheKey: ${cacheKey}, HasTranslation: ${!!translatedTexts[cacheKey]}`);
+    
     // Show translation only if toggle is on AND translation exists
     if (isShowingTranslation && translatedTexts[cacheKey]) {
       return translatedTexts[cacheKey];
