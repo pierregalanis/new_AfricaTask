@@ -77,11 +77,10 @@ const TaskerReviews = ({ taskerId, language = 'en' }) => {
     } catch (error) {
       console.error('Translation error for review', reviewId, ':', error);
     } finally {
-      setTranslating(prev => {
-        const newState = { ...prev };
-        newState[reviewId] = false;
-        return newState;
-      });
+      setTranslating(prev => ({
+        ...prev,
+        [reviewId]: false
+      }));
     }
   };
 
