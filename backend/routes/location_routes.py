@@ -128,6 +128,17 @@ async def start_gps_tracking(
         }}
     )
     
+    # Create notification for client that tasker is on the way
+    from notification_routes import create_notification
+    await create_notification(
+        db=db,
+        user_id=task["client_id"],
+        notification_type="tasker_on_way",
+        task_id=task_id,
+        task_title=task.get("title", "Task"),
+        message="Your tasker is on the way!"
+    )
+    
     logger.info(f"GPS tracking started for task {task_id}")
     return {"message": "GPS tracking started", "task_id": task_id}
 
