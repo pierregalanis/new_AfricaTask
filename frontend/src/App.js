@@ -203,6 +203,7 @@ function App() {
             <BrowserRouter>
               <div className="App min-h-screen transition-colors duration-300">
                 <AppRoutes />
+                <AIAssistantChat />
                 <ToastContainer 
                   position="top-right" 
                   autoClose={3000}
