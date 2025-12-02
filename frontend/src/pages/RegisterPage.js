@@ -75,15 +75,15 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
       <Navbar />
       <div className="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-2xl w-full space-y-8 bg-white p-8 rounded-lg shadow-md">
+        <div className="max-w-2xl w-full space-y-8 bg-white dark:bg-gray-800/70 p-8 rounded-lg shadow-md">
           <div>
-            <h2 className="text-center text-3xl font-bold text-gray-900">
+            <h2 className="text-center text-3xl font-bold text-gray-900 dark:text-white">
               {t('register')}
             </h2>
-            <p className="mt-2 text-center text-sm text-gray-600">
+            <p className="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
               {t('alreadyHaveAccount')}{' '}
               <Link to="/login" className="font-medium text-emerald-600 hover:text-emerald-500">
                 {t('login')}
@@ -94,7 +94,7 @@ const RegisterPage = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {/* Full Name */}
               <div>
-                <label htmlFor="full_name" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="full_name" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                   {t('fullName')}
                 </label>
                 <div className="mt-1 relative">
@@ -116,7 +116,7 @@ const RegisterPage = () => {
 
               {/* Email */}
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                   {t('email')}
                 </label>
                 <div className="mt-1 relative">
@@ -138,7 +138,7 @@ const RegisterPage = () => {
 
               {/* Password */}
               <div>
-                <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                   {t('password')}
                 </label>
                 <div className="mt-1 relative">
@@ -160,7 +160,7 @@ const RegisterPage = () => {
 
               {/* Phone */}
               <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="phone" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                   {t('phone')}
                 </label>
                 <div className="mt-1 relative">
@@ -182,7 +182,7 @@ const RegisterPage = () => {
 
               {/* Country */}
               <div>
-                <label htmlFor="country" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="country" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                   <Globe className="inline w-4 h-4 mr-1" />
                   {language === 'en' ? 'Country' : 'Pays'}
                 </label>
@@ -202,7 +202,7 @@ const RegisterPage = () => {
 
               {/* City */}
               <div>
-                <label htmlFor="city" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="city" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                   {t('city')}
                 </label>
                 <div className="mt-1 relative">
@@ -225,7 +225,7 @@ const RegisterPage = () => {
 
               {/* Address */}
               <div>
-                <label htmlFor="address" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="address" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                   {t('address')} <span className="text-gray-400">({language === 'en' ? 'Optional' : 'Facultatif'})</span>
                 </label>
                 <input
@@ -242,7 +242,7 @@ const RegisterPage = () => {
 
               {/* Role */}
               <div>
-                <label htmlFor="role" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="role" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                   {t('selectRole')}
                 </label>
                 <select
@@ -260,7 +260,7 @@ const RegisterPage = () => {
 
               {/* Language */}
               <div>
-                <label htmlFor="language" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="language" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                   {t('selectLanguage')}
                 </label>
                 <select
@@ -279,7 +279,7 @@ const RegisterPage = () => {
 
             {/* Location Picker */}
             <div className="mt-6">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 📍 {language === 'en' ? 'Your Location' : 'Votre emplacement'} <span className="text-red-500">*</span>
               </label>
               <LocationPicker
