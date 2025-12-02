@@ -91,7 +91,7 @@ const TaskDetails = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
         <Navbar />
         <div className="flex items-center justify-center h-96">
           <div className="text-xl">{t('loading')}</div>
@@ -102,7 +102,7 @@ const TaskDetails = () => {
 
   if (!task) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
         <Navbar />
         <div className="flex items-center justify-center h-96">
           <div className="text-xl">{language === 'en' ? 'Task not found' : 'Tâche non trouvée'}</div>
@@ -112,13 +112,13 @@ const TaskDetails = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
       <Navbar />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Back Button */}
         <button
           onClick={() => navigate(-1)}
-          className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 mb-6"
+          className="flex items-center space-x-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:text-white mb-6"
         >
           <ArrowLeft className="w-5 h-5" />
           <span>{t('back')}</span>
@@ -133,8 +133,8 @@ const TaskDetails = () => {
             )}
 
             {/* Task Info */}
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <h1 className="text-3xl font-bold text-gray-900 mb-4" data-testid="task-details-title">{task.title}</h1>
+            <div className="bg-white dark:bg-gray-800/70 rounded-lg shadow-md p-6">
+              <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4" data-testid="task-details-title">{task.title}</h1>
               <div className="flex items-center space-x-4 mb-6">
                 <span
                   className={`px-3 py-1 rounded-full text-sm font-medium ${
@@ -188,7 +188,7 @@ const TaskDetails = () => {
 
               <div>
                 <h3 className="text-lg font-semibold mb-2">{t('description')}</h3>
-                <p className="text-gray-700 whitespace-pre-wrap">{task.description}</p>
+                <p className="text-gray-700 dark:text-gray-300 whitespace-pre-wrap">{task.description}</p>
               </div>
 
               {isTasker && task.status === 'posted' && (
@@ -259,7 +259,7 @@ const TaskDetails = () => {
           <div className="space-y-6">
             {/* Applications (Client View) */}
             {isClient && applications.length > 0 && (
-              <div className="bg-white rounded-lg shadow-md p-6">
+              <div className="bg-white dark:bg-gray-800/70 rounded-lg shadow-md p-6">
                 <h3 className="text-lg font-semibold mb-4">
                   {t('applications')} ({applications.length})
                 </h3>
@@ -280,7 +280,7 @@ const TaskDetails = () => {
                           {app.status}
                         </span>
                       </div>
-                      <p className="text-sm text-gray-600 mb-2">
+                      <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
                         {language === 'en' ? 'Rate:' : 'Tarif:'} {app.proposed_rate} CFA
                       </p>
                       {app.message && (
@@ -312,11 +312,11 @@ const TaskDetails = () => {
         {/* Apply Modal */}
         {showApplyModal && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-            <div className="bg-white rounded-lg max-w-md w-full p-6">
+            <div className="bg-white dark:bg-gray-800/70 rounded-lg max-w-md w-full p-6">
               <h2 className="text-2xl font-bold mb-6">{t('apply')}</h2>
               <form onSubmit={handleApply} className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                     {t('proposedRate')} (CFA)
                   </label>
                   <input
@@ -330,7 +330,7 @@ const TaskDetails = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                     {t('estimatedHours')}
                   </label>
                   <input
@@ -345,7 +345,7 @@ const TaskDetails = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                     {t('message')} ({language === 'en' ? 'Optional' : 'Facultatif'})
                   </label>
                   <textarea
@@ -360,7 +360,7 @@ const TaskDetails = () => {
                   <button
                     type="button"
                     onClick={() => setShowApplyModal(false)}
-                    className="flex-1 px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+                    className="flex-1 px-4 py-2 border border-gray-300 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:bg-gray-950"
                   >
                     {t('cancel')}
                   </button>

@@ -53,7 +53,7 @@ const TaskerDashboard = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
         <Navbar />
         <div className="flex items-center justify-center h-96">
           <div className="text-xl">{t('loading')}</div>
@@ -63,7 +63,7 @@ const TaskerDashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
       <Navbar />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
@@ -71,7 +71,7 @@ const TaskerDashboard = () => {
           <h1 className="text-3xl font-bold text-gray-900" data-testid="tasker-dashboard-title">
             {language === 'en' ? 'Welcome back, ' : 'Bon retour, '}{user?.full_name}!
           </h1>
-          <p className="text-gray-600 mt-1">{t('findTasks')}</p>
+          <p className="text-gray-600 dark:text-gray-400 mt-1">{t('findTasks')}</p>
         </div>
 
         {/* Tabs */}
@@ -82,7 +82,7 @@ const TaskerDashboard = () => {
               className={`py-4 px-1 border-b-2 font-medium text-sm ${
                 activeTab === 'available'
                   ? 'border-emerald-600 text-emerald-600'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                  : 'border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-300 hover:border-gray-300'
               }`}
               data-testid="available-tasks-tab"
             >
@@ -93,7 +93,7 @@ const TaskerDashboard = () => {
               className={`py-4 px-1 border-b-2 font-medium text-sm ${
                 activeTab === 'applications'
                   ? 'border-emerald-600 text-emerald-600'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                  : 'border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-300 hover:border-gray-300'
               }`}
               data-testid="my-applications-tab"
             >
@@ -106,7 +106,7 @@ const TaskerDashboard = () => {
         {activeTab === 'available' && (
           <div>
             {availableTasks.length === 0 ? (
-              <div className="text-center py-12 bg-white rounded-lg shadow">
+              <div className="text-center py-12 bg-white dark:bg-gray-800/70 rounded-lg shadow">
                 <Briefcase className="w-16 h-16 text-gray-400 mx-auto mb-4" />
                 <p className="text-gray-600">
                   {language === 'en' ? 'No available tasks at the moment' : 'Aucune tâche disponible pour le moment'}
@@ -118,11 +118,11 @@ const TaskerDashboard = () => {
                   <div
                     key={task.id}
                     onClick={() => navigate(`/tasks/${task.id}`)}
-                    className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition cursor-pointer"
+                    className="bg-white dark:bg-gray-800/70 rounded-lg shadow-md p-6 hover:shadow-lg transition cursor-pointer"
                     data-testid={`available-task-card-${task.id}`}
                   >
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">{task.title}</h3>
-                    <p className="text-gray-600 text-sm mb-4 line-clamp-2">{task.description}</p>
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">{task.title}</h3>
+                    <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-2">{task.description}</p>
                     <div className="space-y-2 text-sm text-gray-500">
                       <div className="flex items-center space-x-2">
                         <DollarSign className="w-4 h-4" />
@@ -155,7 +155,7 @@ const TaskerDashboard = () => {
         {activeTab === 'applications' && (
           <div>
             {myApplications.length === 0 ? (
-              <div className="text-center py-12 bg-white rounded-lg shadow">
+              <div className="text-center py-12 bg-white dark:bg-gray-800/70 rounded-lg shadow">
                 <Briefcase className="w-16 h-16 text-gray-400 mx-auto mb-4" />
                 <p className="text-gray-600">
                   {language === 'en' ? 'No applications yet' : 'Aucune candidature encore'}
@@ -166,12 +166,12 @@ const TaskerDashboard = () => {
                 {myApplications.map((application) => (
                   <div
                     key={application.id}
-                    className="bg-white rounded-lg shadow-md p-6"
+                    className="bg-white dark:bg-gray-800/70 rounded-lg shadow-md p-6"
                     data-testid={`application-card-${application.id}`}
                   >
                     <div className="flex justify-between items-start">
                       <div className="flex-1">
-                        <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
                           {language === 'en' ? 'Application for task' : 'Candidature pour la tâche'} #{application.task_id.slice(0, 8)}
                         </h3>
                         <div className="space-y-2 text-sm text-gray-500">
@@ -180,7 +180,7 @@ const TaskerDashboard = () => {
                             <span>{language === 'en' ? 'Your rate:' : 'Votre tarif:'} {application.proposed_rate} CFA</span>
                           </div>
                           {application.message && (
-                            <p className="text-gray-600 italic">&quot;{application.message}&quot;</p>
+                            <p className="text-gray-600 dark:text-gray-400 italic">&quot;{application.message}&quot;</p>
                           )}
                         </div>
                       </div>

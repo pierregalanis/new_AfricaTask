@@ -214,14 +214,14 @@ const BrowseTaskersPage = () => {
         {/* Back Button & Header */}
         <button
           onClick={() => navigate('/services')}
-          className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 mb-6"
+          className="flex items-center space-x-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:text-white mb-6"
         >
           <ArrowLeft className="w-5 h-5" />
           <span>{t('back')}</span>
         </button>
 
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2" data-testid="browse-taskers-title">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2" data-testid="browse-taskers-title">
             {category && (language === 'en' ? category.name_en : category.name_fr)}
           </h1>
           <p className="text-gray-600">
@@ -299,7 +299,7 @@ const BrowseTaskersPage = () => {
                     )}
 
                     {/* Stats */}
-                    <div className="flex items-center space-x-1 text-sm text-gray-600 mb-3">
+                    <div className="flex items-center space-x-1 text-sm text-gray-600 dark:text-gray-400 mb-3">
                       <Check className="w-4 h-4 text-green-600" />
                       <span>
                         {tasker.tasker_profile?.completed_tasks || 0} {language === 'en' ? 'tasks completed' : 'tâches terminées'}
@@ -308,7 +308,7 @@ const BrowseTaskersPage = () => {
 
                     {/* Bio */}
                     {tasker.tasker_profile?.bio && (
-                      <p className="text-gray-700 text-sm line-clamp-2 mb-3">
+                      <p className="text-gray-700 dark:text-gray-300 text-sm line-clamp-2 mb-3">
                         {tasker.tasker_profile.bio}
                       </p>
                     )}

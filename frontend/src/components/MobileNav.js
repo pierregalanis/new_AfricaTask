@@ -62,7 +62,7 @@ const MobileNav = ({ language = 'en' }) => {
       {/* Mobile Menu Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition"
+        className="md:hidden p-2 rounded-lg hover:bg-gray-100 dark:bg-gray-800 transition"
         aria-label="Toggle menu"
       >
         {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -87,14 +87,14 @@ const MobileNav = ({ language = 'en' }) => {
               <h2 className="text-xl font-bold">AfricaTask</h2>
               <button
                 onClick={() => setIsOpen(false)}
-                className="p-2 hover:bg-white/20 rounded-lg transition"
+                className="p-2 hover:bg-white dark:bg-gray-800/70/20 rounded-lg transition"
               >
                 <X className="w-6 h-6" />
               </button>
             </div>
             {user && (
               <div className="flex items-center space-x-3">
-                <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+                <div className="w-12 h-12 bg-white dark:bg-gray-800/70/20 rounded-full flex items-center justify-center">
                   <User className="w-6 h-6" />
                 </div>
                 <div>
@@ -114,10 +114,10 @@ const MobileNav = ({ language = 'en' }) => {
                 onClick={() => setIsOpen(false)}
                 className="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-emerald-50 transition-colors group"
               >
-                <span className="text-gray-600 group-hover:text-emerald-600">
+                <span className="text-gray-600 dark:text-gray-400 group-hover:text-emerald-600">
                   {item.icon}
                 </span>
-                <span className="font-medium text-gray-700 group-hover:text-emerald-600">
+                <span className="font-medium text-gray-700 dark:text-gray-300 group-hover:text-emerald-600">
                   {item.label}
                 </span>
               </Link>
@@ -130,8 +130,8 @@ const MobileNav = ({ language = 'en' }) => {
                   onClick={handleLogout}
                   className="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-red-50 transition-colors group w-full text-left"
                 >
-                  <LogOut className="w-5 h-5 text-gray-600 group-hover:text-red-600" />
-                  <span className="font-medium text-gray-700 group-hover:text-red-600">
+                  <LogOut className="w-5 h-5 text-gray-600 dark:text-gray-400 group-hover:text-red-600" />
+                  <span className="font-medium text-gray-700 dark:text-gray-300 group-hover:text-red-600">
                     {language === 'en' ? 'Logout' : 'Déconnexion'}
                   </span>
                 </button>

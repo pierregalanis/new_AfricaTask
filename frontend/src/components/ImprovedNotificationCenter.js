@@ -111,7 +111,7 @@ const ImprovedNotificationCenter = ({ language = 'en' }) => {
       {/* Bell Icon */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="relative p-2 rounded-lg hover:bg-gray-100 transition"
+        className="relative p-2 rounded-lg hover:bg-gray-100 dark:bg-gray-800 transition"
       >
         <Bell className="w-5 h-5 text-gray-700" />
         {unreadCount > 0 && (
@@ -131,7 +131,7 @@ const ImprovedNotificationCenter = ({ language = 'en' }) => {
           />
 
           {/* Panel */}
-          <div className="absolute right-0 mt-2 w-96 max-w-[calc(100vw-2rem)] bg-white rounded-xl shadow-2xl border border-gray-200 z-50 max-h-[80vh] flex flex-col">
+          <div className="absolute right-0 mt-2 w-96 max-w-[calc(100vw-2rem)] bg-white dark:bg-gray-800/70 rounded-xl shadow-2xl border border-gray-200 z-50 max-h-[80vh] flex flex-col">
             {/* Header */}
             <div className="flex items-center justify-between p-4 border-b border-gray-200">
               <h3 className="text-lg font-bold text-gray-900">
@@ -148,7 +148,7 @@ const ImprovedNotificationCenter = ({ language = 'en' }) => {
                 )}
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="p-1 hover:bg-gray-100 rounded-lg transition"
+                  className="p-1 hover:bg-gray-100 dark:bg-gray-800 rounded-lg transition"
                 >
                   <X className="w-5 h-5" />
                 </button>

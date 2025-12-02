@@ -128,7 +128,7 @@ const ClientDashboard = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
         <Navbar />
         <div className="flex items-center justify-center h-96">
           <div className="text-xl">{t('loading')}</div>
@@ -150,11 +150,11 @@ const ClientDashboard = () => {
               </h1>
               <p className="text-emerald-100 text-lg">{t('myTasks')}</p>
               <div className="mt-4 flex items-center space-x-4">
-                <div className="bg-white/20 backdrop-blur px-4 py-2 rounded-lg">
+                <div className="bg-white dark:bg-gray-800/70/20 backdrop-blur px-4 py-2 rounded-lg">
                   <span className="text-sm opacity-90">{language === 'en' ? 'Total Tasks' : 'Total des tâches'}</span>
                   <p className="text-2xl font-bold">{tasks.length}</p>
                 </div>
-                <div className="bg-white/20 backdrop-blur px-4 py-2 rounded-lg">
+                <div className="bg-white dark:bg-gray-800/70/20 backdrop-blur px-4 py-2 rounded-lg">
                   <span className="text-sm opacity-90">{language === 'en' ? 'Active' : 'Actives'}</span>
                   <p className="text-2xl font-bold">{tasks.filter(t => ['posted', 'assigned', 'in_progress'].includes(t.status)).length}</p>
                 </div>
@@ -162,7 +162,7 @@ const ClientDashboard = () => {
             </div>
             <button
               onClick={() => setShowCreateModal(true)}
-              className="btn-primary bg-white text-emerald-600 hover:bg-gray-50 shadow-2xl"
+              className="btn-primary bg-white dark:bg-gray-800/70 text-emerald-600 hover:bg-gray-50 dark:bg-gray-950 shadow-2xl"
               data-testid="post-task-button"
             >
               <Plus className="w-5 h-5 inline mr-2" />
@@ -177,10 +177,10 @@ const ClientDashboard = () => {
             <div className="inline-block p-6 bg-gradient-to-br from-emerald-100 to-emerald-200 rounded-full mb-6">
               <Briefcase className="w-16 h-16 text-emerald-600" />
             </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-2">
+            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
               {language === 'en' ? 'No tasks yet!' : 'Aucune tâche encore!'}
             </h3>
-            <p className="text-gray-600 mb-6">
+            <p className="text-gray-600 dark:text-gray-400 mb-6">
               {language === 'en' ? 'Create your first task and find the perfect tasker!' : 'Créez votre première tâche et trouvez le tasker parfait!'}
             </p>
             <button
@@ -202,12 +202,12 @@ const ClientDashboard = () => {
                 data-testid={`task-card-${task.id}`}
               >
                 <div className="flex justify-between items-start mb-4">
-                  <h3 className="text-lg font-bold text-gray-900 flex-1 gradient-text">{task.title}</h3>
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white flex-1 gradient-text">{task.title}</h3>
                   <span className={`badge ${getStatusBadgeColor(task.status)}`}>
                     {getStatusText(task.status)}
                   </span>
                 </div>
-                <p className="text-gray-600 text-sm mb-4 line-clamp-2">{task.description}</p>
+                <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-2">{task.description}</p>
                 <div className="space-y-3">
                   <div className="flex items-center space-x-2 text-sm">
                     <div className="w-8 h-8 bg-gradient-to-br from-green-400 to-green-600 rounded-lg flex items-center justify-center">
@@ -254,7 +254,7 @@ const ClientDashboard = () => {
               </div>
               <form onSubmit={handleCreateTask} className="space-y-4">
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
                     {t('taskTitle')}
                   </label>
                   <input
@@ -268,7 +268,7 @@ const ClientDashboard = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
                     📝 {t('description')}
                   </label>
                   <textarea
@@ -283,7 +283,7 @@ const ClientDashboard = () => {
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
                       🏷️ {t('category')}
                     </label>
                     <select
@@ -302,7 +302,7 @@ const ClientDashboard = () => {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
                       💰 {t('budget')} (CFA)
                     </label>
                     <input
@@ -317,7 +317,7 @@ const ClientDashboard = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
                       📅 {t('taskDate')}
                     </label>
                     <input
@@ -330,7 +330,7 @@ const ClientDashboard = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
                       📍 {t('city')}
                     </label>
                     <input
@@ -345,7 +345,7 @@ const ClientDashboard = () => {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
                     🏠 {t('address')}
                   </label>
                   <input
@@ -362,7 +362,7 @@ const ClientDashboard = () => {
                   <button
                     type="button"
                     onClick={() => setShowCreateModal(false)}
-                    className="flex-1 px-6 py-3 border-2 border-gray-300 rounded-xl text-gray-700 font-semibold hover:bg-gray-50 transition-all duration-300 hover:border-gray-400"
+                    className="flex-1 px-6 py-3 border-2 border-gray-300 rounded-xl text-gray-700 dark:text-gray-300 font-semibold hover:bg-gray-50 dark:bg-gray-950 transition-all duration-300 hover:border-gray-400"
                   >
                     {t('cancel')}
                   </button>

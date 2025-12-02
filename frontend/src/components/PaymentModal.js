@@ -60,7 +60,7 @@ const PaymentModal = ({ isOpen, onClose, task, onPaymentSuccess }) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-lg shadow-xl max-w-md w-full">
+      <div className="bg-white dark:bg-gray-800/70 rounded-lg shadow-xl max-w-md w-full">
         {/* Header */}
         <div className="flex justify-between items-center p-6 border-b">
           <h2 className="text-2xl font-bold text-gray-900">
@@ -68,7 +68,7 @@ const PaymentModal = ({ isOpen, onClose, task, onPaymentSuccess }) => {
           </h2>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 transition"
+            className="text-gray-400 hover:text-gray-600 dark:text-gray-400 transition"
             disabled={isProcessing}
           >
             <X className="w-6 h-6" />
@@ -78,9 +78,9 @@ const PaymentModal = ({ isOpen, onClose, task, onPaymentSuccess }) => {
         {/* Content */}
         <div className="p-6 space-y-6">
           {/* Task Details */}
-          <div className="bg-gray-50 rounded-lg p-4">
-            <h3 className="font-semibold text-gray-900 mb-2">{task.title}</h3>
-            <p className="text-sm text-gray-600 mb-3">{task.description}</p>
+          <div className="bg-gray-50 dark:bg-gray-950 rounded-lg p-4">
+            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">{task.title}</h3>
+            <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">{task.description}</p>
             <div className="flex justify-between items-center">
               <span className="text-sm text-gray-600">Montant à payer:</span>
               <span className="text-2xl font-bold text-emerald-600">
@@ -91,7 +91,7 @@ const PaymentModal = ({ isOpen, onClose, task, onPaymentSuccess }) => {
 
           {/* Payment Methods */}
           <div>
-            <h4 className="font-semibold text-gray-900 mb-3">
+            <h4 className="font-semibold text-gray-900 dark:text-white mb-3">
               Méthodes de paiement disponibles:
             </h4>
             <div className="space-y-2">
@@ -119,10 +119,10 @@ const PaymentModal = ({ isOpen, onClose, task, onPaymentSuccess }) => {
         </div>
 
         {/* Footer */}
-        <div className="flex space-x-3 p-6 border-t bg-gray-50 rounded-b-lg">
+        <div className="flex space-x-3 p-6 border-t bg-gray-50 dark:bg-gray-950 rounded-b-lg">
           <button
             onClick={onClose}
-            className="flex-1 px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-lg font-semibold hover:bg-gray-100 transition"
+            className="flex-1 px-6 py-3 border-2 border-gray-300 text-gray-700 dark:text-gray-300 rounded-lg font-semibold hover:bg-gray-100 dark:bg-gray-800 transition"
             disabled={isProcessing}
           >
             Annuler

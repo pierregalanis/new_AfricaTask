@@ -65,7 +65,7 @@ const LocationPicker = ({
 
   return (
     <div className="location-picker">
-      <p className="text-sm text-gray-600 mb-2">{label}</p>
+      <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">{label}</p>
       <div className={`border-2 rounded-lg overflow-hidden transition-all ${position ? 'border-green-500' : 'border-gray-300'}`} style={{ height }}>
         <MapContainer
           center={[center.lat, center.lng]}

@@ -134,7 +134,7 @@ const LandingPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-950 transition-colors duration-300">
+    <div className="min-h-screen bg-white dark:bg-gray-800/70 dark:bg-gray-950 transition-colors duration-300">
       <Navbar />
 
       {/* Hero Section with Fancy Gradient */}
@@ -163,7 +163,7 @@ const LandingPage = () => {
               </span>
             </div>
 
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-gray-900 dark:text-white mb-6 leading-tight">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-gray-900 dark:text-white dark:text-white mb-6 leading-tight">
               {language === 'en' ? (
                 <>
                   Get Things Done
@@ -183,7 +183,7 @@ const LandingPage = () => {
               )}
             </h1>
 
-            <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-10 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-400 dark:text-gray-300 mb-10 max-w-3xl mx-auto leading-relaxed">
               {language === 'en' 
                 ? 'Connect with trusted local professionals for home repairs, cleaning, beauty services, and more. All in one platform.'
                 : 'Connectez-vous avec des professionnels locaux de confiance pour réparations, nettoyage, beauté et plus. Tout en une plateforme.'}
@@ -207,7 +207,7 @@ const LandingPage = () => {
             </div>
 
             {/* Trust Badges */}
-            <div className="flex flex-wrap justify-center items-center space-x-6 text-sm text-gray-600 dark:text-gray-300">
+            <div className="flex flex-wrap justify-center items-center space-x-6 text-sm text-gray-600 dark:text-gray-400 dark:text-gray-300">
               <div className="flex items-center space-x-2">
                 <CheckCircle className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
                 <span>{language === 'en' ? 'Verified Professionals' : 'Professionnels vérifiés'}</span>
@@ -256,10 +256,10 @@ const LandingPage = () => {
       <section className="py-20 bg-gradient-to-b from-white to-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
               {language === 'en' ? 'Why Choose AfricaTask?' : 'Pourquoi AfricaTask?'}
             </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
               {language === 'en' 
                 ? 'Everything you need for hassle-free task management'
                 : 'Tout ce dont vous avez besoin pour une gestion sans tracas'}
@@ -270,15 +270,15 @@ const LandingPage = () => {
             {features.map((feature, index) => (
               <div
                 key={index}
-                className="group bg-white p-8 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100"
+                className="group bg-white dark:bg-gray-800/70 p-8 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100"
               >
                 <div className={`inline-flex p-4 rounded-xl bg-gradient-to-br ${feature.gradient} text-white mb-4 group-hover:scale-110 transition-transform`}>
                   {feature.icon}
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
                   {language === 'en' ? feature.titleEn : feature.titleFr}
                 </h3>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
                   {language === 'en' ? feature.descEn : feature.descFr}
                 </p>
               </div>
@@ -288,10 +288,10 @@ const LandingPage = () => {
       </section>
 
       {/* How It Works */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-white dark:bg-gray-800/70">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
               {language === 'en' ? 'How It Works' : 'Comment ça marche'}
             </h2>
             <p className="text-xl text-gray-600">
@@ -305,14 +305,14 @@ const LandingPage = () => {
             
             {howItWorks.map((item, index) => (
               <div key={index} className="relative z-10">
-                <div className="bg-white rounded-2xl p-6 text-center shadow-lg border-2 border-emerald-100 hover:border-emerald-400 transition-all">
+                <div className="bg-white dark:bg-gray-800/70 rounded-2xl p-6 text-center shadow-lg border-2 border-emerald-100 hover:border-emerald-400 transition-all">
                   <div className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-emerald-500 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4 shadow-lg">
                     {item.step}
                   </div>
-                  <h3 className="text-lg font-bold text-gray-900 mb-2">
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
                     {language === 'en' ? item.titleEn : item.titleFr}
                   </h3>
-                  <p className="text-gray-600 text-sm">
+                  <p className="text-gray-600 dark:text-gray-400 text-sm">
                     {language === 'en' ? item.descEn : item.descFr}
                   </p>
                 </div>
@@ -326,7 +326,7 @@ const LandingPage = () => {
       <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
               {language === 'en' ? 'Popular Services' : 'Services populaires'}
             </h2>
             <p className="text-xl text-gray-600">
@@ -339,7 +339,7 @@ const LandingPage = () => {
               <Link
                 key={index}
                 to="/services"
-                className="group bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 text-center border border-gray-100 hover:border-emerald-400 transform hover:-translate-y-1"
+                className="group bg-white dark:bg-gray-800/70 p-6 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 text-center border border-gray-100 hover:border-emerald-400 transform hover:-translate-y-1"
               >
                 <div className="text-5xl mb-3 group-hover:scale-110 transition-transform">
                   {cat.icon}
@@ -378,7 +378,7 @@ const LandingPage = () => {
                 key={index}
                 className={`transition-all duration-500 ${index === activeTestimonial ? 'opacity-100 scale-100' : 'opacity-0 scale-95 absolute inset-0'}`}
               >
-                <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 shadow-2xl border border-white/20">
+                <div className="bg-white dark:bg-gray-800/70/10 backdrop-blur-lg rounded-2xl p-8 shadow-2xl border border-white/20">
                   <div className="flex items-center space-x-4 mb-4">
                     <div className="text-5xl">{testimonial.image}</div>
                     <div>
@@ -434,7 +434,7 @@ const LandingPage = () => {
             </Link>
             <Link
               to="/login"
-              className="px-10 py-4 bg-white/10 backdrop-blur text-white border-2 border-white/30 rounded-xl font-bold text-lg hover:bg-white/20 transition-all"
+              className="px-10 py-4 bg-white/10 backdrop-blur text-white border-2 border-white/30 rounded-xl font-bold text-lg hover:bg-white dark:bg-gray-800/70/20 transition-all"
             >
               {language === 'en' ? 'Sign In' : 'Se connecter'}
             </Link>

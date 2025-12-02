@@ -184,7 +184,7 @@ const BookTasker = () => {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <button
           onClick={() => navigate(-1)}
-          className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 mb-6"
+          className="flex items-center space-x-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:text-white mb-6"
         >
           <ArrowLeft className="w-5 h-5" />
           <span>{t('back')}</span>
@@ -201,7 +201,7 @@ const BookTasker = () => {
               <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Service Title */}
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
                     🏷️ {language === 'en' ? 'Service Title' : 'Titre du service'}
                   </label>
                   <input
@@ -217,7 +217,7 @@ const BookTasker = () => {
 
                 {/* Description */}
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
                     📝 {t('description')}
                   </label>
                   <textarea
@@ -234,7 +234,7 @@ const BookTasker = () => {
                 {/* Date & Time */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
                       📅 {language === 'en' ? 'Date & Time' : 'Date & Heure'}
                     </label>
                     <input
@@ -249,7 +249,7 @@ const BookTasker = () => {
 
                   {/* Duration */}
                   <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
                       ⏱️ {language === 'en' ? 'Duration (hours)' : 'Durée (heures)'}
                     </label>
                     <select
@@ -274,7 +274,7 @@ const BookTasker = () => {
                 {/* Location */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
                       📍 {t('city')}
                     </label>
                     <input
@@ -287,7 +287,7 @@ const BookTasker = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
                       🏠 {t('address')}
                     </label>
                     <input
@@ -303,7 +303,7 @@ const BookTasker = () => {
 
                 {/* Job Location Picker */}
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
                     📍 {language === 'en' ? 'Exact Job Location' : 'Emplacement exact du travail'}
                   </label>
                   <LocationPicker
@@ -360,7 +360,7 @@ const BookTasker = () => {
 
                 {/* Special Instructions */}
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
                     💬 {language === 'en' ? 'Special Instructions (Optional)' : 'Instructions spéciales (Facultatif)'}
                   </label>
                   <textarea
@@ -404,14 +404,14 @@ const BookTasker = () => {
                     ({tasker.tasker_profile?.total_reviews || 0})
                   </span>
                 </div>
-                <p className="text-sm text-gray-600 mt-2">
+                <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
                   {tasker.tasker_profile?.completed_tasks || 0} {language === 'en' ? 'tasks completed' : 'tâches terminées'}
                 </p>
               </div>
 
               {/* Price Breakdown */}
               <div className="border-t border-gray-200 pt-6">
-                <h4 className="font-semibold text-gray-900 mb-4">
+                <h4 className="font-semibold text-gray-900 dark:text-white mb-4">
                   {language === 'en' ? 'Price Details' : 'Détails du prix'}
                 </h4>
                 

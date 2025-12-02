@@ -173,9 +173,9 @@ const LiveGPSTracker = ({ taskId, jobLocation, taskerName, language = 'fr' }) =>
 
   if (!isTracking) {
     return (
-      <div className="bg-gray-50 border border-gray-200 rounded-lg p-6 text-center">
+      <div className="bg-gray-50 dark:bg-gray-950 border border-gray-200 rounded-lg p-6 text-center">
         <Navigation className="w-12 h-12 text-gray-400 mx-auto mb-3" />
-        <p className="text-gray-600 font-semibold">
+        <p className="text-gray-600 dark:text-gray-400 font-semibold">
           {language === 'en' 
             ? 'Tasker has not started GPS tracking yet' 
             : 'Le prestataire n\'a pas encore démarré le suivi GPS'}

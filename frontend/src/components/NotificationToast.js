@@ -38,8 +38,8 @@ const NotificationToast = ({ notification, onClose, onClick }) => {
       <div className="flex items-start space-x-3">
         {getIcon()}
         <div className="flex-1">
-          <h4 className="font-semibold text-gray-900 text-sm">{notification.title}</h4>
-          <p className="text-gray-700 text-sm mt-1">{notification.message}</p>
+          <h4 className="font-semibold text-gray-900 dark:text-white text-sm">{notification.title}</h4>
+          <p className="text-gray-700 dark:text-gray-300 text-sm mt-1">{notification.message}</p>
           {notification.subtitle && (
             <p className="text-gray-500 text-xs mt-1">{notification.subtitle}</p>
           )}

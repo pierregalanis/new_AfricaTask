@@ -226,7 +226,7 @@ const TaskerProfileSetup = () => {
             <h2 className="text-2xl font-bold gradient-text mb-4">
               📍 {language === 'en' ? 'Your Service Location' : 'Votre emplacement de service'}
             </h2>
-            <p className="text-gray-600 mb-4">
+            <p className="text-gray-600 dark:text-gray-400 mb-4">
               {language === 'en' 
                 ? 'Mark where you are based or where you provide your services' 
                 : 'Indiquez où vous êtes basé ou où vous fournissez vos services'}
@@ -249,7 +249,7 @@ const TaskerProfileSetup = () => {
             <h2 className="text-2xl font-bold gradient-text mb-4">
               🚗 {language === 'en' ? 'Maximum Travel Distance' : 'Distance maximale de déplacement'}
             </h2>
-            <p className="text-gray-600 mb-4">
+            <p className="text-gray-600 dark:text-gray-400 mb-4">
               {language === 'en' 
                 ? 'How far are you willing to travel for a job?' 
                 : 'Jusqu\'où êtes-vous prêt à vous déplacer pour un travail?'}

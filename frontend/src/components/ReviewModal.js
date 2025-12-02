@@ -50,7 +50,7 @@ const ReviewModal = ({ isOpen, onClose, task, taskerName, onReviewSuccess, langu
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-lg shadow-xl max-w-lg w-full">
+      <div className="bg-white dark:bg-gray-800/70 rounded-lg shadow-xl max-w-lg w-full">
         {/* Header */}
         <div className="flex justify-between items-center p-6 border-b bg-gradient-to-r from-purple-600 to-emerald-500">
           <h2 className="text-2xl font-bold text-white">
@@ -68,19 +68,19 @@ const ReviewModal = ({ isOpen, onClose, task, taskerName, onReviewSuccess, langu
         {/* Content */}
         <div className="p-6 space-y-6">
           {/* Task Info */}
-          <div className="bg-gray-50 rounded-lg p-4">
-            <p className="text-sm text-gray-600 mb-1">
+          <div className="bg-gray-50 dark:bg-gray-950 rounded-lg p-4">
+            <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">
               {language === 'en' ? 'Task:' : 'Tâche:'}
             </p>
             <p className="font-semibold text-gray-900">{task.title}</p>
-            <p className="text-sm text-gray-600 mt-2">
+            <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
               {language === 'en' ? 'Tasker:' : 'Prestataire:'} <span className="font-medium">{taskerName}</span>
             </p>
           </div>
 
           {/* Star Rating */}
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-3">
+            <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">
               {language === 'en' ? 'Rate your experience' : 'Évaluez votre expérience'} *
             </label>
             <div className="flex items-center space-x-2">
@@ -113,7 +113,7 @@ const ReviewModal = ({ isOpen, onClose, task, taskerName, onReviewSuccess, langu
 
           {/* Comment */}
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">
+            <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
               {language === 'en' ? 'Your feedback (optional)' : 'Votre commentaire (optionnel)'}
             </label>
             <textarea
@@ -144,10 +144,10 @@ const ReviewModal = ({ isOpen, onClose, task, taskerName, onReviewSuccess, langu
         </div>
 
         {/* Footer */}
-        <div className="flex space-x-3 p-6 border-t bg-gray-50 rounded-b-lg">
+        <div className="flex space-x-3 p-6 border-t bg-gray-50 dark:bg-gray-950 rounded-b-lg">
           <button
             onClick={onClose}
-            className="flex-1 px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-lg font-semibold hover:bg-gray-100 transition"
+            className="flex-1 px-6 py-3 border-2 border-gray-300 text-gray-700 dark:text-gray-300 rounded-lg font-semibold hover:bg-gray-100 dark:bg-gray-800 transition"
             disabled={submitting}
           >
             {language === 'en' ? 'Cancel' : 'Annuler'}

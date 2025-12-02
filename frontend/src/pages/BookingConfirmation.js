@@ -81,7 +81,7 @@ const BookingConfirmation = () => {
 
         {/* Booking Details */}
         <div className="fancy-card p-8 mb-8 animate-fadeIn" style={{ animationDelay: '0.1s' }}>
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
             {language === 'en' ? 'Booking Details' : 'Détails de la réservation'}
           </h2>
 
@@ -92,8 +92,8 @@ const BookingConfirmation = () => {
                 <Calendar className="w-6 h-6 text-white" />
               </div>
               <div className="flex-1">
-                <h3 className="font-semibold text-gray-900 text-lg">{task?.title}</h3>
-                <p className="text-gray-600 mt-1">{task?.description}</p>
+                <h3 className="font-semibold text-gray-900 dark:text-white text-lg">{task?.title}</h3>
+                <p className="text-gray-600 dark:text-gray-400 mt-1">{task?.description}</p>
               </div>
             </div>
 
@@ -146,7 +146,7 @@ const BookingConfirmation = () => {
         {/* Tasker Info */}
         {tasker && (
           <div className="fancy-card p-8 mb-8 animate-fadeIn" style={{ animationDelay: '0.2s' }}>
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
               {language === 'en' ? 'Your Tasker' : 'Votre Tasker'}
             </h2>
             <div className="flex items-center space-x-6">

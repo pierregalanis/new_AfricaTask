@@ -173,7 +173,7 @@ const LiveGPSTrackerWithRoute = ({
 
       {/* Route Info Overlay */}
       {routeInfo && (
-        <div className="absolute top-4 left-4 bg-white rounded-lg shadow-lg p-4 z-10 max-w-sm">
+        <div className="absolute top-4 left-4 bg-white dark:bg-gray-800/70 rounded-lg shadow-lg p-4 z-10 max-w-sm">
           <div className="flex items-center space-x-2 mb-3">
             <Navigation className="w-5 h-5 text-blue-600" />
             <h3 className="font-semibold text-gray-900">
@@ -224,7 +224,7 @@ const LiveGPSTrackerWithRoute = ({
 
       {/* Loading State */}
       {loading && (
-        <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-75 rounded-lg">
+        <div className="absolute inset-0 flex items-center justify-center bg-white dark:bg-gray-800/70 bg-opacity-75 rounded-lg">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600 mx-auto mb-4"></div>
             <p className="text-gray-600">

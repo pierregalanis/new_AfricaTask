@@ -90,7 +90,7 @@ const ClientJobTimer = ({ taskId, hourlyRate, language = 'fr' }) => {
 
   if (!isRunning && actualHours === null) {
     return (
-      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+      <div className="bg-gray-50 dark:bg-gray-950 border border-gray-200 rounded-lg p-4">
         <div className="flex items-center space-x-2 text-gray-600">
           <Clock className="w-5 h-5" />
           <span className="text-sm">
@@ -119,7 +119,7 @@ const ClientJobTimer = ({ taskId, hourlyRate, language = 'fr' }) => {
         </div>
         
         <div className="text-right">
-          <div className="flex items-center space-x-2 text-gray-600 text-sm mb-1">
+          <div className="flex items-center space-x-2 text-gray-600 dark:text-gray-400 text-sm mb-1">
             <DollarSign className="w-4 h-4" />
             <span>{language === 'en' ? 'Current cost' : 'Coût actuel'}</span>
           </div>

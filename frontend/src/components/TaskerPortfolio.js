@@ -85,14 +85,14 @@ const TaskerPortfolio = ({ portfolio = [], onUpdate, language = 'en' }) => {
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-lg p-6">
+    <div className="bg-white dark:bg-gray-800/70 rounded-xl shadow-lg p-6">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900 flex items-center space-x-2">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center space-x-2">
             <ImageIcon className="w-6 h-6 text-emerald-600" />
             <span>{language === 'en' ? 'Portfolio Gallery' : 'Galerie de portfolio'}</span>
           </h2>
-          <p className="text-gray-600 text-sm mt-1">
+          <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">
             {language === 'en' 
               ? 'Showcase your best work to attract more clients' 
               : 'Montrez vos meilleurs travaux pour attirer plus de clients'}
@@ -137,7 +137,7 @@ const TaskerPortfolio = ({ portfolio = [], onUpdate, language = 'en' }) => {
           {portfolio.map((image, index) => (
             <div
               key={index}
-              className="relative group rounded-lg overflow-hidden bg-gray-100 aspect-square cursor-pointer"
+              className="relative group rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-800 aspect-square cursor-pointer"
               onClick={() => setSelectedImage(image)}
             >
               <img
@@ -163,9 +163,9 @@ const TaskerPortfolio = ({ portfolio = [], onUpdate, language = 'en' }) => {
           ))}
         </div>
       ) : (
-        <div className="text-center py-12 bg-gray-50 rounded-lg border-2 border-dashed border-gray-300">
+        <div className="text-center py-12 bg-gray-50 dark:bg-gray-950 rounded-lg border-2 border-dashed border-gray-300">
           <ImageIcon className="w-12 h-12 text-gray-400 mx-auto mb-3" />
-          <p className="text-gray-600 mb-2">
+          <p className="text-gray-600 dark:text-gray-400 mb-2">
             {language === 'en' 
               ? 'No portfolio images yet' 
               : 'Aucune image de portfolio pour le moment'}
@@ -185,7 +185,7 @@ const TaskerPortfolio = ({ portfolio = [], onUpdate, language = 'en' }) => {
           onClick={() => setSelectedImage(null)}
         >
           <button
-            className="absolute top-4 right-4 bg-white text-black p-2 rounded-full hover:bg-gray-200"
+            className="absolute top-4 right-4 bg-white dark:bg-gray-800/70 text-black p-2 rounded-full hover:bg-gray-200"
             onClick={() => setSelectedImage(null)}
           >
             <X className="w-6 h-6" />

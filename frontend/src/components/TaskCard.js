@@ -55,18 +55,18 @@ const TaskCard = ({ task, language = 'en', onAction }) => {
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden group">
+    <div className="bg-white dark:bg-gray-800/70 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden group">
       {/* Header with gradient */}
       <div className="bg-gradient-to-r from-emerald-50 to-emerald-50 px-6 py-4 border-b border-gray-100">
         <div className="flex items-start justify-between">
           <div className="flex-1">
             <Link 
               to={`/tasks/${task.id}`}
-              className="text-lg font-bold text-gray-900 hover:text-emerald-600 transition line-clamp-1"
+              className="text-lg font-bold text-gray-900 dark:text-white hover:text-emerald-600 transition line-clamp-1"
             >
               {task.title}
             </Link>
-            <p className="text-sm text-gray-600 mt-1 line-clamp-2">
+            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1 line-clamp-2">
               {task.description}
             </p>
           </div>
@@ -148,7 +148,7 @@ const TaskCard = ({ task, language = 'en', onAction }) => {
       </div>
 
       {/* Footer with action */}
-      <div className="px-6 py-4 bg-gray-50 border-t border-gray-100">
+      <div className="px-6 py-4 bg-gray-50 dark:bg-gray-950 border-t border-gray-100">
         <Link
           to={`/tasks/${task.id}`}
           className="block w-full text-center px-4 py-2 bg-emerald-600 text-white rounded-lg font-semibold hover:bg-emerald-700 transition group-hover:shadow-md"

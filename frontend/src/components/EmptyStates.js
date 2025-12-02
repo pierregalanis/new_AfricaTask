@@ -19,12 +19,12 @@ const EmptyState = ({
     {illustration ? (
       <div className="text-8xl mb-6">{illustration}</div>
     ) : (
-      <div className="bg-gray-100 rounded-full p-6 mb-6">
+      <div className="bg-gray-100 dark:bg-gray-800 rounded-full p-6 mb-6">
         <Icon className="w-16 h-16 text-gray-400" />
       </div>
     )}
-    <h3 className="text-2xl font-bold text-gray-900 mb-3">{title}</h3>
-    <p className="text-gray-600 max-w-md mb-6 leading-relaxed">{description}</p>
+    <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">{title}</h3>
+    <p className="text-gray-600 dark:text-gray-400 max-w-md mb-6 leading-relaxed">{description}</p>
     {(actionLabel && (actionLink || onAction)) && (
       actionLink ? (
         <Link

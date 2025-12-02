@@ -41,8 +41,8 @@ const Navbar = () => {
               className="flex items-center space-x-1 px-3 py-2 rounded-md hover:bg-emerald-50 dark:hover:bg-emerald-900/30 transition-colors"
               data-testid="language-toggle"
             >
-              <Globe className="w-4 h-4 text-gray-700 dark:text-emerald-400" />
-              <span className="text-sm font-medium text-gray-700 dark:text-emerald-400">{language.toUpperCase()}</span>
+              <Globe className="w-4 h-4 text-gray-700 dark:text-gray-300 dark:text-emerald-400" />
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-300 dark:text-emerald-400">{language.toUpperCase()}</span>
             </button>
 
             {isAuthenticated ? (
@@ -66,7 +66,7 @@ const Navbar = () => {
                   className="flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-emerald-50 dark:hover:bg-emerald-900/30 transition-colors"
                   title={language === 'en' ? 'Recurring Tasks' : 'Tâches récurrentes'}
                 >
-                  <Repeat className="w-4 h-4 text-gray-700 dark:text-emerald-400" />
+                  <Repeat className="w-4 h-4 text-gray-700 dark:text-gray-300 dark:text-emerald-400" />
                 </Link>
 
                 {/* Notification Center */}
@@ -88,7 +88,7 @@ const Navbar = () => {
                 
                 <Link
                   to="/profile"
-                  className="flex items-center space-x-2 px-4 py-2 rounded-md hover:bg-emerald-50 dark:hover:bg-emerald-900/30 text-gray-700 dark:text-gray-200 transition-colors"
+                  className="flex items-center space-x-2 px-4 py-2 rounded-md hover:bg-emerald-50 dark:hover:bg-emerald-900/30 text-gray-700 dark:text-gray-300 dark:text-gray-200 transition-colors"
                   data-testid="profile-link"
                 >
                   <User className="w-4 h-4" />
@@ -107,7 +107,7 @@ const Navbar = () => {
               <>
                 <Link
                   to="/login"
-                  className="px-4 py-2 text-gray-700 dark:text-gray-200 hover:text-emerald-600 dark:hover:text-emerald-400 hidden md:block transition-colors"
+                  className="px-4 py-2 text-gray-700 dark:text-gray-300 dark:text-gray-200 hover:text-emerald-600 dark:hover:text-emerald-400 hidden md:block transition-colors"
                   data-testid="login-link"
                 >
                   {t('login')}

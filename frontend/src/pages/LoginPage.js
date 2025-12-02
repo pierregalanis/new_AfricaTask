@@ -51,7 +51,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 dark:bg-gray-950">
       <Navbar />
       <div className="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         {/* Floating orbs background */}
@@ -70,7 +70,7 @@ const LoginPage = () => {
               <h2 className="text-3xl font-bold gradient-text mb-2">
                 {t('login')}
               </h2>
-              <p className="text-gray-600 dark:text-gray-300">
+              <p className="text-gray-600 dark:text-gray-400 dark:text-gray-300">
                 {t('dontHaveAccount')}{' '}
                 <Link to="/register" className="font-medium text-emerald-600 dark:text-emerald-400 hover:text-emerald-500 dark:hover:text-emerald-300 transition-colors">
                   {t('register')}
@@ -81,7 +81,7 @@ const LoginPage = () => {
             <form className="mt-8 space-y-6" onSubmit={handleSubmit} data-testid="login-form">
               <div className="space-y-4">
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 dark:text-gray-300 mb-2">
                     {t('email')}
                   </label>
                   <div className="relative group">
@@ -103,7 +103,7 @@ const LoginPage = () => {
                 </div>
                 
                 <div>
-                  <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300 dark:text-gray-300 mb-2">
                     {t('password')}
                   </label>
                   <div className="relative group">

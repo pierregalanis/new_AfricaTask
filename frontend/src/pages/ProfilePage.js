@@ -89,14 +89,14 @@ const ProfilePage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
       <Navbar />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="bg-white rounded-lg shadow-md p-8">
+        <div className="bg-white dark:bg-gray-800/70 rounded-lg shadow-md p-8">
           <div className="flex justify-between items-start mb-8">
             <div>
               <h1 className="text-3xl font-bold text-gray-900" data-testid="profile-title">{t('myProfile')}</h1>
-              <p className="text-gray-600 mt-1">
+              <p className="text-gray-600 dark:text-gray-400 mt-1">
                 {user?.role === 'client' ? t('client') : t('tasker')}
               </p>
             </div>
@@ -181,7 +181,7 @@ const ProfilePage = () => {
             <form onSubmit={handleSaveProfile} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                     {t('fullName')}
                   </label>
                   <input
@@ -192,7 +192,7 @@ const ProfilePage = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                     {t('phone')}
                   </label>
                   <input
@@ -203,7 +203,7 @@ const ProfilePage = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                     {t('city')}
                   </label>
                   <input
@@ -214,7 +214,7 @@ const ProfilePage = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                     {t('address')}
                   </label>
                   <input
@@ -335,7 +335,7 @@ const ProfilePage = () => {
         {/* Reviews Section for Taskers */}
         {user?.role === 'tasker' && (
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
-            <div className="bg-white rounded-lg shadow-md p-8">
+            <div className="bg-white dark:bg-gray-800/70 rounded-lg shadow-md p-8">
               <TaskerReviews taskerId={user.id} language={language} />
             </div>
           </div>

@@ -57,7 +57,7 @@ const GPSTracker = ({ task, onClose }) => {
   const center = taskerPos || taskLocation || [5.345317, -4.024429]; // Default to Abidjan
 
   return (
-    <div className="fixed inset-0 md:inset-auto md:top-4 md:right-4 md:w-[500px] md:h-[600px] bg-white md:rounded-lg shadow-2xl z-50 flex flex-col">
+    <div className="fixed inset-0 md:inset-auto md:top-4 md:right-4 md:w-[500px] md:h-[600px] bg-white dark:bg-gray-800/70 md:rounded-lg shadow-2xl z-50 flex flex-col">
       {/* Header */}
       <div className="bg-emerald-600 text-white p-4 md:rounded-t-lg flex justify-between items-center">
         <div className="flex items-center space-x-2">
@@ -158,7 +158,7 @@ const GPSTracker = ({ task, onClose }) => {
       </div>
 
       {/* Legend */}
-      <div className="border-t p-3 bg-gray-50 md:rounded-b-lg">
+      <div className="border-t p-3 bg-gray-50 dark:bg-gray-950 md:rounded-b-lg">
         <div className="flex justify-around text-xs">
           <div className="flex items-center space-x-1">
             <div className="w-3 h-3 bg-emerald-500 rounded-full"></div>

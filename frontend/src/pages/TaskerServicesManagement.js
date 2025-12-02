@@ -171,7 +171,7 @@ const TaskerServicesManagement = () => {
       <Navbar />
       
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="bg-white rounded-2xl shadow-lg p-8">
+        <div className="bg-white dark:bg-gray-800/70 rounded-2xl shadow-lg p-8">
           <div className="flex items-center space-x-3 mb-6">
             <Briefcase className="w-8 h-8 text-emerald-600" />
             <h1 className="text-3xl font-bold text-gray-900">
@@ -223,12 +223,12 @@ const TaskerServicesManagement = () => {
                 
                 {/* Autocomplete Dropdown */}
                 {showSuggestions && filteredServices.length > 0 && (
-                  <div className="absolute z-10 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg max-h-60 overflow-y-auto">
+                  <div className="absolute z-10 w-full mt-1 bg-white dark:bg-gray-800/70 border border-gray-200 rounded-lg shadow-lg max-h-60 overflow-y-auto">
                     {filteredServices.map((service, idx) => (
                       <button
                         key={idx}
                         onClick={() => handleAddService(service)}
-                        className="w-full text-left px-4 py-2 hover:bg-emerald-50 text-gray-700 hover:text-emerald-700 transition-colors"
+                        className="w-full text-left px-4 py-2 hover:bg-emerald-50 text-gray-700 dark:text-gray-300 hover:text-emerald-700 transition-colors"
                       >
                         {service}
                       </button>
@@ -248,7 +248,7 @@ const TaskerServicesManagement = () => {
 
             {/* Popular Services */}
             <div className="mt-4">
-              <p className="text-sm text-gray-600 mb-2">
+              <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
                 {language === 'en' ? 'Popular services:' : 'Services populaires:'}
               </p>
               <div className="flex flex-wrap gap-2">
@@ -261,7 +261,7 @@ const TaskerServicesManagement = () => {
                         setServices([...services, serviceName]);
                       }
                     }}
-                    className="text-sm px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-full text-gray-700"
+                    className="text-sm px-3 py-1 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 rounded-full text-gray-700"
                   >
                     {language === 'en' ? cat.name_en : cat.name_fr}
                   </button>
@@ -272,7 +272,7 @@ const TaskerServicesManagement = () => {
 
           {/* Hourly Rate */}
           <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               {language === 'en' ? 'Hourly Rate (CFA)' : 'Tarif horaire (CFA)'}
               <span className="text-red-500">*</span>
             </label>
@@ -287,7 +287,7 @@ const TaskerServicesManagement = () => {
 
           {/* Bio */}
           <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               {language === 'en' ? 'Bio / Description' : 'Bio / Description'}
             </label>
             <textarea
@@ -303,7 +303,7 @@ const TaskerServicesManagement = () => {
 
           {/* Travel Distance */}
           <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               {language === 'en' ? 'Maximum Travel Distance (km)' : 'Distance maximale de déplacement (km)'}
             </label>
             <input
@@ -316,10 +316,10 @@ const TaskerServicesManagement = () => {
           </div>
 
           {/* Availability Toggle */}
-          <div className="mb-8 bg-gray-50 rounded-lg p-4 border border-gray-200">
+          <div className="mb-8 bg-gray-50 dark:bg-gray-950 rounded-lg p-4 border border-gray-200">
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-1">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
                   {language === 'en' ? 'Availability Status' : 'Statut de disponibilité'}
                 </h3>
                 <p className="text-sm text-gray-600">
@@ -366,7 +366,7 @@ const TaskerServicesManagement = () => {
             </button>
             <button
               onClick={() => navigate('/profile')}
-              className="px-6 py-3 border border-gray-300 rounded-lg hover:bg-gray-50"
+              className="px-6 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 dark:bg-gray-950"
             >
               {language === 'en' ? 'Cancel' : 'Annuler'}
             </button>

@@ -64,7 +64,7 @@ const TaskerEarnings = () => {
             <h1 className="text-3xl font-bold text-gray-900">
               {language === 'en' ? 'My Earnings' : 'Mes revenus'}
             </h1>
-            <p className="text-gray-600 mt-1">
+            <p className="text-gray-600 dark:text-gray-400 mt-1">
               {language === 'en' ? 'Track your income and payments' : 'Suivez vos revenus et paiements'}
             </p>
           </div>
@@ -144,7 +144,7 @@ const TaskerEarnings = () => {
         </div>
 
         {/* Payment History */}
-        <div className="bg-white rounded-xl shadow-lg p-6">
+        <div className="bg-white dark:bg-gray-800/70 rounded-xl shadow-lg p-6">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl font-semibold">
               {language === 'en' ? 'Payment History' : 'Historique des paiements'}
@@ -160,7 +160,7 @@ const TaskerEarnings = () => {
           ) : earnings?.payment_history && earnings.payment_history.length > 0 ? (
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead className="bg-gray-50 border-b">
+                <thead className="bg-gray-50 dark:bg-gray-950 border-b">
                   <tr>
                     <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">
                       {language === 'en' ? 'Date' : 'Date'}
@@ -184,11 +184,11 @@ const TaskerEarnings = () => {
                 </thead>
                 <tbody className="divide-y divide-gray-100">
                   {earnings.payment_history.map((payment, idx) => (
-                    <tr key={idx} className="hover:bg-gray-50">
+                    <tr key={idx} className="hover:bg-gray-50 dark:bg-gray-950">
                       <td className="px-4 py-3 text-sm text-gray-700">
                         {new Date(payment.completed_at).toLocaleDateString(language === 'en' ? 'en-US' : 'fr-FR')}
                       </td>
-                      <td className="px-4 py-3 text-sm text-gray-900 font-medium">
+                      <td className="px-4 py-3 text-sm text-gray-900 dark:text-white font-medium">
                         {payment.title}
                       </td>
                       <td className="px-4 py-3 text-sm text-gray-700">

@@ -128,7 +128,7 @@ const TaskerReviews = ({ taskerId, language = 'en' }) => {
 
   if (reviews.length === 0) {
     return (
-      <div className="text-center py-12 bg-gray-50 rounded-lg">
+      <div className="text-center py-12 bg-gray-50 dark:bg-gray-950 rounded-lg">
         <Star className="w-12 h-12 mx-auto mb-3 text-gray-300" />
         <p className="text-gray-500 text-lg">
           {language === 'en' ? 'No reviews yet' : 'Aucun avis pour le moment'}
@@ -152,12 +152,12 @@ const TaskerReviews = ({ taskerId, language = 'en' }) => {
           return (
             <div
               key={review.review_id}
-              className="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow"
+              className="bg-white dark:bg-gray-800/70 border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow"
             >
               {/* Header: Rating and Date */}
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center space-x-3">
-                  <div className="bg-gray-100 rounded-full p-2">
+                  <div className="bg-gray-100 dark:bg-gray-800 rounded-full p-2">
                     <User className="w-5 h-5 text-gray-600" />
                   </div>
                   <div>
@@ -196,7 +196,7 @@ const TaskerReviews = ({ taskerId, language = 'en' }) => {
               {/* Review Comment */}
               {review.comment && (
                 <div className="mt-3">
-                  <p className="text-gray-700 leading-relaxed">
+                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
                     {displayText}
                   </p>
                   {isTranslated && (

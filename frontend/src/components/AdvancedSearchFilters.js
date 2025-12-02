@@ -34,7 +34,7 @@ const AdvancedSearchFilters = ({ onFilterChange, language = 'en' }) => {
   const hasActiveFilters = filters.priceMin || filters.priceMax || filters.minRating > 0 || filters.maxDistance < 50 || filters.searchQuery;
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-4 mb-6">
+    <div className="bg-white dark:bg-gray-800/70 rounded-lg shadow-md p-4 mb-6">
       {/* Search Bar */}
       <div className="flex items-center space-x-3 mb-4">
         <div className="flex-1 relative">
@@ -53,13 +53,13 @@ const AdvancedSearchFilters = ({ onFilterChange, language = 'en' }) => {
           className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors ${
             hasActiveFilters 
               ? 'bg-emerald-600 text-white' 
-              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              : 'bg-gray-100 text-gray-700 dark:text-gray-300 hover:bg-gray-200'
           }`}
         >
           <SlidersHorizontal className="w-5 h-5" />
           <span>{language === 'en' ? 'Filters' : 'Filtres'}</span>
           {hasActiveFilters && (
-            <span className="bg-white text-emerald-600 text-xs font-bold px-2 py-0.5 rounded-full">
+            <span className="bg-white dark:bg-gray-800/70 text-emerald-600 text-xs font-bold px-2 py-0.5 rounded-full">
               •
             </span>
           )}
@@ -71,7 +71,7 @@ const AdvancedSearchFilters = ({ onFilterChange, language = 'en' }) => {
         <div className="border-t pt-4 space-y-4 animate-fadeIn">
           {/* Sort By */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               {language === 'en' ? 'Sort By' : 'Trier par'}
             </label>
             <select
@@ -90,7 +90,7 @@ const AdvancedSearchFilters = ({ onFilterChange, language = 'en' }) => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Price Range */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 <DollarSign className="w-4 h-4 inline mr-1" />
                 {language === 'en' ? 'Price Range (CFA/hr)' : 'Tarif (CFA/hr)'}
               </label>
@@ -115,7 +115,7 @@ const AdvancedSearchFilters = ({ onFilterChange, language = 'en' }) => {
 
             {/* Min Rating */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 <Star className="w-4 h-4 inline mr-1 fill-yellow-400 text-yellow-400" />
                 {language === 'en' ? 'Minimum Rating' : 'Note minimale'}
               </label>
@@ -135,7 +135,7 @@ const AdvancedSearchFilters = ({ onFilterChange, language = 'en' }) => {
 
           {/* Max Distance */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               <MapPin className="w-4 h-4 inline mr-1" />
               {language === 'en' ? 'Maximum Distance' : 'Distance maximale'}: {filters.maxDistance} km
             </label>
@@ -158,7 +158,7 @@ const AdvancedSearchFilters = ({ onFilterChange, language = 'en' }) => {
           {hasActiveFilters && (
             <button
               onClick={clearFilters}
-              className="w-full flex items-center justify-center space-x-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition-colors"
+              className="w-full flex items-center justify-center space-x-2 px-4 py-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 text-gray-700 dark:text-gray-300 rounded-lg transition-colors"
             >
               <X className="w-4 h-4" />
               <span>{language === 'en' ? 'Clear All Filters' : 'Effacer les filtres'}</span>

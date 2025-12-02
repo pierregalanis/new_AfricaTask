@@ -74,7 +74,7 @@ const LocationSharing = ({ task }) => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-4 mb-4">
+    <div className="bg-white dark:bg-gray-800/70 rounded-lg shadow-md p-4 mb-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-3">
           <div className={`w-3 h-3 rounded-full ${isSharing ? 'bg-green-500 animate-pulse' : 'bg-gray-300'}`}></div>

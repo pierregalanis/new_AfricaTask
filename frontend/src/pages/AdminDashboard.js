@@ -122,7 +122,7 @@ const AdminDashboard = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">
+          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">
             {language === 'en' ? 'Admin Dashboard' : 'Tableau de bord admin'}
           </h1>
           <p className="text-gray-600">
@@ -195,7 +195,7 @@ const AdminDashboard = () => {
         )}
 
         {/* Tabs */}
-        <div className="bg-white rounded-xl shadow-lg mb-8">
+        <div className="bg-white dark:bg-gray-800/70 rounded-xl shadow-lg mb-8">
           <div className="border-b border-gray-200">
             <nav className="flex space-x-8 px-6">
               {[
@@ -210,7 +210,7 @@ const AdminDashboard = () => {
                   className={`flex items-center space-x-2 py-4 border-b-2 font-medium transition ${
                     activeTab === tab.id
                       ? 'border-emerald-600 text-emerald-600'
-                      : 'border-transparent text-gray-600 hover:text-gray-900'
+                      : 'border-transparent text-gray-600 dark:text-gray-400 hover:text-gray-900'
                   }`}
                 >
                   <tab.icon className="w-5 h-5" />
@@ -225,7 +225,7 @@ const AdminDashboard = () => {
             {activeTab === 'users' && (
               <div className="overflow-x-auto">
                 <table className="w-full">
-                  <thead className="bg-gray-50 border-b">
+                  <thead className="bg-gray-50 dark:bg-gray-950 border-b">
                     <tr>
                       <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">
                         {language === 'en' ? 'Name' : 'Nom'}
@@ -243,7 +243,7 @@ const AdminDashboard = () => {
                   </thead>
                   <tbody className="divide-y divide-gray-100">
                     {users.slice(0, 20).map(u => (
-                      <tr key={u.id} className="hover:bg-gray-50">
+                      <tr key={u.id} className="hover:bg-gray-50 dark:bg-gray-950">
                         <td className="px-4 py-3 text-sm text-gray-900">{u.full_name}</td>
                         <td className="px-4 py-3 text-sm text-gray-700">{u.email}</td>
                         <td className="px-4 py-3">
@@ -265,7 +265,7 @@ const AdminDashboard = () => {
             {activeTab === 'tasks' && (
               <div className="overflow-x-auto">
                 <table className="w-full">
-                  <thead className="bg-gray-50 border-b">
+                  <thead className="bg-gray-50 dark:bg-gray-950 border-b">
                     <tr>
                       <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">
                         {language === 'en' ? 'Title' : 'Titre'}
@@ -283,7 +283,7 @@ const AdminDashboard = () => {
                   </thead>
                   <tbody className="divide-y divide-gray-100">
                     {tasks.slice(0, 20).map(task => (
-                      <tr key={task.id} className="hover:bg-gray-50">
+                      <tr key={task.id} className="hover:bg-gray-50 dark:bg-gray-950">
                         <td className="px-4 py-3 text-sm text-gray-900">{task.title}</td>
                         <td className="px-4 py-3">
                           <span className={`px-2 py-1 rounded-full text-xs font-medium capitalize ${
@@ -319,7 +319,7 @@ const AdminDashboard = () => {
                     <div key={dispute.id} className="border border-gray-200 rounded-lg p-6 hover:shadow-md transition">
                       <div className="flex items-start justify-between mb-4">
                         <div>
-                          <h3 className="text-lg font-semibold text-gray-900 mb-1">
+                          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
                             {dispute.task_title}
                           </h3>
                           <p className="text-sm text-gray-600">
@@ -336,14 +336,14 @@ const AdminDashboard = () => {
                       </div>
                       
                       <div className="mb-4">
-                        <p className="text-sm font-medium text-gray-700 mb-1">
+                        <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                           {language === 'en' ? 'Reason:' : 'Raison:'}
                         </p>
                         <p className="text-sm text-gray-600">{dispute.reason}</p>
                       </div>
                       
                       <div className="mb-4">
-                        <p className="text-sm font-medium text-gray-700 mb-1">
+                        <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                           {language === 'en' ? 'Description:' : 'Description:'}
                         </p>
                         <p className="text-sm text-gray-600">{dispute.description}</p>

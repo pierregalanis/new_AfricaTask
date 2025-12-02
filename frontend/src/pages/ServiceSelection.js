@@ -58,7 +58,7 @@ const ServiceSelection = () => {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder={language === 'en' ? 'Search services...' : 'Rechercher des services...'}
-              className="w-full pl-12 pr-4 py-4 rounded-xl text-gray-900 focus:outline-none focus:ring-4 focus:ring-emerald-300"
+              className="w-full pl-12 pr-4 py-4 rounded-xl text-gray-900 dark:text-white focus:outline-none focus:ring-4 focus:ring-emerald-300"
               data-testid="service-search-input"
             />
           </div>
@@ -66,7 +66,7 @@ const ServiceSelection = () => {
 
         {/* Popular Services */}
         <div className="mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
             {language === 'en' ? 'Popular Services' : 'Services populaires'}
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -89,7 +89,7 @@ const ServiceSelection = () => {
 
         {/* All Services */}
         <div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
             {language === 'en' ? 'All Services' : 'Tous les services'}
           </h2>
           <div className="space-y-6">

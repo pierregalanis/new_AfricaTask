@@ -76,11 +76,11 @@ const RecurringTasksPage = () => {
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 flex items-center space-x-3">
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white flex items-center space-x-3">
               <Repeat className="w-8 h-8 text-emerald-600" />
               <span>{language === 'en' ? 'Recurring Tasks' : 'Tâches récurrentes'}</span>
             </h1>
-            <p className="text-gray-600 mt-1">
+            <p className="text-gray-600 dark:text-gray-400 mt-1">
               {language === 'en' ? 'Manage your scheduled tasks' : 'Gérez vos tâches programmées'}
             </p>
           </div>
@@ -132,7 +132,7 @@ const RecurringTasksPage = () => {
                       </span>
                     </div>
                     
-                    <p className="text-gray-600 text-sm mb-4">{task.description}</p>
+                    <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">{task.description}</p>
                     
                     <div className="flex flex-wrap gap-4 text-sm">
                       <div className="flex items-center space-x-2 text-gray-700">
@@ -158,7 +158,7 @@ const RecurringTasksPage = () => {
                   <div className="flex items-center space-x-2 ml-4">
                     <button
                       onClick={() => toggleTask(task.id)}
-                      className="p-2 hover:bg-gray-100 rounded-lg transition"
+                      className="p-2 hover:bg-gray-100 dark:bg-gray-800 rounded-lg transition"
                       title={task.is_active ? 'Pause' : 'Activate'}
                     >
                       {task.is_active ? (

@@ -64,7 +64,7 @@ const CancellationModal = ({ isOpen, onClose, taskId, userRole, onSuccess, langu
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-xl shadow-2xl max-w-md w-full p-6 relative">
+      <div className="bg-white dark:bg-gray-800/70 rounded-xl shadow-2xl max-w-md w-full p-6 relative">
         {/* Close Button */}
         <button
           onClick={onClose}
@@ -90,7 +90,7 @@ const CancellationModal = ({ isOpen, onClose, taskId, userRole, onSuccess, langu
 
         {/* Cancellation Reasons */}
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
             {language === 'en' ? 'Reason for cancellation' : 'Raison de l\'annulation'} *
           </label>
           <select
@@ -108,7 +108,7 @@ const CancellationModal = ({ isOpen, onClose, taskId, userRole, onSuccess, langu
         {/* Custom Reason Input */}
         {(reason === 'Other' || reason === 'Autre') && (
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               {language === 'en' ? 'Please specify' : 'Veuillez préciser'}
             </label>
             <textarea
@@ -134,7 +134,7 @@ const CancellationModal = ({ isOpen, onClose, taskId, userRole, onSuccess, langu
         <div className="flex space-x-3">
           <button
             onClick={onClose}
-            className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50"
+            className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:bg-gray-950"
           >
             {language === 'en' ? 'Keep Task' : 'Garder la tâche'}
           </button>

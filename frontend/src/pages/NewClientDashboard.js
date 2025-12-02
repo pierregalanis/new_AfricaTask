@@ -126,11 +126,11 @@ const NewClientDashboard = () => {
                 {language === 'en' ? 'Manage your bookings' : 'Gérez vos réservations'}
               </p>
               <div className="mt-4 flex items-center space-x-4">
-                <div className="bg-white/20 backdrop-blur px-4 py-2 rounded-lg">
+                <div className="bg-white dark:bg-gray-800/70/20 backdrop-blur px-4 py-2 rounded-lg">
                   <span className="text-sm opacity-90">{language === 'en' ? 'Total Bookings' : 'Total'}</span>
                   <p className="text-2xl font-bold">{bookings.length}</p>
                 </div>
-                <div className="bg-white/20 backdrop-blur px-4 py-2 rounded-lg">
+                <div className="bg-white dark:bg-gray-800/70/20 backdrop-blur px-4 py-2 rounded-lg">
                   <span className="text-sm opacity-90">{language === 'en' ? 'Upcoming' : 'À venir'}</span>
                   <p className="text-2xl font-bold">
                     {bookings.filter(b => ['assigned', 'in_progress'].includes(b.status)).length}
@@ -140,7 +140,7 @@ const NewClientDashboard = () => {
             </div>
             <button
               onClick={() => navigate('/services')}
-              className="btn-primary bg-white dark:bg-gray-800/70 text-emerald-600 hover:bg-gray-50 shadow-2xl"
+              className="btn-primary bg-white dark:bg-gray-800/70 dark:bg-gray-800/70 text-emerald-600 hover:bg-gray-50 dark:bg-gray-950 shadow-2xl"
               data-testid="browse-services-button"
             >
               <Search className="w-5 h-5 inline mr-2" />
@@ -156,7 +156,7 @@ const NewClientDashboard = () => {
             className={`px-6 py-3 rounded-xl font-semibold transition ${
               filter === 'all'
                 ? 'bg-emerald-600 text-white shadow-lg'
-                : 'bg-white dark:bg-gray-800/70 text-gray-700 hover:bg-gray-50 shadow'
+                : 'bg-white dark:bg-gray-800/70 text-gray-700 dark:text-gray-300 hover:bg-gray-50 shadow'
             }`}
             data-testid="filter-all"
           >
@@ -167,7 +167,7 @@ const NewClientDashboard = () => {
             className={`px-6 py-3 rounded-xl font-semibold transition ${
               filter === 'upcoming'
                 ? 'bg-emerald-600 text-white shadow-lg'
-                : 'bg-white dark:bg-gray-800/70 text-gray-700 hover:bg-gray-50 shadow'
+                : 'bg-white dark:bg-gray-800/70 text-gray-700 dark:text-gray-300 hover:bg-gray-50 shadow'
             }`}
             data-testid="filter-upcoming"
           >
@@ -178,7 +178,7 @@ const NewClientDashboard = () => {
             className={`px-6 py-3 rounded-xl font-semibold transition ${
               filter === 'completed'
                 ? 'bg-emerald-600 text-white shadow-lg'
-                : 'bg-white dark:bg-gray-800/70 text-gray-700 hover:bg-gray-50 shadow'
+                : 'bg-white dark:bg-gray-800/70 text-gray-700 dark:text-gray-300 hover:bg-gray-50 shadow'
             }`}
             data-testid="filter-completed"
           >
@@ -222,7 +222,7 @@ const NewClientDashboard = () => {
                       )}
                     </div>
                     
-                    <p className="text-gray-600 text-sm mb-3 line-clamp-2">{booking.description}</p>
+                    <p className="text-gray-600 dark:text-gray-400 text-sm mb-3 line-clamp-2">{booking.description}</p>
                     
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
                       <div className="flex items-center space-x-2 text-gray-600">
@@ -240,11 +240,11 @@ const NewClientDashboard = () => {
                     
                     {/* Payment Details for Completed Tasks */}
                     {booking.status === 'completed' && booking.payment_method && (
-                      <div className="mt-3 text-xs text-gray-600 flex items-center space-x-2">
+                      <div className="mt-3 text-xs text-gray-600 dark:text-gray-400 flex items-center space-x-2">
                         <span className="font-medium">
                           {language === 'en' ? 'Payment Method:' : 'Méthode de paiement:'}
                         </span>
-                        <span className="px-2 py-1 bg-gray-100 rounded">
+                        <span className="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded">
                           {booking.payment_method === 'cash' 
                             ? (language === 'en' ? 'Cash' : 'Espèces') 
                             : booking.payment_method}

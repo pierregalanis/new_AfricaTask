@@ -312,11 +312,11 @@ const NewTaskerDashboard = () => {
                 {language === 'en' ? 'Manage your bookings' : 'Gérez vos réservations'}
               </p>
               <div className="mt-4 flex items-center space-x-4">
-                <div className="bg-white/20 backdrop-blur px-4 py-2 rounded-lg">
+                <div className="bg-white dark:bg-gray-800/70/20 backdrop-blur px-4 py-2 rounded-lg">
                   <span className="text-sm opacity-90">{language === 'en' ? 'Hourly Rate' : 'Tarif'}</span>
                   <p className="text-2xl font-bold">{user?.tasker_profile?.hourly_rate || 0} CFA/hr</p>
                 </div>
-                <div className="bg-white/20 backdrop-blur px-4 py-2 rounded-lg">
+                <div className="bg-white dark:bg-gray-800/70/20 backdrop-blur px-4 py-2 rounded-lg">
                   <span className="text-sm opacity-90">{language === 'en' ? 'Completed' : 'Terminé'}</span>
                   <p className="text-2xl font-bold">{user?.tasker_profile?.completed_tasks || 0}</p>
                 </div>
@@ -324,7 +324,7 @@ const NewTaskerDashboard = () => {
             </div>
             <button
               onClick={() => navigate('/tasker/setup')}
-              className="btn-primary bg-white dark:bg-gray-800/70 text-purple-600 hover:bg-gray-50 shadow-2xl"
+              className="btn-primary bg-white dark:bg-gray-800/70 dark:bg-gray-800/70 text-purple-600 hover:bg-gray-50 dark:bg-gray-950 shadow-2xl"
               data-testid="edit-profile-button"
             >
               <Settings className="w-5 h-5 inline mr-2" />
@@ -337,7 +337,7 @@ const NewTaskerDashboard = () => {
           <button
             onClick={() => setFilter('pending')}
             className={`px-6 py-3 rounded-xl font-semibold transition ${
-              filter === 'pending' ? 'bg-purple-600 text-white shadow-lg' : 'bg-white dark:bg-gray-800/70 text-gray-700 hover:bg-gray-50 shadow'
+              filter === 'pending' ? 'bg-purple-600 text-white shadow-lg' : 'bg-white dark:bg-gray-800/70 text-gray-700 dark:text-gray-300 hover:bg-gray-50 shadow'
             }`}
             data-testid="filter-pending"
           >
@@ -346,7 +346,7 @@ const NewTaskerDashboard = () => {
           <button
             onClick={() => setFilter('active')}
             className={`px-6 py-3 rounded-xl font-semibold transition ${
-              filter === 'active' ? 'bg-purple-600 text-white shadow-lg' : 'bg-white dark:bg-gray-800/70 text-gray-700 hover:bg-gray-50 shadow'
+              filter === 'active' ? 'bg-purple-600 text-white shadow-lg' : 'bg-white dark:bg-gray-800/70 text-gray-700 dark:text-gray-300 hover:bg-gray-50 shadow'
             }`}
             data-testid="filter-active"
           >
@@ -355,7 +355,7 @@ const NewTaskerDashboard = () => {
           <button
             onClick={() => setFilter('completed')}
             className={`px-6 py-3 rounded-xl font-semibold transition ${
-              filter === 'completed' ? 'bg-purple-600 text-white shadow-lg' : 'bg-white dark:bg-gray-800/70 text-gray-700 hover:bg-gray-50 shadow'
+              filter === 'completed' ? 'bg-purple-600 text-white shadow-lg' : 'bg-white dark:bg-gray-800/70 text-gray-700 dark:text-gray-300 hover:bg-gray-50 shadow'
             }`}
             data-testid="filter-completed"
           >
@@ -380,8 +380,8 @@ const NewTaskerDashboard = () => {
               >
                 <div className="flex flex-col md:flex-row md:items-center gap-6">
                   <div className="flex-1">
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">{booking.title}</h3>
-                    <p className="text-gray-600 text-sm mb-3">{booking.description}</p>
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{booking.title}</h3>
+                    <p className="text-gray-600 dark:text-gray-400 text-sm mb-3">{booking.description}</p>
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-3 text-sm">
                       <div className="flex items-center space-x-2 text-gray-600">
                         <Calendar className="w-4 h-4" />
@@ -515,7 +515,7 @@ const NewTaskerDashboard = () => {
                           )}
                         </div>
                         {booking.payment_method && (
-                          <p className="text-xs text-gray-600 mt-1">
+                          <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
                             {language === 'en' ? 'Method: ' : 'Méthode: '}
                             {booking.payment_method === 'cash' ? (language === 'en' ? 'Cash' : 'Espèces') : booking.payment_method}
                           </p>

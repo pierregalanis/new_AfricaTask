@@ -65,7 +65,7 @@ const ChatBox = ({ task, onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 md:inset-auto md:bottom-4 md:right-4 md:w-96 md:h-[600px] bg-white md:rounded-lg shadow-2xl z-50 flex flex-col">
+    <div className="fixed inset-0 md:inset-auto md:bottom-4 md:right-4 md:w-96 md:h-[600px] bg-white dark:bg-gray-800/70 md:rounded-lg shadow-2xl z-50 flex flex-col">
       {/* Header */}
       <div className="bg-emerald-600 text-white p-4 md:rounded-t-lg flex justify-between items-center">
         <div className="flex items-center space-x-2">
@@ -87,7 +87,7 @@ const ChatBox = ({ task, onClose }) => {
       </div>
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-gray-50" data-testid="chat-messages">
+      <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-gray-50 dark:bg-gray-950" data-testid="chat-messages">
         {loading ? (
           <div className="flex justify-center items-center h-full">
             <div className="text-gray-500">{t('loading')}</div>
@@ -111,7 +111,7 @@ const ChatBox = ({ task, onClose }) => {
                   className={`max-w-[75%] rounded-lg px-4 py-2 ${
                     isMyMessage
                       ? 'bg-emerald-600 text-white'
-                      : 'bg-white text-gray-900 border border-gray-200'
+                      : 'bg-white text-gray-900 dark:text-white border border-gray-200'
                   }`}
                 >
                   <p className="break-words">{msg.content}</p>
@@ -131,7 +131,7 @@ const ChatBox = ({ task, onClose }) => {
       </div>
 
       {/* Input */}
-      <form onSubmit={handleSendMessage} className="p-4 border-t bg-white md:rounded-b-lg">
+      <form onSubmit={handleSendMessage} className="p-4 border-t bg-white dark:bg-gray-800/70 md:rounded-b-lg">
         <div className="flex space-x-2">
           <input
             type="text"
