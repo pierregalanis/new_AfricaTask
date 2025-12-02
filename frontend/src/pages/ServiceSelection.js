@@ -79,7 +79,7 @@ const ServiceSelection = () => {
                 data-testid={`service-card-${category.id}`}
               >
                 <div className="text-5xl mb-3">{category.icon}</div>
-                <h3 className="font-semibold text-gray-900">
+                <h3 className="font-semibold text-gray-900 dark:text-white">
                   {language === 'en' ? category.name_en : category.name_fr}
                 </h3>
               </div>
