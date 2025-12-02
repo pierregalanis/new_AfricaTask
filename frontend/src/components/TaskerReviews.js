@@ -31,11 +31,16 @@ const TaskerReviews = ({ taskerId, language = 'en' }) => {
   const translateText = async (reviewId, text, targetLang) => {
     const cacheKey = `${reviewId}_${targetLang}`;
     
+    console.log(`[translateText] ReviewID: ${reviewId}, TargetLang: ${targetLang}, CacheKey: ${cacheKey}`);
+    console.log(`[translateText] Current showTranslation state:`, showTranslation);
+    
     // If already translated, just toggle display for THIS review only
     if (translatedTexts[cacheKey]) {
+      console.log(`[translateText] Toggling existing translation for ${reviewId}`);
       setShowTranslation(prev => {
         const newState = { ...prev };
         newState[reviewId] = !newState[reviewId];
+        console.log(`[translateText] New showTranslation state:`, newState);
         return newState;
       });
       return;
