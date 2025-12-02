@@ -38,20 +38,30 @@ const TaskerServicesManagement = () => {
   const fetchTaskerProfile = async () => {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/api/users/${user.id}`
+        `${process.env.REACT_APP_BACKEND_URL}/api/auth/me`,
+        {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+          }
+        }
       );
       console.log('Fetched user profile:', response.data);
       
-      const profile = response.data.tasker_profile || {};
+      // Services are stored at the top level of user object
+      const userData = response.data;
+      const profile = userData.tasker_profile || {};
+      
+      console.log('User data:', userData);
+      console.log('Services from user:', userData.services);
       console.log('Tasker profile:', profile);
-      console.log('Services in profile:', profile.services);
       
       setTaskerProfile(profile);
-      setServices(profile.services || []);
+      // Services are stored on the user object, not in tasker_profile
+      setServices(userData.services || []);
       setHourlyRate(profile.hourly_rate || '');
       setBio(profile.bio || '');
       setMaxTravelDistance(profile.max_travel_distance || '');
-      setIsAvailable(profile.is_available !== undefined ? profile.is_available : true);
+      setIsAvailable(userData.is_available !== undefined ? userData.is_available : true);
     } catch (error) {
       console.error('Error fetching profile:', error);
       console.error('Error details:', error.response?.data);
