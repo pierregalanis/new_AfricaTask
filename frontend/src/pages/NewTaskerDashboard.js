@@ -312,13 +312,13 @@ const NewTaskerDashboard = () => {
                 {language === 'en' ? 'Manage your bookings' : 'Gérez vos réservations'}
               </p>
               <div className="mt-4 flex items-center space-x-4">
-                <div className="bg-white dark:bg-gray-800/70/20 backdrop-blur px-4 py-2 rounded-lg">
-                  <span className="text-sm opacity-90">{language === 'en' ? 'Hourly Rate' : 'Tarif'}</span>
-                  <p className="text-2xl font-bold">{user?.tasker_profile?.hourly_rate || 0} CFA/hr</p>
+                <div className="bg-white/20 dark:bg-gray-800/50 backdrop-blur px-4 py-2 rounded-lg border border-white/30 dark:border-emerald-500/30">
+                  <span className="text-sm text-white dark:text-emerald-200 font-medium">{language === 'en' ? 'Hourly Rate' : 'Tarif'}</span>
+                  <p className="text-2xl font-bold text-white dark:text-white">{user?.tasker_profile?.hourly_rate || 0} CFA/hr</p>
                 </div>
-                <div className="bg-white dark:bg-gray-800/70/20 backdrop-blur px-4 py-2 rounded-lg">
-                  <span className="text-sm opacity-90">{language === 'en' ? 'Completed' : 'Terminé'}</span>
-                  <p className="text-2xl font-bold">{user?.tasker_profile?.completed_tasks || 0}</p>
+                <div className="bg-white/20 dark:bg-gray-800/50 backdrop-blur px-4 py-2 rounded-lg border border-white/30 dark:border-emerald-500/30">
+                  <span className="text-sm text-white dark:text-emerald-200 font-medium">{language === 'en' ? 'Completed' : 'Terminé'}</span>
+                  <p className="text-2xl font-bold text-white dark:text-white">{user?.tasker_profile?.completed_tasks || 0}</p>
                 </div>
               </div>
             </div>
