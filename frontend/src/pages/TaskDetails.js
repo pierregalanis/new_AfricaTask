@@ -208,6 +208,49 @@ const TaskDetails = () => {
                 <p className="text-gray-700 dark:text-gray-300 whitespace-pre-wrap">{task.description}</p>
               </div>
 
+              {/* Assigned Tasker Info (for clients) */}
+              {isClient && task.assigned_tasker_id && tasker && (
+                <div className="mt-6 p-4 glass-card">
+                  <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-white">
+                    {language === 'en' ? 'Assigned Tasker' : 'Tasker assigné'}
+                  </h3>
+                  <div className="flex items-center space-x-4">
+                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white text-2xl font-bold shadow-lg">
+                      {tasker.full_name?.charAt(0) || 'T'}
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="text-xl font-bold text-gray-900 dark:text-white">
+                        {tasker.full_name}
+                      </h4>
+                      {tasker.tasker_profile && (
+                        <div className="flex items-center space-x-3 mt-1">
+                          <div className="flex items-center space-x-1">
+                            <span className="text-yellow-500">⭐</span>
+                            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                              {tasker.tasker_profile.average_rating?.toFixed(1) || 'N/A'}
+                            </span>
+                          </div>
+                          <span className="text-sm text-gray-500 dark:text-gray-400">
+                            {tasker.tasker_profile.completed_tasks || 0} {language === 'en' ? 'tasks completed' : 'tâches terminées'}
+                          </span>
+                        </div>
+                      )}
+                      {tasker.phone && (
+                        <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                          📞 {tasker.phone}
+                        </p>
+                      )}
+                      <button
+                        onClick={() => navigate(`/tasker/${tasker.id}`)}
+                        className="mt-2 text-sm text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 font-medium"
+                      >
+                        {language === 'en' ? 'View Full Profile →' : 'Voir le profil complet →'}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+
               {isTasker && task.status === 'posted' && (
                 <div className="mt-6">
                   <button
