@@ -452,6 +452,7 @@ test_plan:
     - "Dispute Resolution"
     - "Coin System"
     - "Recurring Tasks"
+    - "Backend Refactoring Verification"
 
 agent_communication:
   - agent: "testing"
