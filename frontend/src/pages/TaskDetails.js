@@ -88,17 +88,6 @@ const TaskDetails = () => {
         const totalReviews = statsResponse.data.total_reviews || 0;
         const averageRating = statsResponse.data.average_rating || 0;
         
-        // Fetch reviews
-        const reviewsResponse = await axios.get(
-          `${API_URL}/api/reviews/tasker/${taskerId}`,
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
-        const reviews = reviewsResponse.data || [];
-        const totalReviews = reviews.length;
-        const averageRating = totalReviews > 0
-          ? reviews.reduce((sum, r) => sum + r.rating, 0) / totalReviews
-          : 0;
-        
         // Update tasker data with real stats
         if (taskerData.tasker_profile) {
           taskerData.tasker_profile.completed_tasks = completedTasks;
