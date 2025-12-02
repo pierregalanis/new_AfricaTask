@@ -134,35 +134,41 @@ const LandingPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white dark:bg-gray-950 transition-colors duration-300">
       <Navbar />
 
-      {/* Hero Section with Gradient */}
-      <section className="relative bg-gradient-to-br from-orange-50 via-white to-orange-50 pt-20 pb-32 overflow-hidden">
+      {/* Hero Section with Fancy Gradient */}
+      <section className="relative bg-gradient-to-br from-emerald-50 via-white to-teal-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 pt-20 pb-32 overflow-hidden">
+        {/* Animated Background Orbs */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-emerald-500/20 dark:bg-emerald-500/10 rounded-full blur-3xl animate-float" />
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-teal-500/20 dark:bg-teal-500/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
+        </div>
+
         {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0 opacity-5 dark:opacity-10">
           <div className="absolute inset-0" style={{
-            backgroundImage: 'radial-gradient(circle, #f97316 1px, transparent 1px)',
+            backgroundImage: 'radial-gradient(circle, #10b981 1px, transparent 1px)',
             backgroundSize: '50px 50px'
           }} />
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center animate-fadeIn">
+          <div className="text-center animate-fade-in">
             {/* Badge */}
-            <div className="inline-flex items-center space-x-2 bg-orange-100 px-4 py-2 rounded-full mb-6">
-              <Zap className="w-4 h-4 text-orange-600" />
-              <span className="text-sm font-semibold text-orange-700">
+            <div className="inline-flex items-center space-x-2 bg-emerald-100 dark:bg-emerald-900/30 backdrop-blur-sm px-4 py-2 rounded-full mb-6 border border-emerald-200 dark:border-emerald-700 shadow-lg dark:shadow-emerald-500/20">
+              <Zap className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+              <span className="text-sm font-semibold text-emerald-700 dark:text-emerald-300">
                 {language === 'en' ? '🇮🇨 🇸🇳 Africa\'s #1 Task Platform' : '🇮🇨 🇸🇳 Plateforme #1 en Afrique'}
               </span>
             </div>
 
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-gray-900 mb-6 leading-tight">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-gray-900 dark:text-white mb-6 leading-tight">
               {language === 'en' ? (
                 <>
                   Get Things Done
                   <br />
-                  <span className="bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">
+                  <span className="gradient-text animate-gradient-shift">
                     Anytime, Anywhere
                   </span>
                 </>
@@ -170,14 +176,14 @@ const LandingPage = () => {
                 <>
                   Faites les choses
                   <br />
-                  <span className="bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">
+                  <span className="gradient-text animate-gradient-shift">
                     n'importe quand
                   </span>
                 </>
               )}
             </h1>
 
-            <p className="text-xl md:text-2xl text-gray-600 mb-10 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-10 max-w-3xl mx-auto leading-relaxed">
               {language === 'en' 
                 ? 'Connect with trusted local professionals for home repairs, cleaning, beauty services, and more. All in one platform.'
                 : 'Connectez-vous avec des professionnels locaux de confiance pour réparations, nettoyage, beauté et plus. Tout en une plateforme.'}
@@ -186,31 +192,32 @@ const LandingPage = () => {
             <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4 mb-12">
               <Link
                 to="/register"
-                className="group px-8 py-4 bg-gradient-to-r from-orange-600 to-red-600 text-white rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 flex items-center space-x-2"
+                className="group px-8 py-4 bg-gradient-to-r from-emerald-500 to-teal-600 dark:from-emerald-600 dark:to-teal-700 text-white rounded-xl font-bold text-lg shadow-lg shadow-emerald-500/50 hover:shadow-emerald-500/70 dark:shadow-emerald-500/30 dark:hover:shadow-emerald-500/50 transform hover:-translate-y-1 hover:scale-105 transition-all duration-300 flex items-center space-x-2 relative overflow-hidden"
               >
-                <span>{language === 'en' ? 'Get Started Free' : 'Commencez gratuitement'}</span>
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                <span className="relative z-10">{language === 'en' ? 'Get Started Free' : 'Commencez gratuitement'}</span>
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform relative z-10" />
+                <div className="absolute inset-0 bg-gradient-to-r from-teal-600 to-emerald-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </Link>
               <Link
                 to="/register"
-                className="px-8 py-4 bg-white border-2 border-orange-600 text-orange-600 rounded-xl font-bold text-lg hover:bg-orange-50 transition-all duration-200"
+                className="px-8 py-4 glass-card-light border-2 border-emerald-500 dark:border-emerald-600 text-emerald-600 dark:text-emerald-400 rounded-xl font-bold text-lg hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-all duration-300 hover:scale-105 shadow-lg"
               >
                 {language === 'en' ? 'Become a Tasker' : 'Devenir Tasker'}
               </Link>
             </div>
 
             {/* Trust Badges */}
-            <div className="flex flex-wrap justify-center items-center space-x-6 text-sm text-gray-600">
+            <div className="flex flex-wrap justify-center items-center space-x-6 text-sm text-gray-600 dark:text-gray-300">
               <div className="flex items-center space-x-2">
-                <CheckCircle className="w-5 h-5 text-green-600" />
+                <CheckCircle className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
                 <span>{language === 'en' ? 'Verified Professionals' : 'Professionnels vérifiés'}</span>
               </div>
               <div className="flex items-center space-x-2">
-                <Shield className="w-5 h-5 text-blue-600" />
+                <Shield className="w-5 h-5 text-teal-600 dark:text-teal-400" />
                 <span>{language === 'en' ? 'Secure Payments' : 'Paiements sécurisés'}</span>
               </div>
               <div className="flex items-center space-x-2">
-                <Star className="w-5 h-5 text-yellow-600" />
+                <Star className="w-5 h-5 text-yellow-600 dark:text-yellow-400" />
                 <span>{language === 'en' ? '4.8/5 Average Rating' : 'Note moyenne 4.8/5'}</span>
               </div>
             </div>
@@ -219,15 +226,21 @@ const LandingPage = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 bg-gray-900 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-16 bg-gray-900 dark:bg-gray-950 text-white relative overflow-hidden">
+        {/* Glow effect */}
+        <div className="absolute inset-0">
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl" />
+        </div>
+        
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {stats.map((stat, index) => (
-              <div key={index} className="animate-fadeIn" style={{ animationDelay: `${index * 100}ms` }}>
-                <div className="flex justify-center mb-3 text-orange-500">
+              <div key={index} className="animate-scale-in hover-lift" style={{ animationDelay: `${index * 100}ms` }}>
+                <div className="flex justify-center mb-3 text-emerald-500 dark:text-emerald-400">
                   {stat.icon}
                 </div>
-                <div className="text-4xl md:text-5xl font-extrabold mb-2 bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent">
+                <div className="text-4xl md:text-5xl font-extrabold mb-2 gradient-text">
                   {stat.value}
                 </div>
                 <div className="text-gray-400 text-sm md:text-base">
