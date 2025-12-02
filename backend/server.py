@@ -98,6 +98,9 @@ app.include_router(favorites_router)
 from routes.badge_routes import router as badge_router
 app.include_router(badge_router)
 
+from routes.ai_assistant_routes import router as ai_assistant_router
+app.include_router(ai_assistant_router)
+
 # Include the main API router
 app.include_router(api_router)
 
