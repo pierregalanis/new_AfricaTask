@@ -167,14 +167,14 @@ const TaskerServicesManagement = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-white">
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-white dark:from-gray-950 dark:to-gray-900">
       <Navbar />
       
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="bg-white dark:bg-gray-800/70 rounded-2xl shadow-lg p-8">
+        <div className="glass-card">
           <div className="flex items-center space-x-3 mb-6">
-            <Briefcase className="w-8 h-8 text-emerald-600" />
-            <h1 className="text-3xl font-bold text-gray-900">
+            <Briefcase className="w-8 h-8 text-emerald-600 dark:text-emerald-400" />
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
               {language === 'en' ? 'Manage Your Services' : 'Gérer vos services'}
             </h1>
           </div>
