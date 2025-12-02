@@ -73,14 +73,16 @@ const ImprovedNotificationCenter = ({ language = 'en' }) => {
     switch (type) {
       case 'task_accepted':
       case 'task_completed':
-        return <CheckCircle className="w-5 h-5 text-green-600" />;
+      case 'tasker_on_way':
+        return <CheckCircle className="w-5 h-5 text-green-600 dark:text-green-400" />;
       case 'task_rejected':
+      case 'task_cancelled':
       case 'dispute_raised':
-        return <AlertTriangle className="w-5 h-5 text-red-600" />;
+        return <AlertTriangle className="w-5 h-5 text-red-600 dark:text-red-400" />;
       case 'new_message':
-        return <MessageCircle className="w-5 h-5 text-blue-600" />;
+        return <MessageCircle className="w-5 h-5 text-blue-600 dark:text-blue-400" />;
       default:
-        return <Briefcase className="w-5 h-5 text-emerald-600" />;
+        return <Briefcase className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />;
     }
   };
 
