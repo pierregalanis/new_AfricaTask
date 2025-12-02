@@ -120,16 +120,16 @@ const NotificationBell = () => {
 
       {/* Dropdown */}
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-96 bg-white dark:bg-gray-800/70 rounded-lg shadow-xl border border-gray-200 z-50 max-h-[600px] flex flex-col">
+        <div className="absolute right-0 mt-2 w-96 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 z-50 max-h-[600px] flex flex-col">
           {/* Header */}
-          <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200">
-            <h3 className="font-semibold text-gray-900">
+          <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 dark:border-gray-700">
+            <h3 className="font-semibold text-gray-900 dark:text-white">
               {language === 'en' ? 'Notifications' : 'Notifications'}
             </h3>
             {notifications.length > 0 && (
               <button
                 onClick={markAllAsRead}
-                className="text-sm text-emerald-600 hover:text-emerald-700 font-medium flex items-center space-x-1"
+                className="text-sm text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 font-medium flex items-center space-x-1"
               >
                 <CheckCheck className="w-4 h-4" />
                 <span>{language === 'en' ? 'Mark all read' : 'Tout marquer'}</span>
@@ -140,17 +140,17 @@ const NotificationBell = () => {
           {/* Notifications List */}
           <div className="overflow-y-auto flex-1">
             {notifications.length === 0 ? (
-              <div className="px-4 py-8 text-center text-gray-500">
-                <Bell className="w-12 h-12 mx-auto mb-2 text-gray-300" />
+              <div className="px-4 py-8 text-center text-gray-500 dark:text-gray-400">
+                <Bell className="w-12 h-12 mx-auto mb-2 text-gray-300 dark:text-gray-600" />
                 <p>{language === 'en' ? 'No notifications' : 'Aucune notification'}</p>
               </div>
             ) : (
-              <div className="divide-y divide-gray-100">
+              <div className="divide-y divide-gray-100 dark:divide-gray-700">
                 {notifications.map((notification) => (
                   <div
                     key={notification.id}
-                    className={`px-4 py-3 hover:bg-gray-50 cursor-pointer transition-colors ${
-                      !notification.is_read ? 'bg-blue-50' : ''
+                    className={`px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700/50 cursor-pointer transition-colors ${
+                      !notification.is_read ? 'bg-blue-50 dark:bg-blue-900/30' : ''
                     }`}
                     onClick={() => handleNotificationClick(notification)}
                   >
@@ -159,10 +159,10 @@ const NotificationBell = () => {
                         {getNotificationIcon(notification.type)}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className={`text-sm ${!notification.is_read ? 'font-semibold text-gray-900' : 'text-gray-700'}`}>
+                        <p className={`text-sm ${!notification.is_read ? 'font-semibold text-gray-900 dark:text-white' : 'text-gray-700 dark:text-gray-300'}`}>
                           {getNotificationText(notification)}
                         </p>
-                        <p className="text-xs text-gray-500 mt-1">
+                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                           {formatTimestamp(notification.created_at)}
                         </p>
                       </div>
