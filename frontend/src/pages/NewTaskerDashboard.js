@@ -25,7 +25,7 @@ const NewTaskerDashboard = () => {
 
   useEffect(() => {
     if (!user?.tasker_profile?.hourly_rate || user.tasker_profile.hourly_rate === 0) {
-      navigate('/tasker/setup');
+      navigate('/tasker-profile-setup');
       return;
     }
     fetchBookings();
