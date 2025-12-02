@@ -77,7 +77,7 @@ const NewClientDashboard = () => {
   const getStatusColor = (status) => {
     const colors = {
       assigned: 'bg-blue-100 text-blue-800',
-      in_progress: 'bg-purple-100 text-purple-800',
+      in_progress: 'bg-emerald-100 text-purple-800',
       completed: 'bg-green-100 text-green-800',
       cancelled: 'bg-red-100 text-red-800',
     };
@@ -140,7 +140,7 @@ const NewClientDashboard = () => {
             </div>
             <button
               onClick={() => navigate('/services')}
-              className="btn-primary bg-white dark:bg-gray-800/70 dark:bg-gray-800/70 text-emerald-600 hover:bg-gray-50 dark:bg-gray-950 shadow-2xl"
+              className="btn-primary bg-white dark:bg-gray-800/70 dark:bg-gray-800/70 text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 dark:bg-gray-950 shadow-2xl"
               data-testid="browse-services-button"
             >
               <Search className="w-5 h-5 inline mr-2" />
@@ -156,7 +156,7 @@ const NewClientDashboard = () => {
             className={`px-6 py-3 rounded-xl font-semibold transition ${
               filter === 'all'
                 ? 'bg-emerald-600 text-white shadow-lg'
-                : 'bg-white dark:bg-gray-800/70 text-gray-700 dark:text-gray-300 hover:bg-gray-50 shadow'
+                : 'bg-white dark:bg-gray-800/70 text-gray-700 dark:text-gray-200 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 shadow'
             }`}
             data-testid="filter-all"
           >
@@ -167,7 +167,7 @@ const NewClientDashboard = () => {
             className={`px-6 py-3 rounded-xl font-semibold transition ${
               filter === 'upcoming'
                 ? 'bg-emerald-600 text-white shadow-lg'
-                : 'bg-white dark:bg-gray-800/70 text-gray-700 dark:text-gray-300 hover:bg-gray-50 shadow'
+                : 'bg-white dark:bg-gray-800/70 text-gray-700 dark:text-gray-200 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 shadow'
             }`}
             data-testid="filter-upcoming"
           >
@@ -178,7 +178,7 @@ const NewClientDashboard = () => {
             className={`px-6 py-3 rounded-xl font-semibold transition ${
               filter === 'completed'
                 ? 'bg-emerald-600 text-white shadow-lg'
-                : 'bg-white dark:bg-gray-800/70 text-gray-700 dark:text-gray-300 hover:bg-gray-50 shadow'
+                : 'bg-white dark:bg-gray-800/70 text-gray-700 dark:text-gray-200 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 shadow'
             }`}
             data-testid="filter-completed"
           >
@@ -222,7 +222,7 @@ const NewClientDashboard = () => {
                       )}
                     </div>
                     
-                    <p className="text-gray-600 dark:text-gray-400 dark:text-gray-300 text-sm mb-3 line-clamp-2">{booking.description}</p>
+                    <p className="text-gray-600 dark:text-gray-400 dark:text-gray-200 text-sm mb-3 line-clamp-2">{booking.description}</p>
                     
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
                       <div className="flex items-center space-x-2 text-gray-600">
@@ -240,7 +240,7 @@ const NewClientDashboard = () => {
                     
                     {/* Payment Details for Completed Tasks */}
                     {booking.status === 'completed' && booking.payment_method && (
-                      <div className="mt-3 text-xs text-gray-600 dark:text-gray-400 dark:text-gray-300 flex items-center space-x-2">
+                      <div className="mt-3 text-xs text-gray-600 dark:text-gray-400 dark:text-gray-200 flex items-center space-x-2">
                         <span className="font-medium">
                           {language === 'en' ? 'Payment Method:' : 'Méthode de paiement:'}
                         </span>
