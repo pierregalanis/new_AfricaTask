@@ -126,13 +126,13 @@ const NewClientDashboard = () => {
                 {language === 'en' ? 'Manage your bookings' : 'Gérez vos réservations'}
               </p>
               <div className="mt-4 flex items-center space-x-4">
-                <div className="bg-white dark:bg-gray-800/70/20 backdrop-blur px-4 py-2 rounded-lg">
-                  <span className="text-sm opacity-90">{language === 'en' ? 'Total Bookings' : 'Total'}</span>
-                  <p className="text-2xl font-bold">{bookings.length}</p>
+                <div className="bg-white/20 dark:bg-gray-800/50 backdrop-blur px-4 py-2 rounded-lg border border-white/30 dark:border-emerald-500/30">
+                  <span className="text-sm text-white dark:text-emerald-200 font-medium">{language === 'en' ? 'Total Bookings' : 'Total'}</span>
+                  <p className="text-2xl font-bold text-white dark:text-white">{bookings.length}</p>
                 </div>
-                <div className="bg-white dark:bg-gray-800/70/20 backdrop-blur px-4 py-2 rounded-lg">
-                  <span className="text-sm opacity-90">{language === 'en' ? 'Upcoming' : 'À venir'}</span>
-                  <p className="text-2xl font-bold">
+                <div className="bg-white/20 dark:bg-gray-800/50 backdrop-blur px-4 py-2 rounded-lg border border-white/30 dark:border-emerald-500/30">
+                  <span className="text-sm text-white dark:text-emerald-200 font-medium">{language === 'en' ? 'Upcoming' : 'À venir'}</span>
+                  <p className="text-2xl font-bold text-white dark:text-white">
                     {bookings.filter(b => ['assigned', 'in_progress'].includes(b.status)).length}
                   </p>
                 </div>
