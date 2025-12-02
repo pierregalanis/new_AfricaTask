@@ -1633,7 +1633,7 @@ class FavoritesAndBadgesTester:
         if response and response.status_code == 404:
             self.log("✅ Correctly returns 404 for non-existent tasker")
         else:
-            self.log("❌ Should return 404 for non-existent tasker", "ERROR")
+            self.log(f"❌ Should return 404 for non-existent tasker, got {response.status_code if response else 'None'}", "ERROR")
             return False
         
         # Test 2: Get badges for non-existent tasker
