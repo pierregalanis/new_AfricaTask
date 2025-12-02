@@ -190,14 +190,6 @@ function AppRoutes() {
           </ProtectedRoute>
         }
       />
-      <Route
-        path="/recurring-tasks"
-        element={
-          <ProtectedRoute>
-            <RecurringTasksPage />
-          </ProtectedRoute>
-        }
-      />
     </Routes>
   );
 }
