@@ -4,7 +4,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { 
   Menu, X, Home, Briefcase, User, LogOut, 
   LayoutDashboard, Settings, Bell, MessageCircle,
-  Repeat, Shield, Coins
+  Shield, Coins
 } from 'lucide-react';
 
 const MobileNav = ({ language = 'en' }) => {
