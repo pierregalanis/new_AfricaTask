@@ -79,12 +79,14 @@ const TaskDetails = () => {
         const API_URL = process.env.REACT_APP_BACKEND_URL;
         const token = localStorage.getItem('token');
         
-        // Fetch actual completed tasks count
-        const tasksResponse = await axios.get(
-          `${API_URL}/api/tasks?tasker_id=${taskerId}&status=completed`,
+        // Use the same stats endpoint that ProfilePage uses for consistency
+        const statsResponse = await axios.get(
+          `${API_URL}/api/reviews/tasker/${taskerId}/rating`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
-        const completedTasks = Array.isArray(tasksResponse.data) ? tasksResponse.data.length : 0;
+        const completedTasks = statsResponse.data.total_completed_tasks || 0;
+        const totalReviews = statsResponse.data.total_reviews || 0;
+        const averageRating = statsResponse.data.average_rating || 0;
         
         // Fetch reviews
         const reviewsResponse = await axios.get(
