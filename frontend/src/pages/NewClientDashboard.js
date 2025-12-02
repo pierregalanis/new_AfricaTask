@@ -116,13 +116,13 @@ const NewClientDashboard = () => {
       <Navbar />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
-        <div className="fancy-card p-8 mb-8 bg-gradient-to-r from-orange-500 to-orange-600 text-white animate-fadeIn">
+        <div className="fancy-card p-8 mb-8 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white animate-fadeIn">
           <div className="flex justify-between items-center">
             <div className="flex-1">
               <h1 className="text-4xl font-bold mb-2" data-testid="client-dashboard-title">
                 {language === 'en' ? '👋 Welcome back, ' : '👋 Bon retour, '}{user?.full_name}!
               </h1>
-              <p className="text-orange-100 text-lg">
+              <p className="text-emerald-100 text-lg">
                 {language === 'en' ? 'Manage your bookings' : 'Gérez vos réservations'}
               </p>
               <div className="mt-4 flex items-center space-x-4">
@@ -140,7 +140,7 @@ const NewClientDashboard = () => {
             </div>
             <button
               onClick={() => navigate('/services')}
-              className="btn-primary bg-white text-orange-600 hover:bg-gray-50 shadow-2xl"
+              className="btn-primary bg-white dark:bg-gray-800/70 text-emerald-600 hover:bg-gray-50 shadow-2xl"
               data-testid="browse-services-button"
             >
               <Search className="w-5 h-5 inline mr-2" />
@@ -155,8 +155,8 @@ const NewClientDashboard = () => {
             onClick={() => setFilter('all')}
             className={`px-6 py-3 rounded-xl font-semibold transition ${
               filter === 'all'
-                ? 'bg-orange-600 text-white shadow-lg'
-                : 'bg-white text-gray-700 hover:bg-gray-50 shadow'
+                ? 'bg-emerald-600 text-white shadow-lg'
+                : 'bg-white dark:bg-gray-800/70 text-gray-700 hover:bg-gray-50 shadow'
             }`}
             data-testid="filter-all"
           >
@@ -166,8 +166,8 @@ const NewClientDashboard = () => {
             onClick={() => setFilter('upcoming')}
             className={`px-6 py-3 rounded-xl font-semibold transition ${
               filter === 'upcoming'
-                ? 'bg-orange-600 text-white shadow-lg'
-                : 'bg-white text-gray-700 hover:bg-gray-50 shadow'
+                ? 'bg-emerald-600 text-white shadow-lg'
+                : 'bg-white dark:bg-gray-800/70 text-gray-700 hover:bg-gray-50 shadow'
             }`}
             data-testid="filter-upcoming"
           >
@@ -177,8 +177,8 @@ const NewClientDashboard = () => {
             onClick={() => setFilter('completed')}
             className={`px-6 py-3 rounded-xl font-semibold transition ${
               filter === 'completed'
-                ? 'bg-orange-600 text-white shadow-lg'
-                : 'bg-white text-gray-700 hover:bg-gray-50 shadow'
+                ? 'bg-emerald-600 text-white shadow-lg'
+                : 'bg-white dark:bg-gray-800/70 text-gray-700 hover:bg-gray-50 shadow'
             }`}
             data-testid="filter-completed"
           >
@@ -233,7 +233,7 @@ const NewClientDashboard = () => {
                         <Clock className="w-4 h-4" />
                         <span>{booking.duration_hours}h</span>
                       </div>
-                      <div className="flex items-center space-x-2 font-semibold text-orange-600">
+                      <div className="flex items-center space-x-2 font-semibold text-emerald-600">
                         <span>{booking.total_cost} CFA</span>
                       </div>
                     </div>
@@ -318,7 +318,7 @@ const NewClientDashboard = () => {
                           setSelectedTaskForPayment(booking);
                           setPaymentModalOpen(true);
                         }}
-                        className="px-6 py-3 bg-orange-600 text-white rounded-xl font-semibold hover:bg-orange-700 transition flex items-center justify-center space-x-2 shadow-lg"
+                        className="px-6 py-3 bg-emerald-600 text-white rounded-xl font-semibold hover:bg-emerald-700 transition flex items-center justify-center space-x-2 shadow-lg"
                       >
                         <CreditCard className="w-5 h-5" />
                         <span>{language === 'en' ? 'Pay Online' : 'Payer en ligne'}</span>

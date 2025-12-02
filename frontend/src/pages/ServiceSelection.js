@@ -40,11 +40,11 @@ const ServiceSelection = () => {
       <Navbar />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Hero Section */}
-        <div className="fancy-card p-8 mb-8 bg-gradient-to-r from-orange-500 to-orange-600 text-white text-center animate-fadeIn">
+        <div className="fancy-card p-8 mb-8 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white text-center animate-fadeIn">
           <h1 className="text-4xl font-bold mb-4" data-testid="service-selection-title">
             {language === 'en' ? 'What do you need help with?' : 'De quoi avez-vous besoin?'}
           </h1>
-          <p className="text-xl text-orange-100 mb-6">
+          <p className="text-xl text-emerald-100 mb-6">
             {language === 'en' 
               ? 'Browse services and find the perfect tasker'
               : 'Parcourez les services et trouvez le tasker parfait'}
@@ -58,7 +58,7 @@ const ServiceSelection = () => {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder={language === 'en' ? 'Search services...' : 'Rechercher des services...'}
-              className="w-full pl-12 pr-4 py-4 rounded-xl text-gray-900 focus:outline-none focus:ring-4 focus:ring-orange-300"
+              className="w-full pl-12 pr-4 py-4 rounded-xl text-gray-900 focus:outline-none focus:ring-4 focus:ring-emerald-300"
               data-testid="service-search-input"
             />
           </div>
@@ -108,7 +108,7 @@ const ServiceSelection = () => {
                     <button
                       key={idx}
                       onClick={() => handleSelectCategory(category.id)}
-                      className="text-left p-3 rounded-lg hover:bg-orange-50 transition border border-gray-200 hover:border-orange-300"
+                      className="text-left p-3 rounded-lg hover:bg-emerald-50 transition border border-gray-200 hover:border-emerald-300"
                       data-testid={`subcategory-${category.id}-${idx}`}
                     >
                       <span className="text-sm text-gray-700">

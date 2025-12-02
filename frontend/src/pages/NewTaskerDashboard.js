@@ -324,7 +324,7 @@ const NewTaskerDashboard = () => {
             </div>
             <button
               onClick={() => navigate('/tasker/setup')}
-              className="btn-primary bg-white text-purple-600 hover:bg-gray-50 shadow-2xl"
+              className="btn-primary bg-white dark:bg-gray-800/70 text-purple-600 hover:bg-gray-50 shadow-2xl"
               data-testid="edit-profile-button"
             >
               <Settings className="w-5 h-5 inline mr-2" />
@@ -337,7 +337,7 @@ const NewTaskerDashboard = () => {
           <button
             onClick={() => setFilter('pending')}
             className={`px-6 py-3 rounded-xl font-semibold transition ${
-              filter === 'pending' ? 'bg-purple-600 text-white shadow-lg' : 'bg-white text-gray-700 hover:bg-gray-50 shadow'
+              filter === 'pending' ? 'bg-purple-600 text-white shadow-lg' : 'bg-white dark:bg-gray-800/70 text-gray-700 hover:bg-gray-50 shadow'
             }`}
             data-testid="filter-pending"
           >
@@ -346,7 +346,7 @@ const NewTaskerDashboard = () => {
           <button
             onClick={() => setFilter('active')}
             className={`px-6 py-3 rounded-xl font-semibold transition ${
-              filter === 'active' ? 'bg-purple-600 text-white shadow-lg' : 'bg-white text-gray-700 hover:bg-gray-50 shadow'
+              filter === 'active' ? 'bg-purple-600 text-white shadow-lg' : 'bg-white dark:bg-gray-800/70 text-gray-700 hover:bg-gray-50 shadow'
             }`}
             data-testid="filter-active"
           >
@@ -355,7 +355,7 @@ const NewTaskerDashboard = () => {
           <button
             onClick={() => setFilter('completed')}
             className={`px-6 py-3 rounded-xl font-semibold transition ${
-              filter === 'completed' ? 'bg-purple-600 text-white shadow-lg' : 'bg-white text-gray-700 hover:bg-gray-50 shadow'
+              filter === 'completed' ? 'bg-purple-600 text-white shadow-lg' : 'bg-white dark:bg-gray-800/70 text-gray-700 hover:bg-gray-50 shadow'
             }`}
             data-testid="filter-completed"
           >
