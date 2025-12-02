@@ -149,13 +149,14 @@ const TaskerReviews = ({ taskerId, language = 'en' }) => {
 
       <div className="space-y-4">
         {reviews.map((review) => {
+          const reviewId = review.id; // Backend returns 'id', not 'review_id'
           const targetLang = language === 'en' ? 'en' : 'fr';
-          const displayText = getDisplayText(review.review_id, review.comment, targetLang);
-          const isTranslated = showTranslation[review.review_id] && translatedTexts[`${review.review_id}_${targetLang}`];
+          const displayText = getDisplayText(reviewId, review.comment, targetLang);
+          const isTranslated = showTranslation[reviewId] && translatedTexts[`${reviewId}_${targetLang}`];
 
           return (
             <div
-              key={review.review_id}
+              key={reviewId}
               className="bg-white dark:bg-gray-800/70 border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow"
             >
               {/* Header: Rating and Date */}
