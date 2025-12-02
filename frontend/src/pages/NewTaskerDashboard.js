@@ -324,7 +324,7 @@ const NewTaskerDashboard = () => {
             </div>
             <button
               onClick={() => navigate('/tasker/setup')}
-              className="btn-primary bg-white dark:bg-gray-800/70 dark:bg-gray-800/70 text-purple-600 hover:bg-gray-50 dark:bg-gray-950 shadow-2xl"
+              className="btn-glass"
               data-testid="edit-profile-button"
             >
               <Settings className="w-5 h-5 inline mr-2" />
