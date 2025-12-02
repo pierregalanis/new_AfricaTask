@@ -1303,6 +1303,407 @@ class NewFeaturesTester:
             return True
 
 
+class FavoritesAndBadgesTester:
+    """Test Favorites and Badges features"""
+    
+    def __init__(self):
+        self.client_token = None
+        self.tasker_token = None
+        self.client_id = None
+        self.tasker_id = None
+        # Use the specific tasker IDs from the review request
+        self.test_tasker_ids = ["afca3c56-daba-41c0-a212-fb53ea68042f", "0331876e-f975-45e3-8782-17000f009340"]
+        
+    def log(self, message, status="INFO"):
+        print(f"[{status}] {message}")
+        
+    def make_request(self, method, endpoint, data=None, headers=None, token=None, files=None):
+        """Make HTTP request with proper error handling"""
+        url = f"{BACKEND_URL}{endpoint}"
+        
+        if headers is None:
+            headers = {}
+            
+        if token:
+            headers["Authorization"] = f"Bearer {token}"
+            
+        try:
+            if method.upper() == "GET":
+                if "Content-Type" not in headers:
+                    headers["Content-Type"] = "application/json"
+                response = requests.get(url, headers=headers, params=data)
+            elif method.upper() == "POST":
+                if files:
+                    # For file uploads, don't set Content-Type (let requests handle it)
+                    if "Content-Type" in headers:
+                        del headers["Content-Type"]
+                    response = requests.post(url, data=data, files=files, headers=headers)
+                elif "Content-Type" not in headers:
+                    headers["Content-Type"] = "application/x-www-form-urlencoded"
+                    response = requests.post(url, data=data, headers=headers)
+                elif headers.get("Content-Type") == "application/json":
+                    response = requests.post(url, json=data, headers=headers)
+                else:
+                    response = requests.post(url, data=data, headers=headers)
+            elif method.upper() == "DELETE":
+                headers["Content-Type"] = "application/json"
+                response = requests.delete(url, headers=headers)
+            else:
+                raise ValueError(f"Unsupported method: {method}")
+                
+            self.log(f"{method} {url} -> {response.status_code}")
+            
+            if response.status_code >= 400:
+                self.log(f"Error response: {response.text}", "ERROR")
+                
+            return response
+            
+        except Exception as e:
+            self.log(f"Request failed: {str(e)}", "ERROR")
+            return None
+    
+    def test_authentication(self):
+        """Test authentication for client and tasker"""
+        self.log("=== Testing Authentication ===")
+        
+        # Test client login
+        response = self.make_request("POST", "/auth/login", {
+            "username": "testclient@demo.com",
+            "password": "test123"
+        })
+        
+        if not response or response.status_code != 200:
+            self.log("❌ Client login failed", "ERROR")
+            return False
+            
+        try:
+            data = response.json()
+            self.client_token = data.get("access_token")
+            if not self.client_token:
+                self.log("❌ No client access token", "ERROR")
+                return False
+        except Exception as e:
+            self.log(f"❌ Failed to parse client login response: {e}", "ERROR")
+            return False
+            
+        # Get client ID
+        response = self.make_request("GET", "/auth/me", None, None, self.client_token)
+        if response and response.status_code == 200:
+            try:
+                user_data = response.json()
+                self.client_id = user_data.get("id")
+            except Exception as e:
+                self.log(f"❌ Failed to parse client info: {e}", "ERROR")
+                return False
+        
+        # Test tasker login
+        response = self.make_request("POST", "/auth/login", {
+            "username": "testtasker@demo.com",
+            "password": "test123"
+        })
+        
+        if not response or response.status_code != 200:
+            self.log("❌ Tasker login failed", "ERROR")
+            return False
+            
+        try:
+            data = response.json()
+            self.tasker_token = data.get("access_token")
+            if not self.tasker_token:
+                self.log("❌ No tasker access token", "ERROR")
+                return False
+        except Exception as e:
+            self.log(f"❌ Failed to parse tasker login response: {e}", "ERROR")
+            return False
+            
+        # Get tasker ID
+        response = self.make_request("GET", "/auth/me", None, None, self.tasker_token)
+        if response and response.status_code == 200:
+            try:
+                user_data = response.json()
+                self.tasker_id = user_data.get("id")
+            except Exception as e:
+                self.log(f"❌ Failed to parse tasker info: {e}", "ERROR")
+                return False
+        
+        if self.client_token and self.tasker_token:
+            self.log(f"✅ Authentication successful - Client: {self.client_id}, Tasker: {self.tasker_id}")
+            return True
+        else:
+            self.log("❌ Authentication failed", "ERROR")
+            return False
+    
+    def test_badges_system(self):
+        """Test badges system for taskers"""
+        self.log("=== Testing Badges System ===")
+        
+        # Test badges for each tasker ID
+        for tasker_id in self.test_tasker_ids:
+            self.log(f"Testing badges for tasker: {tasker_id}")
+            
+            response = self.make_request("GET", f"/badges/tasker/{tasker_id}")
+            
+            if not response or response.status_code != 200:
+                self.log(f"❌ Failed to get badges for tasker {tasker_id}", "ERROR")
+                return False
+            
+            try:
+                badges = response.json()
+                self.log(f"✅ Retrieved {len(badges)} badges for tasker {tasker_id}")
+                
+                # Log badge details
+                for badge in badges:
+                    badge_type = badge.get("type", "unknown")
+                    badge_name = badge.get("name_en", "Unknown")
+                    self.log(f"   Badge: {badge_name} ({badge_type})")
+                
+                # Verify badge structure
+                for badge in badges:
+                    required_fields = ["type", "name_en", "name_fr", "description_en", "description_fr", "icon", "color"]
+                    for field in required_fields:
+                        if field not in badge:
+                            self.log(f"❌ Badge missing required field: {field}", "ERROR")
+                            return False
+                
+            except Exception as e:
+                self.log(f"❌ Failed to parse badges response: {e}", "ERROR")
+                return False
+        
+        self.log("✅ Badges system working correctly")
+        return True
+    
+    def test_favorites_system(self):
+        """Test favorites system"""
+        self.log("=== Testing Favorites System ===")
+        
+        if not self.client_token:
+            self.log("❌ No client token available", "ERROR")
+            return False
+        
+        # Use the first test tasker ID
+        test_tasker_id = self.test_tasker_ids[0]
+        
+        # Test 1: Add tasker to favorites
+        self.log(f"Adding tasker {test_tasker_id} to favorites...")
+        
+        response = self.make_request("POST", "/favorites", {
+            "tasker_id": test_tasker_id
+        }, None, self.client_token)
+        
+        if not response or response.status_code not in [200, 201]:
+            # Check if already in favorites (400 error is expected if already added)
+            if response and response.status_code == 400 and "Already in favorites" in response.text:
+                self.log("✅ Tasker already in favorites (expected)")
+            else:
+                self.log("❌ Failed to add tasker to favorites", "ERROR")
+                return False
+        else:
+            try:
+                result = response.json()
+                self.log(f"✅ Added tasker to favorites: {result.get('message')}")
+            except Exception as e:
+                self.log(f"❌ Failed to parse add favorite response: {e}", "ERROR")
+                return False
+        
+        # Test 2: Check if tasker is in favorites
+        self.log(f"Checking if tasker {test_tasker_id} is favorited...")
+        
+        response = self.make_request("GET", f"/favorites/check/{test_tasker_id}", None, None, self.client_token)
+        
+        if not response or response.status_code != 200:
+            self.log("❌ Failed to check favorite status", "ERROR")
+            return False
+        
+        try:
+            result = response.json()
+            is_favorite = result.get("is_favorite", False)
+            if is_favorite:
+                self.log("✅ Tasker is correctly marked as favorite")
+            else:
+                self.log("❌ Tasker is not marked as favorite", "ERROR")
+                return False
+        except Exception as e:
+            self.log(f"❌ Failed to parse check favorite response: {e}", "ERROR")
+            return False
+        
+        # Test 3: Get all favorites
+        self.log("Getting all favorites...")
+        
+        response = self.make_request("GET", "/favorites", None, None, self.client_token)
+        
+        if not response or response.status_code != 200:
+            self.log("❌ Failed to get favorites list", "ERROR")
+            return False
+        
+        try:
+            favorites = response.json()
+            self.log(f"✅ Retrieved {len(favorites)} favorites")
+            
+            # Check if our test tasker is in the list
+            found_tasker = False
+            for favorite in favorites:
+                if favorite.get("tasker_id") == test_tasker_id:
+                    found_tasker = True
+                    self.log(f"   Found favorite: {favorite.get('tasker_name')} (Rating: {favorite.get('tasker_rating')})")
+                    break
+            
+            if not found_tasker:
+                self.log("❌ Test tasker not found in favorites list", "ERROR")
+                return False
+            
+        except Exception as e:
+            self.log(f"❌ Failed to parse favorites list response: {e}", "ERROR")
+            return False
+        
+        # Test 4: Remove tasker from favorites
+        self.log(f"Removing tasker {test_tasker_id} from favorites...")
+        
+        response = self.make_request("DELETE", f"/favorites/{test_tasker_id}", None, None, self.client_token)
+        
+        if not response or response.status_code != 200:
+            self.log("❌ Failed to remove tasker from favorites", "ERROR")
+            return False
+        
+        try:
+            result = response.json()
+            self.log(f"✅ Removed from favorites: {result.get('message')}")
+        except Exception as e:
+            self.log(f"❌ Failed to parse remove favorite response: {e}", "ERROR")
+            return False
+        
+        # Test 5: Verify removal
+        self.log(f"Verifying removal of tasker {test_tasker_id}...")
+        
+        response = self.make_request("GET", f"/favorites/check/{test_tasker_id}", None, None, self.client_token)
+        
+        if not response or response.status_code != 200:
+            self.log("❌ Failed to check favorite status after removal", "ERROR")
+            return False
+        
+        try:
+            result = response.json()
+            is_favorite = result.get("is_favorite", True)
+            if not is_favorite:
+                self.log("✅ Tasker correctly removed from favorites")
+            else:
+                self.log("❌ Tasker still marked as favorite after removal", "ERROR")
+                return False
+        except Exception as e:
+            self.log(f"❌ Failed to parse check favorite response after removal: {e}", "ERROR")
+            return False
+        
+        self.log("✅ Favorites system working correctly")
+        return True
+    
+    def test_edge_cases(self):
+        """Test edge cases and error handling"""
+        self.log("=== Testing Edge Cases ===")
+        
+        if not self.client_token:
+            self.log("❌ No client token available", "ERROR")
+            return False
+        
+        # Test 1: Add non-existent tasker to favorites
+        self.log("Testing add non-existent tasker to favorites...")
+        
+        response = self.make_request("POST", "/favorites", {
+            "tasker_id": "non-existent-tasker-id"
+        }, None, self.client_token)
+        
+        if response and response.status_code == 404:
+            self.log("✅ Correctly returns 404 for non-existent tasker")
+        else:
+            self.log("❌ Should return 404 for non-existent tasker", "ERROR")
+            return False
+        
+        # Test 2: Get badges for non-existent tasker
+        self.log("Testing badges for non-existent tasker...")
+        
+        response = self.make_request("GET", "/badges/tasker/non-existent-tasker-id")
+        
+        if response and response.status_code == 404:
+            self.log("✅ Correctly returns 404 for non-existent tasker badges")
+        else:
+            self.log("❌ Should return 404 for non-existent tasker badges", "ERROR")
+            return False
+        
+        # Test 3: Remove non-existent favorite
+        self.log("Testing remove non-existent favorite...")
+        
+        response = self.make_request("DELETE", "/favorites/non-existent-tasker-id", None, None, self.client_token)
+        
+        if response and response.status_code == 404:
+            self.log("✅ Correctly returns 404 for non-existent favorite")
+        else:
+            self.log("❌ Should return 404 for non-existent favorite", "ERROR")
+            return False
+        
+        # Test 4: Unauthenticated requests
+        self.log("Testing unauthenticated requests...")
+        
+        endpoints_to_test = [
+            ("GET", "/favorites"),
+            ("POST", "/favorites", {"tasker_id": self.test_tasker_ids[0]}),
+            ("DELETE", f"/favorites/{self.test_tasker_ids[0]}"),
+            ("GET", f"/favorites/check/{self.test_tasker_ids[0]}")
+        ]
+        
+        for method, endpoint, *data in endpoints_to_test:
+            request_data = data[0] if data else None
+            response = self.make_request(method, endpoint, request_data)
+            
+            if response and response.status_code == 401:
+                self.log(f"✅ {method} {endpoint} correctly requires authentication")
+            else:
+                self.log(f"❌ {method} {endpoint} should require authentication", "ERROR")
+                return False
+        
+        self.log("✅ Edge cases handled correctly")
+        return True
+    
+    def run_favorites_and_badges_tests(self):
+        """Run all favorites and badges tests"""
+        self.log("🚀 Starting Favorites and Badges Testing")
+        self.log(f"Backend URL: {BACKEND_URL}")
+        self.log(f"Test Tasker IDs: {self.test_tasker_ids}")
+        
+        tests = [
+            ("Authentication", self.test_authentication),
+            ("Badges System", self.test_badges_system),
+            ("Favorites System", self.test_favorites_system),
+            ("Edge Cases", self.test_edge_cases)
+        ]
+        
+        passed = 0
+        failed = 0
+        
+        for test_name, test_func in tests:
+            try:
+                self.log(f"\n--- {test_name} ---")
+                if test_func():
+                    passed += 1
+                    self.log(f"✅ {test_name} PASSED", "SUCCESS")
+                else:
+                    failed += 1
+                    self.log(f"❌ {test_name} FAILED", "ERROR")
+            except Exception as e:
+                failed += 1
+                self.log(f"❌ {test_name} FAILED with exception: {e}", "ERROR")
+            
+            print("-" * 60)
+        
+        # Summary
+        total = passed + failed
+        self.log(f"📊 FAVORITES & BADGES TESTS SUMMARY: {passed}/{total} tests passed")
+        
+        if failed > 0:
+            self.log(f"❌ {failed} tests failed", "ERROR")
+            return False
+        else:
+            self.log("✅ All favorites and badges tests passed!", "SUCCESS")
+            return True
+
+
 class WebSocketChatTester:
     """Test WebSocket real-time chat functionality"""
     
