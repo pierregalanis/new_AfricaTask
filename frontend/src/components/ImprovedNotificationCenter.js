@@ -40,11 +40,11 @@ const ImprovedNotificationCenter = ({ language = 'en' }) => {
     try {
       await axios.post(
         `${process.env.REACT_APP_BACKEND_URL}/api/notifications/mark-read`,
-        { notification_ids: [notificationId] },
+        { ids: [notificationId] },
         { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       );
       setNotifications(prev => 
-        prev.map(n => n.notification_id === notificationId ? { ...n, is_read: true } : n)
+        prev.map(n => n.id === notificationId ? { ...n, is_read: true } : n)
       );
     } catch (error) {
       console.error('Error marking notification as read:', error);
@@ -55,12 +55,12 @@ const ImprovedNotificationCenter = ({ language = 'en' }) => {
     try {
       if (!Array.isArray(notifications)) return;
       
-      const unreadIds = notifications.filter(n => !n.is_read).map(n => n.notification_id);
+      const unreadIds = notifications.filter(n => !n.is_read).map(n => n.id);
       if (unreadIds.length === 0) return;
 
       await axios.post(
         `${process.env.REACT_APP_BACKEND_URL}/api/notifications/mark-read`,
-        { notification_ids: unreadIds },
+        { ids: unreadIds },
         { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       );
       setNotifications(prev => Array.isArray(prev) ? prev.map(n => ({ ...n, is_read: true })) : []);
@@ -173,8 +173,8 @@ const ImprovedNotificationCenter = ({ language = 'en' }) => {
                 <div className="divide-y divide-gray-100">
                   {notifications.map((notification) => (
                     <div
-                      key={notification.notification_id}
-                      onClick={() => !notification.is_read && markAsRead(notification.notification_id)}
+                      key={notification.id}
+                      onClick={() => !notification.is_read && markAsRead(notification.id)}
                       className={`p-4 cursor-pointer transition-colors ${
                         !notification.is_read ? 'bg-emerald-50 hover:bg-emerald-100' : 'hover:bg-gray-50'
                       }`}
