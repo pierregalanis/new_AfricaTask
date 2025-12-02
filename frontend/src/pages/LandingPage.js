@@ -37,7 +37,7 @@ const LandingPage = () => {
       titleFr: 'Trouvez des services locaux',
       descEn: 'Connect with trusted professionals for any task, from cleaning to repairs',
       descFr: 'Connectez-vous avec des professionnels de confiance pour toute tâche',
-      gradient: 'from-orange-500 to-red-500'
+      gradient: 'from-emerald-500 to-teal-600'
     },
     {
       icon: <MapPin className="w-10 h-10" />,
@@ -45,7 +45,7 @@ const LandingPage = () => {
       titleFr: 'Suivi GPS en temps réel',
       descEn: 'Track your tasker\'s location with live GPS and get accurate ETAs',
       descFr: 'Suivez la localisation de votre tasker avec GPS en direct',
-      gradient: 'from-blue-500 to-cyan-500'
+      gradient: 'from-teal-500 to-cyan-600'
     },
     {
       icon: <Star className="w-10 h-10" />,
@@ -53,7 +53,7 @@ const LandingPage = () => {
       titleFr: 'Avis vérifiés',
       descEn: 'Read authentic reviews from real customers before booking',
       descFr: 'Lisez les avis de vrais clients',
-      gradient: 'from-yellow-500 to-orange-500'
+      gradient: 'from-emerald-400 to-green-600'
     },
     {
       icon: <Shield className="w-10 h-10" />,
@@ -61,7 +61,7 @@ const LandingPage = () => {
       titleFr: 'Paiements sécurisés',
       descEn: 'Cash, mobile money, and secure online payment options',
       descFr: 'Espèces, mobile money et paiements en ligne sécurisés',
-      gradient: 'from-green-500 to-emerald-500'
+      gradient: 'from-green-500 to-emerald-600'
     },
     {
       icon: <Clock className="w-10 h-10" />,
@@ -69,7 +69,7 @@ const LandingPage = () => {
       titleFr: 'Disponibilité 24/7',
       descEn: 'Book services anytime, day or night, for your convenience',
       descFr: 'Réservez des services à tout moment',
-      gradient: 'from-purple-500 to-pink-500'
+      gradient: 'from-teal-400 to-emerald-500'
     },
     {
       icon: <DollarSign className="w-10 h-10" />,
@@ -77,7 +77,7 @@ const LandingPage = () => {
       titleFr: 'Tarification transparente',
       descEn: 'See rates upfront with no hidden fees or surprises',
       descFr: 'Voyez les tarifs à l\'avance sans frais cachés',
-      gradient: 'from-teal-500 to-blue-500'
+      gradient: 'from-teal-500 to-green-600'
     },
   ];
 
