@@ -9,7 +9,7 @@ const ImprovedNotificationCenter = ({ language = 'en' }) => {
   const [loading, setLoading] = useState(false);
   const { user } = useAuth();
 
-  const unreadCount = Array.isArray(notifications) ? notifications.filter(n => !n.read).length : 0;
+  const unreadCount = Array.isArray(notifications) ? notifications.filter(n => !n.is_read).length : 0;
 
   useEffect(() => {
     if (user && isOpen) {
@@ -25,8 +25,9 @@ const ImprovedNotificationCenter = ({ language = 'en' }) => {
         `${process.env.REACT_APP_BACKEND_URL}/api/notifications`,
         { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       );
-      // Ensure we always set an array
-      setNotifications(Array.isArray(response.data) ? response.data : []);
+      // Extract notifications array from response
+      const notificationsData = response.data.notifications || [];
+      setNotifications(Array.isArray(notificationsData) ? notificationsData : []);
     } catch (error) {
       console.error('Error fetching notifications:', error);
       setNotifications([]); // Set empty array on error
