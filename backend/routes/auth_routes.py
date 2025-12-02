@@ -15,7 +15,7 @@ from database import get_database
 from auth import create_access_token, get_current_user
 from models import (
     UserInDB, UserCreate, UserResponse, UserRole, Token,
-    TaskerProfile, TaskerProfileUpdate
+    TaskerProfile
 )
 
 logger = logging.getLogger(__name__)
