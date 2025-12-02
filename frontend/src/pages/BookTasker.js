@@ -391,7 +391,7 @@ const BookTasker = () => {
             <div className="fancy-card p-6 sticky top-8 animate-fadeIn">
               {/* Tasker Info */}
               <div className="text-center mb-6">
-                <div className="w-24 h-24 mx-auto rounded-full bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center text-white text-3xl font-bold mb-4">
+                <div className="w-24 h-24 mx-auto rounded-full bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center text-white text-3xl font-bold mb-4">
                   {tasker.full_name?.charAt(0).toUpperCase()}
                 </div>
                 <h3 className="text-xl font-bold text-gray-900">{tasker.full_name}</h3>
@@ -429,7 +429,7 @@ const BookTasker = () => {
                 <div className="border-t border-gray-200 pt-3">
                   <div className="flex justify-between items-center">
                     <span className="text-lg font-bold text-gray-900">{language === 'en' ? 'Total' : 'Total'}</span>
-                    <span className="text-3xl font-bold text-orange-600">{calculateTotalCost()} CFA</span>
+                    <span className="text-3xl font-bold text-emerald-600">{calculateTotalCost()} CFA</span>
                   </div>
                 </div>
               </div>

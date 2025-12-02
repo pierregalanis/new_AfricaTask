@@ -195,7 +195,7 @@ const TaskDetails = () => {
                 <div className="mt-6">
                   <button
                     onClick={() => setShowApplyModal(true)}
-                    className="w-full py-3 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition font-semibold"
+                    className="w-full py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition font-semibold"
                     data-testid="apply-to-task-button"
                   >
                     {t('apply')}
@@ -289,7 +289,7 @@ const TaskDetails = () => {
                       {task.status === 'posted' && app.status === 'pending' && (
                         <button
                           onClick={() => handleAssignTasker(app.tasker_id)}
-                          className="w-full py-2 bg-orange-600 text-white rounded hover:bg-orange-700 text-sm"
+                          className="w-full py-2 bg-emerald-600 text-white rounded hover:bg-emerald-700 text-sm"
                           data-testid={`assign-tasker-button-${app.id}`}
                         >
                           {language === 'en' ? 'Assign this Tasker' : 'Assigner ce Tasker'}
@@ -325,7 +325,7 @@ const TaskDetails = () => {
                     min="0"
                     value={applicationData.proposed_rate}
                     onChange={(e) => setApplicationData({ ...applicationData, proposed_rate: e.target.value })}
-                    className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500"
+                    className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500"
                     data-testid="proposed-rate-input"
                   />
                 </div>
@@ -340,7 +340,7 @@ const TaskDetails = () => {
                     step="0.5"
                     value={applicationData.estimated_hours}
                     onChange={(e) => setApplicationData({ ...applicationData, estimated_hours: e.target.value })}
-                    className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500"
+                    className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500"
                     data-testid="estimated-hours-input"
                   />
                 </div>
@@ -352,7 +352,7 @@ const TaskDetails = () => {
                     rows="3"
                     value={applicationData.message}
                     onChange={(e) => setApplicationData({ ...applicationData, message: e.target.value })}
-                    className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500"
+                    className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500"
                     data-testid="application-message-input"
                   />
                 </div>
@@ -366,7 +366,7 @@ const TaskDetails = () => {
                   </button>
                   <button
                     type="submit"
-                    className="flex-1 px-4 py-2 bg-orange-600 text-white rounded-md hover:bg-orange-700"
+                    className="flex-1 px-4 py-2 bg-emerald-600 text-white rounded-md hover:bg-emerald-700"
                     data-testid="submit-application-button"
                   >
                     {t('submit')}

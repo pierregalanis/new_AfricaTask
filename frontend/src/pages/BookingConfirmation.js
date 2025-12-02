@@ -88,7 +88,7 @@ const BookingConfirmation = () => {
           <div className="space-y-6">
             {/* Service Info */}
             <div className="flex items-start space-x-4 pb-6 border-b">
-              <div className="w-12 h-12 bg-gradient-to-br from-orange-400 to-orange-600 rounded-lg flex items-center justify-center flex-shrink-0">
+              <div className="w-12 h-12 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-lg flex items-center justify-center flex-shrink-0">
                 <Calendar className="w-6 h-6 text-white" />
               </div>
               <div className="flex-1">
@@ -134,7 +134,7 @@ const BookingConfirmation = () => {
               <DollarSign className="w-6 h-6 text-gray-400" />
               <div>
                 <p className="text-sm text-gray-500">{language === 'en' ? 'Total Cost' : 'Coût total'}</p>
-                <p className="text-3xl font-bold text-orange-600">{task?.total_cost} CFA</p>
+                <p className="text-3xl font-bold text-emerald-600">{task?.total_cost} CFA</p>
                 <p className="text-sm text-gray-500">
                   ({task?.hourly_rate} CFA/hr × {task?.duration_hours}h)
                 </p>
@@ -150,7 +150,7 @@ const BookingConfirmation = () => {
               {language === 'en' ? 'Your Tasker' : 'Votre Tasker'}
             </h2>
             <div className="flex items-center space-x-6">
-              <div className="w-20 h-20 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center text-white text-3xl font-bold flex-shrink-0">
+              <div className="w-20 h-20 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center text-white text-3xl font-bold flex-shrink-0">
                 {tasker.full_name?.charAt(0).toUpperCase()}
               </div>
               <div className="flex-1">
@@ -208,7 +208,7 @@ const BookingConfirmation = () => {
                     onClick={() => setPaymentMethod(method)}
                     className={`w-full p-4 rounded-xl border-2 transition text-left ${
                       paymentMethod === method
-                        ? 'border-orange-600 bg-orange-50'
+                        ? 'border-emerald-600 bg-emerald-50'
                         : 'border-gray-200 hover:border-gray-300'
                     }`}
                   >

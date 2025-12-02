@@ -157,7 +157,7 @@ const TaskerServicesManagement = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-orange-50 to-white">
+      <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-white">
         <Navbar />
         <div className="flex items-center justify-center h-96">
           <div className="text-xl">{t('loading')}</div>
@@ -167,13 +167,13 @@ const TaskerServicesManagement = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-white">
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-white">
       <Navbar />
       
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="bg-white rounded-2xl shadow-lg p-8">
           <div className="flex items-center space-x-3 mb-6">
-            <Briefcase className="w-8 h-8 text-orange-600" />
+            <Briefcase className="w-8 h-8 text-emerald-600" />
             <h1 className="text-3xl font-bold text-gray-900">
               {language === 'en' ? 'Manage Your Services' : 'Gérer vos services'}
             </h1>
@@ -190,12 +190,12 @@ const TaskerServicesManagement = () => {
               {services.map((service, idx) => (
                 <div
                   key={idx}
-                  className="flex items-center space-x-2 bg-orange-100 text-orange-700 px-4 py-2 rounded-full"
+                  className="flex items-center space-x-2 bg-emerald-100 text-emerald-700 px-4 py-2 rounded-full"
                 >
                   <span className="font-medium">{service}</span>
                   <button
                     onClick={() => handleRemoveService(service)}
-                    className="hover:bg-orange-200 rounded-full p-1"
+                    className="hover:bg-emerald-200 rounded-full p-1"
                   >
                     <X className="w-4 h-4" />
                   </button>
@@ -218,7 +218,7 @@ const TaskerServicesManagement = () => {
                   onKeyPress={(e) => e.key === 'Enter' && handleAddService()}
                   onFocus={() => newService && setShowSuggestions(filteredServices.length > 0)}
                   placeholder={language === 'en' ? 'Enter service name...' : 'Nom du service...'}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
                 />
                 
                 {/* Autocomplete Dropdown */}
@@ -228,7 +228,7 @@ const TaskerServicesManagement = () => {
                       <button
                         key={idx}
                         onClick={() => handleAddService(service)}
-                        className="w-full text-left px-4 py-2 hover:bg-orange-50 text-gray-700 hover:text-orange-700 transition-colors"
+                        className="w-full text-left px-4 py-2 hover:bg-emerald-50 text-gray-700 hover:text-emerald-700 transition-colors"
                       >
                         {service}
                       </button>
@@ -239,7 +239,7 @@ const TaskerServicesManagement = () => {
               
               <button
                 onClick={() => handleAddService()}
-                className="bg-orange-600 text-white px-6 py-2 rounded-lg hover:bg-orange-700 flex items-center space-x-2"
+                className="bg-emerald-600 text-white px-6 py-2 rounded-lg hover:bg-emerald-700 flex items-center space-x-2"
               >
                 <Plus className="w-5 h-5" />
                 <span>{language === 'en' ? 'Add' : 'Ajouter'}</span>
@@ -281,7 +281,7 @@ const TaskerServicesManagement = () => {
               value={hourlyRate}
               onChange={(e) => setHourlyRate(e.target.value)}
               placeholder="5000"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
             />
           </div>
 
@@ -297,7 +297,7 @@ const TaskerServicesManagement = () => {
               placeholder={language === 'en' 
                 ? 'Tell clients about your experience and expertise...' 
                 : 'Parlez aux clients de votre expérience et de votre expertise...'}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
             />
           </div>
 
@@ -311,7 +311,7 @@ const TaskerServicesManagement = () => {
               value={maxTravelDistance}
               onChange={(e) => setMaxTravelDistance(e.target.value)}
               placeholder="10"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
             />
           </div>
 
@@ -330,7 +330,7 @@ const TaskerServicesManagement = () => {
               </div>
               <button
                 onClick={() => setIsAvailable(!isAvailable)}
-                className={`relative inline-flex h-8 w-16 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 ${
+                className={`relative inline-flex h-8 w-16 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 ${
                   isAvailable ? 'bg-green-600' : 'bg-gray-300'
                 }`}
               >
@@ -359,7 +359,7 @@ const TaskerServicesManagement = () => {
             <button
               onClick={handleSave}
               disabled={saving}
-              className="flex-1 bg-gradient-to-r from-orange-500 to-orange-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-orange-600 hover:to-orange-700 disabled:opacity-50 flex items-center justify-center space-x-2"
+              className="flex-1 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-emerald-600 hover:to-emerald-700 disabled:opacity-50 flex items-center justify-center space-x-2"
             >
               <Save className="w-5 h-5" />
               <span>{saving ? t('loading') : (language === 'en' ? 'Save Changes' : 'Enregistrer')}</span>

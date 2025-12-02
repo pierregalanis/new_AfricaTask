@@ -44,7 +44,7 @@ const TaskerEarnings = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-orange-50 to-white">
+      <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-white">
         <Navbar />
         <div className="flex items-center justify-center h-96">
           <div className="text-xl">{language === 'en' ? 'Loading...' : 'Chargement...'}</div>
@@ -54,7 +54,7 @@ const TaskerEarnings = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-white">
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-white">
       <Navbar />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -75,7 +75,7 @@ const TaskerEarnings = () => {
             <select
               value={timeFilter}
               onChange={(e) => setTimeFilter(e.target.value)}
-              className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500"
+              className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500"
             >
               <option value="all">{language === 'en' ? 'All Time' : 'Tout'}</option>
               <option value="week">{language === 'en' ? 'This Week' : 'Cette semaine'}</option>
@@ -149,7 +149,7 @@ const TaskerEarnings = () => {
             <h2 className="text-xl font-semibold">
               {language === 'en' ? 'Payment History' : 'Historique des paiements'}
             </h2>
-            <button className="flex items-center space-x-2 px-4 py-2 text-orange-600 hover:bg-orange-50 rounded-lg">
+            <button className="flex items-center space-x-2 px-4 py-2 text-emerald-600 hover:bg-emerald-50 rounded-lg">
               <Download className="w-4 h-4" />
               <span>{language === 'en' ? 'Export' : 'Exporter'}</span>
             </button>

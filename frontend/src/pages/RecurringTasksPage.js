@@ -69,7 +69,7 @@ const RecurringTasksPage = () => {
   // Don't return early - render loading in place
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-white">
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-white">
       <Navbar />
       
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -77,7 +77,7 @@ const RecurringTasksPage = () => {
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-3xl font-bold text-gray-900 flex items-center space-x-3">
-              <Repeat className="w-8 h-8 text-orange-600" />
+              <Repeat className="w-8 h-8 text-emerald-600" />
               <span>{language === 'en' ? 'Recurring Tasks' : 'Tâches récurrentes'}</span>
             </h1>
             <p className="text-gray-600 mt-1">
@@ -88,7 +88,7 @@ const RecurringTasksPage = () => {
           {user?.role === 'client' && (
             <button
               onClick={() => navigate('/services')}
-              className="flex items-center space-x-2 px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700"
+              className="flex items-center space-x-2 px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700"
             >
               <Plus className="w-5 h-5" />
               <span>{language === 'en' ? 'New Recurring Task' : 'Nouvelle tâche'}</span>
@@ -136,11 +136,11 @@ const RecurringTasksPage = () => {
                     
                     <div className="flex flex-wrap gap-4 text-sm">
                       <div className="flex items-center space-x-2 text-gray-700">
-                        <Calendar className="w-4 h-4 text-orange-600" />
+                        <Calendar className="w-4 h-4 text-emerald-600" />
                         <span className="capitalize">{task.frequency}</span>
                       </div>
                       <div className="flex items-center space-x-2 text-gray-700">
-                        <Clock className="w-4 h-4 text-orange-600" />
+                        <Clock className="w-4 h-4 text-emerald-600" />
                         <span>{task.scheduled_time}</span>
                       </div>
                       <div className="flex items-center space-x-2 text-gray-700">

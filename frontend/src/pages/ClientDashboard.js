@@ -142,13 +142,13 @@ const ClientDashboard = () => {
       <Navbar />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Fancy Header with Gradient */}
-        <div className="fancy-card p-8 mb-8 bg-gradient-to-r from-orange-500 to-orange-600 text-white animate-fadeIn">
+        <div className="fancy-card p-8 mb-8 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white animate-fadeIn">
           <div className="flex justify-between items-center">
             <div className="flex-1">
               <h1 className="text-4xl font-bold mb-2" data-testid="dashboard-title">
                 {language === 'en' ? '👋 Welcome back, ' : '👋 Bon retour, '}{user?.full_name}!
               </h1>
-              <p className="text-orange-100 text-lg">{t('myTasks')}</p>
+              <p className="text-emerald-100 text-lg">{t('myTasks')}</p>
               <div className="mt-4 flex items-center space-x-4">
                 <div className="bg-white/20 backdrop-blur px-4 py-2 rounded-lg">
                   <span className="text-sm opacity-90">{language === 'en' ? 'Total Tasks' : 'Total des tâches'}</span>
@@ -162,7 +162,7 @@ const ClientDashboard = () => {
             </div>
             <button
               onClick={() => setShowCreateModal(true)}
-              className="btn-primary bg-white text-orange-600 hover:bg-gray-50 shadow-2xl"
+              className="btn-primary bg-white text-emerald-600 hover:bg-gray-50 shadow-2xl"
               data-testid="post-task-button"
             >
               <Plus className="w-5 h-5 inline mr-2" />
@@ -174,8 +174,8 @@ const ClientDashboard = () => {
         {/* Fancy Tasks Grid */}
         {tasks.length === 0 ? (
           <div className="fancy-card text-center py-16 animate-fadeIn">
-            <div className="inline-block p-6 bg-gradient-to-br from-orange-100 to-orange-200 rounded-full mb-6">
-              <Briefcase className="w-16 h-16 text-orange-600" />
+            <div className="inline-block p-6 bg-gradient-to-br from-emerald-100 to-emerald-200 rounded-full mb-6">
+              <Briefcase className="w-16 h-16 text-emerald-600" />
             </div>
             <h3 className="text-2xl font-bold text-gray-900 mb-2">
               {language === 'en' ? 'No tasks yet!' : 'Aucune tâche encore!'}
@@ -230,8 +230,8 @@ const ClientDashboard = () => {
                 </div>
                 {task.applications_count > 0 && (
                   <div className="mt-4 pt-4 border-t border-gray-100">
-                    <div className="bg-gradient-to-r from-orange-50 to-orange-100 rounded-lg px-3 py-2 inline-flex items-center">
-                      <span className="text-sm font-semibold text-orange-700">
+                    <div className="bg-gradient-to-r from-emerald-50 to-emerald-100 rounded-lg px-3 py-2 inline-flex items-center">
+                      <span className="text-sm font-semibold text-emerald-700">
                         🎯 {task.applications_count} {language === 'en' ? 'applications' : 'candidatures'}
                       </span>
                     </div>
@@ -247,7 +247,7 @@ const ClientDashboard = () => {
           <div className="fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-fadeIn">
             <div className="fancy-card max-w-2xl w-full max-h-[90vh] overflow-y-auto p-8 animate-scaleIn">
               <div className="flex items-center space-x-3 mb-6">
-                <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center">
+                <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl flex items-center justify-center">
                   <Plus className="w-6 h-6 text-white" />
                 </div>
                 <h2 className="text-3xl font-bold gradient-text">{t('postTask')}</h2>

@@ -56,7 +56,7 @@ const TaskerProfile = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-orange-50 to-white">
+      <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-white">
         <Navbar />
         <div className="flex items-center justify-center h-96">
           <div className="text-xl">{t('loading')}</div>
@@ -67,7 +67,7 @@ const TaskerProfile = () => {
 
   if (!tasker) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-orange-50 to-white">
+      <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-white">
         <Navbar />
         <div className="flex items-center justify-center h-96">
           <div className="text-xl text-red-600">
@@ -82,14 +82,14 @@ const TaskerProfile = () => {
   const hourlyRate = profile.hourly_rate || 0;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-white">
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-white">
       <Navbar />
       
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Back Button */}
         <button
           onClick={() => navigate(-1)}
-          className="mb-6 flex items-center space-x-2 text-orange-600 hover:text-orange-700 font-medium"
+          className="mb-6 flex items-center space-x-2 text-emerald-600 hover:text-emerald-700 font-medium"
         >
           <ArrowLeft className="w-5 h-5" />
           <span>{language === 'en' ? 'Back' : 'Retour'}</span>
@@ -104,10 +104,10 @@ const TaskerProfile = () => {
                 <img
                   src={profile.profile_image}
                   alt={tasker.full_name}
-                  className="w-32 h-32 rounded-full object-cover border-4 border-orange-100"
+                  className="w-32 h-32 rounded-full object-cover border-4 border-emerald-100"
                 />
               ) : (
-                <div className="w-32 h-32 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center text-white text-4xl font-bold">
+                <div className="w-32 h-32 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center text-white text-4xl font-bold">
                   {tasker.full_name?.charAt(0) || 'T'}
                 </div>
               )}
@@ -155,8 +155,8 @@ const TaskerProfile = () => {
 
               {/* Hourly Rate */}
               <div className="flex items-center space-x-2 mb-4">
-                <Clock className="w-5 h-5 text-orange-600" />
-                <span className="text-2xl font-bold text-orange-600">
+                <Clock className="w-5 h-5 text-emerald-600" />
+                <span className="text-2xl font-bold text-emerald-600">
                   {hourlyRate.toLocaleString()} CFA/hr
                 </span>
               </div>
@@ -164,7 +164,7 @@ const TaskerProfile = () => {
               {/* Book Button */}
               <button
                 onClick={handleBookNow}
-                className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-8 py-3 rounded-lg font-semibold hover:from-orange-600 hover:to-orange-700 transform hover:scale-105 transition-all shadow-md"
+                className="bg-gradient-to-r from-emerald-500 to-emerald-600 text-white px-8 py-3 rounded-lg font-semibold hover:from-emerald-600 hover:to-emerald-700 transform hover:scale-105 transition-all shadow-md"
               >
                 {language === 'en' ? 'Book Now' : 'Réserver maintenant'}
               </button>
@@ -229,7 +229,7 @@ const TaskerProfile = () => {
               {profile.services.map((service, idx) => (
                 <span
                   key={idx}
-                  className="px-4 py-2 bg-orange-50 text-orange-700 rounded-full text-sm font-medium"
+                  className="px-4 py-2 bg-emerald-50 text-emerald-700 rounded-full text-sm font-medium"
                 >
                   {service}
                 </span>
@@ -242,7 +242,7 @@ const TaskerProfile = () => {
         {profile.portfolio_images && profile.portfolio_images.length > 0 && (
           <div className="bg-white rounded-xl shadow-md p-6 mb-8">
             <h2 className="text-xl font-semibold mb-4 flex items-center space-x-2">
-              <Award className="w-6 h-6 text-orange-600" />
+              <Award className="w-6 h-6 text-emerald-600" />
               <span>{language === 'en' ? 'Portfolio' : 'Portfolio'}</span>
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">

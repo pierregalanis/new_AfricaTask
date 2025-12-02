@@ -256,7 +256,7 @@ const BrowseTaskersPage = () => {
                 <div className="flex flex-col md:flex-row md:items-center gap-6">
                   {/* Profile Image */}
                   <div className="flex-shrink-0">
-                    <div className="w-24 h-24 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center text-white text-3xl font-bold">
+                    <div className="w-24 h-24 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center text-white text-3xl font-bold">
                       {tasker.full_name?.charAt(0).toUpperCase()}
                     </div>
                   </div>
@@ -321,7 +321,7 @@ const BrowseTaskersPage = () => {
                         <DollarSign className="w-4 h-4" />
                         <span>{language === 'en' ? 'Hourly rate' : 'Tarif horaire'}</span>
                       </div>
-                      <p className="text-3xl font-bold text-orange-600">
+                      <p className="text-3xl font-bold text-emerald-600">
                         {tasker.tasker_profile?.hourly_rate || 0} <span className="text-lg">CFA/hr</span>
                       </p>
                       <p className="text-sm text-gray-500 mt-1">

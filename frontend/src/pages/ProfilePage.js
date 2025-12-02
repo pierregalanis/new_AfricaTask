@@ -102,7 +102,7 @@ const ProfilePage = () => {
             </div>
             <button
               onClick={() => setIsEditing(!isEditing)}
-              className="px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700"
+              className="px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700"
               data-testid="edit-profile-button"
             >
               {isEditing ? t('cancel') : t('edit')}
@@ -142,16 +142,16 @@ const ProfilePage = () => {
                 </div>
               </div>
 
-              <div className="bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg p-4 border border-orange-200">
+              <div className="bg-gradient-to-br from-emerald-50 to-emerald-100 rounded-lg p-4 border border-emerald-200">
                 <div className="flex items-center space-x-3">
-                  <div className="bg-orange-600 rounded-full p-3">
+                  <div className="bg-emerald-600 rounded-full p-3">
                     <Briefcase className="w-6 h-6 text-white" />
                   </div>
                   <div>
-                    <p className="text-sm text-orange-600 font-medium">
+                    <p className="text-sm text-emerald-600 font-medium">
                       {language === 'en' ? 'Total Reviews' : 'Total avis'}
                     </p>
-                    <p className="text-2xl font-bold text-orange-900">{stats.total_reviews}</p>
+                    <p className="text-2xl font-bold text-emerald-900">{stats.total_reviews}</p>
                   </div>
                 </div>
               </div>
@@ -188,7 +188,7 @@ const ProfilePage = () => {
                     type="text"
                     value={profileData.full_name}
                     onChange={(e) => setProfileData({ ...profileData, full_name: e.target.value })}
-                    className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500"
+                    className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500"
                   />
                 </div>
                 <div>
@@ -199,7 +199,7 @@ const ProfilePage = () => {
                     type="tel"
                     value={profileData.phone}
                     onChange={(e) => setProfileData({ ...profileData, phone: e.target.value })}
-                    className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500"
+                    className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500"
                   />
                 </div>
                 <div>
@@ -210,7 +210,7 @@ const ProfilePage = () => {
                     type="text"
                     value={profileData.city}
                     onChange={(e) => setProfileData({ ...profileData, city: e.target.value })}
-                    className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500"
+                    className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500"
                   />
                 </div>
                 <div>
@@ -221,13 +221,13 @@ const ProfilePage = () => {
                     type="text"
                     value={profileData.address}
                     onChange={(e) => setProfileData({ ...profileData, address: e.target.value })}
-                    className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500"
+                    className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500"
                   />
                 </div>
               </div>
               <button
                 type="submit"
-                className="w-full py-3 bg-orange-600 text-white rounded-lg hover:bg-orange-700 font-semibold"
+                className="w-full py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 font-semibold"
               >
                 {t('save')}
               </button>
@@ -281,7 +281,7 @@ const ProfilePage = () => {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <button
                       onClick={() => navigate('/tasker/services')}
-                      className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-orange-600 hover:to-orange-700 flex items-center justify-center space-x-2"
+                      className="bg-gradient-to-r from-emerald-500 to-emerald-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-emerald-600 hover:to-emerald-700 flex items-center justify-center space-x-2"
                     >
                       <Briefcase className="w-5 h-5" />
                       <span>{language === 'en' ? 'Manage Services' : 'Gérer services'}</span>

@@ -142,11 +142,11 @@ const TaskerProfileSetup = () => {
     <div className="min-h-screen">
       <Navbar />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="fancy-card p-8 mb-8 bg-gradient-to-r from-orange-500 to-orange-600 text-white text-center animate-fadeIn">
+        <div className="fancy-card p-8 mb-8 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white text-center animate-fadeIn">
           <h1 className="text-4xl font-bold mb-4" data-testid="profile-setup-title">
             {language === 'en' ? 'Complete Your Profile' : 'Complétez votre profil'}
           </h1>
-          <p className="text-xl text-orange-100">
+          <p className="text-xl text-emerald-100">
             {language === 'en' ? 'Set up your services and start earning!' : 'Configurez vos services et commencez à gagner!'}
           </p>
         </div>
@@ -178,7 +178,7 @@ const TaskerProfileSetup = () => {
                 step="500"
                 value={profileData.hourly_rate}
                 onChange={(e) => setProfileData({ ...profileData, hourly_rate: e.target.value })}
-                className="fancy-input text-2xl font-bold text-orange-600"
+                className="fancy-input text-2xl font-bold text-emerald-600"
                 placeholder="15000"
                 data-testid="hourly-rate-input"
               />
@@ -200,7 +200,7 @@ const TaskerProfileSetup = () => {
                   onClick={() => toggleCategory(category.id)}
                   className={`p-4 rounded-xl border-2 transition text-left ${
                     profileData.service_categories.includes(category.id)
-                      ? 'border-orange-600 bg-orange-50'
+                      ? 'border-emerald-600 bg-emerald-50'
                       : 'border-gray-200 hover:border-gray-300'
                   }`}
                   data-testid={`category-${category.id}`}
@@ -213,7 +213,7 @@ const TaskerProfileSetup = () => {
                       </p>
                     </div>
                     {profileData.service_categories.includes(category.id) && (
-                      <CheckCircle className="w-6 h-6 text-orange-600" />
+                      <CheckCircle className="w-6 h-6 text-emerald-600" />
                     )}
                   </div>
                 </button>
@@ -257,10 +257,10 @@ const TaskerProfileSetup = () => {
             
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <span className="text-3xl font-bold text-orange-600">
+                <span className="text-3xl font-bold text-emerald-600">
                   {profileData.max_travel_distance} km
                 </span>
-                <Navigation className="w-8 h-8 text-orange-500" />
+                <Navigation className="w-8 h-8 text-emerald-500" />
               </div>
               
               <input
@@ -270,7 +270,7 @@ const TaskerProfileSetup = () => {
                 step="5"
                 value={profileData.max_travel_distance}
                 onChange={(e) => setProfileData({ ...profileData, max_travel_distance: e.target.value })}
-                className="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-orange-600"
+                className="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-emerald-600"
               />
               
               <div className="flex justify-between text-xs text-gray-500">

@@ -106,7 +106,7 @@ const AdminDashboard = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-orange-50 to-white">
+      <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-white">
         <Navbar />
         <div className="flex items-center justify-center h-96">
           <div className="text-xl">{language === 'en' ? 'Loading...' : 'Chargement...'}</div>
@@ -116,7 +116,7 @@ const AdminDashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-white">
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-white">
       <Navbar />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -164,7 +164,7 @@ const AdminDashboard = () => {
               </div>
 
               {/* Disputes Card */}
-              <div className="bg-gradient-to-br from-red-500 to-red-600 rounded-xl shadow-lg p-6 text-white">
+              <div className="bg-gradient-to-br from-teal-500 to-emerald-600 rounded-xl shadow-lg p-6 text-white">
                 <div className="flex items-center justify-between mb-4">
                   <AlertTriangle className="w-8 h-8" />
                 </div>
@@ -209,7 +209,7 @@ const AdminDashboard = () => {
                   onClick={() => setActiveTab(tab.id)}
                   className={`flex items-center space-x-2 py-4 border-b-2 font-medium transition ${
                     activeTab === tab.id
-                      ? 'border-orange-600 text-orange-600'
+                      ? 'border-emerald-600 text-emerald-600'
                       : 'border-transparent text-gray-600 hover:text-gray-900'
                   }`}
                 >
