@@ -323,7 +323,7 @@ const NewTaskerDashboard = () => {
               </div>
             </div>
             <button
-              onClick={() => navigate('/tasker/setup')}
+              onClick={() => navigate('/tasker-profile-setup')}
               className="btn-glass"
               data-testid="edit-profile-button"
             >
