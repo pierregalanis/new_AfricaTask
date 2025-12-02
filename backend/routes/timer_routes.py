@@ -96,3 +96,35 @@ async def stop_job_timer(
 
 
 @router.get("/tasks/{task_id}/timer-status")
+async def get_timer_status(
+    task_id: str,
+    db: AsyncIOMotorDatabase = Depends(get_database),
+    token: str = Depends(oauth2_scheme)
+):
+    """Get current timer status for a task."""
+    from auth import get_current_user as get_user
+    current_user = await get_user(token, db)
+    
+    task = await db.tasks.find_one({"id": task_id}, {"_id": 0})
+    if not task:
+        raise HTTPException(status_code=404, detail="Task not found")
+    
+    # Verify user is part of this task
+    if current_user.role == UserRole.CLIENT and task["client_id"] != current_user.id:
+        raise HTTPException(status_code=403, detail="Not authorized")
+    if current_user.role == UserRole.TASKER and task.get("assigned_tasker_id") != current_user.id:
+        raise HTTPException(status_code=403, detail="Not authorized")
+    
+    # Calculate current elapsed time if timer is running
+    elapsed_hours = None
+    if task.get("is_timer_running") and task.get("timer_started_at"):
+        time_diff = datetime.utcnow() - task["timer_started_at"]
+        elapsed_hours = time_diff.total_seconds() / 3600
+    
+    return {
+        "is_timer_running": task.get("is_timer_running", False),
+        "timer_started_at": task.get("timer_started_at"),
+        "timer_stopped_at": task.get("timer_stopped_at"),
+        "actual_hours_worked": task.get("actual_hours_worked"),
+        "elapsed_hours": round(elapsed_hours, 2) if elapsed_hours else None
+    }
