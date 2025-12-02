@@ -2137,6 +2137,11 @@ if __name__ == "__main__":
             features_tester = NewFeaturesTester()
             success = features_tester.run_new_features_tests()
             sys.exit(0 if success else 1)
+        elif sys.argv[1] == "favorites":
+            # Run Favorites and Badges tests
+            favorites_tester = FavoritesAndBadgesTester()
+            success = favorites_tester.run_favorites_and_badges_tests()
+            sys.exit(0 if success else 1)
     else:
         # Run original end-to-end tests
         tester = TaskRabbitTester()
