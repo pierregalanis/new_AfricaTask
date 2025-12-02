@@ -10,6 +10,7 @@ import GPSTracker from '../components/GPSTracker';
 import LocationSharing from '../components/LocationSharing';
 import CancelTaskModal from '../components/CancelTaskModal';
 import DisputeModal from '../components/DisputeModal';
+import BadgeDisplay from '../components/BadgeDisplay';
 import { MapPin, DollarSign, Calendar, User, Clock, ArrowLeft, MessageCircle, Navigation, XCircle, AlertTriangle, Star } from 'lucide-react';
 
 const TaskDetails = () => {
