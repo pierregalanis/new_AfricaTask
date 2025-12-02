@@ -55,12 +55,20 @@ const TaskerServicesManagement = () => {
       console.log('Services from tasker_profile:', profile.services);
       
       setTaskerProfile(profile);
+      
       // Services are stored inside tasker_profile
-      setServices(profile.services || []);
+      const servicesArray = profile.services || [];
+      console.log('[SETTING STATE] Setting services to:', servicesArray);
+      console.log('[SETTING STATE] Services type:', typeof servicesArray);
+      console.log('[SETTING STATE] Is array?', Array.isArray(servicesArray));
+      
+      setServices(servicesArray);
       setHourlyRate(profile.hourly_rate || '');
       setBio(profile.bio || '');
       setMaxTravelDistance(profile.max_travel_distance || '');
       setIsAvailable(profile.is_available !== undefined ? profile.is_available : true);
+      
+      console.log('[STATE SET COMPLETE] Services should now be:', servicesArray);
     } catch (error) {
       console.error('Error fetching profile:', error);
       console.error('Error details:', error.response?.data);
