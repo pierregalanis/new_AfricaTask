@@ -87,14 +87,37 @@ const TaskerServicesManagement = () => {
     }
   };
 
-  const handleAddService = (serviceName = null) => {
-    const serviceToAdd = serviceName || newService.trim();
-    if (serviceToAdd && !services.includes(serviceToAdd)) {
-      setServices([...services, serviceToAdd]);
-      setNewService('');
-      setShowSuggestions(false);
-      setFilteredServices([]);
+  const handleAddService = () => {
+    if (!selectedCategory) {
+      toast.error(language === 'en' ? 'Please select a category' : 'Veuillez sélectionner une catégorie');
+      return;
     }
+    
+    if (!selectedSubcategory) {
+      toast.error(language === 'en' ? 'Please select a subcategory' : 'Veuillez sélectionner une sous-catégorie');
+      return;
+    }
+    
+    const serviceKey = `${selectedCategory.name_en}:${selectedSubcategory}`;
+    
+    // Check if this exact service already exists
+    const alreadyExists = services.some(s => 
+      `${s.category}:${s.subcategory}` === serviceKey
+    );
+    
+    if (alreadyExists) {
+      toast.error(language === 'en' ? 'Service already added' : 'Service déjà ajouté');
+      return;
+    }
+    
+    setServices([...services, {
+      category: selectedCategory.name_en,
+      subcategory: selectedSubcategory
+    }]);
+    
+    setSelectedCategory(null);
+    setSelectedSubcategory('');
+    setShowCategoryModal(false);
   };
 
   const handleServiceInputChange = (value) => {
