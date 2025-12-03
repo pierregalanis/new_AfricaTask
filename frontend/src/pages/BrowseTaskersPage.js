@@ -373,6 +373,31 @@ const BrowseTaskersPage = () => {
                         {tasker.tasker_profile.bio}
                       </p>
                     )}
+
+                    {/* Services */}
+                    {tasker.tasker_profile?.services && tasker.tasker_profile.services.length > 0 && (
+                      <div className="flex flex-wrap gap-2 mt-3">
+                        {tasker.tasker_profile.services.map((service, idx) => {
+                          let displayText = '';
+                          if (typeof service === 'string') {
+                            // Old format - just service name
+                            displayText = service;
+                          } else if (service.subcategory) {
+                            // New format - show subcategory
+                            displayText = service.subcategory;
+                          }
+                          
+                          return displayText ? (
+                            <span
+                              key={idx}
+                              className="px-3 py-1 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 text-xs rounded-full"
+                            >
+                              {displayText}
+                            </span>
+                          ) : null;
+                        })}
+                      </div>
+                    )}
                   </div>
 
                   {/* Price & Book */}
