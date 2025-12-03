@@ -118,29 +118,28 @@ const TaskerServicesManagement = () => {
 
   const handleRemoveService = (serviceToRemove) => {
     setServices(services.filter(s => s !== serviceToRemove));
+    // Remove settings for this service
+    const newSettings = { ...serviceSettings };
+    delete newSettings[serviceToRemove];
+    setServiceSettings(newSettings);
   };
 
-  const handleEditService = (index, currentService) => {
-    setEditingService(index);
-    setEditServiceValue(currentService);
-  };
-
-  const handleSaveEditedService = (index) => {
-    if (!editServiceValue.trim()) {
-      toast.error(language === 'en' ? 'Service name cannot be empty' : 'Le nom du service ne peut pas être vide');
-      return;
+  const toggleServiceExpansion = (serviceName) => {
+    if (expandedService === serviceName) {
+      setExpandedService(null);
+    } else {
+      setExpandedService(serviceName);
     }
-    
-    const updatedServices = [...services];
-    updatedServices[index] = editServiceValue.trim();
-    setServices(updatedServices);
-    setEditingService(null);
-    setEditServiceValue('');
   };
 
-  const handleCancelEdit = () => {
-    setEditingService(null);
-    setEditServiceValue('');
+  const updateServiceSetting = (serviceName, field, value) => {
+    setServiceSettings(prev => ({
+      ...prev,
+      [serviceName]: {
+        ...prev[serviceName],
+        [field]: value
+      }
+    }));
   };
 
   const handleSave = async () => {
