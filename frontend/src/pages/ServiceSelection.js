@@ -30,6 +30,10 @@ const ServiceSelection = () => {
     navigate(`/browse-taskers/${categoryId}`);
   };
 
+  const handleSelectSubcategory = (categoryId, subcategoryName) => {
+    navigate(`/browse-taskers/${categoryId}?subcategory=${encodeURIComponent(subcategoryName)}`);
+  };
+
   const filteredCategories = categories.filter(cat => {
     const name = language === 'en' ? cat.name_en : cat.name_fr;
     return name.toLowerCase().includes(searchTerm.toLowerCase());
