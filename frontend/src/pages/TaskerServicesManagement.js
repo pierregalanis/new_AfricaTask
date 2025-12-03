@@ -63,7 +63,37 @@ const TaskerServicesManagement = () => {
       
       // Services are stored inside tasker_profile
       const servicesArray = profile.services || [];
-      setServices(servicesArray);
+      
+      // Convert services to new format if they're in old format (strings)
+      // OR load them if they're already in new format (objects)
+      const formattedServices = servicesArray.map(service => {
+        if (typeof service === 'string') {
+          // Old format - just service name, convert to new format
+          return {
+            category: service,
+            subcategory: 'General' // Default subcategory for old data
+          };
+        } else if (service.category && service.subcategory) {
+          // New format with category/subcategory
+          return service;
+        }
+        return null;
+      }).filter(s => s !== null);
+      
+      setServices(formattedServices);
+      
+      // Load service settings if available
+      const loadedSettings = {};
+      formattedServices.forEach(service => {
+        const serviceKey = `${service.category}:${service.subcategory}`;
+        loadedSettings[serviceKey] = {
+          rate: service.hourly_rate || '',
+          bio: service.bio || '',
+          distance: service.max_travel_distance || ''
+        };
+      });
+      setServiceSettings(loadedSettings);
+      
       setHourlyRate(profile.hourly_rate || '');
       setBio(profile.bio || '');
       setMaxTravelDistance(profile.max_travel_distance || '');
