@@ -354,66 +354,14 @@ const TaskerServicesManagement = () => {
               )}
             </div>
 
-            {/* Add New Service */}
-            <div className="relative flex gap-2">
-              <div className="flex-1 relative">
-                <input
-                  type="text"
-                  value={newService}
-                  onChange={(e) => handleServiceInputChange(e.target.value)}
-                  onKeyPress={(e) => e.key === 'Enter' && handleAddService()}
-                  onFocus={() => newService && setShowSuggestions(filteredServices.length > 0)}
-                  placeholder={language === 'en' ? 'Enter service name...' : 'Nom du service...'}
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent placeholder-gray-400 dark:placeholder-gray-500"
-                />
-                
-                {/* Autocomplete Dropdown */}
-                {showSuggestions && filteredServices.length > 0 && (
-                  <div className="absolute z-10 w-full mt-1 bg-white dark:bg-gray-800/70 border border-gray-200 rounded-lg shadow-lg max-h-60 overflow-y-auto">
-                    {filteredServices.map((service, idx) => (
-                      <button
-                        key={idx}
-                        onClick={() => handleAddService(service)}
-                        className="w-full text-left px-4 py-2 hover:bg-emerald-50 text-gray-700 dark:text-gray-300 hover:text-emerald-700 transition-colors"
-                      >
-                        {service}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
-              
-              <button
-                onClick={() => handleAddService()}
-                className="bg-emerald-600 text-white px-6 py-2 rounded-lg hover:bg-emerald-700 flex items-center space-x-2"
-              >
-                <Plus className="w-5 h-5" />
-                <span>{language === 'en' ? 'Add' : 'Ajouter'}</span>
-              </button>
-            </div>
-
-            {/* Popular Services */}
-            <div className="mt-4">
-              <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
-                {language === 'en' ? 'Popular services:' : 'Services populaires:'}
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {availableCategories.slice(0, 5).map((cat) => (
-                  <button
-                    key={cat.id}
-                    onClick={() => {
-                      const serviceName = language === 'en' ? cat.name_en : cat.name_fr;
-                      if (!services.includes(serviceName)) {
-                        setServices([...services, serviceName]);
-                      }
-                    }}
-                    className="text-sm px-3 py-1 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full text-gray-700 dark:text-gray-300"
-                  >
-                    {language === 'en' ? cat.name_en : cat.name_fr}
-                  </button>
-                ))}
-              </div>
-            </div>
+            {/* Add New Service Button */}
+            <button
+              onClick={() => setShowCategoryModal(true)}
+              className="w-full bg-emerald-600 text-white px-6 py-3 rounded-lg hover:bg-emerald-700 flex items-center justify-center space-x-2 transition-colors"
+            >
+              <Plus className="w-5 h-5" />
+              <span>{language === 'en' ? 'Add New Service' : 'Ajouter un nouveau service'}</span>
+            </button>
           </div>
 
           {/* Info box explaining per-service settings */}
