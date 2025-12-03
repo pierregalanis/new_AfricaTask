@@ -144,10 +144,10 @@ const ReviewModal = ({ isOpen, onClose, task, taskerName, onReviewSuccess, langu
         </div>
 
         {/* Footer */}
-        <div className="flex space-x-3 p-6 border-t bg-gray-50 dark:bg-gray-950 rounded-b-lg">
+        <div className="flex space-x-3 p-4 border-t bg-gray-50 dark:bg-gray-950 rounded-b-lg">
           <button
             onClick={onClose}
-            className="flex-1 px-6 py-3 border-2 border-gray-300 text-gray-700 dark:text-gray-300 rounded-lg font-semibold hover:bg-gray-100 dark:bg-gray-800 transition"
+            className="flex-1 px-4 py-2.5 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg font-semibold hover:bg-gray-100 dark:hover:bg-gray-800 transition"
             disabled={submitting}
           >
             {language === 'en' ? 'Cancel' : 'Annuler'}
@@ -155,7 +155,7 @@ const ReviewModal = ({ isOpen, onClose, task, taskerName, onReviewSuccess, langu
           <button
             onClick={handleSubmit}
             disabled={rating === 0 || submitting}
-            className="flex-1 px-6 py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-700 transition disabled:bg-gray-400 disabled:cursor-not-allowed"
+            className="flex-1 px-4 py-2.5 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-700 transition disabled:bg-gray-400 disabled:cursor-not-allowed"
           >
             {submitting
               ? (language === 'en' ? 'Submitting...' : 'Envoi...')
