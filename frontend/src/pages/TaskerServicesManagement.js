@@ -23,8 +23,8 @@ const TaskerServicesManagement = () => {
   const [maxTravelDistance, setMaxTravelDistance] = useState('');
   const [isAvailable, setIsAvailable] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [editingService, setEditingService] = useState(null); // Track which service is being edited
-  const [editServiceValue, setEditServiceValue] = useState(''); // Value of service being edited
+  const [expandedService, setExpandedService] = useState(null); // Track which service settings are expanded
+  const [serviceSettings, setServiceSettings] = useState({}); // Store settings for each service: { serviceName: { rate, bio, distance } }
 
   const t = (key) => translations[language][key] || key;
 
