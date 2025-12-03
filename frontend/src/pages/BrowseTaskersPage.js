@@ -74,6 +74,20 @@ const BrowseTaskersPage = () => {
         return { ...tasker, distance: null, canReach: true };
       });
 
+      // Filter by subcategory if specified
+      if (selectedSubcategory) {
+        taskersWithDistance = taskersWithDistance.filter(tasker => {
+          const services = tasker.tasker_profile?.services || [];
+          return services.some(service => {
+            // Handle both old format (string) and new format (object with subcategory)
+            if (typeof service === 'string') {
+              return false; // Old format doesn't have subcategory info
+            }
+            return service.subcategory === selectedSubcategory;
+          });
+        });
+      }
+
       // Store all taskers
       setAllTaskers(taskersWithDistance);
       
