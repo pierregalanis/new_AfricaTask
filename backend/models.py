@@ -67,10 +67,18 @@ class UserCreate(UserBase):
     password: str
 
 
+class ServiceDetail(BaseModel):
+    """Service with category, subcategory and individual settings"""
+    category: str
+    subcategory: str
+    hourly_rate: Optional[float] = None
+    bio: Optional[str] = None
+    max_travel_distance: Optional[float] = None
+
 class TaskerProfile(BaseModel):
     bio: Optional[str] = None
     hourly_rate: float = 0.0  # Required - price per hour in CFA
-    services: List[str] = []  # List of service names they offer
+    services: List[Union[str, ServiceDetail, Dict[str, Any]]] = []  # Can be string (old) or ServiceDetail object (new)
     certifications: List[str] = []  # File paths
     portfolio_images: List[str] = []  # File paths
     profile_image: Optional[str] = None
