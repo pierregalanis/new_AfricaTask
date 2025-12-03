@@ -241,7 +241,51 @@ const BrowseTaskersPage = () => {
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2" data-testid="browse-taskers-title">
             {category && (language === 'en' ? category.name_en : category.name_fr)}
           </h1>
-          <p className="text-gray-600">
+          
+          {/* Subcategory Filter */}
+          {category?.subcategories && category.subcategories.length > 0 && (
+            <div className="mt-4 mb-4">
+              <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                {language === 'en' ? 'Filter by subcategory:' : 'Filtrer par sous-catégorie:'}
+              </p>
+              <div className="flex flex-wrap gap-2">
+                <button
+                  onClick={() => {
+                    setSelectedSubcategory(null);
+                    fetchTaskers();
+                  }}
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                    !selectedSubcategory
+                      ? 'bg-emerald-600 text-white'
+                      : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
+                  }`}
+                >
+                  {language === 'en' ? 'All' : 'Tous'}
+                </button>
+                {category.subcategories.map((sub, idx) => {
+                  const subName = language === 'en' ? sub.en : sub.fr;
+                  return (
+                    <button
+                      key={idx}
+                      onClick={() => {
+                        setSelectedSubcategory(sub.en);
+                        navigate(`/browse-taskers/${categoryId}?subcategory=${encodeURIComponent(sub.en)}`);
+                      }}
+                      className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                        selectedSubcategory === sub.en
+                          ? 'bg-emerald-600 text-white'
+                          : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
+                      }`}
+                    >
+                      {subName}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+          
+          <p className="text-gray-600 dark:text-gray-400">
             {language === 'en' 
               ? `${taskers.length} taskers available` 
               : `${taskers.length} taskers disponibles`}
