@@ -228,13 +228,50 @@ const TaskerServicesManagement = () => {
                   key={idx}
                   className="flex items-center space-x-2 bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300 px-4 py-2 rounded-full border border-emerald-200 dark:border-emerald-700"
                 >
-                  <span className="font-medium">{service}</span>
-                  <button
-                    onClick={() => handleRemoveService(service)}
-                    className="hover:bg-emerald-200 dark:hover:bg-emerald-800 rounded-full p-1 transition-colors"
-                  >
-                    <X className="w-4 h-4" />
-                  </button>
+                  {editingService === idx ? (
+                    <>
+                      <input
+                        type="text"
+                        value={editServiceValue}
+                        onChange={(e) => setEditServiceValue(e.target.value)}
+                        onKeyPress={(e) => e.key === 'Enter' && handleSaveEditedService(idx)}
+                        className="bg-white dark:bg-gray-800 text-emerald-700 dark:text-emerald-300 px-2 py-1 rounded border border-emerald-300 dark:border-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm"
+                        autoFocus
+                      />
+                      <button
+                        onClick={() => handleSaveEditedService(idx)}
+                        className="hover:bg-emerald-200 dark:hover:bg-emerald-800 rounded-full p-1 transition-colors"
+                        title={language === 'en' ? 'Save' : 'Enregistrer'}
+                      >
+                        <Check className="w-4 h-4" />
+                      </button>
+                      <button
+                        onClick={handleCancelEdit}
+                        className="hover:bg-emerald-200 dark:hover:bg-emerald-800 rounded-full p-1 transition-colors"
+                        title={language === 'en' ? 'Cancel' : 'Annuler'}
+                      >
+                        <X className="w-4 h-4" />
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <span className="font-medium">{service}</span>
+                      <button
+                        onClick={() => handleEditService(idx, service)}
+                        className="hover:bg-emerald-200 dark:hover:bg-emerald-800 rounded-full p-1 transition-colors"
+                        title={language === 'en' ? 'Edit' : 'Modifier'}
+                      >
+                        <Edit2 className="w-3.5 h-3.5" />
+                      </button>
+                      <button
+                        onClick={() => handleRemoveService(service)}
+                        className="hover:bg-emerald-200 dark:hover:bg-emerald-800 rounded-full p-1 transition-colors"
+                        title={language === 'en' ? 'Remove' : 'Supprimer'}
+                      >
+                        <X className="w-4 h-4" />
+                      </button>
+                    </>
+                  )}
                 </div>
               ))}
               {services.length === 0 && (
