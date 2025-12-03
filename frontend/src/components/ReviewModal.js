@@ -66,24 +66,24 @@ const ReviewModal = ({ isOpen, onClose, task, taskerName, onReviewSuccess, langu
         </div>
 
         {/* Content */}
-        <div className="p-6 space-y-6">
+        <div className="p-4 space-y-4">
           {/* Task Info */}
-          <div className="bg-gray-50 dark:bg-gray-950 rounded-lg p-4">
-            <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">
+          <div className="bg-gray-50 dark:bg-gray-950 rounded-lg p-3">
+            <p className="text-xs text-gray-600 dark:text-gray-400 mb-1">
               {language === 'en' ? 'Task:' : 'Tâche:'}
             </p>
-            <p className="font-semibold text-gray-900">{task.title}</p>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
-              {language === 'en' ? 'Tasker:' : 'Prestataire:'} <span className="font-medium">{taskerName}</span>
+            <p className="font-semibold text-sm text-gray-900 dark:text-white">{task.title}</p>
+            <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
+              {language === 'en' ? 'Tasker:' : 'Prestataire:'} <span className="font-medium text-gray-900 dark:text-white">{taskerName}</span>
             </p>
           </div>
 
           {/* Star Rating */}
           <div>
-            <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">
+            <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
               {language === 'en' ? 'Rate your experience' : 'Évaluez votre expérience'} *
             </label>
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-1.5">
               {[1, 2, 3, 4, 5].map((star) => (
                 <button
                   key={star}
@@ -95,7 +95,7 @@ const ReviewModal = ({ isOpen, onClose, task, taskerName, onReviewSuccess, langu
                   disabled={submitting}
                 >
                   <Star
-                    className={`w-10 h-10 ${
+                    className={`w-8 h-8 ${
                       star <= (hoverRating || rating)
                         ? 'fill-yellow-400 text-yellow-400'
                         : 'text-gray-300'
@@ -104,7 +104,7 @@ const ReviewModal = ({ isOpen, onClose, task, taskerName, onReviewSuccess, langu
                 </button>
               ))}
               {rating > 0 && (
-                <span className="ml-3 text-lg font-semibold text-gray-700">
+                <span className="ml-2 text-base font-semibold text-gray-700 dark:text-gray-300">
                   {rating} {language === 'en' ? 'star' : 'étoile'}{rating > 1 ? 's' : ''}
                 </span>
               )}
@@ -124,21 +124,21 @@ const ReviewModal = ({ isOpen, onClose, task, taskerName, onReviewSuccess, langu
                   ? 'Share details about your experience...'
                   : 'Partagez les détails de votre expérience...'
               }
-              rows={4}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none"
+              rows={3}
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none text-sm"
               disabled={submitting}
             />
-            <p className="text-xs text-gray-500 mt-1 text-right">
+            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 text-right">
               {comment.length} / 500
             </p>
           </div>
 
           {/* Info */}
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
-            <p className="text-xs text-blue-800">
+          <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-2">
+            <p className="text-xs text-blue-800 dark:text-blue-300">
               {language === 'en'
-                ? '✓ Reviews cannot be edited after submission. Contact support if you need changes.'
-                : '✓ Les avis ne peuvent pas être modifiés après soumission. Contactez le support pour des modifications.'}
+                ? '✓ Reviews cannot be edited after submission.'
+                : '✓ Les avis ne peuvent pas être modifiés.'}
             </p>
           </div>
         </div>
