@@ -393,8 +393,8 @@ const NewTaskerDashboard = () => {
 
                 {/* Action Button */}
                 <button
-                  onClick={() => navigate('/tasker-profile-setup')}
-                  className="bg-white text-emerald-600 px-6 py-3 rounded-xl font-semibold hover:bg-emerald-50 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center space-x-2 group"
+                  onClick={() => navigate('/tasker/services')}
+                  className="bg-white text-emerald-600 px-5 py-2.5 rounded-xl font-semibold hover:bg-emerald-50 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center space-x-2 group"
                   data-testid="edit-profile-button"
                 >
                   <Settings className="w-5 h-5 group-hover:rotate-90 transition-transform duration-300" />
