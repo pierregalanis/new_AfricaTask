@@ -148,17 +148,15 @@ const TaskerServicesManagement = () => {
       return;
     }
 
-    if (!hourlyRate || hourlyRate <= 0) {
-      toast.error(language === 'en' ? 'Please set a valid hourly rate' : 'Veuillez définir un tarif horaire valide');
-      return;
-    }
-
     setSaving(true);
     try {
       const formData = new FormData();
       formData.append('services', JSON.stringify(services));
-      formData.append('hourly_rate', hourlyRate);
-      formData.append('bio', bio);
+      // Save service settings as JSON
+      formData.append('service_settings', JSON.stringify(serviceSettings));
+      // Use default values for global fields (kept for backward compatibility)
+      formData.append('hourly_rate', hourlyRate || 0);
+      formData.append('bio', bio || '');
       formData.append('max_travel_distance', maxTravelDistance || 10);
       formData.append('is_available', isAvailable);
 
