@@ -334,10 +334,13 @@ const NewTaskerDashboard = () => {
                   </p>
                 </div>
 
-                {/* Stats Cards */}
+                {/* Stats Cards - Clickable */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                  {/* Tasks Completed */}
-                  <div className="bg-white/20 backdrop-blur-md rounded-xl p-3 border border-white/30 transform hover:scale-105 transition-all duration-300 hover:bg-white/30">
+                  {/* Tasks Completed - Click to see completed tasks */}
+                  <button
+                    onClick={() => setFilter('completed')}
+                    className="bg-white/20 backdrop-blur-md rounded-xl p-3 border border-white/30 transform hover:scale-105 transition-all duration-300 hover:bg-white/30 text-left cursor-pointer"
+                  >
                     <div className="flex items-center space-x-2 mb-1">
                       <CheckCircle className="w-4 h-4 text-emerald-200" />
                       <span className="text-xs text-emerald-100 font-medium uppercase tracking-wide">
@@ -347,10 +350,13 @@ const NewTaskerDashboard = () => {
                     <p className="text-2xl font-bold text-white">
                       {stats?.total_paid_tasks || 0}
                     </p>
-                  </div>
+                  </button>
 
-                  {/* Rating */}
-                  <div className="bg-white/20 backdrop-blur-md rounded-xl p-3 border border-white/30 transform hover:scale-105 transition-all duration-300 hover:bg-white/30">
+                  {/* Rating - Click to see profile */}
+                  <button
+                    onClick={() => navigate(`/tasker-profile/${user.id}`)}
+                    className="bg-white/20 backdrop-blur-md rounded-xl p-3 border border-white/30 transform hover:scale-105 transition-all duration-300 hover:bg-white/30 text-left cursor-pointer"
+                  >
                     <div className="flex items-center space-x-2 mb-1">
                       <svg className="w-4 h-4 text-yellow-300" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
@@ -362,10 +368,20 @@ const NewTaskerDashboard = () => {
                     <p className="text-2xl font-bold text-white">
                       {stats?.average_rating?.toFixed(1) || '0.0'}
                     </p>
-                  </div>
+                  </button>
 
-                  {/* Reviews */}
-                  <div className="bg-white/20 backdrop-blur-md rounded-xl p-3 border border-white/30 transform hover:scale-105 transition-all duration-300 hover:bg-white/30">
+                  {/* Reviews - Click to scroll to reviews section */}
+                  <button
+                    onClick={() => {
+                      const reviewsSection = document.getElementById('reviews-section');
+                      if (reviewsSection) {
+                        reviewsSection.scrollIntoView({ behavior: 'smooth' });
+                      } else {
+                        navigate(`/tasker-profile/${user.id}`);
+                      }
+                    }}
+                    className="bg-white/20 backdrop-blur-md rounded-xl p-3 border border-white/30 transform hover:scale-105 transition-all duration-300 hover:bg-white/30 text-left cursor-pointer"
+                  >
                     <div className="flex items-center space-x-2 mb-1">
                       <MessageCircle className="w-4 h-4 text-emerald-200" />
                       <span className="text-xs text-emerald-100 font-medium uppercase tracking-wide">
@@ -375,10 +391,13 @@ const NewTaskerDashboard = () => {
                     <p className="text-2xl font-bold text-white">
                       {stats?.total_reviews || 0}
                     </p>
-                  </div>
+                  </button>
 
-                  {/* Services */}
-                  <div className="bg-white/20 backdrop-blur-md rounded-xl p-3 border border-white/30 transform hover:scale-105 transition-all duration-300 hover:bg-white/30">
+                  {/* Services - Click to manage services */}
+                  <button
+                    onClick={() => navigate('/tasker/services')}
+                    className="bg-white/20 backdrop-blur-md rounded-xl p-3 border border-white/30 transform hover:scale-105 transition-all duration-300 hover:bg-white/30 text-left cursor-pointer"
+                  >
                     <div className="flex items-center space-x-2 mb-1">
                       <Settings className="w-4 h-4 text-emerald-200" />
                       <span className="text-xs text-emerald-100 font-medium uppercase tracking-wide">
@@ -388,7 +407,7 @@ const NewTaskerDashboard = () => {
                     <p className="text-2xl font-bold text-white">
                       {user?.tasker_profile?.services?.length || 0}
                     </p>
-                  </div>
+                  </button>
                 </div>
 
                 {/* Action Button */}
