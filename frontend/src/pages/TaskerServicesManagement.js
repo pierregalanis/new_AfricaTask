@@ -120,6 +120,29 @@ const TaskerServicesManagement = () => {
     setServices(services.filter(s => s !== serviceToRemove));
   };
 
+  const handleEditService = (index, currentService) => {
+    setEditingService(index);
+    setEditServiceValue(currentService);
+  };
+
+  const handleSaveEditedService = (index) => {
+    if (!editServiceValue.trim()) {
+      toast.error(language === 'en' ? 'Service name cannot be empty' : 'Le nom du service ne peut pas être vide');
+      return;
+    }
+    
+    const updatedServices = [...services];
+    updatedServices[index] = editServiceValue.trim();
+    setServices(updatedServices);
+    setEditingService(null);
+    setEditServiceValue('');
+  };
+
+  const handleCancelEdit = () => {
+    setEditingService(null);
+    setEditServiceValue('');
+  };
+
   const handleSave = async () => {
     if (services.length === 0) {
       toast.error(language === 'en' ? 'Please add at least one service' : 'Veuillez ajouter au moins un service');
