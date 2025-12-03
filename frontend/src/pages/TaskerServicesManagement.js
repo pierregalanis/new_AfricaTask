@@ -5,7 +5,7 @@ import { translations } from '../utils/translations';
 import axios from 'axios';
 import Navbar from '../components/Navbar';
 import TaskerPortfolio from '../components/TaskerPortfolio';
-import { Plus, X, Save, Briefcase, Edit2, Check } from 'lucide-react';
+import { Plus, X, Save, Briefcase } from 'lucide-react';
 import { toast } from 'react-toastify';
 
 const TaskerServicesManagement = () => {
