@@ -334,7 +334,7 @@ const TaskerServicesManagement = () => {
                         setServices([...services, serviceName]);
                       }
                     }}
-                    className="text-sm px-3 py-1 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 rounded-full text-gray-700"
+                    className="text-sm px-3 py-1 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full text-gray-700 dark:text-gray-300"
                   >
                     {language === 'en' ? cat.name_en : cat.name_fr}
                   </button>
