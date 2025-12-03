@@ -335,7 +335,7 @@ const NewTaskerDashboard = () => {
                 </div>
 
                 {/* Stats Cards */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                   {/* Tasks Completed */}
                   <div className="bg-white/20 backdrop-blur-md rounded-2xl p-4 border border-white/30 transform hover:scale-105 transition-all duration-300 hover:bg-white/30">
                     <div className="flex items-center space-x-2 mb-2">
