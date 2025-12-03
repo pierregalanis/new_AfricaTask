@@ -30,7 +30,7 @@ const BrowseTaskersPage = () => {
   useEffect(() => {
     fetchCategory();
     fetchTaskers();
-  }, [categoryId]);
+  }, [categoryId, selectedSubcategory]);
 
   const fetchCategory = async () => {
     try {
