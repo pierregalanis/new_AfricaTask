@@ -337,14 +337,14 @@ const NewTaskerDashboard = () => {
                 {/* Stats Cards */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                   {/* Tasks Completed */}
-                  <div className="bg-white/20 backdrop-blur-md rounded-2xl p-4 border border-white/30 transform hover:scale-105 transition-all duration-300 hover:bg-white/30">
-                    <div className="flex items-center space-x-2 mb-2">
-                      <CheckCircle className="w-5 h-5 text-emerald-200" />
+                  <div className="bg-white/20 backdrop-blur-md rounded-xl p-3 border border-white/30 transform hover:scale-105 transition-all duration-300 hover:bg-white/30">
+                    <div className="flex items-center space-x-2 mb-1">
+                      <CheckCircle className="w-4 h-4 text-emerald-200" />
                       <span className="text-xs text-emerald-100 font-medium uppercase tracking-wide">
-                        {language === 'en' ? 'Completed' : 'Terminé'}
+                        {language === 'en' ? 'Tasks' : 'Tâches'}
                       </span>
                     </div>
-                    <p className="text-3xl font-bold text-white">
+                    <p className="text-2xl font-bold text-white">
                       {stats?.total_paid_tasks || 0}
                     </p>
                   </div>
