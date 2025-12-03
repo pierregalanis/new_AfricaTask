@@ -220,56 +220,90 @@ const TaskerServicesManagement = () => {
               {language === 'en' ? 'Services You Offer' : 'Services que vous proposez'}
             </h2>
             
-            {/* Current Services */}
-            <div className="flex flex-wrap gap-2 mb-4">
+            {/* Current Services with Individual Settings */}
+            <div className="space-y-3 mb-4">
               {services.map((service, idx) => (
                 <div
                   key={idx}
-                  className="flex items-center space-x-2 bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300 px-4 py-2 rounded-full border border-emerald-200 dark:border-emerald-700"
+                  className="border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 overflow-hidden"
                 >
-                  {editingService === idx ? (
-                    <>
-                      <input
-                        type="text"
-                        value={editServiceValue}
-                        onChange={(e) => setEditServiceValue(e.target.value)}
-                        onKeyPress={(e) => e.key === 'Enter' && handleSaveEditedService(idx)}
-                        className="bg-white dark:bg-gray-800 text-emerald-700 dark:text-emerald-300 px-2 py-1 rounded border border-emerald-300 dark:border-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm"
-                        autoFocus
-                      />
+                  {/* Service Header - Clickable to expand */}
+                  <div
+                    onClick={() => toggleServiceExpansion(service)}
+                    className="flex items-center justify-between p-4 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+                  >
+                    <div className="flex items-center space-x-3">
+                      <div className="bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300 px-3 py-1 rounded-full text-sm font-medium">
+                        {service}
+                      </div>
+                      {serviceSettings[service] && (
+                        <span className="text-xs text-gray-500 dark:text-gray-400">
+                          {serviceSettings[service].rate ? `${serviceSettings[service].rate} CFA/hr` : 'No rate set'}
+                        </span>
+                      )}
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <span className="text-xs text-gray-500 dark:text-gray-400">
+                        {expandedService === service ? (language === 'en' ? 'Collapse' : 'Réduire') : (language === 'en' ? 'Edit Settings' : 'Modifier')}
+                      </span>
                       <button
-                        onClick={() => handleSaveEditedService(idx)}
-                        className="hover:bg-emerald-200 dark:hover:bg-emerald-800 rounded-full p-1 transition-colors"
-                        title={language === 'en' ? 'Save' : 'Enregistrer'}
-                      >
-                        <Check className="w-4 h-4" />
-                      </button>
-                      <button
-                        onClick={handleCancelEdit}
-                        className="hover:bg-emerald-200 dark:hover:bg-emerald-800 rounded-full p-1 transition-colors"
-                        title={language === 'en' ? 'Cancel' : 'Annuler'}
-                      >
-                        <X className="w-4 h-4" />
-                      </button>
-                    </>
-                  ) : (
-                    <>
-                      <span className="font-medium">{service}</span>
-                      <button
-                        onClick={() => handleEditService(idx, service)}
-                        className="hover:bg-emerald-200 dark:hover:bg-emerald-800 rounded-full p-1 transition-colors"
-                        title={language === 'en' ? 'Edit' : 'Modifier'}
-                      >
-                        <Edit2 className="w-3.5 h-3.5" />
-                      </button>
-                      <button
-                        onClick={() => handleRemoveService(service)}
-                        className="hover:bg-emerald-200 dark:hover:bg-emerald-800 rounded-full p-1 transition-colors"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleRemoveService(service);
+                        }}
+                        className="hover:bg-red-100 dark:hover:bg-red-900/30 text-red-600 dark:text-red-400 rounded-full p-1 transition-colors"
                         title={language === 'en' ? 'Remove' : 'Supprimer'}
                       >
                         <X className="w-4 h-4" />
                       </button>
-                    </>
+                    </div>
+                  </div>
+
+                  {/* Expandable Settings Section */}
+                  {expandedService === service && (
+                    <div className="p-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 space-y-4">
+                      {/* Hourly Rate for this service */}
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                          {language === 'en' ? 'Hourly Rate (CFA)' : 'Tarif horaire (CFA)'}
+                        </label>
+                        <input
+                          type="number"
+                          value={serviceSettings[service]?.rate || ''}
+                          onChange={(e) => updateServiceSetting(service, 'rate', e.target.value)}
+                          placeholder="5000"
+                          className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent placeholder-gray-400 dark:placeholder-gray-500"
+                        />
+                      </div>
+
+                      {/* Bio for this service */}
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                          {language === 'en' ? 'Description for this service' : 'Description pour ce service'}
+                        </label>
+                        <textarea
+                          value={serviceSettings[service]?.bio || ''}
+                          onChange={(e) => updateServiceSetting(service, 'bio', e.target.value)}
+                          rows={3}
+                          placeholder={language === 'en' ? 'Describe your expertise in this service...' : 'Décrivez votre expertise dans ce service...'}
+                          className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent placeholder-gray-400 dark:placeholder-gray-500"
+                        />
+                      </div>
+
+                      {/* Travel Distance for this service */}
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                          {language === 'en' ? 'Max Travel Distance (km)' : 'Distance maximale (km)'}
+                        </label>
+                        <input
+                          type="number"
+                          value={serviceSettings[service]?.distance || ''}
+                          onChange={(e) => updateServiceSetting(service, 'distance', e.target.value)}
+                          placeholder="10"
+                          className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent placeholder-gray-400 dark:placeholder-gray-500"
+                        />
+                      </div>
+                    </div>
                   )}
                 </div>
               ))}
