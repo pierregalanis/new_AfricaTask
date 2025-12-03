@@ -253,91 +253,100 @@ const TaskerServicesManagement = () => {
             
             {/* Current Services with Individual Settings */}
             <div className="space-y-3 mb-4">
-              {services.map((service, idx) => (
-                <div
-                  key={idx}
-                  className="border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 overflow-hidden"
-                >
-                  {/* Service Header - Clickable to expand */}
+              {services.map((service, idx) => {
+                const serviceKey = getServiceKey(service);
+                return (
                   <div
-                    onClick={() => toggleServiceExpansion(service)}
-                    className="flex items-center justify-between p-4 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+                    key={idx}
+                    className="border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 overflow-hidden"
                   >
-                    <div className="flex items-center space-x-3">
-                      <div className="bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300 px-3 py-1 rounded-full text-sm font-medium">
-                        {service}
+                    {/* Service Header - Clickable to expand */}
+                    <div
+                      onClick={() => toggleServiceExpansion(service)}
+                      className="flex items-center justify-between p-4 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+                    >
+                      <div className="flex flex-col space-y-1">
+                        <div className="flex items-center space-x-2">
+                          <div className="bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300 px-3 py-1 rounded-full text-sm font-medium">
+                            {service.category}
+                          </div>
+                          <span className="text-gray-400 dark:text-gray-500">→</span>
+                          <span className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                            {service.subcategory}
+                          </span>
+                        </div>
+                        {serviceSettings[serviceKey] && (
+                          <span className="text-xs text-gray-500 dark:text-gray-400 ml-1">
+                            {serviceSettings[serviceKey].rate ? `${serviceSettings[serviceKey].rate} CFA/hr` : 'No rate set'}
+                          </span>
+                        )}
                       </div>
-                      {serviceSettings[service] && (
+                      <div className="flex items-center space-x-2">
                         <span className="text-xs text-gray-500 dark:text-gray-400">
-                          {serviceSettings[service].rate ? `${serviceSettings[service].rate} CFA/hr` : 'No rate set'}
+                          {expandedService === serviceKey ? (language === 'en' ? 'Collapse' : 'Réduire') : (language === 'en' ? 'Edit Settings' : 'Modifier')}
                         </span>
-                      )}
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleRemoveService(service);
+                          }}
+                          className="hover:bg-red-100 dark:hover:bg-red-900/30 text-red-600 dark:text-red-400 rounded-full p-1 transition-colors"
+                          title={language === 'en' ? 'Remove' : 'Supprimer'}
+                        >
+                          <X className="w-4 h-4" />
+                        </button>
+                      </div>
                     </div>
-                    <div className="flex items-center space-x-2">
-                      <span className="text-xs text-gray-500 dark:text-gray-400">
-                        {expandedService === service ? (language === 'en' ? 'Collapse' : 'Réduire') : (language === 'en' ? 'Edit Settings' : 'Modifier')}
-                      </span>
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleRemoveService(service);
-                        }}
-                        className="hover:bg-red-100 dark:hover:bg-red-900/30 text-red-600 dark:text-red-400 rounded-full p-1 transition-colors"
-                        title={language === 'en' ? 'Remove' : 'Supprimer'}
-                      >
-                        <X className="w-4 h-4" />
-                      </button>
-                    </div>
+
+                    {/* Expandable Settings Section */}
+                    {expandedService === serviceKey && (
+                      <div className="p-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 space-y-4">
+                        {/* Hourly Rate for this service */}
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            {language === 'en' ? 'Hourly Rate (CFA)' : 'Tarif horaire (CFA)'}
+                          </label>
+                          <input
+                            type="number"
+                            value={serviceSettings[serviceKey]?.rate || ''}
+                            onChange={(e) => updateServiceSetting(service, 'rate', e.target.value)}
+                            placeholder="5000"
+                            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent placeholder-gray-400 dark:placeholder-gray-500"
+                          />
+                        </div>
+
+                        {/* Bio for this service */}
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            {language === 'en' ? 'Description for this service' : 'Description pour ce service'}
+                          </label>
+                          <textarea
+                            value={serviceSettings[serviceKey]?.bio || ''}
+                            onChange={(e) => updateServiceSetting(service, 'bio', e.target.value)}
+                            rows={3}
+                            placeholder={language === 'en' ? 'Describe your expertise in this service...' : 'Décrivez votre expertise dans ce service...'}
+                            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent placeholder-gray-400 dark:placeholder-gray-500"
+                          />
+                        </div>
+
+                        {/* Travel Distance for this service */}
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            {language === 'en' ? 'Max Travel Distance (km)' : 'Distance maximale (km)'}
+                          </label>
+                          <input
+                            type="number"
+                            value={serviceSettings[serviceKey]?.distance || ''}
+                            onChange={(e) => updateServiceSetting(service, 'distance', e.target.value)}
+                            placeholder="10"
+                            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent placeholder-gray-400 dark:placeholder-gray-500"
+                          />
+                        </div>
+                      </div>
+                    )}
                   </div>
-
-                  {/* Expandable Settings Section */}
-                  {expandedService === service && (
-                    <div className="p-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 space-y-4">
-                      {/* Hourly Rate for this service */}
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                          {language === 'en' ? 'Hourly Rate (CFA)' : 'Tarif horaire (CFA)'}
-                        </label>
-                        <input
-                          type="number"
-                          value={serviceSettings[service]?.rate || ''}
-                          onChange={(e) => updateServiceSetting(service, 'rate', e.target.value)}
-                          placeholder="5000"
-                          className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent placeholder-gray-400 dark:placeholder-gray-500"
-                        />
-                      </div>
-
-                      {/* Bio for this service */}
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                          {language === 'en' ? 'Description for this service' : 'Description pour ce service'}
-                        </label>
-                        <textarea
-                          value={serviceSettings[service]?.bio || ''}
-                          onChange={(e) => updateServiceSetting(service, 'bio', e.target.value)}
-                          rows={3}
-                          placeholder={language === 'en' ? 'Describe your expertise in this service...' : 'Décrivez votre expertise dans ce service...'}
-                          className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent placeholder-gray-400 dark:placeholder-gray-500"
-                        />
-                      </div>
-
-                      {/* Travel Distance for this service */}
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                          {language === 'en' ? 'Max Travel Distance (km)' : 'Distance maximale (km)'}
-                        </label>
-                        <input
-                          type="number"
-                          value={serviceSettings[service]?.distance || ''}
-                          onChange={(e) => updateServiceSetting(service, 'distance', e.target.value)}
-                          placeholder="10"
-                          className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent placeholder-gray-400 dark:placeholder-gray-500"
-                        />
-                      </div>
-                    </div>
-                  )}
-                </div>
-              ))}
+                );
+              })}
               {services.length === 0 && (
                 <p className="text-gray-500 dark:text-gray-400 italic">
                   {language === 'en' ? 'No services added yet' : 'Aucun service ajouté'}
