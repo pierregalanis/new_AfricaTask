@@ -20,16 +20,25 @@ const NewTaskerDashboard = () => {
   const [chatModalOpen, setChatModalOpen] = useState(false);
   const [selectedTaskForChat, setSelectedTaskForChat] = useState(null);
   const [clientForChat, setClientForChat] = useState(null);
+  const [stats, setStats] = useState(null); // Real-time stats
   const navigate = useNavigate();
   const t = (key) => translations[language]?.[key] || key;
 
   useEffect(() => {
-    if (!user?.tasker_profile?.hourly_rate || user.tasker_profile.hourly_rate === 0) {
-      navigate('/tasker-profile-setup');
-      return;
-    }
     fetchBookings();
+    fetchTaskerStats();
   }, []);
+
+  const fetchTaskerStats = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/api/reviews/tasker/${user.id}/rating`
+      );
+      setStats(response.data);
+    } catch (error) {
+      console.error('Error fetching stats:', error);
+    }
+  };
 
   const fetchBookings = async () => {
     try {
