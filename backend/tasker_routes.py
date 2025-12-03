@@ -19,6 +19,40 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/login")
 router = APIRouter(prefix="/api/taskers", tags=["taskers"])
 
 
+@router.get("/search", response_model=List[UserResponse])
+async def search_taskers(
+    service: Optional[str] = None,
+    is_available: Optional[bool] = None,
+    city: Optional[str] = None,
+    country: Optional[str] = None,
+    db: AsyncIOMotorDatabase = Depends(get_database)
+):
+    """
+    Search for taskers by service, location, and availability.
+    """
+    query = {"role": "tasker"}
+    
+    if service:
+        # Search in tasker_profile.services
+        query["tasker_profile.services"] = {"$elemMatch": {"$or": [
+            {"category": service},
+            {"subcategory": service},
+            service  # For backward compatibility with string services
+        ]}}
+    
+    if is_available is not None:
+        query["tasker_profile.is_available"] = is_available
+    
+    if city:
+        query["city"] = city
+    
+    if country:
+        query["country"] = country
+    
+    taskers = await db.users.find(query, {"_id": 0, "hashed_password": 0}).to_list(1000)
+    return [UserResponse(**tasker) for tasker in taskers]
+
+
 @router.get("/earnings")
 async def get_tasker_earnings(
     period: str = "all",  # all, week, month
