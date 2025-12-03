@@ -311,34 +311,131 @@ const NewTaskerDashboard = () => {
     <div className="min-h-screen">
       <Navbar />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="fancy-card p-8 mb-8 bg-gradient-to-r from-purple-500 to-purple-600 text-white animate-fadeIn">
-          <div className="flex justify-between items-center">
-            <div className="flex-1">
-              <h1 className="text-4xl font-bold mb-2" data-testid="tasker-dashboard-title">
-                {language === 'en' ? '👨‍🔧 Welcome, ' : '👨‍🔧 Bienvenue, '}{user?.full_name}!
-              </h1>
-              <p className="text-purple-100 text-lg">
-                {language === 'en' ? 'Manage your bookings' : 'Gérez vos réservations'}
-              </p>
-              <div className="mt-4 flex items-center space-x-4">
-                <div className="bg-white/20 dark:bg-gray-800/50 backdrop-blur px-4 py-2 rounded-lg border border-white/30 dark:border-emerald-500/30">
-                  <span className="text-sm text-white dark:text-emerald-200 font-medium">{language === 'en' ? 'Hourly Rate' : 'Tarif'}</span>
-                  <p className="text-2xl font-bold text-white dark:text-white">{user?.tasker_profile?.hourly_rate || 0} CFA/hr</p>
+        {/* Fancy Hero Header with Animation */}
+        <div className="relative overflow-hidden rounded-3xl mb-8 bg-gradient-to-br from-emerald-500 via-emerald-600 to-teal-700 shadow-2xl">
+          {/* Animated Background Pattern */}
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute top-0 -left-4 w-72 h-72 bg-white rounded-full mix-blend-multiply filter blur-xl animate-blob"></div>
+            <div className="absolute top-0 -right-4 w-72 h-72 bg-emerald-300 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-2000"></div>
+            <div className="absolute -bottom-8 left-20 w-72 h-72 bg-teal-300 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-4000"></div>
+          </div>
+
+          <div className="relative p-8 md:p-12">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+              {/* Left: Welcome Section */}
+              <div className="lg:col-span-2 space-y-6">
+                <div className="animate-fadeIn">
+                  <h1 className="text-4xl md:text-5xl font-bold text-white mb-3" data-testid="tasker-dashboard-title">
+                    {language === 'en' ? '👋 Welcome back,' : '👋 Bon retour,'} <br />
+                    <span className="text-emerald-100">{user?.full_name}!</span>
+                  </h1>
+                  <p className="text-emerald-50 text-lg md:text-xl">
+                    {language === 'en' ? 'Ready to make someone\'s day better?' : 'Prêt à améliorer la journée de quelqu\'un?'}
+                  </p>
                 </div>
-                <div className="bg-white/20 dark:bg-gray-800/50 backdrop-blur px-4 py-2 rounded-lg border border-white/30 dark:border-emerald-500/30">
-                  <span className="text-sm text-white dark:text-emerald-200 font-medium">{language === 'en' ? 'Completed' : 'Terminé'}</span>
-                  <p className="text-2xl font-bold text-white dark:text-white">{user?.tasker_profile?.completed_tasks || 0}</p>
+
+                {/* Stats Cards */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  {/* Tasks Completed */}
+                  <div className="bg-white/20 backdrop-blur-md rounded-2xl p-4 border border-white/30 transform hover:scale-105 transition-all duration-300 hover:bg-white/30">
+                    <div className="flex items-center space-x-2 mb-2">
+                      <CheckCircle className="w-5 h-5 text-emerald-200" />
+                      <span className="text-xs text-emerald-100 font-medium uppercase tracking-wide">
+                        {language === 'en' ? 'Completed' : 'Terminé'}
+                      </span>
+                    </div>
+                    <p className="text-3xl font-bold text-white">
+                      {stats?.total_paid_tasks || 0}
+                    </p>
+                  </div>
+
+                  {/* Rating */}
+                  <div className="bg-white/20 backdrop-blur-md rounded-2xl p-4 border border-white/30 transform hover:scale-105 transition-all duration-300 hover:bg-white/30">
+                    <div className="flex items-center space-x-2 mb-2">
+                      <svg className="w-5 h-5 text-yellow-300" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                      </svg>
+                      <span className="text-xs text-emerald-100 font-medium uppercase tracking-wide">
+                        {language === 'en' ? 'Rating' : 'Note'}
+                      </span>
+                    </div>
+                    <p className="text-3xl font-bold text-white">
+                      {stats?.average_rating?.toFixed(1) || '0.0'}
+                    </p>
+                  </div>
+
+                  {/* Reviews */}
+                  <div className="bg-white/20 backdrop-blur-md rounded-2xl p-4 border border-white/30 transform hover:scale-105 transition-all duration-300 hover:bg-white/30">
+                    <div className="flex items-center space-x-2 mb-2">
+                      <MessageCircle className="w-5 h-5 text-emerald-200" />
+                      <span className="text-xs text-emerald-100 font-medium uppercase tracking-wide">
+                        {language === 'en' ? 'Reviews' : 'Avis'}
+                      </span>
+                    </div>
+                    <p className="text-3xl font-bold text-white">
+                      {stats?.total_reviews || 0}
+                    </p>
+                  </div>
+
+                  {/* Services */}
+                  <div className="bg-white/20 backdrop-blur-md rounded-2xl p-4 border border-white/30 transform hover:scale-105 transition-all duration-300 hover:bg-white/30">
+                    <div className="flex items-center space-x-2 mb-2">
+                      <Settings className="w-5 h-5 text-emerald-200" />
+                      <span className="text-xs text-emerald-100 font-medium uppercase tracking-wide">
+                        {language === 'en' ? 'Services' : 'Services'}
+                      </span>
+                    </div>
+                    <p className="text-3xl font-bold text-white">
+                      {user?.tasker_profile?.services?.length || 0}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Action Button */}
+                <button
+                  onClick={() => navigate('/tasker-profile-setup')}
+                  className="bg-white text-emerald-600 px-6 py-3 rounded-xl font-semibold hover:bg-emerald-50 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center space-x-2 group"
+                  data-testid="edit-profile-button"
+                >
+                  <Settings className="w-5 h-5 group-hover:rotate-90 transition-transform duration-300" />
+                  <span>{language === 'en' ? 'Edit Profile & Services' : 'Modifier profil & services'}</span>
+                </button>
+              </div>
+
+              {/* Right: Animated Worker Illustration */}
+              <div className="hidden lg:flex justify-center items-center">
+                <div className="relative w-64 h-64 animate-float">
+                  {/* Worker SVG Illustration */}
+                  <div className="absolute inset-0 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center border-4 border-white/20">
+                    <svg className="w-48 h-48" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      {/* Hard hat */}
+                      <ellipse cx="100" cy="60" rx="45" ry="15" fill="#FCD34D"/>
+                      <path d="M55 60 Q55 45 100 45 Q145 45 145 60 L145 80 Q145 95 100 95 Q55 95 55 80 Z" fill="#F59E0B"/>
+                      {/* Face */}
+                      <circle cx="100" cy="110" r="35" fill="#FDE68A"/>
+                      {/* Eyes */}
+                      <circle cx="90" cy="105" r="3" fill="#1F2937"/>
+                      <circle cx="110" cy="105" r="3" fill="#1F2937"/>
+                      {/* Smile */}
+                      <path d="M85 120 Q100 128 115 120" stroke="#1F2937" strokeWidth="2" fill="none" strokeLinecap="round"/>
+                      {/* Body with tool belt */}
+                      <rect x="75" y="140" width="50" height="50" rx="5" fill="#10B981"/>
+                      <rect x="70" y="165" width="60" height="10" fill="#059669"/>
+                      {/* Arms */}
+                      <rect x="50" y="145" width="15" height="40" rx="7" fill="#FDE68A"/>
+                      <rect x="135" y="145" width="15" height="40" rx="7" fill="#FDE68A"/>
+                      {/* Tools */}
+                      <rect x="75" y="168" width="8" height="15" fill="#6B7280" transform="rotate(-15 79 175)"/>
+                      <circle cx="105" cy="175" r="5" fill="#EF4444"/>
+                    </svg>
+                  </div>
+                  {/* Sparkles */}
+                  <div className="absolute top-0 right-0 w-4 h-4 bg-yellow-300 rounded-full animate-ping"></div>
+                  <div className="absolute bottom-10 left-0 w-3 h-3 bg-emerald-300 rounded-full animate-ping animation-delay-1000"></div>
+                  <div className="absolute top-20 -right-2 w-2 h-2 bg-white rounded-full animate-pulse"></div>
                 </div>
               </div>
             </div>
-            <button
-              onClick={() => navigate('/tasker-profile-setup')}
-              className="btn-glass"
-              data-testid="edit-profile-button"
-            >
-              <Settings className="w-5 h-5 inline mr-2" />
-              <span>{language === 'en' ? 'Edit Profile' : 'Modifier le profil'}</span>
-            </button>
           </div>
         </div>
 
