@@ -226,14 +226,25 @@ const TaskerProfile = () => {
               {language === 'en' ? 'Services Offered' : 'Services proposés'}
             </h2>
             <div className="flex flex-wrap gap-2">
-              {profile.services.map((service, idx) => (
-                <span
-                  key={idx}
-                  className="px-4 py-2 bg-emerald-50 text-emerald-700 rounded-full text-sm font-medium"
-                >
-                  {service}
-                </span>
-              ))}
+              {profile.services.map((service, idx) => {
+                let displayText = '';
+                if (typeof service === 'string') {
+                  // Old format - just service name
+                  displayText = service;
+                } else if (service.category && service.subcategory) {
+                  // New format - show category → subcategory
+                  displayText = `${service.category} → ${service.subcategory}`;
+                }
+                
+                return displayText ? (
+                  <span
+                    key={idx}
+                    className="px-4 py-2 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 rounded-full text-sm font-medium"
+                  >
+                    {displayText}
+                  </span>
+                ) : null;
+              })}
             </div>
           </div>
         )}
