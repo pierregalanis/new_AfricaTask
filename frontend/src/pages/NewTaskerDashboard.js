@@ -404,35 +404,59 @@ const NewTaskerDashboard = () => {
 
               {/* Right: Animated Worker Illustration */}
               <div className="hidden lg:flex justify-center items-center">
-                <div className="relative w-64 h-64 animate-float">
-                  {/* Worker SVG Illustration */}
+                <div className="relative w-48 h-48 animate-float">
+                  {/* Worker with Animation */}
                   <div className="absolute inset-0 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center border-4 border-white/20">
-                    <svg className="w-48 h-48" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg className="w-40 h-40" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
                       {/* Hard hat */}
-                      <ellipse cx="100" cy="60" rx="45" ry="15" fill="#FCD34D"/>
-                      <path d="M55 60 Q55 45 100 45 Q145 45 145 60 L145 80 Q145 95 100 95 Q55 95 55 80 Z" fill="#F59E0B"/>
+                      <ellipse cx="100" cy="55" rx="42" ry="12" fill="#FCD34D"/>
+                      <path d="M58 55 Q58 42 100 42 Q142 42 142 55 L142 72 Q142 85 100 85 Q58 85 58 72 Z" fill="#F59E0B"/>
+                      
                       {/* Face */}
-                      <circle cx="100" cy="110" r="35" fill="#FDE68A"/>
+                      <circle cx="100" cy="100" r="30" fill="#FDE68A"/>
+                      
                       {/* Eyes */}
-                      <circle cx="90" cy="105" r="3" fill="#1F2937"/>
-                      <circle cx="110" cy="105" r="3" fill="#1F2937"/>
+                      <circle cx="92" cy="96" r="2.5" fill="#1F2937"/>
+                      <circle cx="108" cy="96" r="2.5" fill="#1F2937"/>
+                      
                       {/* Smile */}
-                      <path d="M85 120 Q100 128 115 120" stroke="#1F2937" strokeWidth="2" fill="none" strokeLinecap="round"/>
-                      {/* Body with tool belt */}
-                      <rect x="75" y="140" width="50" height="50" rx="5" fill="#10B981"/>
-                      <rect x="70" y="165" width="60" height="10" fill="#059669"/>
-                      {/* Arms */}
-                      <rect x="50" y="145" width="15" height="40" rx="7" fill="#FDE68A"/>
-                      <rect x="135" y="145" width="15" height="40" rx="7" fill="#FDE68A"/>
-                      {/* Tools */}
-                      <rect x="75" y="168" width="8" height="15" fill="#6B7280" transform="rotate(-15 79 175)"/>
-                      <circle cx="105" cy="175" r="5" fill="#EF4444"/>
+                      <path d="M88 108 Q100 114 112 108" stroke="#1F2937" strokeWidth="2" fill="none" strokeLinecap="round"/>
+                      
+                      {/* Body/Shirt */}
+                      <rect x="78" y="125" width="44" height="42" rx="4" fill="#10B981"/>
+                      
+                      {/* Tool belt */}
+                      <rect x="74" y="148" width="52" height="8" fill="#059669"/>
+                      
+                      {/* Left arm holding hammer - animated */}
+                      <g className="animate-hammer">
+                        <rect x="52" y="135" width="12" height="35" rx="6" fill="#FDE68A"/>
+                        {/* Hammer */}
+                        <rect x="48" y="165" width="18" height="6" fill="#6B7280" rx="2"/>
+                        <rect x="54" y="158" width="6" height="12" fill="#8B4513"/>
+                      </g>
+                      
+                      {/* Right arm */}
+                      <rect x="136" y="135" width="12" height="35" rx="6" fill="#FDE68A"/>
+                      
+                      {/* Tools on belt */}
+                      <circle cx="88" cy="152" r="3" fill="#EF4444"/>
+                      <rect x="97" y="150" width="6" height="10" fill="#3B82F6" rx="1"/>
+                      <circle cx="112" cy="152" r="3" fill="#FBBF24"/>
                     </svg>
                   </div>
+                  
                   {/* Sparkles */}
-                  <div className="absolute top-0 right-0 w-4 h-4 bg-yellow-300 rounded-full animate-ping"></div>
-                  <div className="absolute bottom-10 left-0 w-3 h-3 bg-emerald-300 rounded-full animate-ping animation-delay-1000"></div>
-                  <div className="absolute top-20 -right-2 w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                  <div className="absolute -top-2 -right-2 w-3 h-3 bg-yellow-300 rounded-full animate-ping"></div>
+                  <div className="absolute bottom-8 -left-2 w-2.5 h-2.5 bg-emerald-300 rounded-full animate-ping animation-delay-1000"></div>
+                  <div className="absolute top-16 -right-1 w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                  
+                  {/* Work tools floating */}
+                  <div className="absolute top-0 left-4 w-8 h-8 animate-bounce animation-delay-500">
+                    <svg viewBox="0 0 24 24" fill="none" className="text-white/60">
+                      <path d="M21 7L9 19L3.5 13.5L4.91 12.09L9 16.17L19.59 5.59L21 7Z" fill="currentColor"/>
+                    </svg>
+                  </div>
                 </div>
               </div>
             </div>
