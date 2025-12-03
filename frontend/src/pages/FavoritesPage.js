@@ -142,14 +142,23 @@ const FavoritesPage = () => {
                 {/* Services */}
                 <div className="mb-4">
                   <div className="flex flex-wrap gap-2">
-                    {favorite.tasker_services.slice(0, 3).map((service, idx) => (
-                      <span
-                        key={idx}
-                        className="badge text-xs"
-                      >
-                        {service}
-                      </span>
-                    ))}
+                    {favorite.tasker_services.slice(0, 3).map((service, idx) => {
+                      let displayText = '';
+                      if (typeof service === 'string') {
+                        displayText = service;
+                      } else if (service.subcategory) {
+                        displayText = service.subcategory;
+                      }
+                      
+                      return displayText ? (
+                        <span
+                          key={idx}
+                          className="badge text-xs"
+                        >
+                          {displayText}
+                        </span>
+                      ) : null;
+                    })}
                     {favorite.tasker_services.length > 3 && (
                       <span className="badge text-xs">
                         +{favorite.tasker_services.length - 3} more
