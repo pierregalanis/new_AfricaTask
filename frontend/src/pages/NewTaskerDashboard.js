@@ -320,10 +320,10 @@ const NewTaskerDashboard = () => {
             <div className="absolute -bottom-8 left-20 w-72 h-72 bg-teal-300 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-4000"></div>
           </div>
 
-          <div className="relative p-8 md:p-12">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+          <div className="relative p-6 md:p-8">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-center">
               {/* Left: Welcome Section */}
-              <div className="lg:col-span-2 space-y-6">
+              <div className="lg:col-span-2 space-y-4">
                 <div className="animate-fadeIn">
                   <h1 className="text-4xl md:text-5xl font-bold text-white mb-3" data-testid="tasker-dashboard-title">
                     {language === 'en' ? '👋 Welcome back,' : '👋 Bon retour,'} <br />
