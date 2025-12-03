@@ -183,15 +183,26 @@ const TaskerServicesManagement = () => {
 
     setSaving(true);
     try {
+      // Convert services array to format backend expects with full service info
+      const servicesWithSettings = services.map(service => {
+        const serviceKey = getServiceKey(service);
+        const settings = serviceSettings[serviceKey] || {};
+        return {
+          category: service.category,
+          subcategory: service.subcategory,
+          hourly_rate: settings.rate || 0,
+          bio: settings.bio || '',
+          max_travel_distance: settings.distance || 10
+        };
+      });
+
       const formData = new FormData();
-      formData.append('services', JSON.stringify(services));
-      // Save service settings as JSON
-      formData.append('service_settings', JSON.stringify(serviceSettings));
-      // Use default values for global fields (kept for backward compatibility)
+      formData.append('services', JSON.stringify(servicesWithSettings));
+      formData.append('is_available', isAvailable);
+      // Keep backward compatibility with old fields
       formData.append('hourly_rate', hourlyRate || 0);
       formData.append('bio', bio || '');
       formData.append('max_travel_distance', maxTravelDistance || 10);
-      formData.append('is_available', isAvailable);
 
       console.log('Saving services:', services);
       console.log('FormData services:', formData.get('services'));
