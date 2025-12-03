@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { translations } from '../utils/translations';
 import { taskersAPI, categoriesAPI } from '../api/client';
@@ -12,10 +12,13 @@ import { Star, MapPin, Check, Filter, DollarSign, ArrowLeft } from 'lucide-react
 
 const BrowseTaskersPage = () => {
   const { categoryId } = useParams();
+  const [searchParams] = useSearchParams();
+  const subcategoryParam = searchParams.get('subcategory');
   const { language, user } = useAuth();
   const [taskers, setTaskers] = useState([]);
   const [allTaskers, setAllTaskers] = useState([]); // Store all taskers before filtering
   const [category, setCategory] = useState(null);
+  const [selectedSubcategory, setSelectedSubcategory] = useState(subcategoryParam || null);
   const [loading, setLoading] = useState(true);
   const [sortBy, setSortBy] = useState('recommended');
   const [filterAvailability, setFilterAvailability] = useState('all');
