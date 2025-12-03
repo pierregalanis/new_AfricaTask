@@ -403,6 +403,24 @@ const TaskerServicesManagement = () => {
               <Plus className="w-5 h-5" />
               <span>{language === 'en' ? 'Add New Service' : 'Ajouter un nouveau service'}</span>
             </button>
+
+            {/* Save Button - Prominent Position */}
+            {services.length > 0 && (
+              <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+                <button
+                  onClick={handleSave}
+                  disabled={saving}
+                  className="w-full bg-gradient-to-r from-emerald-600 to-emerald-700 text-white px-8 py-4 rounded-xl hover:from-emerald-700 hover:to-emerald-800 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-3 shadow-lg hover:shadow-xl transition-all text-lg font-semibold"
+                >
+                  <Save className="w-6 h-6" />
+                  <span>
+                    {saving 
+                      ? (language === 'en' ? 'Saving...' : 'Enregistrement...') 
+                      : (language === 'en' ? 'Save All Changes' : 'Enregistrer toutes les modifications')}
+                  </span>
+                </button>
+              </div>
+            )}
           </div>
 
           {/* Info box explaining per-service settings */}
