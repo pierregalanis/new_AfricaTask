@@ -325,11 +325,11 @@ const NewTaskerDashboard = () => {
               {/* Left: Welcome Section */}
               <div className="lg:col-span-2 space-y-4">
                 <div className="animate-fadeIn">
-                  <h1 className="text-4xl md:text-5xl font-bold text-white mb-3" data-testid="tasker-dashboard-title">
-                    {language === 'en' ? '👋 Welcome back,' : '👋 Bon retour,'} <br />
+                  <h1 className="text-3xl md:text-4xl font-bold text-white mb-2" data-testid="tasker-dashboard-title">
+                    {language === 'en' ? '👋 Welcome back, ' : '👋 Bon retour, '}
                     <span className="text-emerald-100">{user?.full_name}!</span>
                   </h1>
-                  <p className="text-emerald-50 text-lg md:text-xl">
+                  <p className="text-emerald-50 text-base md:text-lg">
                     {language === 'en' ? 'Ready to make someone\'s day better?' : 'Prêt à améliorer la journée de quelqu\'un?'}
                   </p>
                 </div>
