@@ -376,49 +376,14 @@ const TaskerServicesManagement = () => {
             </div>
           </div>
 
-          {/* Hourly Rate */}
-          <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              {language === 'en' ? 'Hourly Rate (CFA)' : 'Tarif horaire (CFA)'}
-              <span className="text-red-500">*</span>
-            </label>
-            <input
-              type="number"
-              value={hourlyRate}
-              onChange={(e) => setHourlyRate(e.target.value)}
-              placeholder="5000"
-              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent placeholder-gray-400 dark:placeholder-gray-500"
-            />
-          </div>
-
-          {/* Bio */}
-          <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              {language === 'en' ? 'Bio / Description' : 'Bio / Description'}
-            </label>
-            <textarea
-              value={bio}
-              onChange={(e) => setBio(e.target.value)}
-              rows={4}
-              placeholder={language === 'en' 
-                ? 'Tell clients about your experience and expertise...' 
-                : 'Parlez aux clients de votre expérience et de votre expertise...'}
-              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent placeholder-gray-400 dark:placeholder-gray-500"
-            />
-          </div>
-
-          {/* Travel Distance */}
-          <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              {language === 'en' ? 'Maximum Travel Distance (km)' : 'Distance maximale de déplacement (km)'}
-            </label>
-            <input
-              type="number"
-              value={maxTravelDistance}
-              onChange={(e) => setMaxTravelDistance(e.target.value)}
-              placeholder="10"
-              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent placeholder-gray-400 dark:placeholder-gray-500"
-            />
+          {/* Info box explaining per-service settings */}
+          <div className="mb-6 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
+            <p className="text-sm text-blue-800 dark:text-blue-300">
+              <strong>{language === 'en' ? 'Note:' : 'Remarque:'}</strong>{' '}
+              {language === 'en' 
+                ? 'Click on each service above to set individual hourly rates, descriptions, and travel distances for that specific service.' 
+                : 'Cliquez sur chaque service ci-dessus pour définir les tarifs horaires, descriptions et distances de déplacement individuels pour ce service spécifique.'}
+            </p>
           </div>
 
           {/* Availability Toggle */}
