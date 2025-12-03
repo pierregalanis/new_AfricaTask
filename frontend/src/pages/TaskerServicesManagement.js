@@ -484,14 +484,15 @@ const TaskerServicesManagement = () => {
         </div>
       </div>
 
-      {/* Category/Subcategory Selection Modal */}
+      {/* Category/Subcategory Selection Modal - Side by Side Layout */}
       {showCategoryModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white dark:bg-gray-800 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="p-6">
-              <div className="flex items-center justify-between mb-6">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl max-w-5xl w-full max-h-[90vh] overflow-hidden flex flex-col">
+            {/* Header */}
+            <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+              <div className="flex items-center justify-between">
                 <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
-                  {language === 'en' ? 'Select Service' : 'Sélectionner un service'}
+                  {language === 'en' ? 'Add a Service' : 'Ajouter un service'}
                 </h3>
                 <button
                   onClick={() => {
@@ -504,13 +505,16 @@ const TaskerServicesManagement = () => {
                   <X className="w-6 h-6" />
                 </button>
               </div>
+            </div>
 
-              {/* Step 1: Select Category */}
-              <div className="mb-6">
-                <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3">
-                  {language === 'en' ? '1. Select Category' : '1. Sélectionner une catégorie'}
+            {/* Content - Side by Side */}
+            <div className="flex-1 overflow-hidden flex">
+              {/* Left: Categories */}
+              <div className="w-1/2 border-r border-gray-200 dark:border-gray-700 overflow-y-auto p-6">
+                <h4 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-4">
+                  {language === 'en' ? 'Step 1: Select Category' : 'Étape 1: Choisir une catégorie'}
                 </h4>
-                <div className="grid grid-cols-2 gap-3">
+                <div className="space-y-2">
                   {availableCategories.map((category) => (
                     <button
                       key={category.id}
@@ -518,70 +522,96 @@ const TaskerServicesManagement = () => {
                         setSelectedCategory(category);
                         setSelectedSubcategory('');
                       }}
-                      className={`p-4 rounded-lg border-2 transition-all ${
+                      className={`w-full p-4 rounded-lg border-2 transition-all text-left flex items-center space-x-3 ${
                         selectedCategory?.id === category.id
                           ? 'border-emerald-500 bg-emerald-50 dark:bg-emerald-900/30'
                           : 'border-gray-200 dark:border-gray-700 hover:border-emerald-300 dark:hover:border-emerald-700'
                       }`}
                     >
-                      <div className="text-2xl mb-2">{category.icon}</div>
-                      <div className="text-sm font-medium text-gray-900 dark:text-white">
-                        {language === 'en' ? category.name_en : category.name_fr}
+                      <div className="text-3xl">{category.icon}</div>
+                      <div className="flex-1">
+                        <div className="font-medium text-gray-900 dark:text-white">
+                          {language === 'en' ? category.name_en : category.name_fr}
+                        </div>
+                        <div className="text-xs text-gray-500 dark:text-gray-400">
+                          {category.subcategories.length} {language === 'en' ? 'subcategories' : 'sous-catégories'}
+                        </div>
                       </div>
+                      {selectedCategory?.id === category.id && (
+                        <div className="w-2 h-2 bg-emerald-500 rounded-full"></div>
+                      )}
                     </button>
                   ))}
                 </div>
               </div>
 
-              {/* Step 2: Select Subcategory */}
-              {selectedCategory && (
-                <div className="mb-6">
-                  <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3">
-                    {language === 'en' ? '2. Select Subcategory' : '2. Sélectionner une sous-catégorie'}
-                  </h4>
-                  <div className="space-y-2">
-                    {selectedCategory.subcategories.map((subcategory, idx) => {
-                      const subcatName = language === 'en' ? subcategory.en : subcategory.fr;
-                      return (
-                        <button
-                          key={idx}
-                          onClick={() => setSelectedSubcategory(subcategory.en)}
-                          className={`w-full p-3 rounded-lg border-2 text-left transition-all ${
-                            selectedSubcategory === subcategory.en
-                              ? 'border-emerald-500 bg-emerald-50 dark:bg-emerald-900/30'
-                              : 'border-gray-200 dark:border-gray-700 hover:border-emerald-300 dark:hover:border-emerald-700'
-                          }`}
-                        >
-                          <div className="text-sm font-medium text-gray-900 dark:text-white">
-                            {subcatName}
-                          </div>
-                        </button>
-                      );
-                    })}
+              {/* Right: Subcategories */}
+              <div className="w-1/2 overflow-y-auto p-6">
+                {selectedCategory ? (
+                  <>
+                    <h4 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-4">
+                      {language === 'en' ? 'Step 2: Select Subcategory' : 'Étape 2: Choisir une sous-catégorie'}
+                    </h4>
+                    <div className="space-y-2">
+                      {selectedCategory.subcategories.map((subcategory, idx) => {
+                        const subcatName = language === 'en' ? subcategory.en : subcategory.fr;
+                        return (
+                          <button
+                            key={idx}
+                            onClick={() => setSelectedSubcategory(subcategory.en)}
+                            className={`w-full p-4 rounded-lg border-2 text-left transition-all ${
+                              selectedSubcategory === subcategory.en
+                                ? 'border-emerald-500 bg-emerald-50 dark:bg-emerald-900/30'
+                                : 'border-gray-200 dark:border-gray-700 hover:border-emerald-300 dark:hover:border-emerald-700'
+                            }`}
+                          >
+                            <div className="flex items-center justify-between">
+                              <div className="font-medium text-gray-900 dark:text-white">
+                                {subcatName}
+                              </div>
+                              {selectedSubcategory === subcategory.en && (
+                                <div className="w-2 h-2 bg-emerald-500 rounded-full"></div>
+                              )}
+                            </div>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </>
+                ) : (
+                  <div className="h-full flex items-center justify-center text-center">
+                    <div className="text-gray-400 dark:text-gray-500">
+                      <Briefcase className="w-12 h-12 mx-auto mb-3 opacity-50" />
+                      <p className="text-sm">
+                        {language === 'en' 
+                          ? 'Select a category to see subcategories' 
+                          : 'Sélectionnez une catégorie pour voir les sous-catégories'}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              )}
-
-              {/* Add Button */}
-              <div className="flex gap-3">
-                <button
-                  onClick={() => {
-                    setShowCategoryModal(false);
-                    setSelectedCategory(null);
-                    setSelectedSubcategory('');
-                  }}
-                  className="flex-1 px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
-                >
-                  {language === 'en' ? 'Cancel' : 'Annuler'}
-                </button>
-                <button
-                  onClick={handleAddService}
-                  disabled={!selectedCategory || !selectedSubcategory}
-                  className="flex-1 px-6 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                >
-                  {language === 'en' ? 'Add Service' : 'Ajouter le service'}
-                </button>
+                )}
               </div>
+            </div>
+
+            {/* Footer - Action Buttons */}
+            <div className="p-6 border-t border-gray-200 dark:border-gray-700 flex gap-3">
+              <button
+                onClick={() => {
+                  setShowCategoryModal(false);
+                  setSelectedCategory(null);
+                  setSelectedSubcategory('');
+                }}
+                className="flex-1 px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+              >
+                {language === 'en' ? 'Cancel' : 'Annuler'}
+              </button>
+              <button
+                onClick={handleAddService}
+                disabled={!selectedCategory || !selectedSubcategory}
+                className="flex-1 px-6 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-semibold"
+              >
+                {language === 'en' ? 'Add Service' : 'Ajouter le service'}
+              </button>
             </div>
           </div>
         </div>
