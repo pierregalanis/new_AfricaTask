@@ -13,18 +13,21 @@ const TaskerServicesManagement = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [taskerProfile, setTaskerProfile] = useState(null);
-  const [services, setServices] = useState([]);
+  const [services, setServices] = useState([]); // Array of { category, subcategory } objects
   const [newService, setNewService] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedSubcategory, setSelectedSubcategory] = useState('');
   const [availableCategories, setAvailableCategories] = useState([]);
   const [filteredServices, setFilteredServices] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [showCategoryModal, setShowCategoryModal] = useState(false);
   const [hourlyRate, setHourlyRate] = useState('');
   const [bio, setBio] = useState('');
   const [maxTravelDistance, setMaxTravelDistance] = useState('');
   const [isAvailable, setIsAvailable] = useState(true);
   const [saving, setSaving] = useState(false);
   const [expandedService, setExpandedService] = useState(null); // Track which service settings are expanded
-  const [serviceSettings, setServiceSettings] = useState({}); // Store settings for each service: { serviceName: { rate, bio, distance } }
+  const [serviceSettings, setServiceSettings] = useState({}); // Store settings for each service: { serviceKey: { rate, bio, distance } }
 
   const t = (key) => translations[language][key] || key;
 
