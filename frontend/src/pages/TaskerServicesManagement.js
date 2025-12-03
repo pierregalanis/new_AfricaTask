@@ -472,23 +472,6 @@ const TaskerServicesManagement = () => {
             </div>
           </div>
 
-          {/* Save Button */}
-          <div className="flex gap-4">
-            <button
-              onClick={handleSave}
-              disabled={saving}
-              className="flex-1 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-emerald-600 hover:to-emerald-700 disabled:opacity-50 flex items-center justify-center space-x-2"
-            >
-              <Save className="w-5 h-5" />
-              <span>{saving ? t('loading') : (language === 'en' ? 'Save Changes' : 'Enregistrer')}</span>
-            </button>
-            <button
-              onClick={() => navigate('/profile')}
-              className="px-6 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 dark:bg-gray-950"
-            >
-              {language === 'en' ? 'Cancel' : 'Annuler'}
-            </button>
-          </div>
         </div>
 
         {/* Portfolio Gallery */}
