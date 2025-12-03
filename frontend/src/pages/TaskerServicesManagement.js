@@ -142,27 +142,34 @@ const TaskerServicesManagement = () => {
     }
   };
 
+  const getServiceKey = (service) => {
+    return `${service.category}:${service.subcategory}`;
+  };
+
   const handleRemoveService = (serviceToRemove) => {
-    setServices(services.filter(s => s !== serviceToRemove));
+    const serviceKey = getServiceKey(serviceToRemove);
+    setServices(services.filter(s => getServiceKey(s) !== serviceKey));
     // Remove settings for this service
     const newSettings = { ...serviceSettings };
-    delete newSettings[serviceToRemove];
+    delete newSettings[serviceKey];
     setServiceSettings(newSettings);
   };
 
-  const toggleServiceExpansion = (serviceName) => {
-    if (expandedService === serviceName) {
+  const toggleServiceExpansion = (service) => {
+    const serviceKey = getServiceKey(service);
+    if (expandedService === serviceKey) {
       setExpandedService(null);
     } else {
-      setExpandedService(serviceName);
+      setExpandedService(serviceKey);
     }
   };
 
-  const updateServiceSetting = (serviceName, field, value) => {
+  const updateServiceSetting = (service, field, value) => {
+    const serviceKey = getServiceKey(service);
     setServiceSettings(prev => ({
       ...prev,
-      [serviceName]: {
-        ...prev[serviceName],
+      [serviceKey]: {
+        ...prev[serviceKey],
         [field]: value
       }
     }));
