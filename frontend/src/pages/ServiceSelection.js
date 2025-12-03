@@ -111,7 +111,7 @@ const ServiceSelection = () => {
                   {category.subcategories.map((sub, idx) => (
                     <button
                       key={idx}
-                      onClick={() => handleSelectCategory(category.id)}
+                      onClick={() => handleSelectSubcategory(category.id, sub.en)}
                       className="text-left p-3 rounded-lg hover:bg-emerald-50 dark:hover:bg-emerald-900/30 transition border border-gray-200 dark:border-gray-700 hover:border-emerald-300 dark:hover:border-emerald-600"
                       data-testid={`subcategory-${category.id}-${idx}`}
                     >
