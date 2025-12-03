@@ -283,4 +283,29 @@
   .animate-fadeIn {
     animation: fadeIn 0.6s ease-out;
   }
+
+  /* Hammer animation */
+  @keyframes hammer {
+    0%, 100% {
+      transform: rotate(0deg);
+    }
+    25% {
+      transform: rotate(-15deg);
+    }
+    50% {
+      transform: rotate(10deg);
+    }
+    75% {
+      transform: rotate(-5deg);
+    }
+  }
+
+  .animate-hammer {
+    animation: hammer 2s ease-in-out infinite;
+    transform-origin: 58px 170px; /* Pivot point at the wrist */
+  }
+
+  .animation-delay-500 {
+    animation-delay: 0.5s;
+  }
 }
