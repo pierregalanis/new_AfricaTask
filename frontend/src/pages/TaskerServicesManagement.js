@@ -50,14 +50,10 @@ const TaskerServicesManagement = () => {
           }
         }
       );
-      console.log('Fetched user profile:', response.data);
       
       const userData = response.data;
       const profile = userData.tasker_profile || {};
       
-      console.log('User data:', userData);
-      console.log('Tasker profile:', profile);
-      console.log('Services from tasker_profile:', profile.services);
       
       setTaskerProfile(profile);
       
@@ -234,8 +230,6 @@ const TaskerServicesManagement = () => {
       formData.append('bio', bio || '');
       formData.append('max_travel_distance', maxTravelDistance || 10);
 
-      console.log('Saving services:', services);
-      console.log('FormData services:', formData.get('services'));
       
       const response = await axios.put(
         `${process.env.REACT_APP_BACKEND_URL}/api/taskers/profile`,
@@ -248,7 +242,6 @@ const TaskerServicesManagement = () => {
         }
       );
 
-      console.log('Save response:', response.data);
       
       toast.success(language === 'en' ? 'Profile updated successfully!' : 'Profil mis à jour avec succès!');
       
