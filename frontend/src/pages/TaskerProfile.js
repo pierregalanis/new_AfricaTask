@@ -244,31 +244,58 @@ const TaskerProfile = () => {
           </div>
         )}
 
-        {/* Services */}
+        {/* Services with Pricing */}
         {profile.services && profile.services.length > 0 && (
           <div className="bg-white dark:bg-gray-800/70 rounded-xl shadow-md p-6 mb-8">
             <h2 className="text-xl font-semibold mb-4">
               {language === 'en' ? 'Services Offered' : 'Services proposés'}
             </h2>
-            <div className="flex flex-wrap gap-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {profile.services.map((service, idx) => {
-                let displayText = '';
                 if (typeof service === 'string') {
                   // Old format - just service name
-                  displayText = service;
+                  return (
+                    <div
+                      key={idx}
+                      className="p-4 bg-emerald-50 dark:bg-emerald-900/30 rounded-lg border border-emerald-200 dark:border-emerald-800"
+                    >
+                      <span className="text-emerald-700 dark:text-emerald-300 font-medium">
+                        {service}
+                      </span>
+                    </div>
+                  );
                 } else if (service.category && service.subcategory) {
-                  // New format - show category → subcategory
-                  displayText = `${service.category} → ${service.subcategory}`;
+                  // New format - show with pricing
+                  const servicePricingType = service.pricing_type || 'hourly';
+                  const serviceRate = service.hourly_rate || 0;
+                  const serviceFixed = service.fixed_price || 0;
+                  
+                  return (
+                    <div
+                      key={idx}
+                      className="p-4 bg-emerald-50 dark:bg-emerald-900/30 rounded-lg border border-emerald-200 dark:border-emerald-800"
+                    >
+                      <div className="flex justify-between items-start mb-2">
+                        <span className="text-emerald-700 dark:text-emerald-300 font-medium">
+                          {service.category} → {service.subcategory}
+                        </span>
+                      </div>
+                      <div className="text-emerald-600 dark:text-emerald-400 font-bold">
+                        {servicePricingType === 'fixed' ? (
+                          <span>{serviceFixed.toLocaleString()} CFA ({language === 'en' ? 'Fixed' : 'Fixe'})</span>
+                        ) : (
+                          <span>{serviceRate.toLocaleString()} CFA/hr</span>
+                        )}
+                      </div>
+                      {service.bio && (
+                        <p className="text-sm text-gray-600 dark:text-gray-400 mt-2 line-clamp-2">
+                          {service.bio}
+                        </p>
+                      )}
+                    </div>
+                  );
                 }
-                
-                return displayText ? (
-                  <span
-                    key={idx}
-                    className="px-4 py-2 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 rounded-full text-sm font-medium"
-                  >
-                    {displayText}
-                  </span>
-                ) : null;
+                return null;
               })}
             </div>
           </div>
