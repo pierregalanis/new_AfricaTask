@@ -377,12 +377,14 @@ const NewClientDashboard = () => {
                 {/* Job Timer and GPS Tracker for in-progress bookings */}
                 {booking.status === 'in_progress' && (
                   <div className="mt-6 pt-6 border-t border-gray-200 space-y-4">
-                    {/* Job Timer */}
-                    <ClientJobTimer 
-                      taskId={booking.id}
-                      hourlyRate={booking.hourly_rate || 5000}
-                      language={language}
-                    />
+                    {/* Job Timer - Only for hourly pricing */}
+                    {booking.pricing_type !== 'fixed' && (
+                      <ClientJobTimer 
+                        taskId={booking.id}
+                        hourlyRate={booking.hourly_rate || 5000}
+                        language={language}
+                      />
+                    )}
                     
                     {/* GPS Tracker with Route - Expandable Section */}
                     {expandedBooking === booking.id && (
