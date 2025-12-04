@@ -339,19 +339,78 @@ const TaskerServicesManagement = () => {
                     {/* Expandable Settings Section */}
                     {expandedService === serviceKey && (
                       <div className="p-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 space-y-4">
-                        {/* Hourly Rate for this service */}
+                        {/* Pricing Type Toggle */}
                         <div>
-                          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                            {language === 'en' ? 'Hourly Rate (CFA)' : 'Tarif horaire (CFA)'}
+                          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+                            {language === 'en' ? 'Pricing Type' : 'Type de tarification'}
                           </label>
-                          <input
-                            type="number"
-                            value={serviceSettings[serviceKey]?.rate || ''}
-                            onChange={(e) => updateServiceSetting(service, 'rate', e.target.value)}
-                            placeholder="5000"
-                            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent placeholder-gray-400 dark:placeholder-gray-500"
-                          />
+                          <div className="flex space-x-4">
+                            <button
+                              type="button"
+                              onClick={() => updateServiceSetting(service, 'pricing_type', 'hourly')}
+                              className={`flex-1 px-4 py-3 rounded-lg border-2 transition-all ${
+                                (serviceSettings[serviceKey]?.pricing_type || 'hourly') === 'hourly'
+                                  ? 'border-emerald-600 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300'
+                                  : 'border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300'
+                              }`}
+                            >
+                              <div className="text-center">
+                                <div className="font-semibold">{language === 'en' ? '⏱️ Hourly' : '⏱️ Horaire'}</div>
+                                <div className="text-xs mt-1 opacity-75">
+                                  {language === 'en' ? 'Per hour' : 'Par heure'}
+                                </div>
+                              </div>
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => updateServiceSetting(service, 'pricing_type', 'fixed')}
+                              className={`flex-1 px-4 py-3 rounded-lg border-2 transition-all ${
+                                serviceSettings[serviceKey]?.pricing_type === 'fixed'
+                                  ? 'border-emerald-600 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300'
+                                  : 'border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300'
+                              }`}
+                            >
+                              <div className="text-center">
+                                <div className="font-semibold">{language === 'en' ? '💰 Fixed' : '💰 Fixe'}</div>
+                                <div className="text-xs mt-1 opacity-75">
+                                  {language === 'en' ? 'Flat rate' : 'Prix fixe'}
+                                </div>
+                              </div>
+                            </button>
+                          </div>
                         </div>
+
+                        {/* Conditional Price Input Based on Pricing Type */}
+                        {(serviceSettings[serviceKey]?.pricing_type || 'hourly') === 'hourly' ? (
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                              {language === 'en' ? 'Hourly Rate (CFA)' : 'Tarif horaire (CFA)'}
+                            </label>
+                            <input
+                              type="number"
+                              value={serviceSettings[serviceKey]?.rate || ''}
+                              onChange={(e) => updateServiceSetting(service, 'rate', e.target.value)}
+                              placeholder="5000"
+                              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent placeholder-gray-400 dark:placeholder-gray-500"
+                            />
+                          </div>
+                        ) : (
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                              {language === 'en' ? 'Fixed Price (CFA)' : 'Prix fixe (CFA)'}
+                            </label>
+                            <input
+                              type="number"
+                              value={serviceSettings[serviceKey]?.fixed_price || ''}
+                              onChange={(e) => updateServiceSetting(service, 'fixed_price', e.target.value)}
+                              placeholder="25000"
+                              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent placeholder-gray-400 dark:placeholder-gray-500"
+                            />
+                            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                              {language === 'en' ? 'Total price for the service' : 'Prix total du service'}
+                            </p>
+                          </div>
+                        )}
 
                         {/* Bio for this service */}
                         <div>
