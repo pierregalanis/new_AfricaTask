@@ -101,18 +101,24 @@ const TaskerProfile = () => {
   };
 
   const handleBookNow = () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const category = urlParams.get('category');
-    const subcategory = urlParams.get('subcategory');
-    
+    // Open service selection modal
+    setShowServiceModal(true);
+  };
+
+  const handleServiceSelect = (service) => {
+    // Navigate to booking page with selected service
     let bookUrl = `/book-tasker/${taskerId}`;
-    if (category) {
-      bookUrl += `?category=${category}`;
-      if (subcategory) {
-        bookUrl += `&subcategory=${subcategory}`;
+    if (typeof service === 'object' && service.category) {
+      bookUrl += `?category=${service.category}`;
+      if (service.subcategory) {
+        bookUrl += `&subcategory=${service.subcategory}`;
       }
+    } else if (typeof service === 'string') {
+      // Old format - just service name
+      bookUrl += `?category=${service}`;
     }
     navigate(bookUrl);
+    setShowServiceModal(false);
   };
 
   if (loading) {
