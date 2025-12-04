@@ -677,9 +677,10 @@ const NewTaskerDashboard = () => {
                       
                       {/* Chat and Payment Buttons for Unpaid Tasks */}
                       {!booking.is_paid && (
-                        <div className="flex flex-col space-y-2">
+                        <div className="flex flex-col space-y-2" onClick={(e) => e.stopPropagation()}>
                           <button
-                            onClick={() => {
+                            onClick={(e) => {
+                              e.stopPropagation();
                               setSelectedTaskForChat(booking);
                               setClientForChat({
                                 id: booking.client_id,
@@ -693,7 +694,10 @@ const NewTaskerDashboard = () => {
                             <span>{language === 'en' ? 'Chat about Payment' : 'Discuter du paiement'}</span>
                           </button>
                           <button
-                            onClick={() => handleConfirmCashPayment(booking.id)}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleConfirmCashPayment(booking.id);
+                            }}
                             className="w-full px-6 py-3 bg-green-600 text-white rounded-xl font-semibold hover:bg-green-700 transition flex items-center justify-center space-x-2 shadow-lg"
                             data-testid={`confirm-payment-button-${booking.id}`}
                           >
