@@ -46,6 +46,21 @@ const BookTasker = () => {
     try {
       const response = await usersAPI.getById(taskerId);
       setTasker(response.data);
+      
+      // Fetch real-time stats
+      try {
+        const axios = require('axios');
+        const API_URL = process.env.REACT_APP_BACKEND_URL;
+        const token = localStorage.getItem('token');
+        
+        const statsResponse = await axios.get(
+          `${API_URL}/api/reviews/tasker/${taskerId}/rating`,
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+        setTaskerStats(statsResponse.data);
+      } catch (statsError) {
+        console.error('Error fetching tasker stats:', statsError);
+      }
     } catch (error) {
       console.error('Error fetching tasker:', error);
       toast.error(language === 'en' ? 'Failed to load tasker' : 'Échec du chargement du tasker');
