@@ -53,6 +53,20 @@ async def create_task(
     await db.tasks.insert_one(new_task.model_dump())
     logger.info(f"Instant booking created: {new_task.id} by {current_user.email} for tasker {task.tasker_id}")
     
+    # Create notification for tasker about new booking
+    try:
+        from notification_routes import create_notification
+        await create_notification(
+            db=db,
+            user_id=task.tasker_id,
+            notification_type="new_booking",
+            task_id=new_task.id,
+            task_title=new_task.title,
+            message=f"New booking from {current_user.full_name}"
+        )
+    except Exception as e:
+        logger.error(f"Failed to create notification: {str(e)}")
+    
     return new_task
 
 
