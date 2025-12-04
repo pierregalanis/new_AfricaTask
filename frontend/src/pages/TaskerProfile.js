@@ -5,7 +5,8 @@ import { translations } from '../utils/translations';
 import axios from 'axios';
 import Navbar from '../components/Navbar';
 import TaskerReviews from '../components/TaskerReviews';
-import { Star, MapPin, Briefcase, Clock, Award, ArrowLeft } from 'lucide-react';
+import { Star, MapPin, Briefcase, Clock, Award, ArrowLeft, Heart } from 'lucide-react';
+import { toast } from 'react-toastify';
 
 const TaskerProfile = () => {
   const { taskerId } = useParams();
