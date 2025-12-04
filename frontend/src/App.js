@@ -11,6 +11,7 @@ import NewTaskerDashboard from './pages/NewTaskerDashboard';
 import TaskerProfileSetup from './pages/TaskerProfileSetup';
 import TaskerServicesManagement from './pages/TaskerServicesManagement';
 import TaskerEarnings from './pages/TaskerEarnings';
+import TaskerReviewsPage from './pages/TaskerReviewsPage';
 import AdminDashboard from './pages/AdminDashboard';
 import FavoritesPage from './pages/FavoritesPage';
 import AIAssistantChat from './components/AIAssistantChat';
