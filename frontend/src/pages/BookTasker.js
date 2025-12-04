@@ -269,7 +269,7 @@ const BookTasker = () => {
                 </div>
 
                 {/* Date & Time */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className={`grid grid-cols-1 ${getServicePricing().pricingType === 'hourly' ? 'md:grid-cols-2' : ''} gap-4`}>
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
                       📅 {language === 'en' ? 'Date & Time' : 'Date & Heure'}
@@ -284,28 +284,30 @@ const BookTasker = () => {
                     />
                   </div>
 
-                  {/* Duration */}
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                      ⏱️ {language === 'en' ? 'Duration (hours)' : 'Durée (heures)'}
-                    </label>
-                    <select
-                      value={bookingData.duration_hours}
-                      onChange={(e) => setBookingData({ ...bookingData, duration_hours: parseFloat(e.target.value) })}
-                      className="fancy-input"
-                      data-testid="booking-duration-select"
-                    >
-                      <option value="0.5">30 min</option>
-                      <option value="1">1 {language === 'en' ? 'hour' : 'heure'}</option>
-                      <option value="1.5">1.5 {language === 'en' ? 'hours' : 'heures'}</option>
-                      <option value="2">2 {language === 'en' ? 'hours' : 'heures'}</option>
-                      <option value="3">3 {language === 'en' ? 'hours' : 'heures'}</option>
-                      <option value="4">4 {language === 'en' ? 'hours' : 'heures'}</option>
-                      <option value="5">5 {language === 'en' ? 'hours' : 'heures'}</option>
-                      <option value="6">6 {language === 'en' ? 'hours' : 'heures'}</option>
-                      <option value="8">8 {language === 'en' ? 'hours' : 'heures'}</option>
-                    </select>
-                  </div>
+                  {/* Duration - Only show for hourly pricing */}
+                  {getServicePricing().pricingType === 'hourly' && (
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                        ⏱️ {language === 'en' ? 'Duration (hours)' : 'Durée (heures)'}
+                      </label>
+                      <select
+                        value={bookingData.duration_hours}
+                        onChange={(e) => setBookingData({ ...bookingData, duration_hours: parseFloat(e.target.value) })}
+                        className="fancy-input"
+                        data-testid="booking-duration-select"
+                      >
+                        <option value="0.5">30 min</option>
+                        <option value="1">1 {language === 'en' ? 'hour' : 'heure'}</option>
+                        <option value="1.5">1.5 {language === 'en' ? 'hours' : 'heures'}</option>
+                        <option value="2">2 {language === 'en' ? 'hours' : 'heures'}</option>
+                        <option value="3">3 {language === 'en' ? 'hours' : 'heures'}</option>
+                        <option value="4">4 {language === 'en' ? 'hours' : 'heures'}</option>
+                        <option value="5">5 {language === 'en' ? 'hours' : 'heures'}</option>
+                        <option value="6">6 {language === 'en' ? 'hours' : 'heures'}</option>
+                        <option value="8">8 {language === 'en' ? 'hours' : 'heures'}</option>
+                      </select>
+                    </div>
+                  )}
                 </div>
 
                 {/* Location */}
