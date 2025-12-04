@@ -313,6 +313,7 @@ class Review(ReviewBase):
     client_id: str
     tasker_id: str
     client_name: str
+    service_name: Optional[str] = None  # Service that was delivered
     verified_booking: bool = True
     created_at: datetime = Field(default_factory=datetime.utcnow)
     updated_at: datetime = Field(default_factory=datetime.utcnow)
