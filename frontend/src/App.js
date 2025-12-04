@@ -158,6 +158,14 @@ function AppRoutes() {
           </ProtectedRoute>
         }
       />
+      <Route
+        path="/tasker/reviews"
+        element={
+          <ProtectedRoute requiredRole="tasker">
+            <TaskerReviewsPage />
+          </ProtectedRoute>
+        }
+      />
       
       <Route
         path="/dashboard"
