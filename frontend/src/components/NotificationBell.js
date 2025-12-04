@@ -69,6 +69,8 @@ const NotificationBell = () => {
   const getNotificationIcon = (type) => {
     const iconClass = "w-4 h-4";
     switch (type) {
+      case 'new_booking':
+        return <span className="text-emerald-600">📋</span>;
       case 'task_accepted':
         return <Check className={`${iconClass} text-green-600`} />;
       case 'task_rejected':
