@@ -17,6 +17,7 @@ const TaskerProfile = () => {
   const [loading, setLoading] = useState(true);
   const [isFavorite, setIsFavorite] = useState(false);
   const [favoritesLoading, setFavoritesLoading] = useState(false);
+  const [showServiceModal, setShowServiceModal] = useState(false);
 
   const t = (key) => translations[language][key] || key;
 
