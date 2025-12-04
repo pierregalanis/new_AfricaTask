@@ -153,7 +153,8 @@ async def update_task_status(
             user_id=task["client_id"],
             notification_type="task_completed",
             task_id=task_id,
-            task_title=task.get("title", "Task")
+            task_title=task.get("title", "Task"),
+            message=f"Task '{task.get('title', 'Task')}' has been marked as completed!"
         )
     
     updated_task = await db.tasks.find_one({"id": task_id}, {"_id": 0})
