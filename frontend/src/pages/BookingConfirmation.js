@@ -168,18 +168,20 @@ const BookingConfirmation = () => {
         {/* Action Buttons */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8 animate-fadeIn" style={{ animationDelay: '0.3s' }}>
           <button
-            onClick={() => navigate('/client/bookings')}
-            className="btn-primary"
-            data-testid="view-bookings-button"
+            onClick={() => navigate('/services')}
+            className="flex items-center justify-center space-x-2 px-8 py-4 bg-white dark:bg-gray-800 border-2 border-emerald-600 text-emerald-600 dark:text-emerald-400 rounded-xl font-semibold hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-all shadow-lg"
+            data-testid="book-another-button"
           >
-            {language === 'en' ? 'View My Bookings' : 'Voir mes réservations'}
+            <span>🏠</span>
+            <span>{language === 'en' ? 'Book Another Service' : 'Réserver un autre service'}</span>
           </button>
           <button
-            onClick={() => setShowPayment(true)}
-            className="btn-secondary"
-            data-testid="payment-button"
+            onClick={() => navigate('/dashboard')}
+            className="flex items-center justify-center space-x-2 px-8 py-4 bg-emerald-600 text-white rounded-xl font-semibold hover:bg-emerald-700 transition-all shadow-lg"
+            data-testid="view-dashboard-button"
           >
-            💳 {language === 'en' ? 'Make Payment' : 'Effectuer le paiement'}
+            <span>📊</span>
+            <span>{language === 'en' ? 'Go to Dashboard' : 'Aller au tableau de bord'}</span>
           </button>
         </div>
 
