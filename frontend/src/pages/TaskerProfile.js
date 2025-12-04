@@ -422,6 +422,76 @@ const TaskerProfile = () => {
           <TaskerReviews taskerId={taskerId} language={language} />
         </div>
       </div>
+
+      {/* Service Selection Modal */}
+      {showServiceModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl max-w-2xl w-full p-6 max-h-[80vh] overflow-y-auto">
+            {/* Modal Header */}
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                {language === 'en' ? 'Select a Service' : 'Sélectionner un service'}
+              </h2>
+              <button
+                onClick={() => setShowServiceModal(false)}
+                className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition"
+              >
+                <span className="text-2xl text-gray-600 dark:text-gray-400">×</span>
+              </button>
+            </div>
+
+            {/* Services List */}
+            {profile.services && profile.services.length > 0 ? (
+              <div className="grid grid-cols-1 gap-3">
+                {profile.services.map((service, idx) => {
+                  const isNewFormat = typeof service === 'object' && service.category;
+                  const displayName = isNewFormat 
+                    ? `${service.category} → ${service.subcategory}`
+                    : service;
+                  
+                  const pricingInfo = isNewFormat && service.pricing_type === 'fixed'
+                    ? `${service.fixed_price?.toLocaleString()} CFA (${language === 'en' ? 'Fixed' : 'Fixe'})`
+                    : isNewFormat && service.hourly_rate
+                    ? `${service.hourly_rate?.toLocaleString()} CFA/hr`
+                    : '';
+
+                  return (
+                    <button
+                      key={idx}
+                      onClick={() => handleServiceSelect(service)}
+                      className="w-full p-4 bg-gray-50 dark:bg-gray-900/50 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 border-2 border-transparent hover:border-emerald-500 rounded-xl transition-all text-left group"
+                    >
+                      <div className="flex items-center justify-between">
+                        <div className="flex-1">
+                          <p className="font-semibold text-gray-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400">
+                            {displayName}
+                          </p>
+                          {isNewFormat && service.bio && (
+                            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1 line-clamp-2">
+                              {service.bio}
+                            </p>
+                          )}
+                        </div>
+                        {pricingInfo && (
+                          <div className="ml-4 text-right">
+                            <p className="font-bold text-emerald-600 dark:text-emerald-400">
+                              {pricingInfo}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+                {language === 'en' ? 'No services available' : 'Aucun service disponible'}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
