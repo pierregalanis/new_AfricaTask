@@ -408,25 +408,67 @@ const BrowseTaskersPage = () => {
 
                   {/* Price & Book */}
                   <div className="flex-shrink-0 text-right">
-                    <div className="mb-4">
-                      <div className="flex items-center justify-end space-x-1 text-gray-500 text-sm mb-1">
-                        <DollarSign className="w-4 h-4" />
-                        <span>{language === 'en' ? 'Hourly rate' : 'Tarif horaire'}</span>
-                      </div>
-                      <p className="text-3xl font-bold text-emerald-600">
-                        {tasker.tasker_profile?.hourly_rate || 0} <span className="text-lg">CFA/hr</span>
-                      </p>
-                      <p className="text-sm text-gray-500 mt-1">
-                        {language === 'en' ? 'e.g. 3h' : 'ex: 3h'} = {((tasker.tasker_profile?.hourly_rate || 0) * 3).toLocaleString()} CFA
-                      </p>
+                    {(() => {
+                      // Find the specific service pricing
+                      const services = tasker.tasker_profile?.services || [];
+                      const matchingService = selectedSubcategory
+                        ? services.find(s => typeof s === 'object' && s.subcategory === selectedSubcategory)
+                        : services.find(s => typeof s === 'object' && s.category === category?.name_en);
+                      
+                      const pricingType = matchingService?.pricing_type || 'hourly';
+                      const hourlyRate = matchingService?.hourly_rate || tasker.tasker_profile?.hourly_rate || 0;
+                      const fixedPrice = matchingService?.fixed_price || 0;
+                      
+                      return (
+                        <div className="mb-4">
+                          {pricingType === 'fixed' ? (
+                            <>
+                              <div className="flex items-center justify-end space-x-1 text-gray-500 text-sm mb-1">
+                                <DollarSign className="w-4 h-4" />
+                                <span>{language === 'en' ? 'Fixed Price' : 'Prix fixe'}</span>
+                              </div>
+                              <p className="text-3xl font-bold text-emerald-600">
+                                {fixedPrice.toLocaleString()} <span className="text-lg">CFA</span>
+                              </p>
+                              <p className="text-sm text-gray-500 mt-1">
+                                {language === 'en' ? 'Flat rate for service' : 'Tarif forfaitaire'}
+                              </p>
+                            </>
+                          ) : (
+                            <>
+                              <div className="flex items-center justify-end space-x-1 text-gray-500 text-sm mb-1">
+                                <DollarSign className="w-4 h-4" />
+                                <span>{language === 'en' ? 'Hourly rate' : 'Tarif horaire'}</span>
+                              </div>
+                              <p className="text-3xl font-bold text-emerald-600">
+                                {hourlyRate.toLocaleString()} <span className="text-lg">CFA/hr</span>
+                              </p>
+                              <p className="text-sm text-gray-500 mt-1">
+                                {language === 'en' ? 'e.g. 3h' : 'ex: 3h'} = {(hourlyRate * 3).toLocaleString()} CFA
+                              </p>
+                            </>
+                          )}
+                        </div>
+                      );
+                    })()}
+                    
+                    {/* Action Buttons */}
+                    <div className="space-y-2">
+                      <button
+                        onClick={() => navigate(`/book-tasker/${tasker.id}?category=${categoryId}`)}
+                        className="w-full bg-emerald-600 text-white px-6 py-3 rounded-lg hover:bg-emerald-700 transition font-semibold"
+                        data-testid={`book-now-button-${tasker.id}`}
+                      >
+                        {language === 'en' ? 'Book Now' : 'Réserver'}
+                      </button>
+                      <button
+                        onClick={() => handleBookTasker(tasker.id)}
+                        className="w-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-6 py-3 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition font-semibold"
+                        data-testid={`view-profile-button-${tasker.id}`}
+                      >
+                        {language === 'en' ? 'View Profile' : 'Voir le profil'}
+                      </button>
                     </div>
-                    <button
-                      onClick={() => handleBookTasker(tasker.id)}
-                      className="btn-primary w-full"
-                      data-testid={`book-button-${tasker.id}`}
-                    >
-                      {language === 'en' ? 'View Profile' : 'Voir le profil'}
-                    </button>
                   </div>
                 </div>
               </div>
