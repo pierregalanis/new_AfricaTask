@@ -594,8 +594,10 @@ const NewTaskerDashboard = () => {
                   )}
                   {booking.status === 'in_progress' && (
                     <div className="space-y-3">
-                      {/* Job Timer */}
-                      <JobTimer taskId={booking.id} language={language} />
+                      {/* Job Timer - Only for hourly pricing */}
+                      {booking.pricing_type !== 'fixed' && (
+                        <JobTimer taskId={booking.id} language={language} />
+                      )}
                       
                       {/* Chat Button */}
                       <button
