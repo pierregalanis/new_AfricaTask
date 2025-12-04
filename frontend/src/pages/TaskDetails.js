@@ -299,6 +299,40 @@ const TaskDetails = () => {
                 </div>
               )}
 
+              {/* Client Info (for taskers) */}
+              {isTasker && task.client_id && client && (
+                <div className="mt-6 p-4 glass-card">
+                  <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-white">
+                    {language === 'en' ? 'Client' : 'Client'}
+                  </h3>
+                  <div className="flex items-center space-x-4">
+                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white text-2xl font-bold shadow-lg">
+                      {client.full_name?.charAt(0) || 'C'}
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="text-xl font-bold text-gray-900 dark:text-white">
+                        {client.full_name}
+                      </h4>
+                      {client.email && (
+                        <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                          ✉️ {client.email}
+                        </p>
+                      )}
+                      {client.phone && (
+                        <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                          📞 {client.phone}
+                        </p>
+                      )}
+                      {client.city && (
+                        <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                          📍 {client.city}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )}
+
               {isTasker && task.status === 'posted' && (
                 <div className="mt-6">
                   <button
