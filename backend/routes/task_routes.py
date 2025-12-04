@@ -65,7 +65,7 @@ async def create_task(
             notification_type="new_booking",
             task_id=new_task.id,
             task_title=new_task.title,
-            message=f"New booking from {current_user.full_name}"
+            message=f"New booking: '{new_task.title}' from {current_user.full_name}"
         )
     except Exception as e:
         logger.error(f"Failed to create notification: {str(e)}")
