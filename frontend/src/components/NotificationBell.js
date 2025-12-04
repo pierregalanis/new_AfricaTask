@@ -93,12 +93,20 @@ const NotificationBell = () => {
         return <Check className={`${iconClass} text-green-600`} />;
       case 'task_rejected':
         return <span className={`${iconClass} text-red-600`}>✕</span>;
+      case 'task_completed':
+        return <span className="text-green-600">✅</span>;
       case 'new_message':
         return <span className="text-blue-600">💬</span>;
       case 'payment_received':
         return <span className="text-green-600">💰</span>;
       case 'review_received':
         return <span className="text-yellow-600">⭐</span>;
+      case 'timer_started':
+        return <span className="text-blue-600">⏱️</span>;
+      case 'timer_stopped':
+        return <span className="text-gray-600">⏸️</span>;
+      case 'tasker_on_way':
+        return <span className="text-emerald-600">🚗</span>;
       default:
         return <Bell className={`${iconClass} text-gray-600`} />;
     }
