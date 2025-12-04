@@ -175,11 +175,15 @@ const BookTasker = () => {
     setSubmitting(true);
 
     try {
+      const pricing = getServicePricing();
+      
       const taskData = {
         ...bookingData,
         category_id: categoryId,
         tasker_id: taskerId,
-        hourly_rate: tasker.tasker_profile.hourly_rate,
+        pricing_type: pricing.pricingType,
+        hourly_rate: pricing.hourlyRate,
+        fixed_price: pricing.fixedPrice,
         task_date: new Date(bookingData.task_date).toISOString(),
       };
 
