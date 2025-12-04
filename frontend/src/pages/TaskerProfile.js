@@ -249,13 +249,34 @@ const TaskerProfile = () => {
                 )}
               </div>
 
-              {/* Book Button */}
-              <button
-                onClick={handleBookNow}
-                className="bg-gradient-to-r from-emerald-500 to-emerald-600 text-white px-8 py-3 rounded-lg font-semibold hover:from-emerald-600 hover:to-emerald-700 transform hover:scale-105 transition-all shadow-md"
-              >
-                {language === 'en' ? 'Book Now' : 'Réserver maintenant'}
-              </button>
+              {/* Action Buttons */}
+              <div className="flex items-center space-x-3">
+                {/* Favorites Button */}
+                <button
+                  onClick={toggleFavorite}
+                  disabled={favoritesLoading}
+                  className={`p-3 rounded-lg transition-all ${
+                    isFavorite
+                      ? 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/30'
+                      : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700'
+                  } ${favoritesLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  title={isFavorite 
+                    ? (language === 'en' ? 'Remove from favorites' : 'Retirer des favoris')
+                    : (language === 'en' ? 'Add to favorites' : 'Ajouter aux favoris')}
+                >
+                  <Heart 
+                    className={`w-6 h-6 ${isFavorite ? 'fill-current' : ''}`}
+                  />
+                </button>
+
+                {/* Book Now Button */}
+                <button
+                  onClick={handleBookNow}
+                  className="bg-gradient-to-r from-emerald-500 to-emerald-600 text-white px-8 py-3 rounded-lg font-semibold hover:from-emerald-600 hover:to-emerald-700 transform hover:scale-105 transition-all shadow-md"
+                >
+                  {language === 'en' ? 'Book Now' : 'Réserver maintenant'}
+                </button>
+              </div>
             </div>
           </div>
         </div>
