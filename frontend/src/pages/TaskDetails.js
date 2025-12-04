@@ -110,6 +110,15 @@ const TaskDetails = () => {
     }
   };
 
+  const fetchClientDetails = async (clientId) => {
+    try {
+      const response = await usersAPI.getById(clientId);
+      setClient(response.data);
+    } catch (error) {
+      console.error('Error fetching client details:', error);
+    }
+  };
+
   const handleApply = async (e) => {
     e.preventDefault();
     try {
