@@ -51,6 +51,53 @@ const TaskerProfile = () => {
     }
   };
 
+  const checkIfFavorite = async () => {
+    if (!user?.id) return;
+    
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/api/favorites`,
+        { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+      );
+      const favorites = response.data.favorites || [];
+      setIsFavorite(favorites.some(fav => fav.tasker_id === taskerId));
+    } catch (error) {
+      console.error('Error checking favorites:', error);
+    }
+  };
+
+  const toggleFavorite = async () => {
+    if (!user?.id) {
+      toast.error(language === 'en' ? 'Please login to add favorites' : 'Veuillez vous connecter pour ajouter des favoris');
+      return;
+    }
+
+    setFavoritesLoading(true);
+    try {
+      if (isFavorite) {
+        await axios.delete(
+          `${process.env.REACT_APP_BACKEND_URL}/api/favorites/${taskerId}`,
+          { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+        );
+        setIsFavorite(false);
+        toast.success(language === 'en' ? 'Removed from favorites' : 'Retiré des favoris');
+      } else {
+        await axios.post(
+          `${process.env.REACT_APP_BACKEND_URL}/api/favorites`,
+          { tasker_id: taskerId },
+          { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+        );
+        setIsFavorite(true);
+        toast.success(language === 'en' ? 'Added to favorites!' : 'Ajouté aux favoris !');
+      }
+    } catch (error) {
+      console.error('Error toggling favorite:', error);
+      toast.error(language === 'en' ? 'Failed to update favorites' : 'Échec de la mise à jour des favoris');
+    } finally {
+      setFavoritesLoading(false);
+    }
+  };
+
   const handleBookNow = () => {
     const urlParams = new URLSearchParams(window.location.search);
     const category = urlParams.get('category');
