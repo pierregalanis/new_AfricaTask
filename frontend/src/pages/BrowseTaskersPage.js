@@ -350,22 +350,28 @@ const BrowseTaskersPage = () => {
                       )}
                     </div>
 
-                    {/* Travel Range Badge */}
-                    {tasker.tasker_profile?.max_travel_distance && (
-                      <div className="mb-3">
-                        <span className="inline-flex items-center px-2 py-1 bg-green-50 text-green-700 text-xs rounded-full">
-                          🚗 {language === 'en' ? 'Travels up to' : 'Se déplace jusqu\'à'} {tasker.tasker_profile.max_travel_distance} km
-                        </span>
-                      </div>
-                    )}
-
-                    {/* Stats */}
-                    <div className="flex items-center space-x-1 text-sm text-gray-600 dark:text-gray-400 mb-3">
-                      <Check className="w-4 h-4 text-green-600" />
-                      <span>
-                        {tasker.tasker_profile?.completed_tasks || 0} {language === 'en' ? 'tasks completed' : 'tâches terminées'}
-                      </span>
-                    </div>
+                    {/* Service-Specific Info */}
+                    {(() => {
+                      // Find the specific service the client is looking for
+                      const services = tasker.tasker_profile?.services || [];
+                      const matchingService = selectedSubcategory
+                        ? services.find(s => typeof s === 'object' && s.subcategory === selectedSubcategory)
+                        : services.find(s => typeof s === 'object' && s.category === category?.name_en);
+                      
+                      const travelDistance = matchingService?.max_travel_distance || tasker.tasker_profile?.max_travel_distance;
+                      
+                      return (
+                        <>
+                          {travelDistance && (
+                            <div className="mb-3">
+                              <span className="inline-flex items-center px-2 py-1 bg-green-50 text-green-700 text-xs rounded-full">
+                                🚗 {language === 'en' ? 'Travels up to' : 'Se déplace jusqu\'à'} {travelDistance} km
+                              </span>
+                            </div>
+                          )}
+                        </>
+                      );
+                    })()}
 
                     {/* Bio */}
                     {tasker.tasker_profile?.bio && (
