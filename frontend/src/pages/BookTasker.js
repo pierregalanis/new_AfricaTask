@@ -449,26 +449,46 @@ const BookTasker = () => {
               </div>
 
               {/* Price Breakdown */}
-              <div className="border-t border-gray-200 pt-6">
+              <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
                 <h4 className="font-semibold text-gray-900 dark:text-white mb-4">
                   {language === 'en' ? 'Price Details' : 'Détails du prix'}
                 </h4>
                 
-                <div className="space-y-3 mb-4">
-                  <div className="flex justify-between text-sm">
-                    <span className="text-gray-600">{language === 'en' ? 'Hourly rate' : 'Tarif horaire'}</span>
-                    <span className="font-semibold">{tasker.tasker_profile?.hourly_rate || 0} CFA/hr</span>
-                  </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-gray-600">{language === 'en' ? 'Duration' : 'Durée'}</span>
-                    <span className="font-semibold">{bookingData.duration_hours}h</span>
-                  </div>
-                </div>
+                {(() => {
+                  const pricing = getServicePricing();
+                  return (
+                    <>
+                      {pricing.pricingType === 'fixed' ? (
+                        <div className="space-y-3 mb-4">
+                          <div className="flex justify-between text-sm">
+                            <span className="text-gray-600 dark:text-gray-400">{language === 'en' ? 'Pricing Type' : 'Type de tarif'}</span>
+                            <span className="font-semibold text-gray-900 dark:text-white">{language === 'en' ? 'Fixed Price' : 'Prix fixe'}</span>
+                          </div>
+                          <div className="flex justify-between text-sm">
+                            <span className="text-gray-600 dark:text-gray-400">{language === 'en' ? 'Service Price' : 'Prix du service'}</span>
+                            <span className="font-semibold text-gray-900 dark:text-white">{pricing.fixedPrice.toLocaleString()} CFA</span>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="space-y-3 mb-4">
+                          <div className="flex justify-between text-sm">
+                            <span className="text-gray-600 dark:text-gray-400">{language === 'en' ? 'Hourly rate' : 'Tarif horaire'}</span>
+                            <span className="font-semibold text-gray-900 dark:text-white">{pricing.hourlyRate.toLocaleString()} CFA/hr</span>
+                          </div>
+                          <div className="flex justify-between text-sm">
+                            <span className="text-gray-600 dark:text-gray-400">{language === 'en' ? 'Duration' : 'Durée'}</span>
+                            <span className="font-semibold text-gray-900 dark:text-white">{bookingData.duration_hours}h</span>
+                          </div>
+                        </div>
+                      )}
+                    </>
+                  );
+                })()}
 
-                <div className="border-t border-gray-200 pt-3">
+                <div className="border-t border-gray-200 dark:border-gray-700 pt-3">
                   <div className="flex justify-between items-center">
-                    <span className="text-lg font-bold text-gray-900">{language === 'en' ? 'Total' : 'Total'}</span>
-                    <span className="text-3xl font-bold text-emerald-600">{calculateTotalCost()} CFA</span>
+                    <span className="text-lg font-bold text-gray-900 dark:text-white">{language === 'en' ? 'Total' : 'Total'}</span>
+                    <span className="text-3xl font-bold text-emerald-600">{calculateTotalCost().toLocaleString()} CFA</span>
                   </div>
                 </div>
               </div>
