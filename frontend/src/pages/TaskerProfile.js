@@ -51,7 +51,16 @@ const TaskerProfile = () => {
   const handleBookNow = () => {
     const urlParams = new URLSearchParams(window.location.search);
     const category = urlParams.get('category');
-    navigate(`/book-tasker/${taskerId}${category ? `?category=${category}` : ''}`);
+    const subcategory = urlParams.get('subcategory');
+    
+    let bookUrl = `/book-tasker/${taskerId}`;
+    if (category) {
+      bookUrl += `?category=${category}`;
+      if (subcategory) {
+        bookUrl += `&subcategory=${subcategory}`;
+      }
+    }
+    navigate(bookUrl);
   };
 
   if (loading) {
