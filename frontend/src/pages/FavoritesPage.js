@@ -144,23 +144,33 @@ const FavoritesPage = () => {
                   <div className="flex flex-wrap gap-2">
                     {favorite.tasker_services.slice(0, 3).map((service, idx) => {
                       let displayText = '';
+                      
+                      // Handle different service formats
                       if (typeof service === 'string') {
+                        // Old format: just service name
                         displayText = service;
-                      } else if (service.subcategory) {
-                        displayText = service.subcategory;
+                      } else if (typeof service === 'object' && service !== null) {
+                        // New format: object with category/subcategory
+                        if (service.subcategory && service.category) {
+                          displayText = `${service.category} → ${service.subcategory}`;
+                        } else if (service.category) {
+                          displayText = service.category;
+                        } else if (service.subcategory) {
+                          displayText = service.subcategory;
+                        }
                       }
                       
                       return displayText ? (
                         <span
                           key={idx}
-                          className="badge text-xs"
+                          className="px-3 py-1 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 rounded-full text-xs font-medium"
                         >
                           {displayText}
                         </span>
                       ) : null;
                     })}
                     {favorite.tasker_services.length > 3 && (
-                      <span className="badge text-xs">
+                      <span className="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-full text-xs font-medium">
                         +{favorite.tasker_services.length - 3} more
                       </span>
                     )}
