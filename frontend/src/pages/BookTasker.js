@@ -57,7 +57,6 @@ const BookTasker = () => {
           `${API_URL}/api/reviews/tasker/${taskerId}/rating`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
-        console.log('Fetched tasker stats:', statsResponse.data);
         setTaskerStats(statsResponse.data);
       } catch (statsError) {
         console.error('Error fetching tasker stats:', statsError);
