@@ -87,9 +87,6 @@ const BookTasker = () => {
   // Get the service-specific pricing
   const getServicePricing = () => {
     const services = tasker?.tasker_profile?.services || [];
-    console.log('All services:', services);
-    console.log('Subcategory param:', subcategoryParam);
-    console.log('Category param:', categoryId);
     
     const matchingService = subcategoryParam 
       ? services.find(s => typeof s === 'object' && s.subcategory === subcategoryParam)
@@ -97,17 +94,11 @@ const BookTasker = () => {
         ? services.find(s => typeof s === 'object' && s.category === categoryId)
         : services.find(s => typeof s === 'object');
     
-    console.log('Matching service:', matchingService);
-    
-    const pricing = {
+    return {
       pricingType: matchingService?.pricing_type || 'hourly',
       hourlyRate: matchingService?.hourly_rate || tasker?.tasker_profile?.hourly_rate || 0,
       fixedPrice: matchingService?.fixed_price || 0
     };
-    
-    console.log('Pricing details:', pricing);
-    
-    return pricing;
   };
 
   const calculateTotalCost = () => {
