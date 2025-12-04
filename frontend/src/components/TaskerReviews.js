@@ -159,11 +159,16 @@ const TaskerReviews = ({ taskerId, language = 'en' }) => {
                   <div>
                     <div className="flex items-center space-x-2">
                       {renderStars(review.rating)}
-                      <span className="text-sm font-semibold text-gray-700">
+                      <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">
                         {review.rating}.0
                       </span>
                     </div>
-                    <p className="text-xs text-gray-500 mt-1">
+                    {review.service_name && (
+                      <p className="text-xs text-emerald-600 dark:text-emerald-400 mt-1 font-medium">
+                        {review.service_name}
+                      </p>
+                    )}
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                       {formatDate(review.created_at)}
                     </p>
                   </div>
