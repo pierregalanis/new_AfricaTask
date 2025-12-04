@@ -210,7 +210,10 @@ const BrowseTaskersPage = () => {
   };
 
   const handleBookTasker = (taskerId) => {
-    navigate(`/tasker/${taskerId}?category=${categoryId}`);
+    const url = selectedSubcategory 
+      ? `/tasker/${taskerId}?category=${categoryId}&subcategory=${selectedSubcategory}`
+      : `/tasker/${taskerId}?category=${categoryId}`;
+    navigate(url);
   };
 
   if (loading) {
