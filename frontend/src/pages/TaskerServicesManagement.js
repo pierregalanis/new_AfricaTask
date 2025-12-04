@@ -218,7 +218,9 @@ const TaskerServicesManagement = () => {
         return {
           category: service.category,
           subcategory: service.subcategory,
-          hourly_rate: settings.rate || 0,
+          pricing_type: settings.pricing_type || 'hourly',
+          hourly_rate: settings.pricing_type === 'hourly' ? (settings.rate || 0) : null,
+          fixed_price: settings.pricing_type === 'fixed' ? (settings.fixed_price || 0) : null,
           bio: settings.bio || '',
           max_travel_distance: settings.distance || 10
         };
