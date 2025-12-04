@@ -79,7 +79,21 @@ const TaskerProfile = () => {
   }
 
   const profile = tasker.tasker_profile || {};
-  const hourlyRate = profile.hourly_rate || 0;
+  
+  // Get category from URL to determine which service pricing to show
+  const urlParams = new URLSearchParams(window.location.search);
+  const categoryParam = urlParams.get('category');
+  
+  // Find matching service based on category
+  const services = profile.services || [];
+  const matchingService = categoryParam 
+    ? services.find(s => typeof s === 'object' && s.category === categoryParam)
+    : services.find(s => typeof s === 'object');
+  
+  // Determine pricing details
+  const pricingType = matchingService?.pricing_type || 'hourly';
+  const hourlyRate = matchingService?.hourly_rate || profile.hourly_rate || 0;
+  const fixedPrice = matchingService?.fixed_price || 0;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-white">
