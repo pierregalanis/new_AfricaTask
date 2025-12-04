@@ -146,24 +146,6 @@ const TaskerProfile = () => {
   }
 
   const profile = tasker.tasker_profile || {};
-  
-  // Get category and subcategory from URL to determine which service pricing to show
-  const urlParams = new URLSearchParams(window.location.search);
-  const categoryParam = urlParams.get('category');
-  const subcategoryParam = urlParams.get('subcategory');
-  
-  // Find matching service based on category and subcategory (prioritize subcategory if available)
-  const services = profile.services || [];
-  const matchingService = subcategoryParam 
-    ? services.find(s => typeof s === 'object' && s.subcategory === subcategoryParam)
-    : categoryParam 
-      ? services.find(s => typeof s === 'object' && s.category === categoryParam)
-      : services.find(s => typeof s === 'object');
-  
-  // Determine pricing details
-  const pricingType = matchingService?.pricing_type || 'hourly';
-  const hourlyRate = matchingService?.hourly_rate || profile.hourly_rate || 0;
-  const fixedPrice = matchingService?.fixed_price || 0;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-white">
