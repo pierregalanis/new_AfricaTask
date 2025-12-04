@@ -345,8 +345,8 @@ const TaskDetails = () => {
                 </div>
               )}
 
-              {/* Chat & GPS Buttons (for assigned tasks) */}
-              {task.assigned_tasker_id && ['assigned', 'in_progress'].includes(task.status) && (
+              {/* Chat Button (for assigned and in_progress) */}
+              {task.assigned_tasker_id && task.status === 'in_progress' && (
                 <div className="mt-6 space-y-3">
                   <button
                     onClick={() => setShowChat(true)}
@@ -356,6 +356,8 @@ const TaskDetails = () => {
                     <MessageCircle className="w-5 h-5" />
                     <span>{language === 'en' ? 'Open Chat' : 'Ouvrir le chat'}</span>
                   </button>
+                  
+                  {/* GPS Tracker Button (only for in_progress tasks) */}
                   {isClient && (
                     <button
                       onClick={() => setShowTracker(true)}
