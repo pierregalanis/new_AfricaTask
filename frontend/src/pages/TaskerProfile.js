@@ -237,25 +237,6 @@ const TaskerProfile = () => {
                 </p>
               )}
 
-              {/* Pricing Display */}
-              <div className="flex items-center space-x-2 mb-4">
-                <Clock className="w-5 h-5 text-emerald-600" />
-                {pricingType === 'fixed' ? (
-                  <div>
-                    <span className="text-2xl font-bold text-emerald-600">
-                      {fixedPrice.toLocaleString()} CFA
-                    </span>
-                    <span className="text-sm text-gray-500 ml-2">
-                      ({language === 'en' ? 'Fixed Price' : 'Prix fixe'})
-                    </span>
-                  </div>
-                ) : (
-                  <span className="text-2xl font-bold text-emerald-600">
-                    {hourlyRate.toLocaleString()} CFA/hr
-                  </span>
-                )}
-              </div>
-
               {/* Action Buttons */}
               <div className="flex items-center space-x-3">
                 {/* Favorites Button */}
