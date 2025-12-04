@@ -296,38 +296,6 @@ const ProfilePage = () => {
                   </div>
                 </div>
               )}
-
-              {/* Tasker Stats */}
-              {user?.role === 'tasker' && user?.tasker_profile && (
-                <div className="border-t pt-6 mt-6">
-                  <h3 className="text-xl font-semibold mb-4">
-                    {language === 'en' ? 'Tasker Statistics' : 'Statistiques du Tasker'}
-                  </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div className="flex items-start space-x-3">
-                      <Star className="w-5 h-5 text-yellow-500 mt-1" />
-                      <div>
-                        <p className="text-sm text-gray-500">{language === 'en' ? 'Average Rating' : 'Note moyenne'}</p>
-                        <p className="text-2xl font-bold">{user.tasker_profile.average_rating || 0}/5</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start space-x-3">
-                      <Briefcase className="w-5 h-5 text-gray-400 mt-1" />
-                      <div>
-                        <p className="text-sm text-gray-500">{language === 'en' ? 'Completed Tasks' : 'Tâches terminées'}</p>
-                        <p className="text-2xl font-bold">{user.tasker_profile.completed_tasks || 0}</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start space-x-3">
-                      <Star className="w-5 h-5 text-gray-400 mt-1" />
-                      <div>
-                        <p className="text-sm text-gray-500">{language === 'en' ? 'Total Reviews' : 'Total des avis'}</p>
-                        <p className="text-2xl font-bold">{user.tasker_profile.total_reviews || 0}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
             </div>
           )}
         </div>
