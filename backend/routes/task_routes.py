@@ -37,8 +37,11 @@ async def create_task(
     if not tasker.get("tasker_profile", {}).get("is_available", False):
         raise HTTPException(status_code=400, detail="Tasker is not available")
     
-    # Calculate total cost
-    total_cost = task.duration_hours * task.hourly_rate
+    # Calculate total cost based on pricing type
+    if task.pricing_type == "fixed":
+        total_cost = task.fixed_price or 0
+    else:
+        total_cost = task.duration_hours * (task.hourly_rate or 0)
     
     # Create task with instant assignment
     task_dict = task.model_dump()
