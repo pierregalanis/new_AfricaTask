@@ -433,18 +433,18 @@ const BookTasker = () => {
                 <div className="w-24 h-24 mx-auto rounded-full bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center text-white text-3xl font-bold mb-4">
                   {tasker.full_name?.charAt(0).toUpperCase()}
                 </div>
-                <h3 className="text-xl font-bold text-gray-900">{tasker.full_name}</h3>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white">{tasker.full_name}</h3>
                 <div className="flex items-center justify-center space-x-1 mt-2">
                   <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-                  <span className="font-semibold">
-                    {tasker.tasker_profile?.average_rating?.toFixed(1) || '0.0'}
+                  <span className="font-semibold text-gray-900 dark:text-white">
+                    {taskerStats?.average_rating?.toFixed(1) || '0.0'}
                   </span>
-                  <span className="text-gray-500 text-sm">
-                    ({tasker.tasker_profile?.total_reviews || 0})
+                  <span className="text-gray-500 dark:text-gray-400 text-sm">
+                    ({taskerStats?.total_reviews || 0})
                   </span>
                 </div>
                 <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
-                  {tasker.tasker_profile?.completed_tasks || 0} {language === 'en' ? 'tasks completed' : 'tâches terminées'}
+                  {taskerStats?.total_completed_tasks || 0} {language === 'en' ? 'tasks completed' : 'tâches terminées'}
                 </p>
               </div>
 
