@@ -23,45 +23,63 @@ const NotificationBell = () => {
   }, []);
 
   const getNotificationText = (notification) => {
-    const { type, task_title } = notification;
+    const { type, task_title, message } = notification;
+    const title = task_title || 'Task';
+    
+    // If there's a custom message, use it
+    if (message && message.trim()) {
+      return message;
+    }
     
     if (language === 'en') {
       switch (type) {
         case 'new_booking':
-          return `New booking: "${task_title}"`;
+          return `New booking: "${title}"`;
         case 'task_accepted':
-          return `Your task "${task_title}" has been accepted!`;
+          return `Your task "${title}" has been accepted!`;
         case 'task_rejected':
-          return `Your task "${task_title}" has been rejected.`;
+          return `Your task "${title}" has been rejected.`;
         case 'task_completed':
-          return `Task "${task_title}" has been marked as completed.`;
+          return `Task "${title}" has been marked as completed.`;
         case 'new_message':
-          return `You have a new message for "${task_title}".`;
+          return `You have a new message for "${title}".`;
         case 'payment_received':
-          return `Payment received for task "${task_title}".`;
+          return `Payment received for task "${title}".`;
         case 'review_received':
-          return `You received a new review for "${task_title}".`;
+          return `You received a new review for "${title}".`;
+        case 'timer_started':
+          return `Timer started for "${title}"`;
+        case 'timer_stopped':
+          return `Timer stopped for "${title}"`;
+        case 'tasker_on_way':
+          return `Tasker is on the way for "${title}"`;
         default:
-          return notification.message || 'New notification';
+          return 'New notification';
       }
     } else {
       switch (type) {
         case 'new_booking':
-          return `Nouvelle réservation : "${task_title}"`;
+          return `Nouvelle réservation : "${title}"`;
         case 'task_accepted':
-          return `Votre tâche "${task_title}" a été acceptée!`;
+          return `Votre tâche "${title}" a été acceptée!`;
         case 'task_rejected':
-          return `Votre tâche "${task_title}" a été rejetée.`;
+          return `Votre tâche "${title}" a été rejetée.`;
         case 'task_completed':
-          return `La tâche "${task_title}" a été marquée comme terminée.`;
+          return `La tâche "${title}" a été marquée comme terminée.`;
         case 'new_message':
-          return `Vous avez un nouveau message pour "${task_title}".`;
+          return `Vous avez un nouveau message pour "${title}".`;
         case 'payment_received':
-          return `Paiement reçu pour la tâche "${task_title}".`;
+          return `Paiement reçu pour la tâche "${title}".`;
         case 'review_received':
-          return `Vous avez reçu un nouvel avis pour "${task_title}".`;
+          return `Vous avez reçu un nouvel avis pour "${title}".`;
+        case 'timer_started':
+          return `Chronomètre démarré pour "${title}"`;
+        case 'timer_stopped':
+          return `Chronomètre arrêté pour "${title}"`;
+        case 'tasker_on_way':
+          return `Le tasker est en route pour "${title}"`;
         default:
-          return notification.message || 'Nouvelle notification';
+          return 'Nouvelle notification';
       }
     }
   };
