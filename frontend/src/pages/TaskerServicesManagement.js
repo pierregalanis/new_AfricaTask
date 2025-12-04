@@ -83,7 +83,9 @@ const TaskerServicesManagement = () => {
       formattedServices.forEach(service => {
         const serviceKey = `${service.category}:${service.subcategory}`;
         loadedSettings[serviceKey] = {
+          pricing_type: service.pricing_type || 'hourly',
           rate: service.hourly_rate || '',
+          fixed_price: service.fixed_price || '',
           bio: service.bio || '',
           distance: service.max_travel_distance || ''
         };
