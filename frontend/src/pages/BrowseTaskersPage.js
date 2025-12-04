@@ -458,7 +458,12 @@ const BrowseTaskersPage = () => {
                     {/* Action Buttons */}
                     <div className="space-y-2">
                       <button
-                        onClick={() => navigate(`/book-tasker/${tasker.id}?category=${categoryId}`)}
+                        onClick={() => {
+                          const url = selectedSubcategory 
+                            ? `/book-tasker/${tasker.id}?category=${categoryId}&subcategory=${selectedSubcategory}`
+                            : `/book-tasker/${tasker.id}?category=${categoryId}`;
+                          navigate(url);
+                        }}
                         className="w-full bg-emerald-600 text-white px-6 py-3 rounded-lg hover:bg-emerald-700 transition font-semibold"
                         data-testid={`book-now-button-${tasker.id}`}
                       >
