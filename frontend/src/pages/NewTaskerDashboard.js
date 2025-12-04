@@ -348,7 +348,7 @@ const NewTaskerDashboard = () => {
                       </span>
                     </div>
                     <p className="text-2xl font-bold text-white">
-                      {stats?.total_paid_tasks || 0}
+                      {stats?.total_completed_tasks || 0}
                     </p>
                   </button>
 
