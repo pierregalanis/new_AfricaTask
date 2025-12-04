@@ -535,7 +535,7 @@ const NewTaskerDashboard = () => {
                       )}
                     </div>
                     <p className="text-gray-600 dark:text-gray-400 text-sm mb-3">{booking.description}</p>
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-3 text-sm">
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-3 text-sm mb-3">
                       <div className="flex items-center space-x-2 text-gray-600">
                         <Calendar className="w-4 h-4" />
                         <span>{new Date(booking.task_date).toLocaleDateString()}</span>
@@ -553,6 +553,24 @@ const NewTaskerDashboard = () => {
                         <span>{booking.total_cost} CFA</span>
                       </div>
                     </div>
+                    
+                    {/* Client Info for New Bookings */}
+                    {booking.status === 'assigned' && booking.client_name && (
+                      <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
+                        <p className="text-xs text-blue-600 dark:text-blue-400 mb-1 font-semibold">
+                          {language === 'en' ? 'Client Information' : 'Informations du client'}
+                        </p>
+                        <div className="flex items-center space-x-2">
+                          <User className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                          <span className="text-sm font-medium text-blue-800 dark:text-blue-300">{booking.client_name}</span>
+                        </div>
+                        {booking.address && (
+                          <p className="text-xs text-blue-700 dark:text-blue-300 mt-1">
+                            📍 {booking.address}, {booking.city}
+                          </p>
+                        )}
+                      </div>
+                    )}
                   </div>
                   {booking.status === 'assigned' && (
                     <div className="flex flex-col space-y-2">
