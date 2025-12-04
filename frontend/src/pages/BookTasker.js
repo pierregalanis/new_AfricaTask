@@ -83,8 +83,28 @@ const BookTasker = () => {
     }
   };
 
+  // Get the service-specific pricing
+  const getServicePricing = () => {
+    const services = tasker?.tasker_profile?.services || [];
+    const matchingService = subcategoryParam 
+      ? services.find(s => typeof s === 'object' && s.subcategory === subcategoryParam)
+      : categoryId 
+        ? services.find(s => typeof s === 'object' && s.category === categoryId)
+        : services.find(s => typeof s === 'object');
+    
+    return {
+      pricingType: matchingService?.pricing_type || 'hourly',
+      hourlyRate: matchingService?.hourly_rate || tasker?.tasker_profile?.hourly_rate || 0,
+      fixedPrice: matchingService?.fixed_price || 0
+    };
+  };
+
   const calculateTotalCost = () => {
-    return (bookingData.duration_hours * (tasker?.tasker_profile?.hourly_rate || 0)).toFixed(0);
+    const pricing = getServicePricing();
+    if (pricing.pricingType === 'fixed') {
+      return pricing.fixedPrice.toFixed(0);
+    }
+    return (bookingData.duration_hours * pricing.hourlyRate).toFixed(0);
   };
 
   const calculateDistance = (lat1, lon1, lat2, lon2) => {
