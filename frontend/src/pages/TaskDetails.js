@@ -47,7 +47,11 @@ const TaskDetails = () => {
     if (task?.assigned_tasker_id) {
       fetchTaskerDetails(task.assigned_tasker_id);
     }
-  }, [task?.assigned_tasker_id]);
+    // Fetch client details when task is loaded
+    if (task?.client_id) {
+      fetchClientDetails(task.client_id);
+    }
+  }, [task?.assigned_tasker_id, task?.client_id]);
 
   const fetchTaskDetails = async () => {
     try {
