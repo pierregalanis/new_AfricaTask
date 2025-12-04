@@ -100,6 +100,7 @@ async def create_review(
         review_dict["client_id"] = current_user.id
         review_dict["tasker_id"] = task.get("assigned_tasker_id")
         review_dict["client_name"] = current_user.full_name
+        review_dict["service_name"] = task.get("title")  # Add service/task name to review
         review_dict["verified_booking"] = True
         
         review = Review(**review_dict)
