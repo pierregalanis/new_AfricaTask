@@ -24,8 +24,9 @@ const TaskerProfile = () => {
     if (taskerId) {
       fetchTaskerDetails();
       fetchTaskerStats();
+      checkIfFavorite();
     }
-  }, [taskerId]);
+  }, [taskerId, user]);
 
   const fetchTaskerDetails = async () => {
     try {
