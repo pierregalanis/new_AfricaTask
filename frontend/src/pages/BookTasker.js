@@ -4,6 +4,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { translations } from '../utils/translations';
 import { usersAPI, tasksAPI, categoriesAPI } from '../api/client';
 import { toast } from 'react-toastify';
+import axios from 'axios';
 import Navbar from '../components/Navbar';
 import LocationPicker from '../components/LocationPicker';
 import TaskerReviews from '../components/TaskerReviews';
