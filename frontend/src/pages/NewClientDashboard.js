@@ -86,8 +86,8 @@ const NewClientDashboard = () => {
 
   const getStatusText = (status) => {
     const statusMap = {
-      assigned: language === 'en' ? 'Confirmed' : 'Confirmé',
-      in_progress: language === 'en' ? 'In Progress' : 'En cours',
+      assigned: language === 'en' ? 'Pending Acceptance' : 'En attente d\'acceptation',
+      in_progress: language === 'en' ? 'Accepted - In Progress' : 'Accepté - En cours',
       completed: language === 'en' ? 'Completed' : 'Terminé',
       cancelled: language === 'en' ? 'Cancelled' : 'Annulé',
     };
