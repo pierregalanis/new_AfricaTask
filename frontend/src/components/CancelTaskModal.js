@@ -124,8 +124,8 @@ const CancelTaskModal = ({ task, onClose, onSuccess, language = 'en' }) => {
                 onClick={() => setReason(r)}
                 className={`w-full text-left px-4 py-2 rounded-lg border transition ${
                   reason === r
-                    ? 'bg-emerald-50 border-emerald-500 text-emerald-700'
-                    : 'bg-white border-gray-300 hover:bg-gray-50'
+                    ? 'bg-red-50 dark:bg-red-900/30 border-red-500 text-red-700 dark:text-red-300'
+                    : 'bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-600'
                 }`}
               >
                 {r}
