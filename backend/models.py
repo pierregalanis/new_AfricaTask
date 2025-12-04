@@ -67,11 +67,18 @@ class UserCreate(UserBase):
     password: str
 
 
+class PricingType(str, Enum):
+    HOURLY = "hourly"
+    FIXED = "fixed"
+
+
 class ServiceDetail(BaseModel):
     """Service with category, subcategory and individual settings"""
     category: str
     subcategory: str
+    pricing_type: str = "hourly"  # "hourly" or "fixed"
     hourly_rate: Optional[float] = None
+    fixed_price: Optional[float] = None
     bio: Optional[str] = None
     max_travel_distance: Optional[float] = None
 
