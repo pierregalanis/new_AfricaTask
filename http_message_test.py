@@ -7,7 +7,7 @@ import requests
 import json
 
 # Configuration
-BACKEND_URL = "https://localhelp-15.preview.emergentagent.com/api"
+BACKEND_URL = "https://swiftjob.preview.emergentagent.com/api"
 TASK_ID = "chat-test-task-active-001"
 
 CLIENT_CREDENTIALS = {

@@ -10,7 +10,7 @@ import requests
 import time
 
 # Configuration
-BACKEND_URL = "https://localhelp-15.preview.emergentagent.com/api"
+BACKEND_URL = "https://swiftjob.preview.emergentagent.com/api"
 WS_URL = "wss://taskafy.preview.emergentagent.com"
 
 CLIENT_CREDENTIALS = {
