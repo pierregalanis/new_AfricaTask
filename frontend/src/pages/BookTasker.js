@@ -50,7 +50,6 @@ const BookTasker = () => {
       
       // Fetch real-time stats
       try {
-        const axios = require('axios');
         const API_URL = process.env.REACT_APP_BACKEND_URL;
         const token = localStorage.getItem('token');
         
@@ -58,6 +57,7 @@ const BookTasker = () => {
           `${API_URL}/api/reviews/tasker/${taskerId}/rating`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
+        console.log('Fetched tasker stats:', statsResponse.data);
         setTaskerStats(statsResponse.data);
       } catch (statsError) {
         console.error('Error fetching tasker stats:', statsError);
