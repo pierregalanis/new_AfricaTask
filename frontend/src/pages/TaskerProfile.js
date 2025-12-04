@@ -11,10 +11,12 @@ import { toast } from 'react-toastify';
 const TaskerProfile = () => {
   const { taskerId } = useParams();
   const navigate = useNavigate();
-  const { language } = useAuth();
+  const { language, user } = useAuth();
   const [tasker, setTasker] = useState(null);
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [favoritesLoading, setFavoritesLoading] = useState(false);
 
   const t = (key) => translations[language][key] || key;
 
