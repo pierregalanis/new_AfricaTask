@@ -325,7 +325,16 @@ const NewClientDashboard = () => {
                       </button>
                     </div>
                   )}
-                  {['assigned', 'in_progress'].includes(booking.status) && (
+                  {booking.status === 'assigned' && (
+                    <div className="px-6 py-4 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-xl">
+                      <p className="text-sm text-yellow-800 dark:text-yellow-300 text-center">
+                        ⏳ {language === 'en' 
+                          ? 'Waiting for tasker to accept your booking...' 
+                          : 'En attente de l\'acceptation du tasker...'}
+                      </p>
+                    </div>
+                  )}
+                  {booking.status === 'in_progress' && (
                     <div className="flex flex-col space-y-2">
                       <button
                         onClick={(e) => {
