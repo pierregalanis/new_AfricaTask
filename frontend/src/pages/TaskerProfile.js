@@ -84,9 +84,13 @@ const TaskerProfile = () => {
         setIsFavorite(false);
         toast.success(language === 'en' ? 'Removed from favorites' : 'Retiré des favoris');
       } else {
+        // Use FormData for POST request
+        const formData = new FormData();
+        formData.append('tasker_id', taskerId);
+        
         await axios.post(
           `${process.env.REACT_APP_BACKEND_URL}/api/favorites`,
-          { tasker_id: taskerId },
+          formData,
           { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
         );
         setIsFavorite(true);
