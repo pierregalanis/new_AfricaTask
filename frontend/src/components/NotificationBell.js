@@ -27,6 +27,8 @@ const NotificationBell = () => {
     
     if (language === 'en') {
       switch (type) {
+        case 'new_booking':
+          return `New booking: "${task_title}"`;
         case 'task_accepted':
           return `Your task "${task_title}" has been accepted!`;
         case 'task_rejected':
@@ -44,6 +46,8 @@ const NotificationBell = () => {
       }
     } else {
       switch (type) {
+        case 'new_booking':
+          return `Nouvelle réservation : "${task_title}"`;
         case 'task_accepted':
           return `Votre tâche "${task_title}" a été acceptée!`;
         case 'task_rejected':
