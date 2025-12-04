@@ -85,11 +85,11 @@ const DisputeModal = ({ task, onClose, onSuccess, language = 'en' }) => {
         </div>
 
         {/* Task Info */}
-        <div className="bg-gray-50 dark:bg-gray-950 rounded-lg p-4 mb-4">
+        <div className="bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4 mb-4">
           <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">
             {language === 'en' ? 'Task:' : 'Tâche:'}
           </p>
-          <p className="font-semibold text-gray-900">{task.title}</p>
+          <p className="font-semibold text-gray-900 dark:text-white">{task.title}</p>
         </div>
 
         {/* Reason Selection */}
