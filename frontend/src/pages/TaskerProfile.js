@@ -206,17 +206,10 @@ const TaskerProfile = () => {
 
               {/* Location */}
               {tasker.city && (
-                <div className="flex items-center space-x-2 text-gray-600 dark:text-gray-400 mb-3">
+                <div className="flex items-center space-x-2 text-gray-600 dark:text-gray-400 mb-4">
                   <MapPin className="w-4 h-4" />
                   <span>{tasker.city}</span>
                 </div>
-              )}
-
-              {/* Bio */}
-              {profile.bio && (
-                <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-                  {profile.bio}
-                </p>
               )}
 
               {/* Action Buttons */}
