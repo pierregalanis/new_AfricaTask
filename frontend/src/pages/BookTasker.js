@@ -103,9 +103,9 @@ const BookTasker = () => {
   const calculateTotalCost = () => {
     const pricing = getServicePricing();
     if (pricing.pricingType === 'fixed') {
-      return pricing.fixedPrice.toFixed(0);
+      return Number(pricing.fixedPrice || 0).toFixed(0);
     }
-    return (bookingData.duration_hours * pricing.hourlyRate).toFixed(0);
+    return (bookingData.duration_hours * Number(pricing.hourlyRate || 0)).toFixed(0);
   };
 
   const calculateDistance = (lat1, lon1, lat2, lon2) => {
