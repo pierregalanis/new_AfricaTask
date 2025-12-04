@@ -513,13 +513,27 @@ const NewTaskerDashboard = () => {
             {filteredBookings.map((booking, index) => (
               <div
                 key={booking.id}
-                className="fancy-card p-6 hover-glow animate-fadeIn"
+                className={`fancy-card p-6 hover-glow animate-fadeIn ${
+                  booking.status === 'completed' ? 'cursor-pointer hover:shadow-2xl transition-shadow' : ''
+                }`}
                 style={{ animationDelay: `${index * 0.05}s` }}
                 data-testid={`booking-card-${booking.id}`}
+                onClick={() => {
+                  if (booking.status === 'completed') {
+                    navigate(`/tasks/${booking.id}`);
+                  }
+                }}
               >
                 <div className="flex flex-col md:flex-row md:items-center gap-6">
                   <div className="flex-1">
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{booking.title}</h3>
+                    <div className="flex items-center justify-between mb-2">
+                      <h3 className="text-xl font-bold text-gray-900 dark:text-white">{booking.title}</h3>
+                      {booking.status === 'completed' && (
+                        <span className="text-xs text-emerald-600 dark:text-emerald-400 font-medium">
+                          {language === 'en' ? 'Click to view details' : 'Cliquer pour voir les détails'}
+                        </span>
+                      )}
+                    </div>
                     <p className="text-gray-600 dark:text-gray-400 text-sm mb-3">{booking.description}</p>
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-3 text-sm">
                       <div className="flex items-center space-x-2 text-gray-600">
