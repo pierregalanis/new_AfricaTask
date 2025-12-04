@@ -188,7 +188,7 @@ const BookTasker = () => {
       };
 
       const response = await tasksAPI.create(taskData);
-      toast.success('✅ ' + (language === 'en' ? 'Booking confirmed!' : 'Réservation confirmée!'));
+      // Navigate immediately to confirmation page (no toast needed - confirmation page shows success)
       navigate(`/booking-confirmation/${response.data.id}`);
     } catch (error) {
       console.error('Error creating booking:', error);
