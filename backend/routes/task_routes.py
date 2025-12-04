@@ -478,7 +478,8 @@ async def accept_task(
         user_id=task["client_id"],
         notification_type="task_accepted",
         task_id=task_id,
-        task_title=task.get("title", "Task")
+        task_title=task.get("title", "Task"),
+        message=f"Your task '{task.get('title', 'Task')}' has been accepted!"
     )
     
     logger.info(f"Tasker {current_user.id} accepted task {task_id}")
