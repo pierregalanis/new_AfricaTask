@@ -136,7 +136,9 @@ class TaskBase(BaseModel):
     category_id: str
     subcategory: Optional[str] = None
     duration_hours: float  # How many hours the task will take
-    hourly_rate: float  # Agreed hourly rate (from tasker)
+    pricing_type: str = "hourly"  # "hourly" or "fixed"
+    hourly_rate: Optional[float] = None  # For hourly pricing
+    fixed_price: Optional[float] = None  # For fixed pricing
     task_date: datetime
     address: str
     city: str
