@@ -382,6 +382,24 @@ const TaskDetails = () => {
                 </div>
               )}
 
+              {/* Book This Service Again Button (for completed tasks - client only) */}
+              {task.status === 'completed' && isClient && (
+                <div className="mt-3">
+                  <button
+                    onClick={() => {
+                      const bookingUrl = task.subcategory
+                        ? `/book-tasker/${task.assigned_tasker_id}?category=${task.category_id}&subcategory=${task.subcategory}`
+                        : `/book-tasker/${task.assigned_tasker_id}?category=${task.category_id}`;
+                      navigate(bookingUrl);
+                    }}
+                    className="w-full py-3 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-lg hover:from-emerald-600 hover:to-emerald-700 transition font-semibold flex items-center justify-center space-x-2 shadow-md"
+                  >
+                    <span className="text-xl">🔄</span>
+                    <span>{language === 'en' ? 'Book This Service Again' : 'Réserver ce service à nouveau'}</span>
+                  </button>
+                </div>
+              )}
+
               {/* Dispute Button (for completed tasks) */}
               {task.status === 'completed' && (
                 <div className="mt-3">
