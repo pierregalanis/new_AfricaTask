@@ -13,11 +13,13 @@ const BookTasker = () => {
   const { taskerId } = useParams();
   const [searchParams] = useSearchParams();
   const categoryId = searchParams.get('category');
+  const subcategoryParam = searchParams.get('subcategory');
   const { language, user } = useAuth();
   const [tasker, setTasker] = useState(null);
   const [category, setCategory] = useState(null);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
+  const [taskerStats, setTaskerStats] = useState(null);
   const navigate = useNavigate();
   const t = (key) => translations[language]?.[key] || key;
 
