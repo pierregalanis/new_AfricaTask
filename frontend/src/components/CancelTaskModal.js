@@ -71,21 +71,21 @@ const CancelTaskModal = ({ task, onClose, onSuccess, language = 'en' }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-      <div className="bg-white dark:bg-gray-800/70 rounded-xl max-w-md w-full p-6">
+    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 overflow-y-auto">
+      <div className="bg-white dark:bg-gray-800 rounded-xl max-w-lg w-full p-6 my-8 max-h-[85vh] overflow-y-auto">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center space-x-3">
-            <AlertTriangle className="w-6 h-6 text-emerald-600" />
-            <h2 className="text-xl font-bold text-gray-900">
+            <AlertTriangle className="w-6 h-6 text-red-600" />
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white">
               {language === 'en' ? 'Cancel Task' : 'Annuler la tâche'}
             </h2>
           </div>
           <button
             onClick={onClose}
-            className="p-1 hover:bg-gray-100 dark:bg-gray-800 rounded-full transition"
+            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition"
           >
-            <X className="w-5 h-5" />
+            <X className="w-6 h-6 text-gray-600 dark:text-gray-300" />
           </button>
         </div>
 
