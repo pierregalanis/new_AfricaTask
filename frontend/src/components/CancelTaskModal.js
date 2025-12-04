@@ -157,14 +157,14 @@ const CancelTaskModal = ({ task, onClose, onSuccess, language = 'en' }) => {
           <button
             onClick={onClose}
             disabled={loading}
-            className="flex-1 px-4 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 dark:bg-gray-950 font-semibold disabled:opacity-50"
+            className="flex-1 px-4 py-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600 font-semibold disabled:opacity-50 transition"
           >
             {language === 'en' ? 'Keep Task' : 'Garder la tâche'}
           </button>
           <button
             onClick={handleCancel}
             disabled={loading || !reason.trim()}
-            className="flex-1 px-4 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+            className="flex-1 px-4 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 font-semibold disabled:opacity-50 disabled:cursor-not-allowed transition"
           >
             {loading
               ? (language === 'en' ? 'Cancelling...' : 'Annulation...')
