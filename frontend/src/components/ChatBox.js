@@ -3,13 +3,14 @@ import { useAuth } from '../contexts/AuthContext';
 import { translations } from '../utils/translations';
 import { messagesAPI } from '../api/client';
 import { toast } from 'react-toastify';
-import { Send, X, MessageCircle } from 'lucide-react';
+import { Send, X, MessageCircle, Minimize2 } from 'lucide-react';
 
 const ChatBox = ({ task, onClose }) => {
   const { user, language } = useAuth();
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
   const [loading, setLoading] = useState(true);
+  const [minimized, setMinimized] = useState(false);
   const messagesEndRef = useRef(null);
   const t = (key) => translations[language]?.[key] || key;
 
@@ -64,8 +65,19 @@ const ChatBox = ({ task, onClose }) => {
     });
   };
 
+  if (minimized) {
+    return (
+      <div className="fixed bottom-4 right-4 bg-emerald-600 text-white p-4 rounded-lg shadow-2xl z-50 cursor-pointer" onClick={() => setMinimized(false)}>
+        <div className="flex items-center space-x-2">
+          <MessageCircle className="w-5 h-5" />
+          <span className="font-semibold">{language === 'en' ? 'Chat' : 'Discussion'}</span>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="fixed inset-0 md:inset-auto md:bottom-4 md:right-4 md:w-96 md:h-[600px] bg-white dark:bg-gray-800/70 md:rounded-lg shadow-2xl z-50 flex flex-col">
+    <div className="fixed inset-0 md:inset-auto md:bottom-4 md:right-4 md:w-96 md:h-[500px] bg-white dark:bg-gray-800 md:rounded-lg shadow-2xl z-50 flex flex-col">
       {/* Header */}
       <div className="bg-emerald-600 text-white p-4 md:rounded-t-lg flex justify-between items-center">
         <div className="flex items-center space-x-2">
@@ -77,23 +89,32 @@ const ChatBox = ({ task, onClose }) => {
             <p className="text-xs opacity-90">{task.title}</p>
           </div>
         </div>
-        <button
-          onClick={onClose}
-          className="hover:bg-emerald-700 rounded-full p-1 transition"
-          data-testid="close-chat-button"
-        >
-          <X className="w-5 h-5" />
-        </button>
+        <div className="flex items-center space-x-2">
+          <button
+            onClick={() => setMinimized(true)}
+            className="hover:bg-emerald-700 rounded-full p-1 transition"
+            title={language === 'en' ? 'Minimize' : 'Réduire'}
+          >
+            <Minimize2 className="w-5 h-5" />
+          </button>
+          <button
+            onClick={onClose}
+            className="hover:bg-emerald-700 rounded-full p-1 transition"
+            data-testid="close-chat-button"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
       </div>
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-gray-50 dark:bg-gray-950" data-testid="chat-messages">
+      <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-gray-50 dark:bg-gray-900" data-testid="chat-messages">
         {loading ? (
           <div className="flex justify-center items-center h-full">
-            <div className="text-gray-500">{t('loading')}</div>
+            <div className="text-gray-500 dark:text-gray-400">{t('loading')}</div>
           </div>
         ) : messages.length === 0 ? (
-          <div className="flex flex-col justify-center items-center h-full text-gray-500">
+          <div className="flex flex-col justify-center items-center h-full text-gray-500 dark:text-gray-400">
             <MessageCircle className="w-12 h-12 mb-2 opacity-50" />
             <p>{language === 'en' ? 'No messages yet' : 'Aucun message encore'}</p>
             <p className="text-sm">{language === 'en' ? 'Start the conversation!' : 'Commencez la conversation!'}</p>
@@ -108,16 +129,16 @@ const ChatBox = ({ task, onClose }) => {
                 data-testid={`message-${msg.id}`}
               >
                 <div
-                  className={`max-w-[75%] rounded-lg px-4 py-2 ${
+                  className={`max-w-[70%] rounded-lg px-4 py-2 ${
                     isMyMessage
                       ? 'bg-emerald-600 text-white'
-                      : 'bg-white text-gray-900 dark:text-white border border-gray-200'
+                      : 'bg-white dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-700'
                   }`}
                 >
                   <p className="break-words">{msg.content}</p>
                   <p
                     className={`text-xs mt-1 ${
-                      isMyMessage ? 'text-emerald-100' : 'text-gray-500'
+                      isMyMessage ? 'text-emerald-100' : 'text-gray-500 dark:text-gray-400'
                     }`}
                   >
                     {formatTime(msg.created_at)}
@@ -131,14 +152,14 @@ const ChatBox = ({ task, onClose }) => {
       </div>
 
       {/* Input */}
-      <form onSubmit={handleSendMessage} className="p-4 border-t bg-white dark:bg-gray-800/70 md:rounded-b-lg">
+      <form onSubmit={handleSendMessage} className="p-4 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 md:rounded-b-lg">
         <div className="flex space-x-2">
           <input
             type="text"
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
             placeholder={language === 'en' ? 'Type a message...' : 'Tapez un message...'}
-            className="flex-1 border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="flex-1 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500 placeholder-gray-400 dark:placeholder-gray-500"
             data-testid="message-input"
           />
           <button
