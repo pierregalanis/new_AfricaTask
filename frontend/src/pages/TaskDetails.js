@@ -19,6 +19,7 @@ const TaskDetails = () => {
   const { language, user, isClient, isTasker } = useAuth();
   const [task, setTask] = useState(null);
   const [tasker, setTasker] = useState(null);
+  const [client, setClient] = useState(null);
   const [applications, setApplications] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showApplyModal, setShowApplyModal] = useState(false);
