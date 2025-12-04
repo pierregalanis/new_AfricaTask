@@ -467,14 +467,14 @@ const BookTasker = () => {
                           </div>
                           <div className="flex justify-between text-sm">
                             <span className="text-gray-600 dark:text-gray-400">{language === 'en' ? 'Service Price' : 'Prix du service'}</span>
-                            <span className="font-semibold text-gray-900 dark:text-white">{pricing.fixedPrice.toLocaleString()} CFA</span>
+                            <span className="font-semibold text-gray-900 dark:text-white">{Number(pricing.fixedPrice || 0).toLocaleString()} CFA</span>
                           </div>
                         </div>
                       ) : (
                         <div className="space-y-3 mb-4">
                           <div className="flex justify-between text-sm">
                             <span className="text-gray-600 dark:text-gray-400">{language === 'en' ? 'Hourly rate' : 'Tarif horaire'}</span>
-                            <span className="font-semibold text-gray-900 dark:text-white">{pricing.hourlyRate.toLocaleString()} CFA/hr</span>
+                            <span className="font-semibold text-gray-900 dark:text-white">{Number(pricing.hourlyRate || 0).toLocaleString()} CFA/hr</span>
                           </div>
                           <div className="flex justify-between text-sm">
                             <span className="text-gray-600 dark:text-gray-400">{language === 'en' ? 'Duration' : 'Durée'}</span>
