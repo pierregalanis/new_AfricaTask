@@ -91,8 +91,8 @@ const CancelTaskModal = ({ task, onClose, onSuccess, language = 'en' }) => {
 
         {/* Warning Message */}
         {task.status === 'in_progress' && (
-          <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4">
-            <p className="text-sm text-yellow-800">
+          <div className="bg-yellow-50 dark:bg-yellow-900/30 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4 mb-4">
+            <p className="text-sm text-yellow-800 dark:text-yellow-300">
               {language === 'en'
                 ? '⚠️ This task is in progress. Cancellation may incur a penalty based on hours worked.'
                 : '⚠️ Cette tâche est en cours. L\'annulation peut entraîner une pénalité basée sur les heures travaillées.'}
@@ -101,11 +101,11 @@ const CancelTaskModal = ({ task, onClose, onSuccess, language = 'en' }) => {
         )}
 
         {/* Task Info */}
-        <div className="bg-gray-50 dark:bg-gray-950 rounded-lg p-4 mb-4">
+        <div className="bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4 mb-4">
           <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">
             {language === 'en' ? 'Task:' : 'Tâche:'}
           </p>
-          <p className="font-semibold text-gray-900">{task.title}</p>
+          <p className="font-semibold text-gray-900 dark:text-white">{task.title}</p>
           <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
             {language === 'en' ? 'Status:' : 'Statut:'}{' '}
             <span className="font-medium capitalize">{task.status}</span>
