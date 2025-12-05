@@ -282,15 +282,15 @@ const RegisterPage = () => {
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 dark:text-gray-300 mb-2">
                 📍 {language === 'en' ? 'Your Location' : 'Votre emplacement'} <span className="text-red-500">*</span>
               </label>
-              <LocationPicker
+              <LocationPickerGoogle
                 country={formData.country}
                 initialPosition={formData.latitude ? { lat: formData.latitude, lng: formData.longitude } : null}
                 onLocationChange={handleLocationChange}
                 height="350px"
                 label={
                   language === 'en' 
-                    ? 'Click on the map to place your pin' 
-                    : 'Cliquez sur la carte pour placer votre épingle'
+                    ? 'Search for a place or click on the map to place your pin' 
+                    : 'Recherchez un lieu ou cliquez sur la carte pour placer votre épingle'
                 }
               />
             </div>
