@@ -550,7 +550,7 @@ agent_communication:
 
 **Testing Method**: Comprehensive API testing via backend_test.py favorites
 **Test Credentials**: testclient@demo.com / testtasker@demo.com / test123
-**Backend URL**: https://swiftjob.preview.emergentagent.com/api
+**Backend URL**: https://taskbuddyafrica.preview.emergentagent.com/api
 **Test Tasker IDs**: 0331876e-f975-45e3-8782-17000f009340, 402fb413-3c73-4bf8-90e4-cf372cda3a7b
 
 #### Badges System ✅ WORKING
@@ -617,7 +617,7 @@ agent_communication:
 
 **Testing Method**: Comprehensive API testing via backend_test.py
 **Test Credentials**: testclient@demo.com / testtasker@demo.com
-**Backend URL**: https://swiftjob.preview.emergentagent.com/api
+**Backend URL**: https://taskbuddyafrica.preview.emergentagent.com/api
 
 #### Feature 1: Advanced Search & Filters ✅ WORKING
 **Status**: TESTED & WORKING
@@ -713,7 +713,7 @@ agent_communication:
 
 **Testing Method**: Comprehensive UI testing via Playwright automation
 **Test Credentials**: testclient@demo.com / testtasker@demo.com / test123
-**Frontend URL**: https://swiftjob.preview.emergentagent.com
+**Frontend URL**: https://taskbuddyafrica.preview.emergentagent.com
 **Testing Agent**: testing_agent
 
 #### Feature 1: Advanced Search & Filters ✅ WORKING

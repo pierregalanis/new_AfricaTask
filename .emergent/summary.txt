@@ -6,189 +6,211 @@ The user wants to build a clone of the TaskRabbit application, specifically tail
 - **Bilingual Support:** The entire application must support both English and French.
 - **User Roles:** Clients and Taskers.
 - **Key Features:**
-    - **Service Categories:** A predefined, bilingual list of tasks.
-    - **Location & GPS:** Map-based location selection, tasker service radius, and real-time GPS tracking with an Uber-style itinerary view.
+    - **Service Categories & Subcategories:** A predefined, bilingual list of tasks and their sub-specialties.
+    - **Location & GPS:** Map-based location selection.
     - **In-App Chat:** Real-time messaging.
     - **Secure Payments:** Support for Cash and online payments (Paydunya).
     - **Reviews and Ratings:** Clients can review taskers.
-    - **Tasker Profiles:** Taskers should have profiles where clients can view their stats (tasks completed, rating) and all their reviews before booking.
-    - **Tasker Service Management:** Taskers must be able to add/edit the services they offer and their availability.
+    - **Tasker Profiles:** With real-time stats and reviews.
+    - **Tasker Service Management:** Taskers must be able to add/edit the services they offer, with per-service settings for rate, bio, and travel distance.
     - **Notifications:** A system to notify users of key events.
-    - **Tasker Earnings:** A dashboard for taskers to see their earnings.
+    - **AI Assistant:** A chatbot to help users create tasks.
+    - **UI/UX:** A modern UI with a dark mode default and a green/emerald theme.
+    - **Hybrid Pricing:** Taskers can set either an hourly rate or a fixed price for each service.
+    - **Favorites:** Clients can add taskers to a favorites list.
 
 **User's preferred language**: English
 
 **what currently exists?**
-The application is a feature-rich MVP built on a React, FastAPI, and MongoDB stack.
-- **Implemented Features:** User authentication, service browsing, booking, public tasker profiles, a notification system, and a review system with translation are all functional. An Uber-style GPS tracking map is also implemented.
-- **New Features (Backend Complete, UI Integrated):** Seven new features have been added and verified by testing agents: Advanced Search, Tasker Portfolio, Task Cancellation, Dispute Resolution, Admin Panel, In-App Coin System, and Scheduled/Recurring Tasks.
-- **UI/UX Polish:** A significant UI/UX overhaul was completed. This includes a revamped landing page, and new reusable components for loading states, empty states, mobile navigation, and an improved notification center. These have been integrated into key pages.
-- **Earnings System:** The earnings calculation has been improved to handle manual hour entries via a new modal when a tasker marks a job as Paid.
-- **Backend Structure:** The backend has been partially refactored from a monolith , with many features (auth, reviews, notifications, disputes, coins, etc.) moved to their own route files. However,  still contains core task, location, and timer logic.
+The application is an advanced MVP with a Maximum Fancy Green Dark Mode UI. It includes a backend refactored into modular routes, an AI Chatbot (OpenAI GPT-5), and a sophisticated data model supporting per-service settings for taskers (category, subcategory, pricing). A hybrid pricing model (hourly/flat-rate) has been fully integrated across the booking, display, and payment calculation flows. The notification system has been significantly improved with pop-up toasts and more descriptive messages. Numerous UI/UX enhancements and critical bug fixes have been implemented across the platform, including a functional favorites system, a streamlined booking confirmation flow, and improved modals.
 
 **Last working item**:
-- **Last item agent was working:** The agent was starting to implement Advanced Features as requested by the user. This included a Favorites/Wishlist system and a Tasker Badge/Verification system. The agent created the backend route file  for the favorites feature.
+- **Last item agent was working:** The user reported two issues at once:
+    1.  The map search functionality is broken, and they provided screenshots.
+    2.  When booking a service via the modal on a tasker's profile, the subsequent booking page has a blank task title instead of pre-filling it with the service name.
+    The agent began investigating the blank title issue but was interrupted by the map issue report before making a fix.
 - **Status:** IN PROGRESS
 - **Agent Testing Done:** N
-- **Which testing method agent to use?** Backend testing agent for the new routes and frontend testing agent for the new UI components once created.
+- **Which testing method agent to use?** frontend testing agent
 - **User Testing Done:** N
 
 **All Pending/In progress Issue list**:
-- **Issue 1:** Tasker Service Management Not Working (P0)
-- **Issue 2:** User is unable to see the latest implemented features (P1)
+- **Issue 1:** Map Search Not Working (P0)
+- **Issue 2:** Blank Task Title on Booking Page (P1)
 - **Issue 3:** Real-Time Chat is Not Working (P2)
+- **Issue 4:** End-to-End Paydunya Testing (P3)
 
 **Issues Detail:**
-- **Issue 1:** Tasker Service Management Not Working
-    - **Description:** A critical and recurring bug where taskers are unable to edit their services or see newly added services on the Manage Your Services page.
-    - **Attempted fixes:** The agent has verified the frontend () and backend () logic, which appears correct. The last fix attempt involved adding more console logging and preventing page navigation after saving to force a data refresh. The issue persists for the user.
+- **Issue 1:** Map Search Not Working
+    - **Description:** The user reported that the map search functionality is not working and provided several screenshots indicating errors. They specifically asked if the API is enabled. This is a critical feature blocker.
+    - **Attempted fixes:** None.
     - **Next debug checklist:**
-        1.  Ask the user to perform the action and provide the browser's developer console output (both console logs and network tab).
-        2.  Specifically, inspect the  request payload to ensure the  array is being sent correctly.
-        3.  Directly inspect the user's document in the  collection in MongoDB to verify if the database is being updated.
-    - **Why fix this issue and what will be achieved with the fix?** This is a core-business feature for taskers. Fixing it is essential for them to manage the services they offer.
-    - **Status:** IN PROGRESS
-    - **Is recurring issue?** Y
-    - **Should Test frontend/backend/both after fix?** both
-    - **Blocked on other issue:** None
+        1. Analyze the user's latest screenshots to identify the specific errors (e.g., API key errors, network failures).
+        2. Check  to confirm the  environment variable is present and has a value.
+        3. Inspect files using the map component (e.g., , , ) to verify the implementation.
+        4. If the key is invalid or missing, inform the user they need to provide a valid Mapbox API token.
+    - **Why fix this issue and what will be achieved with the fix?** This is a core feature for a location-based service app. Fixing it will unblock task creation and tasker booking.
+    - **Status:** NOT STARTED
+    - **Is recurring issue?** N
+    - **Should Test frontend/backend/both after fix?** frontend
+    - **Blocked on other issue:** Potentially on the user if a new API key is required.
 
-- **Issue 2:** User is unable to see the latest implemented features
-    - **Description:** The user frequently reports that new features and fixes are not visible, which has been confirmed to be a browser cache issue on their end.
-    - **Attempted fixes:** The agent has repeatedly advised the user to perform a hard refresh (Ctrl+Shift+R) or use an incognito/private browser window. This is an operational issue, not a code defect.
-    - **Next debug checklist:** The next agent **MUST** begin every user-facing response by reminding the user to test in an **incognito/private browser window**.
-    - **Why fix this issue and what will be achieved with the fix?** Resolving this will unblock user testing and allow for accurate feedback.
+- **Issue 2:** Blank Task Title on Booking Page
+    - **Description:** When a client clicks Book Now on a tasker's profile, selects a service from the pop-up modal, and proceeds to the booking page (), the Task Title input field is empty. It should be pre-filled with the name of the selected service.
+    - **Attempted fixes:** The agent started viewing  but did not implement a fix.
+    - **Next debug checklist:**
+        1. In , check the  function to ensure it navigates with the service name, category, and subcategory as URL query parameters.
+        2. In , use the  hook to read the service name from the URL.
+        3. Set the initial state of the  object to use the service name for the  property, e.g., .
+    - **Why fix this issue and what will be achieved with the fix?** This will improve the booking flow's user experience by removing a redundant step for the client.
     - **Status:** IN PROGRESS
-    - **Is recurring issue?** Y
+    - **Is recurring issue?** N
     - **Should Test frontend/backend/both after fix?** frontend
     - **Blocked on other issue:** None
 
 - **Issue 3:** Real-Time Chat is Not Working
-    - **Description:** The in-app chat does not work in real-time because WebSocket connections are blocked by the environment's ingress configuration. This is a known infrastructure limitation.
+    - **Description:** In-app chat does not work in real-time due to WebSocket connections being blocked by the environment's ingress configuration.
     - **Status:** BLOCKED
     - **Is recurring issue?** Y
-    - **Should Test frontend/backend/both after fix?** both
-    - **Blocked on other issue:** None
+    - **Should Test frontend/backend/both after fix?** N/A
+    - **Blocked on other issue:** Environment limitations.
+
+- **Issue 4:** End-to-End Paydunya Testing
+    - **Description:** The payment integration with Paydunya cannot be fully tested.
+    - **Status:** BLOCKED
+    - **Is recurring issue?** N
+    - **Should Test frontend/backend/both after fix?** N/A
+    - **Blocked on other issue:** Awaiting sandbox API keys from the user.
 
 **In progress Task List**:
-- **Task 1:** Implement Advanced Features (Favorites & Verification) (P0)
-- **Task 2:** Complete Backend Refactoring (P1)
-
-**Task Detail:**
-- **Task 1:** Implement Advanced Features (Favorites & Verification)
-    - **Where to resume:**
-        1.  Integrate the newly created  into .
-        2.  Create the frontend components for adding/viewing favorite taskers.
-        3.  Implement the backend and frontend for the Tasker Badge/Verification system.
-    - **What will be achieved with this?** Adds a client-side wishlist feature and a trust-building verification system for taskers.
-    - **Status:** IN PROGRESS
-    - **Should Test frontend/backend/both after fix?** both
-    - **Blocked on something:** None
-
-- **Task 2:** Complete Backend Refactoring
-    - **Where to resume:** The  file still contains ~27 core endpoints for tasks, GPS tracking, and timers. These need to be extracted into modular route files (, , ).
-    - **What will be achieved with this?** A fully modular, maintainable, and scalable backend, which is crucial for future development.
-    - **Status:** IN PROGRESS
-    - **Should Test frontend/backend/both after fix?** backend
-    - **Blocked on something:** None
+- None.
 
 **Upcoming and Future Tasks**
 - **Upcoming Tasks:**
-    - **P1: Code Cleanup:** Remove any deprecated files or unused code.
-    - **P2: Hybrid Pricing Model:** Implement support for fixed-price tasks in addition to the current hourly model.
+    - **P1: Implement Book This Service Again Button:** On the completed  page, add a button that allows a client to quickly re-book the exact same service with the same tasker.
+    - **P2: General Client-Side Task Creation with Subcategories:** Verify and update the main Post a Task flow (if one exists separately from booking a specific tasker) to support subcategory selection.
 - **Future Tasks:**
-    - **P3: End-to-End Paydunya Testing:** This is blocked until the user provides sandbox API keys.
+    - **P3: Code Cleanup:** Delete the one-time use scripts  and .
 
 **Completed work in this session**
-- **7 New Features Implemented:** The backend and frontend for Advanced Search, Tasker Portfolio, Task Cancellation, Dispute Resolution, Admin Panel, In-App Coin System, and Scheduled/Recurring Tasks were fully implemented and integrated.
-- **Major UI/UX Polish:** The app's look-and-feel was significantly improved with a revamped landing page and new components for loading states, empty states, mobile navigation, and notifications, which were integrated across multiple pages.
-- **Earnings System Overhaul:** Fixed a critical bug where earnings were not calculated. A new modal was added for taskers to manually input hours when marking a task as paid.
-- **Tasker Profile Enhancement:** Added an Availability toggle for taskers to manage their status.
-- **Critical Bug Fixes:** Resolved two frontend crashes (a duplicate variable declaration and a  error in the notification component) and fixed a database issue preventing new service categories from being saved correctly.
-- **Testing:** The 7 new features were successfully verified by both backend and frontend testing agents.
-
-**Earlier issues found/mentioned but not fixed**
-- All known issues are captured in the **All Pending/In progress Issue list**.
-
-**Known issue recurrence from previous fork**
-- **Issue recurrence in this fork:** The user reporting that features are not working, which is consistently traced back to browser caching.
-- **Recurrence count:** 5+
-- **Status:** RESOLVED (from a code perspective). This is an operational issue requiring user action (testing in incognito mode).
+- **Hybrid Pricing Model:** Fully implemented the hybrid pricing (hourly/fixed) feature. This included backend model changes (, ), a new UI for taskers to manage service pricing, and updating all client-facing pages (, , ) to correctly display and calculate costs.
+- **Booking & UI/UX Flow:**
+    - Added a Book Now button to tasker cards on the  for quicker booking.
+    - Fixed numerous bugs in the booking flow to ensure service-specific pricing was passed correctly between pages.
+    - Resolved a runtime crash () on the booking page.
+    - Implemented a redirect to a  page after a successful booking and fixed an issue where it required a manual refresh.
+    - Implemented a service-selection modal on the  page to remove ambiguity when a client clicks Book Now.
+    - Removed confusing pricing and description details from the  header.
+- **Notification System:**
+    - Fixed unreadable notifications (dark text on dark background).
+    - Fixed empty notification messages by ensuring the backend provides context and the frontend displays it correctly.
+    - Implemented pop-up toasts for new notifications.
+    - Added a  notification for taskers.
+- **Tasker & Client Dashboards:**
+    - Fixed an incorrect Tasks count on the .
+    - Made completed tasks on the  clickable to view details.
+    - Added client info to the  page for taskers.
+    - Corrected the booking status on the  to show Awaiting Acceptance instead of Confirmed for new tasks.
+    - Disabled the client's ability to chat until the tasker accepts the booking.
+    - Hid the work timer for fixed-price tasks on both dashboards.
+- **Favorites Feature:**
+    - Added a favorite (heart) button to tasker profiles.
+    - Fixed an API bug that prevented favorites from being saved.
+    - Fixed a display bug on the  that showed raw JSON for services.
+- **Modals & Components:** Fixed UI/readability issues in the , , and  components for dark mode.
+- **Code Hygiene:** Removed a duplicate statistics section and deleted an old backend backup file.
 
 **Code Architecture**
 
 
 **Key Technical Concepts**
-- **Backend:** FastAPI, MongoDB (), Pydantic
-- **Frontend:** React, React Router, Tailwind CSS, Axios
-- **Translation:**  library on the backend.
-- **Maps/GPS:** Mapbox GL JS, Mapbox Directions API.
+- **Frontend:** React (, , , ), Axios, Tailwind CSS.
+- **Backend:** FastAPI, Pydantic Enums.
+- **Database:** MongoDB (via ).
+- **State Management:** React Context API for notifications.
+- **Conditional UI:** Extensive use of conditional rendering based on data properties like  and .
 
 **key DB schema**
-- **users:** 
-- **tasks:** 
-- **notifications:** 
+- **users.tasker_profile.services (List[ServiceDetail])**:
+  - : 
+- **tasks**:
+  - Added: , .
+- **reviews**:
+  - Added: .
 
 **changes in tech stack**
-- None in this session.
+- No new technologies were added.
 
 **All files of reference**
-- **/app/frontend/src/pages/TaskerServicesManagement.js**: Core file for the recurring bug where taskers cannot edit services.
-- **/app/backend/tasker_routes.py**: Backend counterpart to the bug, handles the  update.
-- **/app/backend/server.py**: Still contains a large number of endpoints and is the target for the next major refactoring task.
-- **/app/frontend/src/pages/NewClientDashboard.js**: Was heavily modified to add the Mark as Paid flow and integrate new UI components.
-- **/app/frontend/src/components/Navbar.js**: Updated to use the new mobile navigation and improved notification center.
-- **/app/frontend/src/pages/LandingPage.js**: Completely rewritten for a modern UI/UX.
+- **Current Issues:**
+  -  (Blank title issue)
+  -  (Origin of the blank title issue)
+  - Any files using Mapbox, such as  (Map search issue)
+  -  (Mapbox API key location)
+- **Recently Modified Core Files:**
+  - 
+  - 
+  - 
+  - 
 
 **Areas that need refactoring**:
-- : This is the highest priority for refactoring. It still contains ~27 endpoints related to task CRUD, GPS, and timers that should be moved to their own route files.
+- The one-time use scripts  and  should be deleted to clean up the repository.
+- Remove any new  statements added during the last debugging session in .
 
 **key api endpoints**
-- : The primary endpoint for taskers to update their profile, including the  and  fields. This is central to the main recurring bug.
-- : Updated to accept  to allow manual earnings calculation.
-- **New Routers**: , , , and  (scaffolded).
+- : Logic was heavily modified to correctly calculate  based on  sent from the frontend.
+- : Fixed to correctly handle form data instead of JSON.
+- : Updated to save the  with the review.
+- : Updated to generate a notification for the client.
+- : Acted as the polling endpoint for the frontend notification system.
 
 **Critical Info for New Agent**
-- **INCOGNITO MODE IS MANDATORY:** The user is plagued by severe browser cache issues. You **MUST** start every communication by advising the user to test all new features in a **new incognito/private browser window** to avoid incorrect feedback.
-- **HIGHEST PRIORITY BUG:** The most critical issue to solve is that taskers cannot add or edit their services. Your first debugging step should be to get console and network logs from the user while they reproduce the bug.
-- **BLOCKED FEATURES:** Do not work on Paydunya (needs user API keys) or real-time chat (infra issue).
-- **CURRENT PLAN:** The user wants to first implement Advanced Features (Favorites, Badges) and then proceed with the Backend Refactoring. You should resume by completing the implementation of the Favorites feature.
+- **PRIORITIZE MAPS:** The user has reported the map functionality is broken, providing screenshots. This is a critical feature. Investigate the  and related components immediately.
+- **TEST WITH FRESH DATA:** Many previous bugs only appeared to be not fixed because the database contained data in an old format. When testing any fix related to services or pricing, **ALWAYS** log in as the test tasker, delete old services, and create new ones with the current UI to ensure you are using the latest data structure. Then, book a new task as a client to verify the entire flow.
+- **INCOGNITO MODE:** Continue to advise the user to test in a new incognito/private browser window to prevent caching from obscuring fixes.
 
 **documents created in this job**
-- None.
+-  (Temporary migration script, can be deleted)
+-  (Temporary cleanup script, can be deleted)
 
 **Last 10 User Messages and any pending user messages**
-1.  **User:** the edit profile for tasker is still not working... - Reported the recurring tasker profile bug and a review translation bug. (Status: In Progress)
-2.  **User:** also the earnings say 0 all across... - Reported that the earnings dashboard showed zero. (Status: Completed - agent fixed calculation and data)
-3.  **User:** tyhe page is no longer loading - Reported a frontend crash. (Status: Completed - agent fixed a duplicate variable declaration)
-4.  **User:**  - Chose to proceed with UI/UX polish. (Status: Completed)
-5.  **User:**  - Reported a typo. (Status: Completed)
-6.  **User:** proceed with further UI/UX polish... - Gave detailed requirements for UI improvements. (Status: Completed)
-7.  **User:** notification button is giving an error - Reported a crash when clicking the notification bell. (Status: Completed)
-8.  **User:**  - Re-reported the critical recurring bug. (Status: In Progress)
-9.  **User:**  - Asked to move on to new features despite the bug. (Status: Actioned)
-10. **User:**  - Chose the next development steps: Advanced Features, then more UI Polish. (Status: In Progress)
+1. **User:** Reports Book Now from task details is confusing; agrees to agent's suggestion of a Book Again button. Still has empty notifications. (Status: Book Again implemented, notification issue ongoing).
+2. **User:** Likes Book Again button but notes the main Book Now on the profile page is still confusing. Agent proposes a service selection modal. (Status: Modal implemented).
+3. **User:** Confirms modal works but asks to remove the price from the profile header, showing it only in the modal. (Status: Completed).
+4. **User:** Asks to also remove the service description from the header. Reports that adding a tasker to favorites is failing. (Status: Completed).
+5. **User:** Reports the favorites page is displaying services as a raw JSON object. (Status: Completed).
+6. **User:** Reports multiple issues on the active task details page: Chat and Cancel modals are too big/unreadable, and the Track tasker button isn't working. (Status: Completed).
+7. **User:** When booking from the profile page modal, the task title on the booking page is blank. (Status: IN PROGRESS).
+8. **User:** The map search is not working; asks if the API is enabled and provides screenshots. (Status: NOT STARTED, HIGH PRIORITY).
+9. **User:** (Follow up from message 7) The  page has a blank title when a service is picked from the profile modal. (Status: IN PROGRESS, same issue as #7).
+10. **User:** (Follow up from message 8) The map search is not working. (Status: NOT STARTED, same issue as #8).
 
 **Project Health Check:**
 - **Broken:**
-    - **Tasker Service Management:** A core feature is not working for the user.
-    - **Real-time Chat:** Blocked by infrastructure (WebSockets).
+  - Map Search functionality.
+  - Pre-filling task title when booking from the tasker profile page.
+- **Blocked:**
+  - Real-time Chat (Environment limitation).
+  - Paydunya Payments (Awaiting user API keys).
 - **Mocked:**
-    - **Online Payments:** Paydunya integration is blocked pending user-provided API keys.
+  - None.
 
 **3rd Party Integrations**:
-- **Mapbox GL JS:** Used for GPS tracking and itinerary view.
-- **Paydunya:** Scaffolding exists for payment processing, but it is not functional (blocked).
-- **deep-translator:** Used on the backend for translating reviews.
+- **OpenAI GPT-5:** Uses Emergent LLM Key.
+- **Mapbox GL JS:** Requires . **(Currently Broken)**
+- **Paydunya:** Requires user API key. (Blocked)
+- **deep-translator:** Used on the backend.
 
 **Testing status**
-- **Testing agent used after significant changes:** YES (to verify the 7 new features)
+- **Testing agent used after significant changes:** NO
 - **Troubleshoot agent used after agent stuck in loop:** NO
-- **Test files created:** None
-- **Known regressions:** The Tasker Service Management feature is a major regression or persistent bug.
+- **Test files created:** None.
+- **Known regressions:** The map functionality was previously working and is now broken.
 
 **Credentials to test flow:**
 - **Client:**  / 
 - **Tasker:**  / 
 
 **What agent forgot to execute**
-- After the  tool failed, the agent only created one of the planned files for the Advanced Features task (). It did not create the corresponding frontend components or the files for the Tasker Badge/Verification system, leaving the task half-started.</analysis>
+- The agent has not deleted the one-time scripts created:  and .
+- The agent started investigating the blank title issue but did not resolve it before being interrupted by the user's report about the map functionality.</analysis>
