@@ -4,7 +4,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { translations } from '../utils/translations';
 import { toast } from 'react-toastify';
 import Navbar from '../components/Navbar';
-import LocationPicker from '../components/LocationPicker';
+import LocationPickerGoogle from '../components/LocationPickerGoogle';
 import { Mail, Lock, User, Phone, MapPin, Globe } from 'lucide-react';
 
 const RegisterPage = () => {
