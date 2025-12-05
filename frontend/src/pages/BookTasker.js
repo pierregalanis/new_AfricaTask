@@ -6,7 +6,7 @@ import { usersAPI, tasksAPI, categoriesAPI } from '../api/client';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import Navbar from '../components/Navbar';
-import LocationPicker from '../components/LocationPicker';
+import LocationPickerGoogle from '../components/LocationPickerGoogle';
 import TaskerReviews from '../components/TaskerReviews';
 import { Calendar, Clock, DollarSign, MapPin, ArrowLeft, User, Star, Navigation } from 'lucide-react';
 
