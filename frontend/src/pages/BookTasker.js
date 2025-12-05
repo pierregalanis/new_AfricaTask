@@ -350,15 +350,15 @@ const BookTasker = () => {
                   <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
                     📍 {language === 'en' ? 'Exact Job Location' : 'Emplacement exact du travail'}
                   </label>
-                  <LocationPicker
+                  <LocationPickerGoogle
                     country={user?.country || 'ivory_coast'}
                     initialPosition={bookingData.latitude ? { lat: bookingData.latitude, lng: bookingData.longitude } : null}
                     onLocationChange={handleLocationChange}
                     height="300px"
                     label={
                       language === 'en' 
-                        ? 'Click on the map to mark where the job will be done' 
-                        : 'Cliquez sur la carte pour marquer où le travail sera effectué'
+                        ? 'Search for a place or click on the map to mark where the job will be done' 
+                        : 'Recherchez un lieu ou cliquez sur la carte pour marquer où le travail sera effectué'
                     }
                   />
                   

@@ -5,7 +5,7 @@ import { translations } from '../utils/translations';
 import { taskersAPI, categoriesAPI } from '../api/client';
 import { toast } from 'react-toastify';
 import Navbar from '../components/Navbar';
-import LocationPicker from '../components/LocationPicker';
+import LocationPickerGoogle from '../components/LocationPickerGoogle';
 import { CheckCircle, DollarSign, MapPin, Navigation } from 'lucide-react';
 
 const TaskerProfileSetup = () => {
