@@ -231,15 +231,15 @@ const TaskerProfileSetup = () => {
                 ? 'Mark where you are based or where you provide your services' 
                 : 'Indiquez où vous êtes basé ou où vous fournissez vos services'}
             </p>
-            <LocationPicker
+            <LocationPickerGoogle
               country={user?.country || 'ivory_coast'}
               initialPosition={profileData.latitude ? { lat: profileData.latitude, lng: profileData.longitude } : null}
               onLocationChange={handleLocationChange}
               height="350px"
               label={
                 language === 'en' 
-                  ? 'Click on the map to set your service location' 
-                  : 'Cliquez sur la carte pour définir votre emplacement'
+                  ? 'Search for a place or click on the map to set your service location' 
+                  : 'Recherchez un lieu ou cliquez sur la carte pour définir votre emplacement'
               }
             />
           </div>
